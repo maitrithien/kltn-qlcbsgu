@@ -185,14 +185,19 @@ module Casein
 
     def advance_search
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_advance_search_page_title")
-      @can_bo_thong_tin = CanBoThongTin.new params[:can_bo_thong_tin]
-      if @can_bo_thong_tin.ma_cb? || @can_bo_thong_tin.ho_ten? ||@can_bo_thong_tin.ngay_sinh? ||@can_bo_thong_tin.dan_toc? ||@can_bo_thong_tin.so_cmnd? ||@can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru? ||@can_bo_thong_tin.noi_o_hien_nay? ||@can_bo_thong_tin.so_BHXH?
-        @can_bo_thong_tins = CanBoThongTin.search_advance(@can_bo_thong_tin.ma_cb ,@can_bo_thong_tin.ho_ten,@can_bo_thong_tin.dan_toc ,@can_bo_thong_tin.noi_o_hien_nay,@can_bo_thong_tin.so_cmnd ,@can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru).paginate(:per_page => 10, :page => params[:page])
+      search_advance_req = params["search_advance_req"]
+      if search_advance_req!= nil and search_advance_req.length>0
+        @can_bo_thong_tin = CanBoThongTin.new params[:can_bo_thong_tin]
+        @can_bo_thong_tins = CanBoThongTin.search_advance(@can_bo_thong_tin.ho_ten,@can_bo_thong_tin.ten_goi_khac,@can_bo_thong_tin.ton_giao,@can_bo_thong_tin.dan_toc ,@can_bo_thong_tin.gioi_tinh,@can_bo_thong_tin.so_cmnd ,@can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru,@can_bo_thong_tin.que_quan,@can_bo_thong_tin.noi_o_hien_nay,@can_bo_thong_tin.so_BHXH, @can_bo_thong_tin.noi_sinh).paginate(:per_page => 10, :page => params[:page])
         @has_result = true
         if @can_bo_thong_tins.count == 0
-          flash.now[:notice] = "searching has no result"
+          flash.now[:warning] = Param.get_param_value("searching_has_no_result")
           @has_result = false
+        else
+          flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_thong_tins.count}"
         end
+      else
+        @can_bo_thong_tin = CanBoThongTin.new
       end
     end
     
