@@ -4,21 +4,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<title>Welcome to <%= casein_config_website_name %></title>
+		<title>Chào mừng đến với <%= casein_config_website_name %></title>
 		<%= stylesheet_link_tag "/casein/stylesheets/login" %>
 		<%= javascript_include_tag "/casein/javascripts/jquery", "/casein/javascripts/login", "/casein/javascripts/rails" %>
 		<%= csrf_meta_tag %>
 	</head>
 	<body>
 		<div id="header">
-			<h1><%= image_tag(casein_config_logo, :alt => casein_config_website_name) %></h1>
+
+          <h4><%= image_tag(casein_config_logo, :alt => casein_config_website_name, :size => "50x50") %>
+            <div style="font-family: tahoma, arial; margin-top: 0px;"><%= Param.get_param_value("website_name") %></div>
+          </h4>
 		</div>
 		<div id="content">
 			<%= yield %>
 		</div>
 		<div id="footer">
-			<p>Based on <%= link_to "Casein", "http://www.caseincms.com" %> <%= casein_get_short_version_string %> technology,
-			an open-source project initiated by <a href="http://www.spoiledmilk.dk">Spoiled Milk</a>.</p>
+			<p>Dựa trên công nghệ <%= link_to "Casein", "http://www.caseincms.com" %> <%= casein_get_short_version_string %>,
+			một dự án mã nguồn mở được thành lập bởi <a href="http://www.spoiledmilk.dk">Spoiled Milk</a>.</p>
 		</div>
 	</body>
 </html>

@@ -24,7 +24,7 @@ module Casein
     end
 
   	def blank
-  		@casein_page_title = "Welcome"
+  		@casein_page_title = Param.get_param_value("user_session_blank_page_title")
   	end
 
   private
