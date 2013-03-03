@@ -183,13 +183,64 @@ module Casein
 
     end
 
-    def advance_search
+def advance_search
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_advance_search_page_title")
       search_advance_req = params["search_advance_req"]
       if search_advance_req!= nil and search_advance_req.length>0
         @can_bo_thong_tin = CanBoThongTin.new params[:can_bo_thong_tin]
-        @can_bo_thong_tins = CanBoThongTin.search_advance(@can_bo_thong_tin.ho_ten,@can_bo_thong_tin.ten_goi_khac,@can_bo_thong_tin.ton_giao,@can_bo_thong_tin.dan_toc ,@can_bo_thong_tin.gioi_tinh,@can_bo_thong_tin.so_cmnd ,@can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru,@can_bo_thong_tin.que_quan,@can_bo_thong_tin.noi_o_hien_nay,@can_bo_thong_tin.so_BHXH, @can_bo_thong_tin.noi_sinh).paginate(:per_page => 10, :page => params[:page])
+        options = {}
+        #ho_ten to hash
+        if @can_bo_thong_tin.ho_ten.length>0
+          options = options.merge(:ho_ten => @can_bo_thong_tin.ho_ten)
+        end
+        #ten_goi_khac to hash
+        if @can_bo_thong_tin.ten_goi_khac.length>0
+          options = options.merge(:ten_goi_khac =>@can_bo_thong_tin.ten_goi_khac)
+        end
+        #ton_giao to hash
+        if @can_bo_thong_tin.ton_giao.length > 0
+          options = options.merge(:ton_giao => @can_bo_thong_tin.ton_giao)
+        end
+        #dan_toc to hash
+        if @can_bo_thong_tin.dan_toc.length > 0
+          options = options.merge(:dan_toc => @can_bo_thong_tin.dan_toc)
+        end
+        #ngay_sinh to hash
+        #if @can_bo_thong_tin.ngay_sinh
+        #  options = options.merge(:ngay_sinh => @can_bo_thong_tin.ngay_sinh)
+        #end
+        #gioi_tinh to hash
+        if params[:can_bo_thong_tin][:search_by_gioi_tinh].to_s != "all"
+          options = options.merge(:gioi_tinh =>  params[:can_bo_thong_tin][:search_by_gioi_tinh].to_s)
+        end
+        #so_cmnd to hash
+        if @can_bo_thong_tin.so_cmnd.length > 0
+          options = options.merge(:so_cmnd => @can_bo_thong_tin.so_cmnd)
+        end
+        #noi_dang_ky_ho_khau_thuong_tru to hash
+        if @can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru.length > 0
+          options = options.merge(:noi_dang_ky_ho_khau_thuong_tru => @can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru)
+        end
+        #que_quan to hash
+        if @can_bo_thong_tin.que_quan.length > 0
+          options = options.merge(:que_quan => @can_bo_thong_tin.que_quan)
+        end
+        #noi_o_hien_nay to hash
+        if @can_bo_thong_tin.noi_o_hien_nay.length > 0
+          options = options.merge(:noi_o_hien_nay => @can_bo_thong_tin.noi_o_hien_nay)
+        end
+        #so_BHXH to hash
+        if @can_bo_thong_tin.so_BHXH.length > 0
+          options = options.merge(:so_BHXH => @can_bo_thong_tin.so_BHXH)
+        end
+        #noi_sinh to hash
+        if @can_bo_thong_tin.noi_sinh.length > 0
+          options = options.merge(:noi_sinh => @can_bo_thong_tin.noi_sinh)
+        end
+
+        @can_bo_thong_tins = CanBoThongTin.search_advance(options).paginate(:per_page => 10, :page => params[:page])
         @has_result = true
+
         if @can_bo_thong_tins.count == 0
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
           @has_result = false
@@ -200,7 +251,6 @@ module Casein
         @can_bo_thong_tin = CanBoThongTin.new
       end
     end
-    
     def show_result
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_show_result_page_title")
       @errors = Hash.new
