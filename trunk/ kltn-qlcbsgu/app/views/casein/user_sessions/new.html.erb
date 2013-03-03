@@ -25,24 +25,24 @@
 
 	<div class="text" style="margin-bottom:10px;">
 		<p>
-			<%= f.label :login, "Login:" %>
+			<%= f.label :login, "Tên đăng nhập:" %>
 		  <%= f.text_field :login, :class => "caseinTextField" %>
 		</p>
 	</div>
 
 	<div class="text">
 		<p>
-			<%= f.label :password, "Password:" %>
+			<%= f.label :password, "Mật khẩu:" %>
 		  <%= f.password_field :password, :class => "caseinTextField" %>
 		</p>
 	</div>
 	
 	<div class="submit_remember">
 		<p>
-			<%= f.check_box :remember_me %> Remember me
+			<%= f.check_box :remember_me %> Ghi nhớ tên đăng nhập và mật khẩu
 			<br /><br />
-			<%= f.submit "Log in", :class => "caseinSubmit" %>
-			<input type="button" value="Forgotten password?" class="caseinSubmitBlue" onclick="toggleDiv('recover');" />
+			<%= f.submit "Đăng nhập", :class => "caseinSubmit" %>
+			<input type="button" value="Quên mật khẩu?" class="caseinSubmitBlue" onclick="toggleDiv('recover');" />
 		</p>
 	</div>
 
@@ -59,7 +59,7 @@
 		</div>
 		<div class="submit_remember">
 			<p>
-				<%= submit_tag "Reset", :class => "caseinSubmit" %>
+				<%= submit_tag "Lấy lại mật khẩu", :class => "caseinSubmit" %>
 			</p>
 		</div>
 	</div>

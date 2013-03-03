@@ -26674,3 +26674,1331 @@ Processing by Casein::CaseinController#blank as HTML
   Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
   Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
 Completed 200 OK in 99ms (Views: 91.0ms | ActiveRecord: 2.0ms)
+Connecting to database specified by database.yml
+DEPRECATION WARNING: ActionDispatch::ShowExceptions.rescue_responses is deprecated. Please configure your exceptions using a railtie or in your application config instead. (called from <top (required)> at C:/Sites/ kltn-qlcbsgu/config/environment.rb:5)
+Connecting to database specified by database.yml
+DEPRECATION WARNING: ActionDispatch::ShowExceptions.rescue_responses is deprecated. Please configure your exceptions using a railtie or in your application config instead. (called from <top (required)> at C:/Sites/ kltn-qlcbsgu/config/environment.rb:5)
+
+
+Started GET "/casein" for 127.0.0.1 at 2013-03-03 09:10:55 +0700
+Processing by Casein::CaseinController#index as HTML
+  [1m[36mCasein::User Load (2.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:11:00', `perishable_token` = 'LBDj7ikfUX3bUIgLC0Iy', `updated_at` = '2013-03-03 02:11:00' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (195.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/casein/blank
+Completed 302 Found in 3628ms (ActiveRecord: 889.6ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 09:11:01 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:11:02', `perishable_token` = 'BIBHa7vmSYsrBQEt6NUG', `updated_at` = '2013-03-03 02:11:02' WHERE `casein_users`.`id` = 1
+  [1m[36m (176.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (353.2ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (2.0ms)
+Completed 200 OK in 3324ms (Views: 2069.8ms | ActiveRecord: 355.4ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 09:16:22 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:16:23', `perishable_token` = 'zYXQs6M0g9FVvaM15KLU', `updated_at` = '2013-03-03 02:16:23' WHERE `casein_users`.`id` = 1
+  [1m[36m (57.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'Welcome' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (15.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 756ms (Views: 141.1ms | ActiveRecord: 478.3ms)
+
+
+Started GET "/casein/params" for 127.0.0.1 at 2013-03-03 09:16:31 +0700
+Processing by Casein::ParamsController#index as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:16:32', `perishable_token` = 'ZTA7bNw1vkwF3UqbNXDm', `updated_at` = '2013-03-03 02:16:32' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (338.3ms)[0m  COMMIT
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'param_index_page_title' LIMIT 1[0m
+  [1m[35mParam Load (2.0ms)[0m  SELECT `params`.* FROM `params` ORDER BY param_name LIMIT 10 OFFSET 0
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM `params` [0m
+  Rendered casein/params/_table.html.erb (99.0ms)
+  Rendered casein/params/index.html.erb within layouts/casein_main (133.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 654ms (Views: 297.0ms | ActiveRecord: 343.3ms)
+
+
+Started GET "/casein/params/new" for 127.0.0.1 at 2013-03-03 09:16:37 +0700
+Processing by Casein::ParamsController#new as HTML
+  [1m[35mCasein::User Load (2.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:16:37', `perishable_token` = 'zvJxU7KVMDKVq8975r5', `updated_at` = '2013-03-03 02:16:37' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (57.0ms)[0m  COMMIT
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'param_new_page_title' LIMIT 1[0m
+  Rendered casein/params/_form.html.erb (3.0ms)
+  Rendered casein/params/new.html.erb within layouts/casein_main (42.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 219ms (Views: 143.0ms | ActiveRecord: 61.0ms)
+
+
+Started POST "/casein/params" for 127.0.0.1 at 2013-03-03 09:18:18 +0700
+Processing by Casein::ParamsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"T+vlucd/nT1zGfB2xxdvVsdCW5QjUtZ4+F8+iOAEcEk=", "param"=>{"param_name"=>"user_session_blank_page_title", "param_value"=>"Chào mừng đến với trang quản trị", "options"=>"", "description"=>"Title trang blank của scaffold user_session"}, "commit"=>"Thêm mới tham số"}
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:18:18', `perishable_token` = 'ef8N5E8i1CMw3hTgkHa9', `updated_at` = '2013-03-03 02:18:18' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (59.0ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mParam Exists (0.0ms)[0m  SELECT 1 AS one FROM `params` WHERE `params`.`param_name` = BINARY 'user_session_blank_page_title' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO `params` (`created_at`, `description`, `options`, `param_name`, `param_value`, `updated_at`) VALUES ('2013-03-03 02:18:19', 'Title trang blank của scaffold user_session', '', 'user_session_blank_page_title', 'Chào mừng đến với trang quản trị', '2013-03-03 02:18:19')[0m
+  [1m[35m (65.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'adding_success' LIMIT 1[0m
+Redirected to http://localhost:3000/casein/params
+Completed 302 Found in 592ms (ActiveRecord: 175.0ms)
+
+
+Started GET "/casein/params" for 127.0.0.1 at 2013-03-03 09:18:19 +0700
+Processing by Casein::ParamsController#index as HTML
+  [1m[35mCasein::User Load (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:18:19', `perishable_token` = '6hKZ4Capja1kWCdt1SB', `updated_at` = '2013-03-03 02:18:19' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (67.0ms)[0m  COMMIT
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'param_index_page_title' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` ORDER BY param_name LIMIT 10 OFFSET 0
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM `params` [0m
+  Rendered casein/params/_table.html.erb (24.0ms)
+  Rendered casein/params/index.html.erb within layouts/casein_main (30.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 154ms (Views: 64.0ms | ActiveRecord: 72.0ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 09:18:26 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:18:26', `perishable_token` = 'Ha9kNcnNvYDy20zysGLD', `updated_at` = '2013-03-03 02:18:26' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (1021.7ms)[0m  COMMIT
+  [1m[36mParam Load (2.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'user_session_blank_page_title' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (3.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 1082ms (Views: 39.0ms | ActiveRecord: 1027.7ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 09:20:10 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:20:10', `perishable_token` = 'iZ2z7kCLM1PodzuAzgm7', `updated_at` = '2013-03-03 02:20:10' WHERE `casein_users`.`id` = 1
+  [1m[36m (46.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'user_session_blank_page_title' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (3.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 182ms (Views: 50.0ms | ActiveRecord: 48.0ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 09:20:35 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (7.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:20:35', `perishable_token` = 'Zdn8zaqIxprT7QAwTSW', `updated_at` = '2013-03-03 02:20:35' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (92.0ms)[0m  COMMIT
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'user_session_blank_page_title' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (4.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 157ms (Views: 39.0ms | ActiveRecord: 102.0ms)
+
+
+Started GET "/casein/user_session" for 127.0.0.1 at 2013-03-03 09:21:16 +0700
+
+AbstractController::ActionNotFound (The action 'show' could not be found for Casein::UserSessionsController):
+  actionpack (3.2.11) lib/abstract_controller/base.rb:116:in `process'
+  actionpack (3.2.11) lib/abstract_controller/rendering.rb:45:in `process'
+  actionpack (3.2.11) lib/action_controller/metal.rb:203:in `dispatch'
+  actionpack (3.2.11) lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+  actionpack (3.2.11) lib/action_controller/metal.rb:246:in `block in action'
+  actionpack (3.2.11) lib/action_dispatch/routing/route_set.rb:73:in `call'
+  actionpack (3.2.11) lib/action_dispatch/routing/route_set.rb:73:in `dispatch'
+  actionpack (3.2.11) lib/action_dispatch/routing/route_set.rb:36:in `call'
+  journey (1.0.4) lib/journey/router.rb:68:in `block in call'
+  journey (1.0.4) lib/journey/router.rb:56:in `each'
+  journey (1.0.4) lib/journey/router.rb:56:in `call'
+  actionpack (3.2.11) lib/action_dispatch/routing/route_set.rb:601:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+  rack (1.4.4) lib/rack/etag.rb:23:in `call'
+  rack (1.4.4) lib/rack/conditionalget.rb:25:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/head.rb:14:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/flash.rb:242:in `call'
+  rack (1.4.4) lib/rack/session/abstract/id.rb:210:in `context'
+  rack (1.4.4) lib/rack/session/abstract/id.rb:205:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/cookies.rb:341:in `call'
+  activerecord (3.2.11) lib/active_record/query_cache.rb:64:in `call'
+  activerecord (3.2.11) lib/active_record/connection_adapters/abstract/connection_pool.rb:479:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.11) lib/active_support/callbacks.rb:405:in `_run__387035856__call__911468587__callbacks'
+  activesupport (3.2.11) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.11) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.11) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.11) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/reloader.rb:65:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.11) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.11) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.11) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.11) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.4) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.4) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.11) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.4) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.11) lib/rails/engine.rb:479:in `call'
+  railties (3.2.11) lib/rails/application.rb:223:in `call'
+  rack (1.4.4) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.11) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.4) lib/rack/handler/webrick.rb:59:in `service'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/unknown_action.erb within rescues/layout (1.0ms)
+
+
+Started DELETE "/casein/user_session" for 127.0.0.1 at 2013-03-03 09:21:23 +0700
+Processing by Casein::UserSessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"T+vlucd/nT1zGfB2xxdvVsdCW5QjUtZ4+F8+iOAEcEk="}
+  [1m[36mCasein::User Load (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 02:21:23', `perishable_token` = 'JolSMYfmvE7ykRzLmTt', `updated_at` = '2013-03-03 02:21:23' WHERE `casein_users`.`id` = 1
+  [1m[36m (55.0ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/casein/user_session/new
+Completed 302 Found in 68ms (ActiveRecord: 57.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:21:23 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (10.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (5.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+Completed 200 OK in 232ms (Views: 223.0ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:22:17 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (7.0ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 32ms (Views: 29.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:23:22 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (8.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 36ms (Views: 33.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:23:32 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (7.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 31ms (Views: 30.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:23:55 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (7.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 32ms (Views: 28.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:24:23 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (8.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 35ms (Views: 33.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:43:47 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (112.1ms)
+  [1m[35mParam Load (24.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 883ms (Views: 738.3ms | ActiveRecord: 24.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:44:17 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (452.1ms)
+  [1m[35mParam Load (9.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 524ms (Views: 513.1ms | ActiveRecord: 10.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:45:14 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (18.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 55ms (Views: 52.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:45:23 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (20.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 43ms (Views: 40.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:45:42 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (47.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 212ms (Views: 209.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:47:53 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (9.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 339ms (Views: 307.1ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:48:15 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (7.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 43ms (Views: 41.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:51:08 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (89.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 117ms (Views: 114.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:53:19 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (44.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 113ms (Views: 102.1ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:53:52 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (184.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 351ms (Views: 348.1ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:55:28 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (67.2ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 89ms (Views: 87.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 09:55:51 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (177.1ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+Completed 200 OK in 208ms (Views: 205.1ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/casein/user_session" for 127.0.0.1 at 2013-03-03 10:59:01 +0700
+Processing by Casein::UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"T+vlucd/nT1zGfB2xxdvVsdCW5QjUtZ4+F8+iOAEcEk=", "casein_user_session"=>{"login"=>"admin", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Đăng nhập"}
+  [1m[35mCasein::User Load (76.1ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE (`casein_users`.login LIKE 'admin') LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (9.0ms)[0m  UPDATE `casein_users` SET `login_count` = 22, `last_login_at` = '2013-03-02 11:39:40', `current_login_at` = '2013-03-03 03:59:04', `last_request_at` = '2013-03-03 03:59:04', `perishable_token` = 'KpjhtofgqIEcwv0hq3L', `updated_at` = '2013-03-03 03:59:04' WHERE `casein_users`.`id` = 1
+  [1m[36m (88.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/casein
+Completed 302 Found in 1262ms (ActiveRecord: 173.2ms)
+
+
+Started GET "/casein" for 127.0.0.1 at 2013-03-03 10:59:05 +0700
+Processing by Casein::CaseinController#index as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 03:59:05', `perishable_token` = 'sF3R2RMj4VTfL2WPaR34', `updated_at` = '2013-03-03 03:59:05' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (70.0ms)[0m  COMMIT
+Redirected to http://localhost:3000/casein/blank
+Completed 302 Found in 134ms (ActiveRecord: 72.0ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 10:59:05 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'user_session_blank_page_title' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (2.0ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (11.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 1024ms (Views: 883.9ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 10:59:54 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (360.1ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 03:59:54', `perishable_token` = 'Qa1ouggUFSPE7HYkrRjB', `updated_at` = '2013-03-03 03:59:54' WHERE `casein_users`.`id` = 1
+  [1m[36m (48.0ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/casein
+Filter chain halted as :requires_no_session_user rendered or redirected
+Completed 302 Found in 447ms (ActiveRecord: 409.2ms)
+
+
+Started GET "/casein" for 127.0.0.1 at 2013-03-03 10:59:54 +0700
+Processing by Casein::CaseinController#index as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+Redirected to http://localhost:3000/casein/blank
+Completed 302 Found in 9ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 10:59:54 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'user_session_blank_page_title' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (2.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 45ms (Views: 36.0ms | ActiveRecord: 1.0ms)
+
+
+Started DELETE "/casein/user_session" for 127.0.0.1 at 2013-03-03 11:00:02 +0700
+Processing by Casein::UserSessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"T+vlucd/nT1zGfB2xxdvVsdCW5QjUtZ4+F8+iOAEcEk="}
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:00:02', `perishable_token` = '03060BUxsvilb9EcU5WT', `updated_at` = '2013-03-03 04:00:02' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (325.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/casein/user_session/new
+Completed 302 Found in 361ms (ActiveRecord: 327.4ms)
+
+
+Started GET "/casein/user_session/new" for 127.0.0.1 at 2013-03-03 11:00:03 +0700
+Processing by Casein::UserSessionsController#new as HTML
+  Rendered casein/user_sessions/new.html.erb within layouts/casein_auth (123.0ms)
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+Completed 200 OK in 380ms (Views: 379.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/casein/user_session" for 127.0.0.1 at 2013-03-03 11:00:16 +0700
+Processing by Casein::UserSessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"T+vlucd/nT1zGfB2xxdvVsdCW5QjUtZ4+F8+iOAEcEk=", "casein_user_session"=>{"login"=>"admin", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Đăng nhập"}
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE (`casein_users`.login LIKE 'admin') LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `login_count` = 23, `last_login_at` = '2013-03-03 03:59:04', `current_login_at` = '2013-03-03 04:00:16', `last_request_at` = '2013-03-03 04:00:16', `perishable_token` = 'tW2FXxzlhQjrP8Yg8', `updated_at` = '2013-03-03 04:00:16' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (90.0ms)[0m  COMMIT
+Redirected to http://localhost:3000/casein
+Completed 302 Found in 106ms (ActiveRecord: 92.0ms)
+
+
+Started GET "/casein" for 127.0.0.1 at 2013-03-03 11:00:16 +0700
+Processing by Casein::CaseinController#index as HTML
+  [1m[36mCasein::User Load (3.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:00:17', `perishable_token` = 'PL4ewNuX3Sznl67DDVCv', `updated_at` = '2013-03-03 04:00:17' WHERE `casein_users`.`id` = 1
+  [1m[36m (63.0ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/casein/blank
+Completed 302 Found in 78ms (ActiveRecord: 66.0ms)
+
+
+Started GET "/casein/blank" for 127.0.0.1 at 2013-03-03 11:00:17 +0700
+Processing by Casein::CaseinController#blank as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'user_session_blank_page_title' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/casein/blank.html.erb within layouts/casein_main (3.0ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 54ms (Views: 43.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins" for 127.0.0.1 at 2013-03-03 11:00:21 +0700
+Processing by Casein::CanBoThongTinsController#index as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:00:21', `perishable_token` = 'l2ZeOuwQURC3icP4o', `updated_at` = '2013-03-03 04:00:21' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (63.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_index_page_title' LIMIT 1[0m
+  [1m[35mCanBoThongTin Load (1.0ms)[0m  SELECT `can_bo_thong_tins`.* FROM `can_bo_thong_tins` LIMIT 10 OFFSET 0
+  Rendered casein/can_bo_thong_tins/_table.html.erb (543.4ms)
+  Rendered casein/can_bo_thong_tins/index.html.erb within layouts/casein_main (784.7ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 1099ms (Views: 789.6ms | ActiveRecord: 264.2ms)
+
+
+Started GET "/casein/can_bo_thong_tins/38" for 127.0.0.1 at 2013-03-03 11:00:36 +0700
+Processing by Casein::CanBoThongTinsController#show as HTML
+  Parameters: {"id"=>"38"}
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:00:36', `perishable_token` = '8rWfTxrN7d2ghugDzc9', `updated_at` = '2013-03-03 04:00:36' WHERE `casein_users`.`id` = 1
+  [1m[36m (80.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_show_page_title' LIMIT 1
+  [1m[36mCanBoThongTin Load (1.0ms)[0m  [1mSELECT `can_bo_thong_tins`.* FROM `can_bo_thong_tins` WHERE `can_bo_thong_tins`.`id` = 38 LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/show.html.erb within layouts/casein_main (23.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 244ms (Views: 111.0ms | ActiveRecord: 85.0ms)
+
+
+Started GET "/assets/" for 127.0.0.1 at 2013-03-03 11:00:37 +0700
+Served asset / - 404 Not Found (133ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets"):
+  actionpack (3.2.11) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.11) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.11) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.11) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.11) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.4) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.4) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.11) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.4) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.11) lib/rails/engine.rb:479:in `call'
+  railties (3.2.11) lib/rails/application.rb:223:in `call'
+  rack (1.4.4) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.11) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.4) lib/rack/handler/webrick.rb:59:in `service'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/advance_search" for 127.0.0.1 at 2013-03-03 11:00:58 +0700
+Processing by Casein::CanBoThongTinsController#advance_search as HTML
+  [1m[35mCasein::User Load (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:00:58', `perishable_token` = '3VeiyiYqa5j3SsKmbNzH', `updated_at` = '2013-03-03 04:00:58' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (60.1ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_advance_search_page_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/advance_search.html.erb within layouts/casein_main (57.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 228ms (Views: 151.0ms | ActiveRecord: 62.1ms)
+
+
+Started GET "/casein/can_bo_thong_tins/advance_search?utf8=%E2%9C%93&can_bo_thong_tin%5Bma_cb%5D=&can_bo_thong_tin%5Bho_ten%5D=&can_bo_thong_tin%5Bngay_sinh%281i%29%5D=2013&can_bo_thong_tin%5Bngay_sinh%282i%29%5D=3&can_bo_thong_tin%5Bngay_sinh%283i%29%5D=3&can_bo_thong_tin%5Bdan_toc%5D=&can_bo_thong_tin%5Bso_cmnd%5D=&can_bo_thong_tin%5Bnoi_dang_ky_ho_khau_thuong_tru%5D=&can_bo_thong_tin%5Bnoi_o_hien_nay%5D=&can_bo_thong_tin%5Bso_BHXH%5D=&commit=T%C3%ACm+ki%E1%BA%BFm" for 127.0.0.1 at 2013-03-03 11:01:03 +0700
+Processing by Casein::CanBoThongTinsController#advance_search as HTML
+  Parameters: {"utf8"=>"✓", "can_bo_thong_tin"=>{"ma_cb"=>"", "ho_ten"=>"", "ngay_sinh(1i)"=>"2013", "ngay_sinh(2i)"=>"3", "ngay_sinh(3i)"=>"3", "dan_toc"=>"", "so_cmnd"=>"", "noi_dang_ky_ho_khau_thuong_tru"=>"", "noi_o_hien_nay"=>"", "so_BHXH"=>""}, "commit"=>"Tìm kiếm"}
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:01:03', `perishable_token` = 'EHXtUs7whl5SUV3EaW', `updated_at` = '2013-03-03 04:01:03' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (102.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_advance_search_page_title' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  SELECT COUNT(*) FROM `can_bo_thong_tins` WHERE (ho_ten LIKE '%%' AND dan_toc LIKE '%%' AND noi_o_hien_nay LIKE '%%' AND so_cmnd LIKE '%%' AND noi_dang_ky_ho_khau_thuong_tru LIKE '%%')
+  [1m[36mCanBoThongTin Load (1.0ms)[0m  [1mSELECT `can_bo_thong_tins`.* FROM `can_bo_thong_tins` WHERE (ho_ten LIKE '%%' AND dan_toc LIKE '%%' AND noi_o_hien_nay LIKE '%%' AND so_cmnd LIKE '%%' AND noi_dang_ky_ho_khau_thuong_tru LIKE '%%') LIMIT 10 OFFSET 0[0m
+  Rendered casein/can_bo_thong_tins/_table.html.erb (102.0ms)
+  Rendered casein/can_bo_thong_tins/advance_search.html.erb within layouts/casein_main (128.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 337ms (Views: 166.0ms | ActiveRecord: 108.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:01:55 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:01:55', `perishable_token` = 'HpB03BNHBTqHjXx8DyLB', `updated_at` = '2013-03-03 04:01:55' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (586.4ms)[0m  COMMIT
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (75.1ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (85.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 807ms (Views: 143.1ms | ActiveRecord: 589.4ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:02:21 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:02:21', `perishable_token` = 'Ycn4oxoxR0m9KlIRWIFg', `updated_at` = '2013-03-03 04:02:21' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (69.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (37.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (45.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 221ms (Views: 136.0ms | ActiveRecord: 74.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:06:22 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:06:22', `perishable_token` = 'ZfWDkdPAMWzztEOh9UIq', `updated_at` = '2013-03-03 04:06:22' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (56.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (888.2ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (897.2ms)
+Completed 500 Internal Server Error in 1021ms
+
+ActionView::Template::Error (wrong number of arguments (4 for 3)):
+    14: </div>
+    15: 
+    16: <div class="tfContainer tfContainerSecond">
+    17: 	<%= casein_radio_button f, f.object, :gioi_tinh, "Nam" => true %>
+    18: </div>
+    19: 
+    20: <div class="tfContainer">
+  app/helpers/casein/casein_helper.rb:111:in `casein_radio_button'
+  app/views/casein/can_bo_thong_tins/_form.html.erb:17:in `_app_views_casein_can_bo_thong_tins__form_html_erb__557265854_45932316'
+  app/views/casein/can_bo_thong_tins/new.html.erb:7:in `block in _app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+  app/views/casein/can_bo_thong_tins/new.html.erb:5:in `_app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (17.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (159.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:07:42 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:07:42', `perishable_token` = 'iJVyZghKLKPQnvFKN', `updated_at` = '2013-03-03 04:07:42' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (342.2ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (7.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (12.0ms)
+Completed 500 Internal Server Error in 408ms
+
+ActionView::Template::Error (wrong number of arguments (4 for 3)):
+    14: </div>
+    15: 
+    16: <div class="tfContainer tfContainerSecond">
+    17: 	<%= casein_radio_button f, f.object, :gioi_tinh, "Nam" => true, :casein_button_label => "Nam" %>
+    18: </div>
+    19: 
+    20: <div class="tfContainer">
+  app/helpers/casein/casein_helper.rb:111:in `casein_radio_button'
+  app/views/casein/can_bo_thong_tins/_form.html.erb:17:in `_app_views_casein_can_bo_thong_tins__form_html_erb__557265854_46842168'
+  app/views/casein/can_bo_thong_tins/new.html.erb:7:in `block in _app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+  app/views/casein/can_bo_thong_tins/new.html.erb:5:in `_app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (16.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (93.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:08:00 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:08:00', `perishable_token` = 'G0aAgyXio4ddTMDiy4mL', `updated_at` = '2013-03-03 04:08:00' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (56.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (9.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (14.0ms)
+Completed 500 Internal Server Error in 156ms
+
+ActionView::Template::Error (wrong number of arguments (4 for 3)):
+    14: </div>
+    15: 
+    16: <div class="tfContainer tfContainerSecond">
+    17: 	<%= casein_radio_button f, f.object, :gioi_tinh, true, :casein_button_label => "Nam" %>
+    18: </div>
+    19: 
+    20: <div class="tfContainer">
+  app/helpers/casein/casein_helper.rb:111:in `casein_radio_button'
+  app/views/casein/can_bo_thong_tins/_form.html.erb:17:in `_app_views_casein_can_bo_thong_tins__form_html_erb__557265854_44361348'
+  app/views/casein/can_bo_thong_tins/new.html.erb:7:in `block in _app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+  app/views/casein/can_bo_thong_tins/new.html.erb:5:in `_app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (11.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (168.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:08:41 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:08:41', `perishable_token` = '1FoIbStSlN0y24CESsUA', `updated_at` = '2013-03-03 04:08:41' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (41.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (8.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (13.0ms)
+Completed 500 Internal Server Error in 82ms
+
+ActionView::Template::Error (wrong number of arguments (4 for 3)):
+    14: </div>
+    15: 
+    16: <div class="tfContainer tfContainerSecond">
+    17: 	<%= casein_radio_button f, f.object, :gioi_tinh, :nam => true, :casein_button_label => "Giới tính" %>
+    18: </div>
+    19: 
+    20: <div class="tfContainer">
+  app/helpers/casein/casein_helper.rb:111:in `casein_radio_button'
+  app/views/casein/can_bo_thong_tins/_form.html.erb:17:in `_app_views_casein_can_bo_thong_tins__form_html_erb__557265854_46753200'
+  app/views/casein/can_bo_thong_tins/new.html.erb:7:in `block in _app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+  app/views/casein/can_bo_thong_tins/new.html.erb:5:in `_app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (17.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (83.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:09:39 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:09:39', `perishable_token` = 'INfV0sQtXR43BY45jQZT', `updated_at` = '2013-03-03 04:09:39' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (408.4ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (8.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (12.0ms)
+Completed 500 Internal Server Error in 474ms
+
+ActionView::Template::Error (wrong number of arguments (4 for 3)):
+    14: </div>
+    15: 
+    16: <div class="tfContainer tfContainerSecond">
+    17: 	<%= casein_radio_button f, f.object, :gioi_tinh, :tag_value => true, :casein_button_label => "Giới tính" %>
+    18: </div>
+    19: 
+    20: <div class="tfContainer">
+  app/helpers/casein/casein_helper.rb:111:in `casein_radio_button'
+  app/views/casein/can_bo_thong_tins/_form.html.erb:17:in `_app_views_casein_can_bo_thong_tins__form_html_erb__557265854_47355996'
+  app/views/casein/can_bo_thong_tins/new.html.erb:7:in `block in _app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+  app/views/casein/can_bo_thong_tins/new.html.erb:5:in `_app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (11.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (85.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:12:51 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:12:51', `perishable_token` = 'AeGO4jkYCYxmaYd3oYMr', `updated_at` = '2013-03-03 04:12:51' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (63.0ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (99.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (105.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (2.0ms)
+Completed 200 OK in 280ms (Views: 193.1ms | ActiveRecord: 66.0ms)
+
+
+Started POST "/casein/can_bo_thong_tins" for 127.0.0.1 at 2013-03-03 11:14:05 +0700
+Processing by Casein::CanBoThongTinsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"T+vlucd/nT1zGfB2xxdvVsdCW5QjUtZ4+F8+iOAEcEk=", "can_bo_thong_tin"=>{"ma_cb"=>"", "ho_ten"=>"", "ten_goi_khac"=>"", "gioi_tinh"=>"true", "ngay_sinh(1i)"=>"2013", "ngay_sinh(2i)"=>"3", "ngay_sinh(3i)"=>"3", "noi_sinh"=>"", "que_quan"=>"", "dan_toc"=>"", "ton_giao"=>"", "so_cmnd"=>"", "ngay_cap_cmnd(1i)"=>"2013", "ngay_cap_cmnd(2i)"=>"3", "ngay_cap_cmnd(3i)"=>"3", "so_BHXH"=>"", "noi_dang_ky_ho_khau_thuong_tru"=>"", "noi_o_hien_nay"=>""}, "commit"=>"Thêm mới thông tin cán bộ"}
+  [1m[35mCasein::User Load (2.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:14:05', `perishable_token` = 'olJHcUsBFGayMbuF62pl', `updated_at` = '2013-03-03 04:14:05' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (59.1ms)[0m  COMMIT
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mCanBoThongTin Exists (1.0ms)[0m  SELECT 1 AS one FROM `can_bo_thong_tins` WHERE `can_bo_thong_tins`.`ma_cb` = BINARY '' LIMIT 1
+  [1m[36mCanBoThongTin Exists (0.0ms)[0m  [1mSELECT 1 AS one FROM `can_bo_thong_tins` WHERE `can_bo_thong_tins`.`so_cmnd` = BINARY '' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  ROLLBACK
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'adding_false' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (28.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (36.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 955ms (Views: 72.0ms | ActiveRecord: 63.1ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:23:47 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:23:52', `perishable_token` = 'T3S8yfPcnG65z1tqpTS6', `updated_at` = '2013-03-03 04:23:52' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (1314.6ms)[0m  COMMIT
+  [1m[36mParam Load (2.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (1761.3ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (1768.3ms)
+Completed 500 Internal Server Error in 3398ms
+
+ActionView::Template::Error (wrong number of arguments (4 for 3)):
+    15: 
+    16: <div class="tfContainer tfContainerSecond">
+    17: 	<%= casein_select f, f.object, :gioi_tinh, {"Nam"=>true, "Nữ"=>false} %>
+    18:   <%= casein_radio_button f, f.object, :gioi_tinh, "true", :casein_button_label => "Nam" %>
+    19: </div>
+    20: 
+    21: <div class="tfContainer">
+  app/helpers/casein/casein_helper.rb:111:in `casein_radio_button'
+  app/views/casein/can_bo_thong_tins/_form.html.erb:18:in `_app_views_casein_can_bo_thong_tins__form_html_erb__557265854_40477080'
+  app/views/casein/can_bo_thong_tins/new.html.erb:7:in `block in _app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+  app/views/casein/can_bo_thong_tins/new.html.erb:5:in `_app_views_casein_can_bo_thong_tins_new_html_erb___934737458_46326156'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (31.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (367.1ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:45:05 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (934.6ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mEXPLAIN (1945.9ms)[0m  [1mEXPLAIN SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+EXPLAIN for: SELECT  `casein_users`.* FROM `casein_users`  WHERE `casein_users`.`id` = 1 LIMIT 1
++----+-------------+--------------+-------+---------------+---------+---------+-------+------+-------+
+| id | select_type | table        | type  | possible_keys | key     | key_len | ref   | rows | Extra |
++----+-------------+--------------+-------+---------------+---------+---------+-------+------+-------+
+|  1 | SIMPLE      | casein_users | const | PRIMARY       | PRIMARY | 4       | const |    1 |       |
++----+-------------+--------------+-------+---------------+---------+---------+-------+------+-------+
+1 row in set (1.95 sec)
+
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:45:12', `perishable_token` = 'UlqMjeMCJs5M5ZNZMvo', `updated_at` = '2013-03-03 04:45:12' WHERE `casein_users`.`id` = 1
+  [1m[36m (846.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (2.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (128.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (141.0ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 5059ms (Views: 256.1ms | ActiveRecord: 3730.9ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:45:47 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:45:47', `perishable_token` = 'sj8Y9zRuqdjj7VYiWDxz', `updated_at` = '2013-03-03 04:45:47' WHERE `casein_users`.`id` = 1
+  [1m[36m (1891.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (29.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (37.0ms)
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (2.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 2046ms (Views: 87.0ms | ActiveRecord: 1895.9ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:55:21 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:55:21', `perishable_token` = 'zUQiNZXBunogH8ATEpV', `updated_at` = '2013-03-03 04:55:21' WHERE `casein_users`.`id` = 1
+  [1m[36m (44.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (137.2ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (164.2ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 555ms (Views: 467.4ms | ActiveRecord: 49.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:58:21 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:58:21', `perishable_token` = 'pk5R4e0dBERzW2lMlKn', `updated_at` = '2013-03-03 04:58:21' WHERE `casein_users`.`id` = 1
+  [1m[36m (733.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (280.2ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (304.2ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (2.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 1122ms (Views: 370.2ms | ActiveRecord: 737.2ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:59:02 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:59:02', `perishable_token` = 'CeRyuE3l3eweX0g5PBB', `updated_at` = '2013-03-03 04:59:02' WHERE `casein_users`.`id` = 1
+  [1m[36m (58.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (55.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (73.0ms)
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 230ms (Views: 151.1ms | ActiveRecord: 61.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 11:59:43 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 04:59:43', `perishable_token` = 'ZgFwZmLpwiEbdXDTNce', `updated_at` = '2013-03-03 04:59:43' WHERE `casein_users`.`id` = 1
+  [1m[36m (243.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (385.1ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (396.1ms)
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (5.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 841ms (Views: 548.1ms | ActiveRecord: 251.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 12:02:57 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (3.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:02:57', `perishable_token` = 'FV8K8HlHmIWJaLHFBet', `updated_at` = '2013-03-03 05:02:57' WHERE `casein_users`.`id` = 1
+  [1m[36m (663.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (48.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (95.0ms)
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (3.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (2.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 866ms (Views: 161.0ms | ActiveRecord: 672.1ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 12:02:58 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:02:58', `perishable_token` = 'HSvSyeYjdKyFyP4PwAG', `updated_at` = '2013-03-03 05:02:58' WHERE `casein_users`.`id` = 1
+  [1m[36m (95.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (310.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (330.0ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 736ms (Views: 623.1ms | ActiveRecord: 99.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 12:06:33 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:06:33', `perishable_token` = 'Rb7UPy2BYcj90bT2Tn3', `updated_at` = '2013-03-03 05:06:33' WHERE `casein_users`.`id` = 1
+  [1m[36m (63.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/_form.html.erb (38.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (46.0ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 162ms (Views: 86.0ms | ActiveRecord: 66.1ms)
+
+
+Started GET "/casein/can_bo_thong_tins/import_from_excel" for 127.0.0.1 at 2013-03-03 12:06:41 +0700
+Processing by Casein::CanBoThongTinsController#import_from_excel as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:06:41', `perishable_token` = 'TZfJBwHrtHGUdd0AXxG', `updated_at` = '2013-03-03 05:06:41' WHERE `casein_users`.`id` = 1
+  [1m[36m (72.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_import_from_excel_page_title' LIMIT 1
+  Rendered casein/can_bo_thong_tins/import_from_excel.html.erb within layouts/casein_main (82.1ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 355ms (Views: 190.3ms | ActiveRecord: 75.0ms)
+
+
+Started GET "/casein/params" for 127.0.0.1 at 2013-03-03 12:07:03 +0700
+Processing by Casein::ParamsController#index as HTML
+  [1m[36mCasein::User Load (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:07:03', `perishable_token` = 'ZOIue9KY1v8Hf6g4sl3w', `updated_at` = '2013-03-03 05:07:03' WHERE `casein_users`.`id` = 1
+  [1m[36m (68.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'param_index_page_title' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` ORDER BY param_name LIMIT 10 OFFSET 0[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM `params` 
+  Rendered casein/params/_table.html.erb (285.3ms)
+  Rendered casein/params/index.html.erb within layouts/casein_main (508.5ms)
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 963ms (Views: 744.7ms | ActiveRecord: 71.2ms)
+
+
+Started GET "/casein/params/new" for 127.0.0.1 at 2013-03-03 12:07:08 +0700
+Processing by Casein::ParamsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:07:08', `perishable_token` = 'uhtct72mdEkkk5Nv7LEF', `updated_at` = '2013-03-03 05:07:08' WHERE `casein_users`.`id` = 1
+  [1m[36m (93.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'param_new_page_title' LIMIT 1
+  Rendered casein/params/_form.html.erb (29.0ms)
+  Rendered casein/params/new.html.erb within layouts/casein_main (132.2ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 358ms (Views: 249.4ms | ActiveRecord: 97.1ms)
+
+
+Started GET "/casein/params/new" for 127.0.0.1 at 2013-03-03 12:08:32 +0700
+Processing by Casein::ParamsController#new as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:08:32', `perishable_token` = 'SFZytu0NvM3cN6rl1ZXq', `updated_at` = '2013-03-03 05:08:32' WHERE `casein_users`.`id` = 1
+  [1m[36m (45.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'param_new_page_title' LIMIT 1
+  Rendered casein/params/_form.html.erb (4.0ms)
+  Rendered casein/params/new.html.erb within layouts/casein_main (9.0ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 105ms (Views: 45.0ms | ActiveRecord: 49.0ms)
+
+
+Started GET "/casein/params/import_from_excel" for 127.0.0.1 at 2013-03-03 12:08:41 +0700
+Processing by Casein::ParamsController#import_from_excel as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:08:41', `perishable_token` = 'zeZnkJEidBKPOdCoOHqR', `updated_at` = '2013-03-03 05:08:41' WHERE `casein_users`.`id` = 1
+  [1m[36m (71.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'param_import_from_excel_page_title' LIMIT 1
+  Rendered casein/params/import_from_excel.html.erb within layouts/casein_main (3.0ms)
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (4.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 218ms (Views: 132.0ms | ActiveRecord: 74.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins" for 127.0.0.1 at 2013-03-03 12:08:44 +0700
+Processing by Casein::CanBoThongTinsController#index as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:08:44', `perishable_token` = '3QzYcEizV2WJRBdAi9a5', `updated_at` = '2013-03-03 05:08:44' WHERE `casein_users`.`id` = 1
+  [1m[36m (57.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_index_page_title' LIMIT 1
+  [1m[36mCanBoThongTin Load (1.0ms)[0m  [1mSELECT `can_bo_thong_tins`.* FROM `can_bo_thong_tins` LIMIT 10 OFFSET 0[0m
+  Rendered casein/can_bo_thong_tins/_table.html.erb (158.0ms)
+  Rendered casein/can_bo_thong_tins/index.html.erb within layouts/casein_main (174.0ms)
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (0.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (1.0ms)
+Completed 200 OK in 842ms (Views: 233.0ms | ActiveRecord: 63.1ms)
+
+
+Started GET "/casein/can_bo_thong_tins/38" for 127.0.0.1 at 2013-03-03 12:08:48 +0700
+Processing by Casein::CanBoThongTinsController#show as HTML
+  Parameters: {"id"=>"38"}
+  [1m[35mCasein::User Load (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:08:48', `perishable_token` = 'vTlf7PcIhIv5246uOwpT', `updated_at` = '2013-03-03 05:08:48' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (69.1ms)[0m  COMMIT
+  [1m[36mParam Load (2.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_show_page_title' LIMIT 1[0m
+  [1m[35mCanBoThongTin Load (1.0ms)[0m  SELECT `can_bo_thong_tins`.* FROM `can_bo_thong_tins` WHERE `can_bo_thong_tins`.`id` = 38 LIMIT 1
+  Rendered casein/can_bo_thong_tins/show.html.erb within layouts/casein_main (66.0ms)
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mParam Load (1.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 289ms (Views: 167.0ms | ActiveRecord: 75.1ms)
+
+
+Started GET "/assets/" for 127.0.0.1 at 2013-03-03 12:08:48 +0700
+Served asset / - 404 Not Found (188ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets"):
+  actionpack (3.2.11) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.11) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.11) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.11) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.11) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.4) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.4) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.11) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.4) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.11) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.11) lib/rails/engine.rb:479:in `call'
+  railties (3.2.11) lib/rails/application.rb:223:in `call'
+  rack (1.4.4) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.11) lib/rails/rack/log_tailer.rb:17:in `call'
+  rack (1.4.4) lib/rack/handler/webrick.rb:59:in `service'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/httpserver.rb:138:in `service'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/httpserver.rb:94:in `run'
+  C:/RailsInstaller/Ruby1.9.3/lib/ruby/1.9.1/webrick/server.rb:191:in `block in start_thread'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (17.0ms)
+
+
+Started GET "/casein/can_bo_thong_tins" for 127.0.0.1 at 2013-03-03 12:08:54 +0700
+Processing by Casein::CanBoThongTinsController#index as HTML
+  [1m[36mCasein::User Load (1.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:08:54', `perishable_token` = 'r88XMnnl9zIhn9WFB52V', `updated_at` = '2013-03-03 05:08:54' WHERE `casein_users`.`id` = 1
+  [1m[36m (45.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_index_page_title' LIMIT 1
+  [1m[36mCanBoThongTin Load (0.0ms)[0m  [1mSELECT `can_bo_thong_tins`.* FROM `can_bo_thong_tins` LIMIT 10 OFFSET 0[0m
+  Rendered casein/can_bo_thong_tins/_table.html.erb (26.0ms)
+  Rendered casein/can_bo_thong_tins/index.html.erb within layouts/casein_main (43.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 258ms (Views: 190.0ms | ActiveRecord: 47.1ms)
+
+
+Started GET "/casein/can_bo_thong_tins/new" for 127.0.0.1 at 2013-03-03 12:08:56 +0700
+Processing by Casein::CanBoThongTinsController#new as HTML
+  [1m[35mCasein::User Load (1.0ms)[0m  SELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `casein_users`.* FROM `casein_users` WHERE `casein_users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mUPDATE `casein_users` SET `last_request_at` = '2013-03-03 05:08:56', `perishable_token` = 'BepKBpq83Setz2l0S3bp', `updated_at` = '2013-03-03 05:08:56' WHERE `casein_users`.`id` = 1[0m
+  [1m[35m (105.2ms)[0m  COMMIT
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'can_bo_thong_tin_new_title' LIMIT 1[0m
+  Rendered casein/can_bo_thong_tins/_form.html.erb (46.0ms)
+  Rendered casein/can_bo_thong_tins/new.html.erb within layouts/casein_main (54.0ms)
+  [1m[35mParam Load (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mParam Load (1.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'logo' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `params`.* FROM `params` WHERE `params`.`param_name` = 'website_name' LIMIT 1[0m
+  Rendered casein/layouts/_left_navigation.html.erb (1.0ms)
+  Rendered casein/layouts/_right_navigation.html.erb (0.0ms)
+Completed 200 OK in 210ms (Views: 90.0ms | ActiveRecord: 110.2ms)
