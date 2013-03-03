@@ -1,0 +1,7 @@
+<% unless @errors.nil? %>
+    <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
+
+    <% @errors.each do |mgs| %>
+        <p>Tên tham số: <%= mgs[0]%> Lỗi: <%= mgs[1] %> </p>
+    <% end %>
+<% end %>
