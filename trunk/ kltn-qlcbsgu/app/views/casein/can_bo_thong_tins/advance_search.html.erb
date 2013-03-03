@@ -6,38 +6,57 @@
 <div class="search_form">
   <%= form_for @can_bo_thong_tin,:url => advance_search_casein_can_bo_thong_tins_path, :method =>"get"  do |f| %>
 
-      <div class="tfContainer">
-        <%= casein_text_field f, f.object, :ma_cb %>
+      <div class="tfContainer2">
+        <%= casein_text_field f, f.object, :ho_ten, :style => "min-height: 25px;" %>
       </div>
 
-      <div class="tfContainer tfContainerSecond">
-        <%= casein_text_field f, f.object, :ho_ten %>
+      <div class="tfContainer2 ">
+        <%= casein_text_field f, f.object, :ten_goi_khac, :style => "min-height: 25px;" %>
       </div>
 
-      <div class="tfContainer">
-        <%= casein_date_select f, f.object, :ngay_sinh, :start_year => 1900 %>
+
+      <div class="tfContainer2">
+        <%= casein_text_field f, f.object, :ton_giao, :style => "min-height: 25px;" %>
       </div>
 
-      <div class="tfContainer tfContainerSecond">
-        <%= casein_text_field f, f.object, :dan_toc %>
+      <div class="tfContainer2 ">
+        <%= casein_text_field f, f.object, :dan_toc, :style => "min-height: 25px;" %>
       </div>
 
-      <div class="tfContainer">
-        <%= casein_text_field f, f.object, :so_cmnd %>
+
+      <div class="tfContainer2">
+        <%= casein_date_select f, f.object, :ngay_sinh, :start_year => 1900 , :style => "min-height: 25px;"%>
       </div>
 
-      <div class="tfContainer tfContainerSecond">
-        <%= casein_text_field f, f.object, :noi_dang_ky_ho_khau_thuong_tru %>
+      <div class="tfContainer2 ">
+        <%= casein_select f, f.object,:gioi_tinh, {"Tất Cả"=>nil,"Nam"=>true,"Nữ" => false} ,:selected=>"Tất Cả"%>
       </div>
 
-      <div class="tfContainer">
-        <%= casein_text_field f, f.object, :noi_o_hien_nay %>
+      <div class="tfContainer2">
+        <%= casein_text_field f, f.object, :so_cmnd, :style => "min-height: 25px;" %>
       </div>
-      <div class="tfContainer tfContainerSecond">
-        <%= casein_text_field f, f.object, :so_BHXH %>
+
+      <div class="tfContainer2 ">
+        <%= casein_text_field f, f.object, :noi_dang_ky_ho_khau_thuong_tru , :style => "min-height: 25px;"%>
       </div>
+
+      <div class="tfContainer2">
+        <%= casein_text_field f, f.object, :que_quan, :style => "min-height: 25px;" %>
+      </div>
+
+
+      <div class="tfContainer2">
+        <%= casein_text_field f, f.object, :noi_o_hien_nay, :style => "min-height: 25px;" %>
+      </div>
+      <div class="tfContainer2 ">
+        <%= casein_text_field f, f.object, :so_BHXH, :style => "min-height: 25px;" %>
+      </div>
+      <div class="tfContainer2 ">
+        <%= casein_text_field f, f.object, :noi_sinh, :style => "min-height: 25px;" %>
+      </div>
+      <%= hidden_field :search_advance_req, :value => "true" %>
       <p style="text-align: right;">
-        <%= f.submit "Tìm kiếm", :style => "text-align: right; padding: 5px 12px;"%>
+        <%= f.submit "Tìm kiếm", :style => "text-align: right; padding: 5px 12px; margin-right: 70px;"%>
       </p>
 
 
