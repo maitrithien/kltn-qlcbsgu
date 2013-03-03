@@ -11,7 +11,7 @@
 	
 	<% params.each_with_index do |param, index| %>
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
-			<td><%= casein_table_cell_link param.param_name, casein_param_path(param) %></td>
+			<td><%= casein_table_cell_link truncate(param.param_name, :length => 30 ), casein_param_path(param) %></td>
 			<td><%= casein_table_cell_link truncate(param.param_value, :length => 30 ), casein_param_path(param) %></td>
 			<td><%= casein_table_cell_link truncate(param.options, :length => 30 ), casein_param_path(param) %></td>
 			<td><%= casein_table_cell_link truncate(param.description, :length => 30 ), casein_param_path(param) %></td>

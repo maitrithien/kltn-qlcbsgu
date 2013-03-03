@@ -1,46 +1,46 @@
-<h2>Add a new user</h2>
+<h2>Thêm mới người dùng</h2>
 
 <%= form_for @casein_user do |form| %>
 
 	<div class="tfContainer">
-		<%= casein_text_field form, @casein_user, :login, {:size => 30} %>
+		<%= casein_text_field form, @casein_user, :login, {:size => 30, :casein_label => "Tên đăng nhập"} %>
 	</div>
 	
 	<div class="tfContainer tfContainerSecond">
-		<%= casein_text_field form, @casein_user, :name %>
-	</div>
-	
-	<div class="tfContainer">
-		<%= casein_text_field form, @casein_user, :email %>
-	</div>
-
-	<div class="tfContainer tfContainerSecond">
-		<%= casein_time_zone_select form, @casein_user, :time_zone, ActiveSupport::TimeZone.us_zones %>
+		<%= casein_text_field form, @casein_user, :name, :casein_label => "Họ và Tên" %>
 	</div>
 	
 	<div class="tfContainer">
-		<%= casein_select form, @casein_user, :access_level, casein_get_access_level_array, {:casein_label => "Status"} %>
+		<%= casein_text_field form, @casein_user, :email, :casein_label => "Địa chỉ email" %>
+	</div>
+
+	<div class="tfContainer tfContainerSecond">
+		<%= casein_time_zone_select form, @casein_user, :time_zone, ActiveSupport::TimeZone.us_zones, :casein_label => "Múi giờ" %>
+	</div>
+	
+	<div class="tfContainer">
+		<%= casein_select form, @casein_user, :access_level, casein_get_access_level_array, {:casein_label => "Tình trạng"} %>
 	</div>
 
 	<div class="tfContainer tfContainerSecond">
 	</div>
 
 	<div class="tfContainer">
-		<%= casein_password_field form, @casein_user, :password, {:casein_label => "Password"} %>
+		<%= casein_password_field form, @casein_user, :password, {:casein_label => "Mật khẩu"} %>
 	</div>
 	
 	<div class="tfContainer tfContainerSecond">
-		<%= casein_password_field form, @casein_user, :password_confirmation, {:casein_label => "Repeat password"} %>
+		<%= casein_password_field form, @casein_user, :password_confirmation, {:casein_label => "Nhập lại mật khẩu"} %>
 	</div>
 
 	<div class="clearer"></div>
 
 	<p class="submits">
-		<%= form.submit "Add new user", :class => "update" %>
+		<%= form.submit "Thêm mới người dùng", :class => "update" %>
 	</p>
 
 <% end %>
 
 <%= content_for :sidebar do %>
-  <li><%= link_to "#{casein_show_icon('table')}Back to list".html_safe, casein_users_path %></li>
+  <li><%= link_to "#{casein_show_icon('table')}Danh sách người dùng".html_safe, casein_users_path %></li>
 <% end %>
