@@ -202,7 +202,7 @@ def advance_search
 
         # set sql excute query is_deleted = false (only get employee not deleted)
         options = options.merge(:is_deleted =>  false)
-		
+
         @can_bo_thong_tins = CanBoThongTin.search_advance(options).paginate(:per_page => 10, :page => params[:page])
         @has_result = true
 
