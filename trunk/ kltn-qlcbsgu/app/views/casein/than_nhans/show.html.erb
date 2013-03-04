@@ -7,12 +7,14 @@
 	<%= render :partial => 'casein/than_nhans/form', :locals => { :f => f } %>
 	
 	<p class="submits">
-	  <%= link_to 'Hủy', casein_than_nhans_path, :class => 'cancel' %> or
+	  <%= link_to 'Hủy', casein_than_nhans_path, :class => 'cancel' %> hoặc
 		<%= f.submit "Lưu thay đổi", :class => "update" %>
 	</p>
 
 <% end %>
 
 <%= content_for :sidebar do %>
-	<li><%= link_to "#{casein_show_icon "table"}Danh sách thân nhân cán bộ".html_safe, casein_than_nhans_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới thân nhân".html_safe, new_casein_than_nhan_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới thân nhân từ file excel".html_safe, import_from_excel_casein_than_nhans_path %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách thân nhân cán bộ".html_safe, casein_than_nhans_path %></li>
 <% end %>
