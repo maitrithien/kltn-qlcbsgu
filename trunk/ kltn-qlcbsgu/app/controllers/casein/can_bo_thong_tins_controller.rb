@@ -189,55 +189,20 @@ def advance_search
       if search_advance_req!= nil and search_advance_req.length>0
         @can_bo_thong_tin = CanBoThongTin.new params[:can_bo_thong_tin]
         options = {}
-        #ho_ten to hash
-        if @can_bo_thong_tin.ho_ten.length>0
-          options = options.merge(:ho_ten => @can_bo_thong_tin.ho_ten)
-        end
-        #ten_goi_khac to hash
-        if @can_bo_thong_tin.ten_goi_khac.length>0
-          options = options.merge(:ten_goi_khac =>@can_bo_thong_tin.ten_goi_khac)
-        end
-        #ton_giao to hash
-        if @can_bo_thong_tin.ton_giao.length > 0
-          options = options.merge(:ton_giao => @can_bo_thong_tin.ton_giao)
-        end
-        #dan_toc to hash
-        if @can_bo_thong_tin.dan_toc.length > 0
-          options = options.merge(:dan_toc => @can_bo_thong_tin.dan_toc)
-        end
-        #ngay_sinh to hash
-        #if @can_bo_thong_tin.ngay_sinh
-        #  options = options.merge(:ngay_sinh => @can_bo_thong_tin.ngay_sinh)
-        #end
         #gioi_tinh to hash
         if params[:can_bo_thong_tin][:search_by_gioi_tinh].to_s != "all"
           options = options.merge(:gioi_tinh =>  params[:can_bo_thong_tin][:search_by_gioi_tinh].to_s)
         end
-        #so_cmnd to hash
-        if @can_bo_thong_tin.so_cmnd.length > 0
-          options = options.merge(:so_cmnd => @can_bo_thong_tin.so_cmnd)
-        end
-        #noi_dang_ky_ho_khau_thuong_tru to hash
-        if @can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru.length > 0
-          options = options.merge(:noi_dang_ky_ho_khau_thuong_tru => @can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru)
-        end
-        #que_quan to hash
-        if @can_bo_thong_tin.que_quan.length > 0
-          options = options.merge(:que_quan => @can_bo_thong_tin.que_quan)
-        end
-        #noi_o_hien_nay to hash
-        if @can_bo_thong_tin.noi_o_hien_nay.length > 0
-          options = options.merge(:noi_o_hien_nay => @can_bo_thong_tin.noi_o_hien_nay)
-        end
-        #so_BHXH to hash
-        if @can_bo_thong_tin.so_BHXH.length > 0
-          options = options.merge(:so_BHXH => @can_bo_thong_tin.so_BHXH)
-        end
-        #noi_sinh to hash
-        if @can_bo_thong_tin.noi_sinh.length > 0
-          options = options.merge(:noi_sinh => @can_bo_thong_tin.noi_sinh)
-        end
+         #each attribute to hash, except gioi_tinh, ngay_sinh,
+         @can_bo_thong_tin.attributes.each do |attr_name, attr_value|
+             if attr_value.to_s.length>0 && attr_name !='gioi_tinh' && attr_name !='ngay_sinh' && attr_name !='is_deleted'
+                options = options.merge(attr_name =>attr_value)
+            end
+         end
 
+        # set sql excute query is_deleted = false (only get employee not deleted)
+        options = options.merge(:is_deleted =>  false)
+		
         @can_bo_thong_tins = CanBoThongTin.search_advance(options).paginate(:per_page => 10, :page => params[:page])
         @has_result = true
 
