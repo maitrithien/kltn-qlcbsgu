@@ -18,10 +18,10 @@ module Casein
     after_update :send_update_notification
     before_validation :check_time_zone
     
-    validates_presence_of :login, :name, :email
-    validates_uniqueness_of :login
-    validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-    validates_presence_of :time_zone
+    validates_presence_of :login, :name, :email, :message =>"#{Param.get_param_value("is_not_blank")}"
+    validates_uniqueness_of :login, :message =>"#{Param.get_param_value("has_already_been_taken")}"
+    validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :message =>"#{Param.get_param_value("must_be_an_correct_email")}"
+    validates_presence_of :time_zone, :message =>"#{Param.get_param_value("is_not_blank")}"
 	  
   	def self.has_more_than_one_admin
       Casein::User.where(:access_level => $CASEIN_USER_ACCESS_LEVEL_ADMIN).count > 1

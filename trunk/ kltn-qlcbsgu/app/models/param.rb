@@ -1,5 +1,6 @@
 class Param < ActiveRecord::Base
   attr_accessible :param_name, :param_value, :options, :description
+  validates_presence_of :param_name, :param_value
   validates_uniqueness_of :param_name
   def self.search(search_value)
     if search_value
@@ -7,6 +8,37 @@ class Param < ActiveRecord::Base
     else
       scoped
     end
+  end
+
+  #build select_year
+  def self.select_year(options = {})
+    hash = []
+    if options.key? :from_year
+      if options.key? :end_year
+        if options[:from_year] >= options[:end_year]
+          return hash
+        else
+          #set hash with from_year and end_year
+          options[:from_year].upto options[:end_year] do |i|
+            hash = hash.push(i)
+          end
+          return hash
+        end
+      else
+        #set hash with default end_year is current year
+        options[:from_year].upto Time.now.year.to_i do |i|
+          hash = hash.push(i)
+        end
+        return hash
+      end
+    else
+      #set default hash
+      1900.to_i.upto Time.now.year.to_i do |i|
+        hash = hash.push(i)
+      end
+    end
+
+    return hash
   end
 
   def self.get_param_value(param_name)

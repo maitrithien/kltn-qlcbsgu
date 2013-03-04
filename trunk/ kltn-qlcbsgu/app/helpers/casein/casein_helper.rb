@@ -143,6 +143,10 @@ module Casein
       casein_form_tag_wrapper(form.date_select(attribute, strip_casein_options(options), merged_class_hash(options, 'caseinDateTimeSelect')), form, obj, attribute, options).html_safe
     end
 
+    def casein_year_select form, obj, attribute, options = {}
+      casein_form_tag_wrapper(form.select_year(attribute, strip_casein_options(options), merged_class_hash(options, 'caseinDateTimeSelect')), form, obj, attribute, options).html_safe
+    end
+
     def casein_time_select form, obj, attribute, options = {}
       casein_form_tag_wrapper(form.time_select(attribute, strip_casein_options(options), merged_class_hash(options, 'caseinDateTimeSelect')), form, obj, attribute, options).html_safe
     end

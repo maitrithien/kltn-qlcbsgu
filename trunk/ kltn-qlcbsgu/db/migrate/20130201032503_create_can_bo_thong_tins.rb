@@ -21,6 +21,7 @@ class CreateCanBoThongTins < ActiveRecord::Migration
       
       t.timestamps
     end
+    execute("ALTER TABLE can_bo_thong_tins ADD UNIQUE (ma_cb)")
   end
 
   def self.down
