@@ -1,0 +1,16 @@
+<h1>Nhập dữ liệu từ tệp tin excel</h1>
+<h2>Lựa chọn tệp tin</h2>
+<%= form_tag(parse_save_from_excel_casein_than_nhans_path, :multipart => true) %>
+
+<p>
+  <%= file_field_tag 'excel_file' %>
+</p>
+<p>
+  <%= submit_tag "Lưu dữ liệu" %>
+</p>
+</form>
+
+<%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới thân nhân".html_safe, new_casein_than_nhan_path %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách thân nhân cán bộ".html_safe, casein_than_nhans_path %></li>
+<% end %>
