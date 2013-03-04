@@ -9,17 +9,51 @@ module Casein
 
 
     def index
-      @casein_page_title = 'Than nhans'
-  		@than_nhans = ThanNhan.paginate :page => params[:page]
+      @casein_page_title = Param.get_param_value('than_nhan_index_page_title')
+      search_value = params["keyword"]
+      if search_value
+        @than_nhans = ThanNhan.search(search_value).paginate(:per_page => 10, :order => "can_bo_thong_tin_id", :page => params[:page])
+        @than_nhans_xls = ThanNhan.search(search_value)
+        if @than_nhans.count == 0
+          flash.now[:warning] = Param.get_param_value("searching_has_no_result")
+          @than_nhans = ThanNhan.paginate :page => params[:page], :per_page => 10, :order => "can_bo_thong_tin_id"
+          @than_nhans_xls = ThanNhan.all
+        else
+          flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@than_nhans.count}"
+        end
+      else
+        @than_nhans = ThanNhan.paginate :per_page => 10, :page => params[:page], :order => "can_bo_thong_tin_id"
+        @than_nhans_xls = ThanNhan.all
+      end
+
+      respond_to do |format|
+        format.html
+        format.xls{
+          than_nhan = Spreadsheet::Workbook.new
+          list = than_nhan.create_worksheet :name => 'Danh sach than nhan'
+          list.row(0).concat %w{Ma_CB Ho_ten_Can_bo Ho_ten_Than_nhan Quan_he Nam_sinh Nghe_nghiep}
+          @than_nhans_xls.each_with_index { |than_nhan, i|
+            list.row(i+1).push(than_nhan.can_bo_thong_tin.ma_cb, than_nhan.can_bo_thong_tin.ho_ten, than_nhan.ho_ten, than_nhan.quan_he_voi_cb, than_nhan.nam_sinh, than_nhan.nghe_nghiep)
+          }
+
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          than_nhan.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Danh_Sach_Than_Nhan.xls"
+        }
+      end
     end
   
     def show
-      @casein_page_title = 'View than nhan'
+      @casein_page_title = Param.get_param_value('than_nhan_show_page_title')
       @than_nhan = ThanNhan.find params[:id]
     end
  
     def new
-      @casein_page_title = 'Add a new than nhan'
+      @casein_page_title = Param.get_param_value('than_nhan_new_page_title')
     	@than_nhan = ThanNhan.new
     end
 
@@ -27,7 +61,7 @@ module Casein
       @than_nhan = ThanNhan.new params[:than_nhan]
     
       if @than_nhan.save
-        flash[:notice] = 'Than nhan created'
+        flash[:notice] = Param.get_param_value('adding_success')
         redirect_to casein_than_nhans_path
       else
         flash.now[:warning] = 'There were problems when trying to create a new than nhan'
@@ -36,15 +70,15 @@ module Casein
     end
   
     def update
-      @casein_page_title = 'Update than nhan'
+      @casein_page_title = Param.get_param_value('than_nhan_update_page_title')
       
       @than_nhan = ThanNhan.find params[:id]
     
       if @than_nhan.update_attributes params[:than_nhan]
-        flash[:notice] = 'Than nhan has been updated'
+        flash[:notice] = Param.get_param_value('updating_success')
         redirect_to casein_than_nhans_path
       else
-        flash.now[:warning] = 'There were problems when trying to update this than nhan'
+        flash.now[:warning] = Param.get_param_value('updating_false')
         render :action => :show
       end
     end
@@ -53,9 +87,72 @@ module Casein
       @than_nhan = ThanNhan.find params[:id]
 
       @than_nhan.destroy
-      flash[:notice] = 'Than nhan has been deleted'
+      flash[:notice] = Param.get_param_value('deleting_success')
       redirect_to casein_than_nhans_path
     end
-  
+
+
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("than_nhan_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      file_path = params[:excel_file]
+      file = XlsUploader.new
+      file.store!(file_path)
+
+      book = Spreadsheet.open "public/#{file.store_path}"
+
+      sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+      @errors = Hash.new
+      @counter = 0
+      @commit = 0
+      @wrong = 0
+      sheet.each 1 do |row|
+        @counter += 1
+        p = ThanNhan.new
+        id = CanBoThongTin.find_by_ma_cb(row[0].to_s).id
+        if id
+          p.can_bo_thong_tin_id = id
+          p.ho_ten = row[1].to_s
+          p.quan_he_voi_cb = row[2].to_s
+          p.nam_sinh = row[3].to_i
+          p.nghe_nghiep = row[4].to_s
+        end
+
+        if p.valid?
+          if ThanNhan.is_duplicate({:id => p.id, :ho_ten => p.ho_ten, :quan_he_voi_cb => p.quan_he_voi_cb}) == nil
+            @commit += 1
+            p.save
+          end
+        else
+          @errors["#{@counter + 1}"] = p.errors
+          @wrong += 1
+        end
+      end
+      book.io.close
+      if @wrong == 0
+        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        file.remove!
+        redirect_to casein_than_nhans_path
+      else
+        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        file.remove!
+        render :action => 'show_result', :errors => @errors
+      end
+
+    end
+
+    def show_result
+      @casein_page_title = Param.get_param_value("than_nhan_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
+    end
+
   end
 end

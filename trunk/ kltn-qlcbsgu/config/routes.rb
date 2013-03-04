@@ -3,7 +3,10 @@ QLTtCbvcSgu::Application.routes.draw do
 	#Casein routes
 	namespace :casein do
 		resources :can_bo_li_lich_cts
-		resources :than_nhans
+		resources :than_nhans do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :params do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection

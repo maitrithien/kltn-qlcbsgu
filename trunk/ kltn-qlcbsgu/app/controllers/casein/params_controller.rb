@@ -12,14 +12,17 @@ module Casein
       search_value = params["keyword"]
       if search_value != nil
         @params = Param.search(search_value).sort_by("param_name").paginate(:per_page => 10, :page => params[:page])
+        @params_xls = Param.search(search_value)
         if @params.count == 0
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
-          @params = Param.sort_by("param_name").paginate :page => params[:page], :per_page => 10
+          @params = Param.paginate :page => params[:page], :per_page => 10, :order => "param_name"
+          @params_xls = Param.all
         else
           flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@params.count}"
         end
       else
-        @params = Param.sort_by("param_name").paginate :page => params[:page], :per_page => 10
+        @params = Param.paginate :page => params[:page], :per_page => 10, :order => "param_name"
+        @params_xls = Param.all
       end
       respond_to do |format|
         format.html
@@ -27,7 +30,7 @@ module Casein
           param_list = Spreadsheet::Workbook.new
           list = param_list.create_worksheet :name => 'Listing params'
           list.row(0).concat %w{Param_name Param_value Options Description}
-          @params.each_with_index { |param, i|
+          @params_xls.each_with_index { |param, i|
             list.row(i+1).push param.param_name, param.param_value, param.options, param.description
           }
           header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
@@ -97,7 +100,6 @@ module Casein
 
       sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
 
-      @params = []
       @errors = Hash.new
       @counter = 0
       @commit = 0
@@ -111,7 +113,6 @@ module Casein
         p.description = row[3].to_s
 
         if p.valid?
-          @params << p
           @commit += 1
           p.save
         else

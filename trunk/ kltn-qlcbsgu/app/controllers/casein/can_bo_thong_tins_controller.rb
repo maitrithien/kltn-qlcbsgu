@@ -13,14 +13,17 @@ module Casein
       search_value = params["keyword"]
       if search_value != nil
         @can_bo_thong_tins = CanBoThongTin.search(search_value).paginate(:per_page => 10, :page => params[:page])
+        @can_bo_thong_tins_xls = CanBoThongTin.search(search_value)
         if @can_bo_thong_tins.count == 0
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
           @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :per_page => 10
+          @can_bo_thong_tins_xls = CanBoThongTin.all
         else
           flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_thong_tins.count}"
         end
       else
         @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :per_page => 10
+        @can_bo_thong_tins_xls = CanBoThongTin.all
       end
       
       respond_to do |format|
@@ -29,7 +32,7 @@ module Casein
           can_bo = Spreadsheet::Workbook.new
           list = can_bo.create_worksheet :name => 'Danh sach can bo'
           list.row(0).concat %w{Ma_CB Ho_va_Ten Ten_goi_khac Gioi_tinh Ngay_Sinh Noi_sinh Que_quan Dan_toc Ton_giao Noi_dang_ky_HKTT Noi_o_hien_nay So_BNXH So_CMND Ngay_cap_CMND}
-          @can_bo_thong_tins.each_with_index { |canbo, i|
+          @can_bo_thong_tins_xls.each_with_index { |canbo, i|
             if canbo.gioi_tinh
               gioi_tinh = 'Nam'
             else
@@ -133,7 +136,6 @@ module Casein
 
       sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
 
-      @can_bo_thong_tins = []
       @errors = Hash.new
       @counter = 0
       @commit = 0
@@ -162,7 +164,6 @@ module Casein
         p.ngay_cap_cmnd = row[13].to_date
 
         if p.valid?
-          @can_bo_thong_tins << p
           @commit += 1
           p.save
         else
@@ -216,6 +217,7 @@ def advance_search
         @can_bo_thong_tin = CanBoThongTin.new
       end
     end
+
     def show_result
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_show_result_page_title")
       @errors = Hash.new
