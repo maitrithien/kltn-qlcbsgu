@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301032113) do
+ActiveRecord::Schema.define(:version => 20130304070317) do
+
+  create_table "can_bo_li_lich_cts", :force => true do |t|
+    t.integer  "can_bo_thong_tin_id"
+    t.date     "ngay_vao_dang"
+    t.date     "ngay_nhap_ngu"
+    t.date     "ngay_xuat_ngu"
+    t.string   "quan_ham_cao_nhat"
+    t.string   "danh_hieu_duoc_phong_tang"
+    t.string   "thuong_binh_hang"
+    t.string   "con_gia_dinh_chinh_sach"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "can_bo_thong_tins", :force => true do |t|
     t.string   "ma_cb"
@@ -34,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20130301032113) do
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
   end
+
+  add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
 
   create_table "casein_users", :force => true do |t|
     t.string   "login",                              :null => false
@@ -65,5 +80,17 @@ ActiveRecord::Schema.define(:version => 20130301032113) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "than_nhans", :force => true do |t|
+    t.integer  "can_bo_thong_tin_id"
+    t.string   "quan_he_voi_cb"
+    t.integer  "nam_sinh"
+    t.string   "nghe_nghiep"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "ho_ten",              :null => false
+  end
+
+  add_index "than_nhans", ["quan_he_voi_cb"], :name => "quan_he_voi_cb", :unique => true
 
 end

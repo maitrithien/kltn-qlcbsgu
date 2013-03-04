@@ -15,7 +15,7 @@ module Casein
     def create
       @user_session = Casein::UserSession.new params[:casein_user_session]
       if @user_session.save
-        flash[:notice] = "Login successful"
+        flash[:notice] = Param.get_param_value("login_successful")
         redirect_back_or_default :controller => :casein, :action => :index
       else
         render :action => :new
@@ -24,7 +24,7 @@ module Casein
   
     def destroy
       current_user_session.destroy
-      flash[:notice] = "Logout successful"
+      flash[:notice] = Param.get_param_value("logout_successful")
       redirect_back_or_default new_casein_user_session_url
     end
 
