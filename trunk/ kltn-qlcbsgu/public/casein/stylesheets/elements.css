@@ -136,7 +136,8 @@
     width: 24%;
     min-height: 50px;
     float: left;
-    padding: 0 1px 10px 8px;
+    margin-left: 8px;
+    padding-bottom: 5px;
 }
 
 #content .tfContainer2 p {
@@ -147,7 +148,10 @@
     float: left;
     margin: 0 5px 0 0;
 }
-
+#content .tfContainer2 .caseinTextField, .caseinSelect {
+    height: 20px;
+    width: 200px;
+}
 #content .tfContainer2 .caseinDateSelectWrapper div {
     float: none;
     margin: 0px;
@@ -333,4 +337,23 @@
 
 #content .pagination a:hover, a:visited:hover {
 	color: #000;
+}
+
+#content #data .paragraph
+{
+    width: 100%;
+    height: auto;
+    background: #e7edfc;
+    float: left;
+    padding: 0;
+}
+
+
+#content #data .second_paragraph
+{
+    width: 100%;
+    height: auto;
+    background: none;
+    float: left;
+
 }

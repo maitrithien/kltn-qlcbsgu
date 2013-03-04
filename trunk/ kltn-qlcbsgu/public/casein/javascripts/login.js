@@ -22,3 +22,4 @@ toggleDiv = function(div)
 		break;
 	}	
 }
+
