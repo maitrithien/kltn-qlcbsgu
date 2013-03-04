@@ -17,7 +17,7 @@ class CanBoThongTin < ActiveRecord::Base
   def self.search_advance(options={})
     sql_exc = "1"
     options.each do |key, value|
-      if key == :gioi_tinh
+      if key == :gioi_tinh || key == :is_deleted
         sql_exc << " AND #{key} = #{value}"
       else
         sql_exc << " AND #{key} LIKE '%#{value}%'"
