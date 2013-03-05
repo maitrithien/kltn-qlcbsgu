@@ -13,8 +13,10 @@ function show_hide(id)
     }
 }
 
+
 toggleDiv = function(div)
 {
+
     switch ($("#"+div).css('display'))
     {
         case "none":

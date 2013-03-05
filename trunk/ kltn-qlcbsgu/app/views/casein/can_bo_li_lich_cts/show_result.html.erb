@@ -1,0 +1,13 @@
+<% unless @errors.nil? %>
+    <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
+
+    <% @errors.each do |mgs| %>
+        <p>Dòng thứ: <%= mgs[0]%> Lỗi: <%= mgs[1] %> </p>
+    <% end %>
+<% end %>
+
+<%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới lí lịch chính trị cán bộ".html_safe, new_casein_can_bo_li_lich_ct_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới lí lịch chính trị cán bộ từ file excel".html_safe, import_from_excel_casein_can_bo_li_lich_cts_path %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách lí lịch chính trị cán bộ".html_safe, casein_can_bo_li_lich_cts_path %></li>
+<% end %>

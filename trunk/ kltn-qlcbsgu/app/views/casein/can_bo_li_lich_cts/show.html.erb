@@ -4,7 +4,7 @@
 
 <%= form_for @can_bo_li_lich_ct, :url => casein_can_bo_li_lich_ct_path(@can_bo_li_lich_ct) do |f| %>
 
-	<%= render :partial => 'casein/can_bo_li_lich_cts/form', :locals => { :f => f } %>
+	<%= render :partial => 'casein/can_bo_li_lich_cts/form_update', :locals => { :f => f } %>
 	
 	<p class="submits">
 	  <%= link_to 'Hủy', casein_can_bo_li_lich_cts_path, :class => 'cancel' %> hoặc
@@ -14,5 +14,7 @@
 <% end %>
 
 <%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới lí lịch chính trị cán bộ".html_safe, new_casein_can_bo_li_lich_ct_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới lí lịch chính trị cán bộ từ file excel".html_safe, import_from_excel_casein_can_bo_li_lich_cts_path %></li>
 	<li><%= link_to "#{casein_show_icon "table"}Danh sách lí lịch cán bộ".html_safe, casein_can_bo_li_lich_cts_path %></li>
 <% end %>

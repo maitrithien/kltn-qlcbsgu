@@ -8,42 +8,86 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Can bo li lich cts'
-  		@can_bo_li_lich_cts = CanBoLiLichCt.paginate :page => params[:page]
+      @casein_page_title = Param.get_param_value("can_bo_li_lich_ct_index_page_title")
+      search_value = params["keyword"]
+      if search_value
+        @can_bo_li_lich_cts = CanBoLiLichCt.search(search_value).paginate(:per_page => 10, :order => "can_bo_thong_tin_id", :page => params[:page])
+        @can_bo_li_lich_cts_xls = CanBoLiLichCt.search(search_value)
+        if @can_bo_li_lich_cts.count == 0
+          flash.now[:warning] = Param.get_param_value("searching_has_no_result")
+          @can_bo_li_lich_cts = CanBoLiLichCt.paginate( :page => params[:page], :per_page => 10, :order => "can_bo_thong_tin_id")
+          @can_bo_li_lich_cts_xls = CanBoLiLichCt.all
+        else
+          flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_li_lich_cts.count}"
+        end
+      else
+        @can_bo_li_lich_cts = CanBoLiLichCt.paginate( :page => params[:page], :per_page => 10, :order => "can_bo_thong_tin_id")
+        @can_bo_li_lich_cts_xls = CanBoLiLichCt.all
+      end
+      respond_to do |format|
+        format.html
+        format.xls{
+          can_bo_li_lich = Spreadsheet::Workbook.new
+          list = can_bo_li_lich.create_worksheet :name => 'Danh sach Li lich chinh tri can bo'
+          list.row(0).concat %w{Ma_CB Ho_ten Ngay_vao_dang Ngay_nhap_ngu Ngay_xuat_ngu Quan_ham_cao_nhat Danh_hieu_duoc_phong_tang Thuong_binh Gia_dinh_chinh_sach}
+          @can_bo_li_lich_cts_xls.each_with_index { |ct, i|
+            list.row(i+1).push(ct.can_bo_thong_tin.ma_cb, ct.can_bo_thong_tin.ho_ten,ct.ngay_vao_dang,ct.ngay_nhap_ngu,ct.ngay_xuat_ngu,ct.quan_ham_cao_nhat,ct.danh_hieu_duoc_phong_tang,ct.thuong_binh_hang,ct.con_gia_dinh_chinh_sach)
+          }
+
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          can_bo_li_lich.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Danh_Sach_Li_lich_chinh_tri.xls"
+        }
+      end
     end
   
     def show
-      @casein_page_title = 'View can bo li lich ct'
+      @casein_page_title =  Param.get_param_value("can_bo_li_lich_ct_show_page_title")
       @can_bo_li_lich_ct = CanBoLiLichCt.find params[:id]
+      @can_bo_li_lich_ct.ho_ten_return = CanBoThongTin.find(@can_bo_li_lich_ct.can_bo_thong_tin_id).ho_ten
     end
  
     def new
-      @casein_page_title = 'Add a new can bo li lich ct'
+      @casein_page_title = Param.get_param_value("can_bo_li_lich_ct_new_page_title")
     	@can_bo_li_lich_ct = CanBoLiLichCt.new
     end
 
     def create
       @can_bo_li_lich_ct = CanBoLiLichCt.new params[:can_bo_li_lich_ct]
-    
+
+      if params["dang_vien"].to_s !="1"
+        @can_bo_li_lich_ct.ngay_vao_dang = nil
+      end
+
+      if params["nhap_ngu"].to_s !="1"
+        @can_bo_li_lich_ct.ngay_nhap_ngu = nil
+        @can_bo_li_lich_ct.ngay_xuat_ngu = nil
+        @can_bo_li_lich_ct.thuong_binh_hang = nil
+        @can_bo_li_lich_ct.quan_ham_cao_nhat = nil
+      end
       if @can_bo_li_lich_ct.save
-        flash[:notice] = 'Can bo li lich ct created'
+        flash[:notice] =  Param.get_param_value("adding_success");
         redirect_to casein_can_bo_li_lich_cts_path
       else
-        flash.now[:warning] = 'There were problems when trying to create a new can bo li lich ct'
+        flash.now[:warning] = Param.get_param_value("adding_false");
         render :action => :new
       end
     end
   
     def update
-      @casein_page_title = 'Update can bo li lich ct'
+      @casein_page_title =  Param.get_param_value("can_bo_li_lich_ct_update_page_title")
       
       @can_bo_li_lich_ct = CanBoLiLichCt.find params[:id]
     
       if @can_bo_li_lich_ct.update_attributes params[:can_bo_li_lich_ct]
-        flash[:notice] = 'Can bo li lich ct has been updated'
+        flash[:notice] = Param.get_param_value("updating_success");
         redirect_to casein_can_bo_li_lich_cts_path
       else
-        flash.now[:warning] = 'There were problems when trying to update this can bo li lich ct'
+        flash.now[:warning] = Param.get_param_value("updating_false");
         render :action => :show
       end
     end
@@ -52,9 +96,72 @@ module Casein
       @can_bo_li_lich_ct = CanBoLiLichCt.find params[:id]
 
       @can_bo_li_lich_ct.destroy
-      flash[:notice] = 'Can bo li lich ct has been deleted'
+      flash[:notice] = Param.get_param_value("deleting_success");
       redirect_to casein_can_bo_li_lich_cts_path
     end
-  
+
+
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("can_bo_li_lich_ct_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      file_path = params[:excel_file]
+      file = XlsUploader.new
+      file.store!(file_path)
+
+      book = Spreadsheet.open "public/#{file.store_path}"
+
+      sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+      @errors = Hash.new
+      @counter = 0
+      @commit = 0
+      @wrong = 0
+      sheet.each 1 do |row|
+        @counter += 1
+        p = CanBoLiLichCt.new
+        canbo = CanBoThongTin.find_by_ma_cb(row[0].to_s)
+        if canbo
+          p.can_bo_thong_tin_id = canbo.id
+          p.ngay_vao_dang = row[2].to_date
+          p.ngay_nhap_ngu = row[3].to_date
+          p.ngay_xuat_ngu = row[4].to_date
+          p.quan_ham_cao_nhat = row[5].to_s
+          p.danh_hieu_duoc_phong_tang = row[6].to_s
+          p.thuong_binh_hang = row[7].to_s
+          p.con_gia_dinh_chinh_sach= row[8].to_s
+        end
+
+        if p.valid?
+            @commit += 1
+            p.save
+        else
+          @errors["#{@counter + 1}"] = p.errors
+          @wrong += 1
+        end
+      end
+      book.io.close
+      if @wrong == 0
+        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        file.remove!
+        redirect_to casein_can_bo_li_lich_cts_path
+      else
+        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        file.remove!
+        render :action => 'show_result', :errors => @errors
+      end
+
+    end
+
+    def show_result
+      @casein_page_title = Param.get_param_value("can_bo_li_lich_ct_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
+    end
   end
 end

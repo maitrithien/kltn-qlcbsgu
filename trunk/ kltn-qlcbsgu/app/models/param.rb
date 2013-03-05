@@ -54,4 +54,38 @@ class Param < ActiveRecord::Base
     order attribute_name
   end
 
+  def self.thuong_binh_hang
+    key = Param.find_by_param_name("thuong_binh_hang_values").param_value
+    value = Param.find_by_param_name("thuong_binh_hang_desc").param_value
+    hash = {}
+    hash_key = []
+    hash_value = []
+
+    if key
+        hash_key = key.to_s.split(',').to_a
+      if value
+        hash_value = value.to_s.split(',').to_a
+       hash_key.each_index do |i|
+         hash = hash.merge("#{hash_key[i]} - #{hash_value[i]}" => "#{hash_key[i]}")
+       end
+      end
+      return hash
+    else
+       hash
+    end
+  end
+  def self.cap_bac_quan_doi
+    value = Param.find_by_param_name("cap_bac_quan_doi").param_value
+    hash = {}
+    hash_value=[]
+      if value
+        hash_value = value.to_s.split(',').to_a
+        hash_value.each_index do |i|
+             hash = hash.merge("#{hash_value[i]}" => "#{hash_value[i]}")
+        end
+      end
+    return hash
+  end
+
+
 end

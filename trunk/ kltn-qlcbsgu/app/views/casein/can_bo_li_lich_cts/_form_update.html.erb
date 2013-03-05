@@ -2,7 +2,8 @@
 
 
 <div class="tfContainer" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
-	<%= casein_select f, f.object, :can_bo_thong_tin_id, CanBoThongTin.can_bo_chua_co_li_lich_ct.collect {|p| [ "#{p.ma_cb} - #{p.ho_ten}", p.id ] }, {:include_blank => '', :casein_label => "Cán bộ"} %>
+	<%= casein_hidden_field f, f.object, :can_bo_thong_tin_id %>
+  <%= casein_text_field f, f.object, :ho_ten_return, {:style=> "readonly",:casein_label => "Họ Tên Cán Bộ"} %>
 </div>
 <div class="tfContainer tfContainerSecond">
   <%= casein_text_field f, f.object, :con_gia_dinh_chinh_sach, {:casein_label => "Con gia đình chính sách"} %>

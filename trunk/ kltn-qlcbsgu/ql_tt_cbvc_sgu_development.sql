@@ -27,6 +27,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Creation: Mar 04, 2013 at 09:16 AM
 --
 
+DROP TABLE IF EXISTS `can_bo_li_lich_cts` ;
+DROP TABLE IF EXISTS `can_bo_thong_tins` ;
+DROP TABLE IF EXISTS `casein_users` ;
+
+
+
 CREATE TABLE IF NOT EXISTS `can_bo_li_lich_cts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `can_bo_thong_tin_id` int(11) DEFAULT NULL,
@@ -101,7 +107,7 @@ INSERT INTO `can_bo_thong_tins` (`id`, `ma_cb`, `ho_ten`, `ten_goi_khac`, `gioi_
 --
 -- Creation: Feb 01, 2013 at 09:35 AM
 --
-
+DROP TABLE IF EXISTS `casein_users` ;
 CREATE TABLE IF NOT EXISTS `casein_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -141,7 +147,7 @@ INSERT INTO `casein_users` (`id`, `login`, `name`, `email`, `access_level`, `cry
 --
 -- Creation: Mar 01, 2013 at 10:22 AM
 --
-
+DROP TABLE IF EXISTS `params` ;
 CREATE TABLE IF NOT EXISTS `params` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `param_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -204,7 +210,7 @@ INSERT INTO `params` (`id`, `param_name`, `param_value`, `options`, `description
 --
 -- Creation: Feb 01, 2013 at 09:35 AM
 --
-
+DROP TABLE IF EXISTS `schema_migrations` ;
 CREATE TABLE IF NOT EXISTS `schema_migrations` (
   `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   UNIQUE KEY `unique_schema_migrations` (`version`)
@@ -229,7 +235,7 @@ INSERT INTO `schema_migrations` (`version`) VALUES
 --
 -- Creation: Mar 04, 2013 at 08:53 AM
 --
-
+DROP TABLE IF EXISTS `than_nhans` ;
 CREATE TABLE IF NOT EXISTS `than_nhans` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `can_bo_thong_tin_id` int(11) DEFAULT NULL,
@@ -239,8 +245,7 @@ CREATE TABLE IF NOT EXISTS `than_nhans` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `ho_ten` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `quan_he_voi_cb` (`quan_he_voi_cb`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --

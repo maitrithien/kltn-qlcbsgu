@@ -43,4 +43,8 @@ class CanBoThongTin < ActiveRecord::Base
     return hash
   end
 
+  def self.can_bo_chua_co_li_lich_ct
+    where('id not in (select can_bo_thong_tin_id from can_bo_li_lich_cts)')
+  end
+
 end
