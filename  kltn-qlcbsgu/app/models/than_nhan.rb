@@ -5,6 +5,7 @@ class ThanNhan < ActiveRecord::Base
   validates_presence_of :can_bo_thong_tin_id, :ho_ten, :nam_sinh, :nghe_nghiep, :quan_he_voi_cb, :message => "#{Param.get_param_value("is_not_blank")}"
 
 
+
   #relationship
   belongs_to :can_bo_thong_tin
 

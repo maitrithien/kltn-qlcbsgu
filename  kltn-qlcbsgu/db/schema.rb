@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304070317) do
+ActiveRecord::Schema.define(:version => 20130304020425) do
 
   create_table "can_bo_li_lich_cts", :force => true do |t|
     t.integer  "can_bo_thong_tin_id"
@@ -47,8 +47,6 @@ ActiveRecord::Schema.define(:version => 20130304070317) do
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
   end
-
-  add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
 
   create_table "casein_users", :force => true do |t|
     t.string   "login",                              :null => false
@@ -86,11 +84,9 @@ ActiveRecord::Schema.define(:version => 20130304070317) do
     t.string   "quan_he_voi_cb"
     t.integer  "nam_sinh"
     t.string   "nghe_nghiep"
+    t.string   "ho_ten",              :null => false
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.string   "ho_ten",              :null => false
   end
-
-  add_index "than_nhans", ["quan_he_voi_cb"], :name => "quan_he_voi_cb", :unique => true
 
 end

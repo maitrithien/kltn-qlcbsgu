@@ -1,5 +1,6 @@
 class CanBoLiLichCt < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :con_gia_dinh_chinh_sach, :danh_hieu_duoc_phong_tang, :ngay_nhap_ngu, :ngay_xuat_ngu, :ngay_vao_dang, :quan_ham_cao_nhat, :thuong_binh_hang
+  attr_accessible :can_bo_thong_tin_id, :con_gia_dinh_chinh_sach, :danh_hieu_duoc_phong_tang, :ngay_nhap_ngu, :ngay_xuat_ngu, :ngay_vao_dang, :quan_ham_cao_nhat, :thuong_binh_hang ,:ho_ten_return
+  attr_accessor :ho_ten_return
   #not allow null attributes
   validates_presence_of :can_bo_thong_tin_id, :message =>"#{Param.get_param_value("is_not_blank")}"
   #check unique for attributes
@@ -8,4 +9,12 @@ class CanBoLiLichCt < ActiveRecord::Base
   #relationship
   belongs_to :can_bo_thong_tin
 
+  def self.search(search_value)
+
+    if search_value
+      where("can_bo_thong_tin_id in (SELECT id FROM can_bo_thong_tins WHERE ma_cb = ? OR ho_ten LIKE ?)",  search_value, "%#{search_value}%")
+    else
+      scoped
+    end
+  end
 end
