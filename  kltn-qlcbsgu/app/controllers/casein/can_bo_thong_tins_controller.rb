@@ -95,15 +95,13 @@ module Casein
       @can_bo_thong_tin = CanBoThongTin.find params[:id]
 
       #image uploader
-      image_updated = params[:can_bo_thong_tin][:hinh_anh]
-      image_updated_uploader = ImageUploader.new
-      image_updated_uploader.store!(image_updated)
-      image_updated_uploader.retrieve_from_store!('my_image.png')
+      my_image = params[:can_bo_thong_tin][:hinh_anh]
+      image_uploader = ImageUploader.new
+      image_uploader.store!(my_image)
       #file uploader
-      file_updated = params[:can_bo_thong_tin][:tep_tin_dinh_kem]
-      file_updated_uploader = FileUploader.new
-      file_updated_uploader.store!(file_updated)
-      file_updated_uploader.retrieve_from_store!('my_file.doc')
+      my_file = params[:can_bo_thong_tin][:tep_tin_dinh_kem]
+      file_uploader = FileUploader.new
+      file_uploader.store!(my_file)
 
       if @can_bo_thong_tin.update_attributes params[:can_bo_thong_tin]
 
