@@ -82,7 +82,7 @@ module Casein
       @casein_page_title =  Param.get_param_value("can_bo_li_lich_ct_update_page_title")
       
       @can_bo_li_lich_ct = CanBoLiLichCt.find params[:id]
-    
+
       if @can_bo_li_lich_ct.update_attributes params[:can_bo_li_lich_ct]
         flash[:notice] = Param.get_param_value("updating_success");
         redirect_to casein_can_bo_li_lich_cts_path
