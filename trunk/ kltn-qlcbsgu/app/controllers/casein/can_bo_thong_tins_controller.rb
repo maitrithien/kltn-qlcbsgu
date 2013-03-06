@@ -91,9 +91,6 @@ module Casein
     def update
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_update_page_title")
 
-
-      @can_bo_thong_tin = CanBoThongTin.find params[:id]
-
       #image uploader
       my_image = params[:can_bo_thong_tin][:hinh_anh]
       image_uploader = ImageUploader.new
@@ -102,6 +99,8 @@ module Casein
       my_file = params[:can_bo_thong_tin][:tep_tin_dinh_kem]
       file_uploader = FileUploader.new
       file_uploader.store!(my_file)
+
+      @can_bo_thong_tin = CanBoThongTin.find params[:id]
 
       if @can_bo_thong_tin.update_attributes params[:can_bo_thong_tin]
 

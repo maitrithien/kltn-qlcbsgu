@@ -2,7 +2,7 @@
 
 <h2>Cập nhật thông tin cán bộ</h2>
 
-<%= form_for @can_bo_thong_tin, :url => casein_can_bo_thong_tin_path(@can_bo_thong_tin) do |f| %>
+<%= form_for @can_bo_thong_tin, :url => casein_can_bo_thong_tin_path(@can_bo_thong_tin),:html =>{:multipart => true} do |f| %>
 
 	<%= render :partial => 'casein/can_bo_thong_tins/form', :locals => { :f => f } %>
 	
