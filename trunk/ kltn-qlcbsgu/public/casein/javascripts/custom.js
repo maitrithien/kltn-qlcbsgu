@@ -28,3 +28,20 @@ toggleDiv = function(div)
             break;
     }
 }
+
+toggleSwitchDiv = function(div1, div2)
+{
+
+    switch ($("#"+div1).css('display'))
+    {
+        case "none":
+            $("#"+div1).fadeIn(100);
+            $("#"+div2).fadeOut(100);
+            break;
+
+        case "block":
+            $("#"+div1).fadeOut(100);
+            $("#"+div2).fadeIn(100);
+            break;
+    }
+}

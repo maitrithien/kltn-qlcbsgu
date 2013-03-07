@@ -18,7 +18,7 @@
 </tr>
 <tr>
 	<td><label>Ngày sinh</label></td>
-	<td><%= @can_bo_thong_tin.ngay_sinh %></td>
+	<td><%= @can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y") %></td>
 </tr>
 <tr>
 	<td><label>Giới tính</label></td>
@@ -59,7 +59,7 @@
 </tr>
 <tr>
 	<td><label>Ngày cấp CMND</label></td>
-	<td><%= @can_bo_thong_tin.ngay_cap_cmnd %></td>
+	<td><%= @can_bo_thong_tin.ngay_cap_cmnd.strftime("%d/%m/%Y") %></td>
 </tr>
 <tr>
 	<td><label>Số sổ BHXH</label></td>
