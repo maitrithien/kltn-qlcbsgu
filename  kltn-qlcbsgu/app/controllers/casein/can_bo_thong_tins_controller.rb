@@ -36,7 +36,7 @@ module Casein
             if canbo.gioi_tinh
               gioi_tinh = 'Nam'
             else
-              gioi_tinh = 'Nu'
+              gioi_tinh = Param.get_param_value 'Nu'
             end
             list.row(i+1).push canbo.ma_cb, canbo.ho_ten, canbo.ten_goi_khac, gioi_tinh, canbo.ngay_sinh, canbo.noi_sinh, canbo.que_quan, canbo.dan_toc, canbo.ton_giao, canbo.noi_dang_ky_ho_khau_thuong_tru, canbo.noi_o_hien_nay, canbo.so_BHXH, canbo.so_cmnd, canbo.ngay_cap_cmnd
           }
@@ -133,6 +133,12 @@ module Casein
 
       sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
 
+      columns = []
+      if params[:custom]
+        columns = [params[:ma_cb].to_i, params[:ho_ten].to_i, params[:ten_goi_khac].to_i, params[:gioi_tinh].to_i, params[:ngay_sinh].to_i, params[:noi_sinh].to_i, params[:que_quan].to_i, params[:dan_toc].to_i, params[:ton_giao].to_i, params[:noi_dang_ky_ho_khau_thuong_tru].to_i, params[:noi_o_hien_nay].to_i, params[:so_BHXH].to_i, params[:so_cmnd].to_i, params[:ngay_cap_cmnd].to_i]
+      else
+        columns = Array(0..13)
+      end
       @errors = Hash.new
       @counter = 0
       @commit = 0
@@ -140,25 +146,25 @@ module Casein
       sheet.each 1 do |row|
         @counter += 1
         p = CanBoThongTin.new
-        p.ma_cb = row[0].to_i
-        p.ho_ten = row[1].to_s
-        p.ten_goi_khac = row[2].to_s
-        gioi_tinh = row[3].to_s.chars.select(&:ascii_only?).join #remove unicode and lowercase
+        p.ma_cb = row[columns[0]].to_i
+        p.ho_ten = row[columns[1]].to_s
+        p.ten_goi_khac = row[columns[2]].to_s
+        gioi_tinh = row[columns[3]].to_s.chars.select(&:ascii_only?).join #remove unicode and lowercase
         if gioi_tinh.upcase == 'NAM'
           p.gioi_tinh = true
         else
           p.gioi_tinh = false
         end
-        p.ngay_sinh = row[4].to_date
-        p.noi_sinh = row[5].to_s
-        p.que_quan = row[6].to_s
-        p.dan_toc = row[7].to_s
-        p.ton_giao = row[8].to_s
-        p.noi_dang_ky_ho_khau_thuong_tru = row[9].to_s
-        p.noi_o_hien_nay = row[10].to_s
-        p.so_BHXH = row[11].to_s
-        p.so_cmnd = row[12].to_s
-        p.ngay_cap_cmnd = row[13].to_date
+        p.ngay_sinh = row[columns[4]].to_date
+        p.noi_sinh = row[columns[5]].to_s
+        p.que_quan = row[columns[6]].to_s
+        p.dan_toc = row[columns[7]].to_s
+        p.ton_giao = row[columns[8]].to_s
+        p.noi_dang_ky_ho_khau_thuong_tru = row[columns[9]].to_s
+        p.noi_o_hien_nay = row[columns[10]].to_s
+        p.so_BHXH = row[columns[11]].to_s
+        p.so_cmnd = row[columns[12]].to_s
+        p.ngay_cap_cmnd = row[columns[13]].to_date
 
         if p.valid?
           @commit += 1

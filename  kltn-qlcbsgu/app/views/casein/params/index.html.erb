@@ -2,7 +2,7 @@
 <div class="search_basic_form">
   <%= form_tag casein_params_path, :method => "get" do %>
       <%= text_field_tag "keyword", params["keyword"], :title => "Nhập vào tên tham số", :style => "padding: 2px;"%>
-      <%= submit_tag "Tìm Kiếm", :style => "padding: 3px 10px;" %>
+      <%= submit_tag "Tìm Kiếm",:disable_with => "Đang tìm kiếm...", :style => "padding: 3px 10px;" %>
 
   <% end %>
 </div>
