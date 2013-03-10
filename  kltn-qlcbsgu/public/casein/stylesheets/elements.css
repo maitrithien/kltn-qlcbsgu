@@ -322,7 +322,7 @@
 #content .cancel:hover, #content a.negative:visited:hover {
 	color: #990000;
 }
-
+/*
 #content .pagination {
 	text-align: center;
 	margin: 20px 0px 0px 0px;
@@ -337,7 +337,8 @@
 
 #content .pagination a:hover, a:visited:hover {
 	color: #000;
-}
+}    */
+/* Pagination (this is the Diggs styling) */
 
 #content #data .paragraph
 {
