@@ -16,8 +16,9 @@ class CanBoThongTin < ActiveRecord::Base
   has_many :than_nhans
 
   def self.search(search_value)
+    ngay_sinh = Date.parse(search_value) rescue nil
 	  if search_value
-		where('ma_cb = ? OR ho_ten LIKE ? OR ngay_sinh = ? OR so_cmnd = ?',search_value,"%#{search_value}%", search_value, search_value)
+		where('ma_cb = ? OR ho_ten LIKE ? OR ngay_sinh = ? OR so_cmnd = ?',search_value,"%#{search_value}%", ngay_sinh, search_value)
 	  else
 		scoped
 	  end

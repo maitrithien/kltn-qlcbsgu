@@ -30,3 +30,7 @@ tr, td
     display: block;
     z-index: 0;
 }
+.tfcontenerfull
+{
+    width: 100%;
+}

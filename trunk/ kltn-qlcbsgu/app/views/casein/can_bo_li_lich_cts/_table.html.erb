@@ -4,9 +4,9 @@
 	<tr>
 		<th>Mã cán bộ</th>
 		<th>Ngày vào Đảng</th>
-		<th>Ngày nhập ngủ</th>
-		<th>Ngày xuất ngủ</th>
-		<th>Quân hàm cao nhất</th>
+		<th>Nhập ngủ</th>
+		<th>Xuất ngủ</th>
+		<th>Quân hàm</th>
 		<th>Danh hiệu</th>
 		<th>Thương binh hạng</th>
 		<th>Gia đình C.Sách</th>
@@ -20,7 +20,7 @@
 			<td><%= casein_table_cell_link can_bo_li_lich_ct.ngay_nhap_ngu, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link can_bo_li_lich_ct.ngay_xuat_ngu, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link can_bo_li_lich_ct.quan_ham_cao_nhat, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
-			<td><%= casein_table_cell_link truncate(can_bo_li_lich_ct.danh_hieu_duoc_phong_tang, :length => 30), casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
+			<td><%= casein_table_cell_link truncate(can_bo_li_lich_ct.danh_hieu_duoc_phong_tang, :length => 15), casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link can_bo_li_lich_ct.thuong_binh_hang, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link truncate(can_bo_li_lich_ct.con_gia_dinh_chinh_sach, :length => 30), casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td class="delete">
