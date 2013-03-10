@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304020425) do
+ActiveRecord::Schema.define(:version => 20130309031120) do
 
   create_table "can_bo_li_lich_cts", :force => true do |t|
     t.integer  "can_bo_thong_tin_id"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20130304020425) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  add_index "can_bo_li_lich_cts", ["can_bo_thong_tin_id"], :name => "can_bo_thong_tin_id", :unique => true
 
   create_table "can_bo_thong_tins", :force => true do |t|
     t.string   "ma_cb"
@@ -46,6 +48,21 @@ ActiveRecord::Schema.define(:version => 20130304020425) do
     t.boolean  "is_deleted",                                    :default => false, :null => false
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
+  end
+
+  add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
+
+  create_table "can_bo_trinh_dos", :force => true do |t|
+    t.integer  "can_bo_thong_tin_id"
+    t.integer  "hoc_ham_id"
+    t.integer  "hoc_vi_id"
+    t.integer  "trinh_do_chuyen_mon_id"
+    t.string   "tieng_anh"
+    t.string   "tin_hoc"
+    t.string   "trinh_do_hoc_van"
+    t.string   "trinh_do_ll_ct"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   create_table "casein_users", :force => true do |t|
@@ -70,6 +87,27 @@ ActiveRecord::Schema.define(:version => 20130304020425) do
     t.datetime "updated_at",                         :null => false
   end
 
+  create_table "hoc_hams", :force => true do |t|
+    t.string   "ten_hoc_ham"
+    t.string   "ghi_chu"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "hoc_vis", :force => true do |t|
+    t.string   "ten_hoc_vi"
+    t.string   "ghi_chu"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "loai_quyet_dinhs", :force => true do |t|
+    t.string   "ten_loai_qd"
+    t.string   "ghi_chu"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "params", :force => true do |t|
     t.string   "param_name"
     t.string   "param_value"
@@ -79,14 +117,31 @@ ActiveRecord::Schema.define(:version => 20130304020425) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "quyet_dinhs", :force => true do |t|
+    t.integer  "loai_quyet_dinh_id"
+    t.string   "so_qd"
+    t.date     "ngay_ra_qd"
+    t.string   "noi_dung_tom_tat"
+    t.string   "tep_tin_dinh_kem"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "than_nhans", :force => true do |t|
     t.integer  "can_bo_thong_tin_id"
     t.string   "quan_he_voi_cb"
     t.integer  "nam_sinh"
     t.string   "nghe_nghiep"
-    t.string   "ho_ten",              :null => false
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "ho_ten",              :null => false
+  end
+
+  create_table "trinh_do_chuyen_mons", :force => true do |t|
+    t.string   "ten_trinh_do_cm"
+    t.string   "ghi_chu"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end

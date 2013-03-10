@@ -2,6 +2,12 @@ QLTtCbvcSgu::Application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :quyet_dinhs
+		resources :loai_quyet_dinhs
+		resources :can_bo_trinh_dos
+		resources :trinh_do_chuyen_mons
+		resources :hoc_hams
+		resources :hoc_vis
 		resources :can_bo_li_lich_cts  do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
