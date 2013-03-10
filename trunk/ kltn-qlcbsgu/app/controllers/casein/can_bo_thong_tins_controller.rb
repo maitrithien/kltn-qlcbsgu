@@ -79,6 +79,9 @@ module Casein
       file_uploader.store!(my_file)
       file_uploader.retrieve_from_store!('my_file.doc')
 
+      if params[:can_bo_thong_tin][:ten_goi_khac] == ""
+        params[:can_bo_thong_tin][:ten_goi_khac] = params[:can_bo_thong_tin][:ho_ten]
+      end
       if @can_bo_thong_tin.save
         flash[:notice] = Param.get_param_value("adding_success")
         redirect_to casein_can_bo_thong_tins_path
@@ -99,6 +102,10 @@ module Casein
       my_file = params[:can_bo_thong_tin][:tep_tin_dinh_kem]
       file_uploader = FileUploader.new
       file_uploader.store!(my_file)
+
+      if params[:can_bo_thong_tin][:ten_goi_khac] == ""
+        params[:can_bo_thong_tin][:ten_goi_khac] = params[:can_bo_thong_tin][:ho_ten]
+      end
 
       @can_bo_thong_tin = CanBoThongTin.find params[:id]
 
