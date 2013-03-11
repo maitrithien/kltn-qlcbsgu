@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130309031120) do
+ActiveRecord::Schema.define(:version => 20130311025826) do
 
   create_table "can_bo_li_lich_cts", :force => true do |t|
     t.integer  "can_bo_thong_tin_id"
@@ -51,19 +51,6 @@ ActiveRecord::Schema.define(:version => 20130309031120) do
   end
 
   add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
-
-  create_table "can_bo_trinh_dos", :force => true do |t|
-    t.integer  "can_bo_thong_tin_id"
-    t.integer  "hoc_ham_id"
-    t.integer  "hoc_vi_id"
-    t.integer  "trinh_do_chuyen_mon_id"
-    t.string   "tieng_anh"
-    t.string   "tin_hoc"
-    t.string   "trinh_do_hoc_van"
-    t.string   "trinh_do_ll_ct"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
-  end
 
   create_table "casein_users", :force => true do |t|
     t.string   "login",                              :null => false
@@ -108,6 +95,14 @@ ActiveRecord::Schema.define(:version => 20130309031120) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "ngoai_ngus", :force => true do |t|
+    t.integer  "trinh_do_id"
+    t.string   "ten_ngoai_ngu"
+    t.integer  "can_bo_trinh_do_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "params", :force => true do |t|
     t.string   "param_name"
     t.string   "param_value"
@@ -142,6 +137,13 @@ ActiveRecord::Schema.define(:version => 20130309031120) do
     t.string   "ghi_chu"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "trinh_dos", :force => true do |t|
+    t.string   "ten_trinh_do"
+    t.string   "mo_ta"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end

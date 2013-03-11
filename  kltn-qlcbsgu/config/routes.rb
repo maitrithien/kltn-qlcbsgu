@@ -2,9 +2,12 @@ QLTtCbvcSgu::Application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :can_bo_trinh_dos
+		resources :tin_hocs
+		resources :ngoai_ngus
+		resources :trinh_dos
 		resources :quyet_dinhs
 		resources :loai_quyet_dinhs
-		resources :can_bo_trinh_dos
 		resources :trinh_do_chuyen_mons
 		resources :hoc_hams
 		resources :hoc_vis
