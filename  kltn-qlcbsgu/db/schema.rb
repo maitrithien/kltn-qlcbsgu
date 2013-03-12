@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311025826) do
+ActiveRecord::Schema.define(:version => 20130312183056) do
 
   create_table "can_bo_li_lich_cts", :force => true do |t|
     t.integer  "can_bo_thong_tin_id"
@@ -52,6 +52,22 @@ ActiveRecord::Schema.define(:version => 20130311025826) do
 
   add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
 
+  create_table "can_bo_trinh_dos", :force => true do |t|
+    t.string   "trinh_do_gd_pho_thong"
+    t.integer  "trinh_do_chuyen_mon_id"
+    t.integer  "chuyen_nganh_id"
+    t.integer  "ly_luan_chinh_tri_id"
+    t.integer  "quan_ly_nha_nuoc_id"
+    t.integer  "ngoai_ngu_id"
+    t.string   "trinh_do_ngoai_ngu"
+    t.string   "trinh_do_tin_hoc"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "can_bo_thong_tin_id"
+    t.integer  "hoc_ham_id"
+    t.integer  "hoc_vi_id"
+  end
+
   create_table "casein_users", :force => true do |t|
     t.string   "login",                              :null => false
     t.string   "name"
@@ -72,6 +88,13 @@ ActiveRecord::Schema.define(:version => 20130311025826) do
     t.string   "time_zone"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
+  end
+
+  create_table "chuyen_nganhs", :force => true do |t|
+    t.string   "ten_chuyen_nganh"
+    t.string   "ghi_chu"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "hoc_hams", :force => true do |t|
@@ -95,12 +118,18 @@ ActiveRecord::Schema.define(:version => 20130311025826) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "ly_luan_chinh_tris", :force => true do |t|
+    t.string   "trinh_do"
+    t.string   "ghi_chu"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "ngoai_ngus", :force => true do |t|
-    t.integer  "trinh_do_id"
     t.string   "ten_ngoai_ngu"
-    t.integer  "can_bo_trinh_do_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.string   "ghi_chu"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "params", :force => true do |t|
@@ -110,6 +139,13 @@ ActiveRecord::Schema.define(:version => 20130311025826) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "quan_ly_nha_nuocs", :force => true do |t|
+    t.string   "trinh_do"
+    t.string   "ghi_chu"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "quyet_dinhs", :force => true do |t|
@@ -133,17 +169,10 @@ ActiveRecord::Schema.define(:version => 20130311025826) do
   end
 
   create_table "trinh_do_chuyen_mons", :force => true do |t|
-    t.string   "ten_trinh_do_cm"
+    t.string   "trinh_do"
     t.string   "ghi_chu"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "trinh_dos", :force => true do |t|
-    t.string   "ten_trinh_do"
-    t.string   "mo_ta"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
