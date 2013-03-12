@@ -214,7 +214,7 @@ def advance_search
          @can_bo_thong_tin.attributes.each do |attr_name, attr_value|
              if attr_value.to_s.length>0 && attr_name !='gioi_tinh' && attr_name !='ngay_sinh' && attr_name !='is_deleted'
                 options = options.merge(attr_name =>attr_value)
-            end
+             end
          end
 
         # set sql excute query is_deleted = false (only get employee not deleted)
