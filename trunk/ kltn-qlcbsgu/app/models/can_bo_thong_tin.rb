@@ -14,6 +14,7 @@ class CanBoThongTin < ActiveRecord::Base
   #relationship
   has_many :can_bo_li_lich_cts
   has_many :than_nhans
+  has_many :can_bo_trinh_dos
 
   def self.search(search_value)
     ngay_sinh = Date.parse(search_value) rescue nil
