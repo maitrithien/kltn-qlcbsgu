@@ -59,6 +59,17 @@ module Casein
     def show
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_show_page_title")
       @can_bo_thong_tin = CanBoThongTin.find params[:id]
+      than_nhans = ThanNhan.find_all_by_can_bo_thong_tin_id params[:id]
+      @than_nhans = []
+      if than_nhans
+        @than_nhans = than_nhans
+      end
+
+      trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id params[:id]
+      @can_bo_trinh_do = nil
+      if trinh_do
+        @can_bo_trinh_do = trinh_do
+      end
     end
  
     def new

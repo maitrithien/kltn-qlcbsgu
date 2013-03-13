@@ -53,6 +53,7 @@
 	padding: 0 0 5px 0;
 	margin: 0 0 15px 0;
 	position: relative;
+    text-transform: uppercase;
 }
 
 #content h2 img, #preview h2 img {

@@ -61,3 +61,19 @@ tr, td
     color: black; }
 .pagination a:hover, .pagination a:focus {
     text-decoration: underline; }
+
+.center p
+{
+    font-size: x-small;
+    text-align: center;
+    line-height: 15px;
+}
+.center th
+{
+    border: none;
+    background: #cccccc;
+    text-align: center;
+    text-wrap: none;
+    max-width: 300px;
+    padding: 0;
+}
