@@ -1,0 +1,21 @@
+
+<table cellpadding="0" cellspacing="0" id="itemList" class="itemList center">
+  <tr>
+    <th><p>Mối Quan hệ</p></th>
+    <th><p>Họ và tên</p></th>
+    <th><p>Năm sinh</p></th>
+    <th><p>Quê quán, nghề nghiệp, chức danh, chức vụ, đơn vị công tác, học tập, nơi ở(trong, ngoài nước); thành viên tổ chức chính trị - xã hội...</p></th>
+  </tr>
+
+  <% than_nhans.each_with_index do |than_nhan, index| %>
+
+      <tr class="hover">
+        <td><%= casein_table_cell_link than_nhan.quan_he_voi_cb, casein_than_nhan_path(than_nhan) %></td>
+        <td><%= casein_table_cell_link than_nhan.ho_ten, casein_than_nhan_path(than_nhan) %></td>
+        <td><%= casein_table_cell_link than_nhan.nam_sinh, casein_than_nhan_path(than_nhan) %></td>
+        <td><%= casein_table_cell_link than_nhan.nghe_nghiep, casein_than_nhan_path(than_nhan) %></td>
+      </tr>
+
+  <% end %>
+</table>
+<p></p>

@@ -1,0 +1,42 @@
+  <tr>
+    <td><b>Trình độ giáo dục phổ thông:</b></td>
+    <td><%= can_bo_trinh_do.trinh_do_gd_pho_thong %></td>
+  </tr>
+  <tr>
+    <td><b>Trình độ chuyên môn cao nhất:</b>&nbsp;</td>
+    <td><%= can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do %>
+    <% if can_bo_trinh_do.chuyen_nganh_id %>
+      <%= can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh %>
+    <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Lý luận chính trị:</b></td>
+    <td>
+      <% if can_bo_trinh_do.ly_luan_chinh_tri_id %>
+      <%= can_bo_trinh_do.ly_luan_chinh_tri.trinh_do %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Quản lý nhà nước:</b></td>
+    <td>
+      <% if can_bo_trinh_do.quan_ly_nha_nuoc_id %>
+          <%= can_bo_trinh_do.quan_ly_nha_nuoc.trinh_do %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Ngoại ngữ:</b></td>
+    <td>
+      <% if can_bo_trinh_do.ngoai_ngu_id %>
+          <%= can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu %> <%= can_bo_trinh_do.trinh_do_ngoai_ngu %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Tin học:</b></td>
+    <td>
+      Trình độ <%= can_bo_trinh_do.trinh_do_tin_hoc %>
+    </td>
+  </tr>
