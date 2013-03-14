@@ -70,6 +70,113 @@ module Casein
       if trinh_do
         @can_bo_trinh_do = trinh_do
       end
+      respond_to do |format|
+        format.html
+        format.xls{
+          book = Spreadsheet::Workbook.new
+          none_format = Spreadsheet::Format.new
+          sheet = book.create_worksheet :name => "So yeu ly lich"
+          sheet.row(0)[1] = "#{Param.get_param_value("so_yeu_ly_lich")}"
+
+          i = 2
+          #write can_bo_thong_tin info
+          @can_bo_thong_tin.attributes.each do |attr_name, attr_value|
+
+            #format gioi_tinh to text value
+            if attr_name == 'gioi_tinh'
+              if attr_value
+                attr_value = "Nam"
+              else
+                attr_value = "Nu"
+              end
+            end
+
+            if attr_name != 'is_deleted' && attr_name != 'tep_tin_dinh_kem' && attr_name != 'id' && attr_name != 'hinh_anh' && attr_name != 'created_at' && attr_name != 'updated_at'
+              i = i + 1
+              sheet.row(i)[1] = "#{Param.get_param_value"#{attr_name}"}"
+              sheet.row(i)[2] = attr_value
+            end
+
+          end  #end can_bo_thong_tin loop function
+          i = i + 1
+          #write can_bo_thong_tin info
+          sheet.row(i)[1] = Param.get_param_value("trinh_do_pho_thong")
+          sheet.row(i)[2] = @can_bo_trinh_do.trinh_do_gd_pho_thong
+          i = i + 1
+          if  @can_bo_trinh_do.hoc_ham_id
+            sheet.row(i)[1] = Param.get_param_value("hoc_ham")
+            sheet.row(i)[2] = @can_bo_trinh_do.hoc_ham.ten_hoc_ham
+            i = i + 1
+          end
+
+          if  @can_bo_trinh_do.hoc_vi_id
+            sheet.row(i)[1] = Param.get_param_value("hoc_vi")
+            sheet.row(i)[2] = @can_bo_trinh_do.hoc_vi.ten_hoc_vi
+            i = i + 1
+          end
+
+          if  @can_bo_trinh_do.chuyen_nganh_id
+            sheet.row(i)[1] = Param.get_param_value("trinh_do_chuyen_mon")
+            sheet.row(i)[2] = "#{@can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do} #{@can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh}"
+            i = i + 1
+          end
+
+          if  @can_bo_trinh_do.ly_luan_chinh_tri_id
+            sheet.row(i)[1] = Param.get_param_value("ly_luan_chinh_tri")
+            sheet.row(i)[2] = @can_bo_trinh_do.ly_luan_chinh_tri.trinh_do
+            i = i + 1
+          end
+
+          if  @can_bo_trinh_do.quan_ly_nha_nuoc_id
+            sheet.row(i)[1] = Param.get_param_value("quan_ly_nha_nuoc")
+            sheet.row(i)[2] = @can_bo_trinh_do.quan_ly_nha_nuoc.trinh_do
+            i = i + 1
+          end
+
+          if  @can_bo_trinh_do.ngoai_ngu_id
+            sheet.row(i)[1] = Param.get_param_value("ngoai_ngu")
+            sheet.row(i)[2] = "#{@can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu} #{@can_bo_trinh_do.trinh_do_ngoai_ngu}"
+            i = i + 1
+          end
+
+          if  @can_bo_trinh_do.trinh_do_tin_hoc
+            sheet.row(i)[1] = Param.get_param_value("tin_hoc")
+            sheet.row(i)[2] = "#{@can_bo_trinh_do.trinh_do_tin_hoc}"
+            i = i + 1
+          end
+
+
+
+          #format display layout
+          sheet.merge_cells(0, 1, 1, 2)
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :size => 16, :align => :center, :vertical_align => :center, :horizontal_align => :center
+          sheet.row(0).default_format = header_format
+          sheet.column(1).default_format = Spreadsheet::Format.new :weight => :bold, :align => :left, :text_wrap => true, :vertical_align => :center
+          sheet.column(1).width = 20
+          sheet.column(2).default_format = Spreadsheet::Format.new :align => :left, :vertical_align => :center
+          sheet.column(2).width = 50
+
+          sheet_second = book.create_worksheet :name => "Than nhan"
+          #write than_nhan info
+          i = 0
+          if @than_nhans.count > 0
+            @than_nhans.each do |than_nhan|
+              i = i + 1
+              sheet_second.row(i).push than_nhan.quan_he_voi_cb, than_nhan.ho_ten, than_nhan.nam_sinh, than_nhan.nghe_nghiep
+              sheet_second.row(i).set_format(i, none_format)
+            end
+          end
+
+
+
+          #output to blob object
+          blob = StringIO.new("")
+          book.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "so_yeu_ly_lich.xls"
+        }
+      end
+
     end
  
     def new
