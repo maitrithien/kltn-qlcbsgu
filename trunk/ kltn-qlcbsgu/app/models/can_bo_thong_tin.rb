@@ -15,6 +15,9 @@ class CanBoThongTin < ActiveRecord::Base
   has_many :can_bo_li_lich_cts
   has_many :than_nhans
   has_many :can_bo_trinh_dos
+  has_many :lich_su_bac_luongs
+  has_many :can_bo_cong_tacs
+  has_many :qua_trinh_cong_tacs
 
   def self.search(search_value)
     ngay_sinh = Date.parse(search_value) rescue nil
