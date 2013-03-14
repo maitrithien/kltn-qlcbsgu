@@ -15,6 +15,6 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới Cán Bộ-Công Tác".html_safe, new_casein_can_bo_cong_tac_path %></li>
-    <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_can_bo_cong_tacs_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới Cán Bộ-Công Tác từ file excel".html_safe, import_from_excel_casein_can_bo_cong_tacs_path %></li>
+    <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_can_bo_cong_tacs_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
 <% end %>
