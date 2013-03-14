@@ -11,6 +11,22 @@
     </td>
   </tr>
   <tr>
+    <td><b>Học hàm:</b>&nbsp;</td>
+    <td>
+      <% if can_bo_trinh_do.hoc_ham_id %>
+          <%= can_bo_trinh_do.hoc_ham.ten_hoc_ham %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td><b>Học vị:</b>&nbsp;</td>
+    <td>
+      <% if can_bo_trinh_do.hoc_vi_id %>
+          <%= can_bo_trinh_do.hoc_vi.ten_hoc_vi %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
     <td><b>Lý luận chính trị:</b></td>
     <td>
       <% if can_bo_trinh_do.ly_luan_chinh_tri_id %>
