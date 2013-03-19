@@ -14,7 +14,7 @@
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
 			<td><%= casein_table_cell_link "#{than_nhan.can_bo_thong_tin.ma_cb} - #{than_nhan.can_bo_thong_tin.ho_ten}", casein_than_nhan_path(than_nhan) %></td>
             <td><%= casein_table_cell_link than_nhan.ho_ten, casein_than_nhan_path(than_nhan) %></td>
-			<td><%= casein_table_cell_link than_nhan.quan_he_voi_cb, casein_than_nhan_path(than_nhan) %></td>
+			<td><%= casein_table_cell_link than_nhan.quan_he_gia_dinh.ten_quan_he, casein_than_nhan_path(than_nhan) %></td>
 			<td><%= casein_table_cell_link than_nhan.nam_sinh, casein_than_nhan_path(than_nhan) %></td>
 			<td><%= casein_table_cell_link truncate(than_nhan.nghe_nghiep, :length => 30), casein_than_nhan_path(than_nhan) %></td>
 			<td class="delete">

@@ -9,7 +9,7 @@
 </div>
 
 <div class="tfContainer">
-	<%= casein_select f, f.object, :quan_he_voi_cb, ThanNhan.select_quan_he, {:casein_label => "Quan hệ với cán bộ"} %>
+	<%= casein_select f, f.object, :quan_he_gia_dinh_id, QuanHeGiaDinh.all.collect{|o| ["#{o.ten_quan_he}", o.id]}, {:casein_label => "Quan hệ với cán bộ"} %>
 </div>
 
 <div class="tfContainer tfContainerSecond">

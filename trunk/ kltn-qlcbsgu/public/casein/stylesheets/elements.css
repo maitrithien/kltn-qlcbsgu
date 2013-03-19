@@ -359,3 +359,32 @@
     float: left;
 
 }
+input, select
+{
+font-family: Georgia,"Times New Roman",Times,serif;
+font-style: italic;
+border: 1px solid rgb(221, 221, 221);
+background-color: rgb(249, 249, 249);
+}
+.tooltips {
+    display: none;
+    position: absolute;
+    max-width: 250px;
+    padding: 4px 8px;
+    border-width: 1px 3px 3px 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204);
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    background: none repeat scroll 0% 0% rgb(255, 255,  225);
+    z-index: 100;
+    font-family: tahoma,sans-serif;
+    font-size: 13px;
+    color: rgb(102, 102, 102);
+    font-weight: normal;
+    text-align: left;
+    line-height: 18px;
+}
