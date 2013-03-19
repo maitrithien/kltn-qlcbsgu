@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314093753) do
+ActiveRecord::Schema.define(:version => 20130319035304) do
 
   create_table "bac_luongs", :force => true do |t|
     t.integer  "ngach_id"
@@ -207,6 +207,13 @@ ActiveRecord::Schema.define(:version => 20130314093753) do
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "quan_he_gia_dinhs", :force => true do |t|
+    t.string   "ten_quan_he"
+    t.string   "ghi_chi"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "quan_ly_nha_nuocs", :force => true do |t|
     t.string   "trinh_do"
     t.string   "ghi_chu"
@@ -226,12 +233,12 @@ ActiveRecord::Schema.define(:version => 20130314093753) do
 
   create_table "than_nhans", :force => true do |t|
     t.integer  "can_bo_thong_tin_id"
-    t.string   "quan_he_voi_cb"
     t.integer  "nam_sinh"
     t.string   "nghe_nghiep"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.string   "ho_ten",              :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.string   "ho_ten",               :null => false
+    t.integer  "quan_he_gia_dinhs_id"
   end
 
   create_table "trinh_do_chuyen_mons", :force => true do |t|

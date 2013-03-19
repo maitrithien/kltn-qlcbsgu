@@ -162,7 +162,7 @@ module Casein
           if @than_nhans.count > 0
             @than_nhans.each do |than_nhan|
               i = i + 1
-              sheet_second.row(i).push than_nhan.quan_he_voi_cb, than_nhan.ho_ten, than_nhan.nam_sinh, than_nhan.nghe_nghiep
+              sheet_second.row(i).push than_nhan.quan_he_gia_dinh.ten_quan_he, than_nhan.ho_ten, than_nhan.nam_sinh, than_nhan.nghe_nghiep
               sheet_second.row(i).set_format(i, none_format)
             end
           end
@@ -261,7 +261,7 @@ module Casein
 
       columns = []
       if params[:custom]
-        columns = [params[:ma_cb].to_i, params[:ho_ten].to_i, params[:ten_goi_khac].to_i, params[:gioi_tinh].to_i, params[:ngay_sinh].to_i, params[:noi_sinh].to_i, params[:que_quan].to_i, params[:dan_toc].to_i, params[:ton_giao].to_i, params[:noi_dang_ky_ho_khau_thuong_tru].to_i, params[:noi_o_hien_nay].to_i, params[:so_BHXH].to_i, params[:so_cmnd].to_i, params[:ngay_cap_cmnd].to_i]
+        columns = [params[:ma_cb].to_i - 1, params[:ho_ten].to_i - 1, params[:ten_goi_khac].to_i - 1, params[:gioi_tinh].to_i - 1, params[:ngay_sinh].to_i - 1, params[:noi_sinh].to_i - 1, params[:que_quan].to_i - 1, params[:dan_toc].to_i - 1, params[:ton_giao].to_i - 1, params[:noi_dang_ky_ho_khau_thuong_tru].to_i - 1, params[:noi_o_hien_nay].to_i - 1, params[:so_BHXH].to_i - 1, params[:so_cmnd].to_i - 1, params[:ngay_cap_cmnd].to_i] - 1
       else
         columns = Array(0..13)
       end
