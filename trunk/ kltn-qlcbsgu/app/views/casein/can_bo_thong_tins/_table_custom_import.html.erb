@@ -1,0 +1,81 @@
+<table class="import_table">
+  <tr>
+    <th>Thuộc tính</th>
+    <th>Cột</th>
+    <th>Bỏ qua</th>
+  </tr>
+  <tr>
+    <td>Mã Cán bộ</td>
+    <td><%= select_tag :ma_cb, options_for_select(Array(1..20), 1)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Họ và tên</td>
+    <td><%= select_tag :ho_ten, options_for_select(Array(1..20), 2)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Tên gọi khác</td>
+    <td><%= select_tag :ten_goi_khac, options_for_select(Array(1..20), 3)%></td>
+    <td class="check"><input type="checkbox"  name="allow_null_ten_goi_khac" id="allow_null_ten_goi_khac" value="1" /></td>
+  </tr>
+  <tr>
+    <td>Giới tính</td>
+    <td><%= select_tag :gioi_tinh, options_for_select(Array(1..20), 4)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Ngày sinh</td>
+    <td><%= select_tag :ngay_sinh, options_for_select(Array(1..20), 5)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Nơi sinh</td>
+    <td><%= select_tag :noi_sinh, options_for_select(Array(1..20), 6)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Quê quán</td>
+    <td><%= select_tag :que_quan, options_for_select(Array(1..20), 7)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Dân tộc</td>
+    <td><%= select_tag :dan_toc, options_for_select(Array(1..20), 8)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Tôn giáo</td>
+    <td><%= select_tag :ton_giao, options_for_select(Array(1..20), 9)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Nơi ĐK hộ khẩu TT</td>
+    <td><%= select_tag :noi_dang_ky_ho_khau_thuong_tru, options_for_select(Array(1..20), 10)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Nơi ở hiện nay</td>
+    <td><%= select_tag :noi_o_hien_nay, options_for_select(Array(1..20), 11)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Số sổ BHXH</td>
+    <td><%= select_tag :so_BHXH, options_for_select(Array(1..20), 12)%></td>
+    <td class="check"><input type="checkbox"  name="allow_null_so_BHXH" id="allow_null_so_BHXH" value="1" /></td>
+  </tr>
+  <tr>
+    <td>Số CMND</td>
+    <td><%= select_tag :so_cmnd, options_for_select(Array(1..20), 13)%></td>
+    <td class="check">(<span>*</span>)</td>
+  </tr>
+  <tr>
+    <td>Ngày cấp CMND</td>
+    <td><%= select_tag :ngay_cap_cmnd, options_for_select(Array(1..20), 14)%></td>
+    <td class="check"><input type="checkbox"  name="allow_null_ngay_cap_cmnd" id="allow_null_ngay_cap_cmnd" value="1" /></td>
+  </tr>
+
+</table>
+<p style="font-style: italic;">
+  (<span style="color: #ff0000;">*</span>) không được để trống!
+</p>

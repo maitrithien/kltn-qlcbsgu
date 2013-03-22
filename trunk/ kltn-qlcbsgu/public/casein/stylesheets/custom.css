@@ -311,9 +311,11 @@ ul#css3menu{
 }
 ul#css3menu>li{
     margin:0 0 0 1px;
+    width: 160px;
 }
 ul#css3menu ul>li{
     margin:1px 0 0;
+    width: 140px;
 }
 ul#css3menu a:active, ul#css3menu a:focus{
     outline-style:none;
@@ -334,6 +336,7 @@ ul#css3menu a{
 }
 ul#css3menu ul li{
     float:none;
+
     margin:9px 0 0;
 }
 ul#css3menu ul a{
@@ -353,7 +356,7 @@ ul#css3menu ul a{
 ul#css3menu li:hover>a,ul#css3menu li a.pressed{
     background-color:#00c4ff;
     border-style:none;
-    color:#ffffff;
+    color: #FFFFFF;
     background-image:url("../images/mainbk.png");
     background-position:0 100px;
     text-decoration:none;
@@ -370,7 +373,7 @@ ul#css3menu ul li:hover>a,ul#css3menu ul li a.pressed{
     background-image:none;
     border-style:solid;
     border-color:#262626;
-    color:#1F80AE;
+    color: #00a0da;
     text-decoration:none;
 }
 ul#css3menu li.topfirst>a{
@@ -421,4 +424,86 @@ ul#css3menu ul.subitems2
 {
     margin-left: 200px;
     margin-top: -35px;
+}
+
+.update, input[type="submit"] {
+    background-color: rgb(63, 184, 252);
+    background-image: -moz-linear-gradient(center top , rgb(56, 173, 238), rgb(46, 117, 206));
+    background-repeat: repeat-x;
+	padding: 1px 10px;
+	border-width: 1px;
+    border-style: solid;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-radius: 26px 26px 26px 26px;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+.update, input[type="submit"], .update:hover {
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+    color: rgb(255, 255, 255);
+}
+.cancel {
+	text-decoration: none;
+    display: inline-block;
+    padding: 1px 10px;
+    margin-bottom: 0px;
+    font-size: 13px;
+    line-height: 18px;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    background-color: rgb(245, 245, 245);
+    background-image: -moz-linear-gradient(center top , rgb(255, 255, 255), rgb(230, 230, 230));
+    background-repeat: repeat-x;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(204, 204, 204) rgb(204, 204, 204) rgb(179, 179, 179);
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-radius: 26px 26px 26px 26px;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+    color: rgb(7, 132, 163);
+}
+
+.import_table
+{
+	border-collapse:collapse;
+    width: auto;
+}
+.import_table .check
+{
+    text-align: center;
+}
+.import_table .check span
+{
+    color: #ff0000;
+}
+.import_table th{
+	border: 1px solid rgb(152, 191, 33);
+	text-align: left;
+    padding: 5px 10px 4px 5px;
+	background-color: rgb(167, 201, 66);
+	color: rgb(255, 255, 255);
+}
+
+.import_table td
+{
+    padding: 5px;
+    border: 1px solid #00c4ff;
+
+}
+.import_table select
+{
+    width: 100%;
 }
