@@ -9,12 +9,13 @@ module Casein
   
     def index
       @casein_page_title = 'Bac luongs'
-  		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> :ngach_id
+  		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> :ngach_id , :per_page => 8
     end
   
     def show
       @casein_page_title = 'View bac luong'
       @bac_luong = BacLuong.find params[:id]
+
     end
  
     def new
@@ -28,13 +29,19 @@ module Casein
       if params['vuot_khung'].to_s =="1"
         @bac_luong.vuot_khung = true
       end
-      if @bac_luong.save
-        flash[:notice] = Param.get_param_value("adding_success")
-        redirect_to casein_bac_luongs_path
-      else
-        flash.now[:warning] = Param.get_param_value("adding_false")
+      if BacLuong.check_exists @bac_luong.ngach_id, @bac_luong.bac
+        flash.now[:warning] = "#{@bac_luong.ngach.ten_ngach} - B.#{@bac_luong.bac} #{Param.get_param_value "has_already_been_taken"}"
         render :action => :new
+      else
+        if @bac_luong.save
+          flash[:notice] = Param.get_param_value("adding_success")
+          redirect_to casein_bac_luongs_path
+        else
+          flash.now[:warning] = Param.get_param_value("adding_false")
+          render :action => :new
+        end
       end
+
     end
   
     def update

@@ -12,7 +12,7 @@
 			<td><%= casein_table_cell_link loai_quyet_dinh.ten_loai_qd, casein_loai_quyet_dinh_path(loai_quyet_dinh) %></td>
 			<td><%= casein_table_cell_link truncate(loai_quyet_dinh.ghi_chu, :length => 100), casein_loai_quyet_dinh_path(loai_quyet_dinh) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_loai_quyet_dinh_path(loai_quyet_dinh), :method => :delete, :confirm => Param.get_param_value("are_you_sure_delete")) %>
+				<%= link_to(casein_show_row_icon("delete"), casein_loai_quyet_dinh_path(loai_quyet_dinh), :method => :delete, :confirm => "Bạn có chắc muốn xóa loại quyết định này?") %>
 			</td>
 		</tr>
 	<% end %>

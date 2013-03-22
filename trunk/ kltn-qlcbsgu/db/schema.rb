@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319035304) do
+ActiveRecord::Schema.define(:version => 20130322055205) do
 
   create_table "bac_luongs", :force => true do |t|
     t.integer  "ngach_id"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20130319035304) do
     t.boolean  "is_deleted",                                    :default => false, :null => false
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
+    t.integer  "bac_luong_id"
   end
 
   add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
@@ -209,7 +210,7 @@ ActiveRecord::Schema.define(:version => 20130319035304) do
 
   create_table "quan_he_gia_dinhs", :force => true do |t|
     t.string   "ten_quan_he"
-    t.string   "ghi_chi"
+    t.string   "ghi_chu"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -235,10 +236,10 @@ ActiveRecord::Schema.define(:version => 20130319035304) do
     t.integer  "can_bo_thong_tin_id"
     t.integer  "nam_sinh"
     t.string   "nghe_nghiep"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-    t.string   "ho_ten",               :null => false
-    t.integer  "quan_he_gia_dinhs_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "ho_ten",              :null => false
+    t.integer  "quan_he_gia_dinh_id"
   end
 
   create_table "trinh_do_chuyen_mons", :force => true do |t|

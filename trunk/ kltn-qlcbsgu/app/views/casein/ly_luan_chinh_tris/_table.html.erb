@@ -12,7 +12,7 @@
 			<td><%= casein_table_cell_link truncate(ly_luan_chinh_tri.trinh_do, :length => 50), casein_ly_luan_chinh_tri_path(ly_luan_chinh_tri) %></td>
 			<td><%= casein_table_cell_link truncate(ly_luan_chinh_tri.ghi_chu, :length => 100), casein_ly_luan_chinh_tri_path(ly_luan_chinh_tri) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_ly_luan_chinh_tri_path(ly_luan_chinh_tri), :method => :delete, :confirm => "#{Param.get_param_value("are_you_sure_delete")} trình độ #{ly_luan_chinh_tri.trinh_do}?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_ly_luan_chinh_tri_path(ly_luan_chinh_tri), :method => :delete, :confirm => "Bạn có chắc muốn xóa trình độ lý luận #{ly_luan_chinh_tri.trinh_do}?") %>
 			</td>
 		</tr>
 	<% end %>

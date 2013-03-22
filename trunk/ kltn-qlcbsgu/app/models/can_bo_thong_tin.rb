@@ -1,5 +1,5 @@
 class CanBoThongTin < ActiveRecord::Base
-  attr_accessible :ma_cb, :hinh_anh, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted
+  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted
   attr_accessor :search_by_gioi_tinh
 
   #check unique of attributes
@@ -18,6 +18,7 @@ class CanBoThongTin < ActiveRecord::Base
   has_many :lich_su_bac_luongs
   has_many :can_bo_cong_tacs
   has_many :qua_trinh_cong_tacs
+  belongs_to :bac_luong
 
   def self.search(search_value)
     ngay_sinh = Date.parse(search_value) rescue nil

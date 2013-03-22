@@ -18,7 +18,7 @@
 			<td><%= casein_table_cell_link than_nhan.nam_sinh, casein_than_nhan_path(than_nhan) %></td>
 			<td><%= casein_table_cell_link truncate(than_nhan.nghe_nghiep, :length => 30), casein_than_nhan_path(than_nhan) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_than_nhan_path(than_nhan), :method => :delete, :confirm => "#{Param.get_param_value("are_you_sure_delete")} thân nhân #{than_nhan.ho_ten}") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_than_nhan_path(than_nhan), :method => :delete, :confirm => "Bạn có chắc muốn xóa thân nhân #{than_nhan.ho_ten}") %>
 			</td>
 		</tr>
 	<% end %>

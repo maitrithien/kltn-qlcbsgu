@@ -2,11 +2,12 @@
 
 
 <div class="tfContainer">
-    <%= casein_select f, f.object, :ngach_id, Ngach.all.collect {|p| [ "#{p.ma_ngach} - #{p.ten_ngach}", p.id ] }, {:include_blank => '------Ngạch----', :casein_label => "Ngạch"} %>
+      <%= casein_select f, f.object, :ngach_id, Ngach.all.collect {|p| [ "#{p.ma_ngach} - #{p.ten_ngach}", p.id ] }, {:include_blank => '------Ngạch----', :disabled => true, :casein_label => "Ngạch"} %>
+
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_text_field f, f.object, :bac , :casein_label => "Bậc Lương"%>
+	<%= casein_select f, f.object, :bac, options_for_select(Array(1..8), 1) , :casein_label => "Bậc Lương"%>
 </div>
 
 <div class="tfContainer">

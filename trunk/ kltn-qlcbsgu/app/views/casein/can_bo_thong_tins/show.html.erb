@@ -71,6 +71,9 @@
 	<td><b>Số sổ BHXH:</b></td>
 	<td><%= @can_bo_thong_tin.so_BHXH %></td>
 </tr>
+
+<%= render :partial =>  'casein/can_bo_thong_tins/table_ngach_bac', :locals => {:can_bo_thong_tin => @can_bo_thong_tin} %>
+
 <% if @can_bo_trinh_do != nil   %>
       <%= render :partial => 'casein/can_bo_thong_tins/table_can_bo_trinh_do', :locals => { :can_bo_trinh_do => @can_bo_trinh_do } %>
       <% else %>

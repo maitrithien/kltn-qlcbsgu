@@ -12,7 +12,7 @@
 			<td><%= casein_table_cell_link truncate(quan_ly_nha_nuoc.trinh_do, :length => 50), casein_quan_ly_nha_nuoc_path(quan_ly_nha_nuoc) %></td>
 			<td><%= casein_table_cell_link truncate(quan_ly_nha_nuoc.ghi_chu, :length => 100), casein_quan_ly_nha_nuoc_path(quan_ly_nha_nuoc) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_quan_ly_nha_nuoc_path(quan_ly_nha_nuoc), :method => :delete, :confirm => "#{Param.get_param_value("are_you_sure_delete")} trình độ #{quan_ly_nha_nuoc.trinh_do}?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_quan_ly_nha_nuoc_path(quan_ly_nha_nuoc), :method => :delete, :confirm => "Bạn có chắc muốn xóa trình độ #{quan_ly_nha_nuoc.trinh_do}?") %>
 			</td>
 		</tr>
 	<% end %>

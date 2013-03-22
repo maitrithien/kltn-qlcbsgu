@@ -70,7 +70,7 @@
           </td>
 
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_trinh_do_path(can_bo_trinh_do), :method => :delete, :confirm => "Are you sure you want to delete this can bo trinh do?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_trinh_do_path(can_bo_trinh_do), :method => :delete, :confirm =>  "Bạn có chắc muốn xóa thông tin trình độ cán bộ #{can_bo_trinh_do.can_bo_thong_tin.ma_cb}?") %>
 			</td>
 		</tr>
 	<% end %>

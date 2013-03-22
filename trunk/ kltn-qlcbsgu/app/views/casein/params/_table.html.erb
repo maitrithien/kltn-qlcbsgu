@@ -16,7 +16,7 @@
 			<td><%= casein_table_cell_link truncate(param.options, :length => 30 ), casein_param_path(param) %></td>
 			<td><%= casein_table_cell_link truncate(param.description, :length => 30 ), casein_param_path(param) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_param_path(param), :method => :delete, :confirm => "Are you sure you want to delete this param?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_param_path(param), :method => :delete, :confirm => "Bạn có chắc muốn xóa tham số #{param.param_name}?") %>
 			</td>
 		</tr>
 	<% end %>

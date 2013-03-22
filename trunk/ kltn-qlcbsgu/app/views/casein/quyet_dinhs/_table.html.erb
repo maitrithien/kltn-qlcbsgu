@@ -23,7 +23,7 @@
               <% end %>
             </td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_quyet_dinh_path(quyet_dinh), :method => :delete, :confirm => "#{Param.get_param_value("are_you_sure_delete") + " #{quyet_dinh.so_qd}"}") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_quyet_dinh_path(quyet_dinh), :method => :delete, :confirm => "Bạn có chắc muốn xóa quyết định #{quyet_dinh.so_qd}") %>
 			</td>
 		</tr>
 	<% end %>
