@@ -11,7 +11,7 @@
 </div>
 
 <div class="tfContainer">
-	<%= casein_text_field f, f.object, :nien_han, :casein_label => "Niên Hạn" %>
+	<%= casein_select f, f.object, :nien_han, options_for_select(Array(1..5), 2), :casein_label => "Niên Hạn" %>
 </div>
 
 <div class="tfContainer tfContainerSecond">

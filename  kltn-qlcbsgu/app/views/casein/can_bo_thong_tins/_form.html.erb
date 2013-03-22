@@ -18,7 +18,8 @@
 </div>
 
 <div class="tfContainer">
-	<%= casein_file_field f, f.object, :can_bo_thong_tin, :hinh_anh, :casein_label => "Hình ảnh" %>
+  <%= casein_select f, f.object, :bac_luong_id, BacLuong.all.collect{|o| ["Ngạch #{o.ngach.ten_ngach} - Bậc #{o.bac}", o.id]}, :casein_label => "Ngạch - Bậc" %>
+
 </div>
 
 <div class="tfContainer tfContainerSecond">
@@ -60,10 +61,19 @@
 <div class="tfContainer">
 	<%= casein_text_field f, f.object, :noi_o_hien_nay, :casein_label => "Nơi ở hiện nay" %>
 </div>
+<div class="tfContainer tfContainerSecond"></div>
 
-<div class="tfContainer tfContainerSecond">
-	<%= casein_file_field f, f.object, :can_bo_thong_tin, :tep_tin_dinh_kem, :casein_label => "Tệp tin đính kèm" %>
+<div class="tfContainer">
+  <%= casein_file_field f, f.object, :can_bo_thong_tin, :hinh_anh, :casein_label => "Hình ảnh" %>
 </div>
 
-<div class="tfContainer tfContainerSecond"></div>
+<div class="tfContainer tfContainerSecond">
+  <%= casein_file_field f, f.object, :can_bo_thong_tin, :tep_tin_dinh_kem, :casein_label => "Tệp tin đính kèm" %>
+</div>
+
+
+
+
+
+
 <div class="clearer"></div>

@@ -12,7 +12,7 @@
 			<td><%= casein_table_cell_link hoc_ham.ten_hoc_ham, casein_hoc_ham_path(hoc_ham) %></td>
 			<td><%= casein_table_cell_link truncate(hoc_ham.ghi_chu, :length => 100), casein_hoc_ham_path(hoc_ham) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_hoc_ham_path(hoc_ham), :method => :delete, :confirm => "Are you sure you want to delete this hoc ham?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_hoc_ham_path(hoc_ham), :method => :delete, :confirm => "Bạn có chắc muốn xóa học hàm #{hoc_ham.ten_hoc_ham}") %>
 			</td>
 		</tr>
 	<% end %>

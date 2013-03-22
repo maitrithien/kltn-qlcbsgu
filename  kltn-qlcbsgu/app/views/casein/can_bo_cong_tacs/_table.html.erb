@@ -22,7 +22,7 @@
 			<td><%= casein_table_cell_link can_bo_cong_tac.ngay_bat_dau_lam_viec.strftime("%d/%m/%Y"), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_cong_tac_path(can_bo_cong_tac), :method => :delete, :confirm => "Are you sure you want to delete this can bo cong tac?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_cong_tac_path(can_bo_cong_tac), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử công tác này?") %>
 			</td>
 		</tr>
 	<% end %>

@@ -2,10 +2,10 @@
 
 <table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
 	<tr>
-		<th>Ma ngach</th>
-		<th>Ten ngach</th>
-		<th>Nien han</th>
-		<th>Ghi chu</th>
+		<th>Mã ngạch</th>
+		<th>Tên ngạch</th>
+		<th>Niên hạn</th>
+		<th>Ghi chú</th>
 		<th>&nbsp;</th>
 	</tr>
 	
@@ -16,7 +16,7 @@
 			<td><%= casein_table_cell_link ngach.nien_han, casein_ngach_path(ngach) %></td>
 			<td><%= casein_table_cell_link ngach.ghi_chu, casein_ngach_path(ngach) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_ngach_path(ngach), :method => :delete, :confirm => "Are you sure you want to delete this ngach?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_ngach_path(ngach), :method => :delete, :confirm => "Bạn có chắc muốn xóa ngạch #{ngach.ma_ngach}?") %>
 			</td>
 		</tr>
 	<% end %>

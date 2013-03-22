@@ -14,7 +14,7 @@
 			<td><%= casein_table_cell_link chuc_vu.he_so_phu_cap, casein_chuc_vu_path(chuc_vu) %></td>
 			<td><%= casein_table_cell_link chuc_vu.ghi_chu, casein_chuc_vu_path(chuc_vu) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_chuc_vu_path(chuc_vu), :method => :delete, :confirm => "Are you sure you want to delete this chuc vu?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_chuc_vu_path(chuc_vu), :method => :delete, :confirm => "Bạn có chắc muốn xóa chức vụ #{chuc_vu.ten_chuc_vu}?") %>
 			</td>
 		</tr>
 	<% end %>

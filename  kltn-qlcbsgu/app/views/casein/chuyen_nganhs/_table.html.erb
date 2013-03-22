@@ -12,7 +12,7 @@
 			<td><%= casein_table_cell_link truncate(chuyen_nganh.ten_chuyen_nganh, :length => 50), casein_chuyen_nganh_path(chuyen_nganh) %></td>
 			<td><%= casein_table_cell_link truncate(chuyen_nganh.ghi_chu, :length => 100), casein_chuyen_nganh_path(chuyen_nganh) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_chuyen_nganh_path(chuyen_nganh), :method => :delete, :confirm => "#{Param.get_param_value("are_you_sure_delete")} #{chuyen_nganh.ten_chuyen_nganh}?") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_chuyen_nganh_path(chuyen_nganh), :method => :delete, :confirm => "Bạn có chắc muốn xóa chuyên ngành #{chuyen_nganh.ten_chuyen_nganh}?") %>
 			</td>
 		</tr>
 	<% end %>

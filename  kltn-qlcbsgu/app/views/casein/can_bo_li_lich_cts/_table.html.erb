@@ -24,7 +24,7 @@
 			<td><%= casein_table_cell_link can_bo_li_lich_ct.thuong_binh_hang, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link truncate(can_bo_li_lich_ct.con_gia_dinh_chinh_sach, :length => 30), casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct), :method => :delete, :confirm => "#{Param.get_param_value("are_you_sure_delete")}") %>
+				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct), :method => :delete, :confirm => "Bạn có chắc muốn xóa lí lịch cán bộ này?") %>
 			</td>
 		</tr>
 	<% end %>
