@@ -291,12 +291,21 @@ module Casein
         p.so_BHXH = row[columns[11]].to_s
         p.so_cmnd = row[columns[12]].to_s
         p.ngay_cap_cmnd = row[columns[13]].to_date
+        if params["allow_null_ten_goi_khac"].to_s !="1"
+          p.ten_goi_khac = ""
+        end
+        if params["allow_null_so_BHXH"].to_s !="1"
+          p.so_BHXH = ""
+        end
+        if params["allow_null_ngay_cap_cmnd"].to_s !="1"
+          p.ngay_cap_cmnd = Time.now
+        end
 
         if p.valid?
           @commit += 1
           p.save
         else
-          @errors["#{@counter + 1}"] = p.errors
+          @errors["#{@counter + 1}"] = "#{p.ma_cb} - #{p.ho_ten}"
           @wrong += 1
         end
       end

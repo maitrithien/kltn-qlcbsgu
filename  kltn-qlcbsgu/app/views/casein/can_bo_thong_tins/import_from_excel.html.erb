@@ -1,16 +1,5 @@
-<h1 xmlns="http://www.w3.org/1999/html">Nhập dữ liệu từ tập tin excel</h1>
+<h1>Nhập dữ liệu từ tập tin excel</h1>
 
-<h2>Hướng dẫn</h2>
-<h4>Cấu trúc tập tin excel </h4>
-<p>Sử dụng mẫu excel sau để tải dữ liệu từ tập tin excel, nội dung tập tin excel phải có đầy đủ các cột như ảnh dưới.</p>
-<ul>Dòng 1: chứa tên các cột và bắt đầu từ cột A.</ul>
-<ul>Dòng 2 trở về sau: chứa nội dung cần lưu trữ xuống cơ sở dữ liệu.</ul>
-<ul>Các cột được đánh số từ 1 - 14 tương ứng với từ A - N</ul>
-
-<a href="/template/template_import_xls_cbtt.xls"><%= casein_show_icon("download") %>tải xuống tập tin excel mẫu</a>
-<p>
-   <%= image_tag "tempate_xls_cbtt.png", :title => "Cấu trúc tập tin excel Cán bộ - Thông tin", :size => "900x150" %>
-</p>
 
 <div id="import_form" style="display: block;">
   <p><%= button_tag "Tùy chọn với cột tương ứng trong tập tin excel", :onclick=>"toggleSwitchDiv('import_form', 'custom_column');" %></p>
@@ -35,37 +24,24 @@
         <%= file_field_tag 'excel_file' %>
       </p>
       <h2>Tùy chọn cột tương ứng</h2>
-      <table style="width: 100%;">
-        <tr>
-          <td><p>Mã CB - cột: <%= select_tag :ma_cb, options_for_select(Array(1..14), 1)%></p></td>
-          <td><p>Họ và Tên - cột: <%= select_tag :ho_ten, options_for_select(Array(1..14), 2)%></p></td>
-          <td><p>Tên gọi khác - cột: <%= select_tag :ten_goi_khac, options_for_select(Array(1..14), 3)%></p></td>
-          <td><p>Giới tính - cột: <%= select_tag :gioi_tinh, options_for_select(Array(1..14), 4)%></p></td>
-        </tr>
-        <tr>
-          <td><p>Ngày sinh - cột: <%= select_tag :ngay_sinh, options_for_select(Array(1..14), 5)%></p></td>
-          <td><p>Nơi sinh - cột: <%= select_tag :noi_sinh, options_for_select(Array(1..14), 6)%></p></td>
-          <td><p>Quê quán - cột: <%= select_tag :que_quan, options_for_select(Array(1..14), 7)%></p></td>
-          <td><p>Dân tộc - cột: <%= select_tag :dan_toc, options_for_select(Array(1..14), 8)%></p></td>
-        </tr>
-        <tr>
-          <td><p>Tôn giáo - cột: <%= select_tag :ton_giao, options_for_select(Array(1..14), 9)%></p></td>
-          <td><p>Nơi ĐK hộ khẩu TT - cột: <%= select_tag :noi_dang_ky_ho_khau_thuong_tru, options_for_select(Array(1..14), 10)%></p></td>
-          <td><p>Nơi ở hiện nay - cột: <%= select_tag :noi_o_hien_nay, options_for_select(Array(1..14), 11)%></p></td>
-          <td><p>Số BHXH - cột: <%= select_tag :so_BHXH, options_for_select(Array(1..14), 12)%></p></td>
-        </tr>
-        <tr>
-          <td><p>Số CMND - cột: <%= select_tag :so_cmnd, options_for_select(Array(1..14), 13)%></p></td>
-          <td><p>Ngày cấp CMND - cột: <%= select_tag :ngay_cap_cmnd, options_for_select(Array(1..14), 14)%></p></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
+      <%= render :partial => 'casein/can_bo_thong_tins/table_custom_import'%>
       <p>
         <%= submit_tag "Lưu dữ liệu", :disable_with => "Đang xử lý dữ liệu..." %>
       </p>
   <% end %>
 </div>
+<h2>Hướng dẫn</h2>
+<h4>Cấu trúc tập tin excel </h4>
+<p>Sử dụng mẫu excel sau để tải dữ liệu từ tập tin excel, nội dung tập tin excel phải có đầy đủ các cột như ảnh dưới.</p>
+<ul>Dòng 1: chứa tên các cột và bắt đầu từ cột A.</ul>
+<ul>Dòng 2 trở về sau: chứa nội dung cần lưu trữ xuống cơ sở dữ liệu.</ul>
+<ul>Các cột được đánh số từ 1 - 14 tương ứng với từ A - N</ul>
+
+<a href="/template/template_import_xls_cbtt.xls"><%= casein_show_icon("download") %>tải xuống tập tin excel mẫu</a>
+<p>
+   <%= image_tag "tempate_xls_cbtt.png", :title => "Cấu trúc tập tin excel Cán bộ - Thông tin", :size => "900x150" %>
+</p>
+
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon_custom_style("search", "width:20px; margin-top:-5px;")}Tìm kiếm nâng cao".html_safe, advance_search_casein_can_bo_thong_tins_path %></li>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới thông tin cán bộ".html_safe, new_casein_can_bo_thong_tin_path %></li>
