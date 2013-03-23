@@ -7,12 +7,12 @@
 	<%= render :partial => 'casein/qua_trinh_cong_tacs/form', :locals => { :f => f } %>
 	
 	<p class="submits">
-		<%= link_to 'Cancel', casein_qua_trinh_cong_tacs_path, :class => 'cancel' %> or
-		<%= f.submit "Add new qua trinh cong tac", :class => "update" %>
+		<%= link_to 'Hủy', casein_qua_trinh_cong_tacs_path, :class => 'cancel' %> hoặc
+		<%= f.submit "Thêm mới công tác", :class => "update" %>
 	</p>
 
 <% end %>
 
 <%= content_for :sidebar do %>
-	<li><%= link_to "#{casein_show_icon "table"}Back to list".html_safe, casein_qua_trinh_cong_tacs_path %></li>
+	<li><%= link_to "#{casein_show_icon "table"}Danh sách quá trình công tác".html_safe, casein_qua_trinh_cong_tacs_path %></li>
 <% end %>

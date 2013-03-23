@@ -2,7 +2,8 @@
 
 
 <div class="tfContainer">
-	<%= casein_select f, f.object, :loai_quyet_dinh_id, LoaiQuyetDinh.all.collect {|o| ["#{o.ten_loai_qd}", "#{o.id}"]}, {:casein_label => "Loại quyết định"} %>
+	<% link = link_to "<image src='/casein/images/icons/custom.png' style=' vertical-align: bottom;' />".html_safe, casein_loai_quyet_dinhs_url, :title => "Thay đổi, bổ sung thông tin loại quyết định", :style => "text-decoration:none;" %>
+	<%= casein_select f, f.object, :loai_quyet_dinh_id, LoaiQuyetDinh.all.collect {|o| ["#{o.ten_loai_qd}", "#{o.id}"]}, {:casein_label => "Loại quyết định #{link}".html_safe } %>
 </div>
 
 <div class="tfContainer tfContainerSecond">

@@ -2,7 +2,8 @@
 
 
 <div class="tfContainer">
-      <%= casein_select f, f.object, :ngach_id, Ngach.all.collect {|p| [ "#{p.ma_ngach} - #{p.ten_ngach}", p.id ] }, {:include_blank => '------Ngạch----', :disabled => true, :casein_label => "Ngạch"} %>
+<% link = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_ngaches_url, :title => "Thay đổi, bổ sung thông tin Ngạch", :style => "text-decoration:none;" %>
+      <%= casein_select f, f.object, :ngach_id, Ngach.all.collect {|p| [ "#{p.ma_ngach} - #{p.ten_ngach}", p.id ] }, {:include_blank => '------Ngạch----', :disabled => true, :casein_label => "Ngạch #{link}".html_safe } %>
 
 </div>
 

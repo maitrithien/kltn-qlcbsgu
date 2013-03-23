@@ -6,16 +6,16 @@
 </div>
 
 <div class="tfContainer tfContainerSecond">
-  <%= casein_select f, f.object, :bac_luong_id, BacLuong.all.collect {|p| [ "#{p.ngach.ten_ngach} - bậc - #{p.bac}", p.id ] }, {:include_blank => '---Chọn Bậc Lương---', :casein_label => "Bậc Lương"} %>
+  <%= casein_select f, f.object, :bac_luong_id, BacLuong.all.collect {|p| [ "#{p.ngach.ten_ngach} - bậc - #{p.bac}", p.id ] }, {:include_blank => '---Chọn Bậc Lương---', :casein_label => "Bậc lương"} %>
 
 </div>
 
 <div class="tfContainer">
-	<%= casein_date_select f, f.object, :ngay_thay_doi_bac %>
+	<%= casein_date_select f, f.object, :ngay_thay_doi_bac, {:start_year => 1900, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :casein_label => "Ngày thay đổi"} %>
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_text_field f, f.object, :ghi_chu %>
+	<%= casein_text_field f, f.object, :ghi_chu, {:casein_label => "Ghi chú"} %>
 </div>
 
 
