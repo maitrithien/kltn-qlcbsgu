@@ -8,7 +8,7 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
     #@can_bo_cong_tacs = CanBoCongTac.paginate :page => params[:page]
     def index
-      @casein_page_title = 'Can bo cong tacs'
+      @casein_page_title = Param.get_param_value "can_bo_cong_tac_index_page_title"
       search_value = params["keyword"]
       if search_value != nil
         @can_bo_cong_tacs = CanBoCongTac.search(search_value).paginate(:per_page => 10, :page => params[:page],:order=> :can_bo_thong_tin_id)
@@ -49,12 +49,12 @@ module Casein
     end
   
     def show
-      @casein_page_title = 'View can bo cong tac'
+      @casein_page_title = Param.get_param_value "can_bo_cong_tac_show_page_title"
       @can_bo_cong_tac = CanBoCongTac.find params[:id]
     end
  
     def new
-      @casein_page_title = 'Add a new can bo cong tac'
+      @casein_page_title = Param.get_param_value "can_bo_cong_tac_new_page_title"
     	@can_bo_cong_tac = CanBoCongTac.new
     end
 
@@ -71,7 +71,7 @@ module Casein
     end
   
     def update
-      @casein_page_title = 'Update can bo cong tac'
+      @casein_page_title = Param.get_param_value "can_bo_cong_tac_update_page_title"
       
       @can_bo_cong_tac = CanBoCongTac.find params[:id]
     
@@ -93,7 +93,7 @@ module Casein
     end
 
     def import_from_excel
-      @casein_page_title = Param.get_param_value("can_bo_cong_tac_import_from_excel_page_title")
+      @casein_page_title = Param.get_param_value "can_bo_cong_tac_import_from_excel_page_title"
     end
 
     def parse_save_from_excel
@@ -130,17 +130,17 @@ module Casein
             @commit += 1
             p.save
         else
-          @errors["#{@counter + 1}"] = p.errors
+          @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[2].to_s}"
           @wrong += 1
         end
       end
       book.io.close
       if @wrong == 0
-        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         redirect_to casein_can_bo_cong_tacs_path
       else
-        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         render :action => 'show_result', :errors => @errors
       end

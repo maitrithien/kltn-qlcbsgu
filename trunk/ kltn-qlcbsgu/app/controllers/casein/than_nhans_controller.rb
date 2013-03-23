@@ -33,7 +33,7 @@ module Casein
           list = than_nhan.create_worksheet :name => 'Danh sach than nhan'
           list.row(0).concat %w{Ma_CB Ho_ten_Can_bo Ho_ten_Than_nhan Quan_he Nam_sinh Nghe_nghiep}
           @than_nhans_xls.each_with_index { |than_nhan, i|
-            list.row(i+1).push(than_nhan.can_bo_thong_tin.ma_cb, than_nhan.can_bo_thong_tin.ho_ten, than_nhan.ho_ten, than_nhan.quan_he_voi_cb, than_nhan.nam_sinh, than_nhan.nghe_nghiep)
+            list.row(i+1).push(than_nhan.can_bo_thong_tin.ma_cb, than_nhan.can_bo_thong_tin.ho_ten, than_nhan.ho_ten, than_nhan.quan_he_gia_dinh.ten_quan_he, than_nhan.nam_sinh, than_nhan.nghe_nghiep)
           }
 
           header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
@@ -111,33 +111,37 @@ module Casein
       @wrong = 0
       sheet.each 1 do |row|
         @counter += 1
-        p = ThanNhan.new
-        id = CanBoThongTin.find_by_ma_cb(row[0].to_s).id
-        if id
-          p.can_bo_thong_tin_id = id
+        can_bo = CanBoThongTin.find_by_ma_cb(row[0].to_i.to_s)
+
+        if can_bo
+          p = ThanNhan.new
+          p.can_bo_thong_tin_id = can_bo.id
+          p.quan_he_gia_dinh_id = ThanNhan.get_quan_he_id(row[2].to_s, true)
           p.ho_ten = row[1].to_s
-          p.quan_he_voi_cb = row[2].to_s
           p.nam_sinh = row[3].to_i
           p.nghe_nghiep = row[4].to_s
-        end
 
-        if p.valid?
-          if ThanNhan.is_duplicate({:id => p.id, :ho_ten => p.ho_ten, :quan_he_voi_cb => p.quan_he_voi_cb}) == nil
-            @commit += 1
-            p.save
+          if p.valid? && p.quan_he_gia_dinh_id != 0
+            if ThanNhan.is_duplicated({:can_bo_thong_tin_id => p.can_bo_thong_tin_id, :ho_ten => p.ho_ten}).count == 0
+              @commit += 1
+              p.save
+            else
+              @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s} - #{row[2].to_s}"
+              @wrong += 1
+            end
+          else
+            @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s} - #{row[2].to_s}"
+            @wrong += 1
           end
-        else
-          @errors["#{@counter + 1}"] = p.errors
-          @wrong += 1
         end
       end
       book.io.close
       if @wrong == 0
-        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         redirect_to casein_than_nhans_path
       else
-        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         render :action => 'show_result', :errors => @errors
       end

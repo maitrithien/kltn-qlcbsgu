@@ -8,18 +8,18 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Bac luongs'
+      @casein_page_title = Param.get_param_value "bac_luong_index_page_title"
   		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> :ngach_id , :per_page => 8
     end
   
     def show
-      @casein_page_title = 'View bac luong'
+      @casein_page_title = Param.get_param_value "bac_luong_show_page_title"
       @bac_luong = BacLuong.find params[:id]
 
     end
  
     def new
-      @casein_page_title = 'Add a new bac luong'
+      @casein_page_title = Param.get_param_value "bac_luong_new_page_title"
     	@bac_luong = BacLuong.new
     end
 
@@ -45,7 +45,7 @@ module Casein
     end
   
     def update
-      @casein_page_title = 'Update bac luong'
+      @casein_page_title = Param.get_param_value "bac_luong_update_page_title"
       @bac_luong = BacLuong.find params[:id]
     
       if @bac_luong.update_attributes params[:bac_luong]
