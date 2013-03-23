@@ -8,11 +8,13 @@
 </div>
 
 <div class="tfContainer">
-  <%= casein_select f, f.object, :hoc_ham_id, HocHam.all.collect{|o| ["#{o.ten_hoc_ham}", o.id]}, {:include_blank => "Không", :casein_label => "Học hàm"} %>
+  <% link_hoc_ham = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_hoc_hams_url, :title => "Thay đổi, bổ sung học hàm", :style => "text-decoration:none;" %>
+  <%= casein_select f, f.object, :hoc_ham_id, HocHam.all.collect{|o| ["#{o.ten_hoc_ham}", o.id]}, {:include_blank => "Không", :casein_label => "Học hàm #{link_hoc_ham}".html_safe } %>
 </div>
 
 <div class="tfContainer tfContainerSecond">
-  <%= casein_select f, f.object, :hoc_vi_id, HocVi.all.collect{|o| ["#{o.ten_hoc_vi}", o.id]}, {:include_blank => "Không", :casein_label => "Học vị"} %>
+  <% link_hoc_vi = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_hoc_vis_url, :title => "Thay đổi, bổ sung học vị", :style => "text-decoration:none;" %>
+  <%= casein_select f, f.object, :hoc_vi_id, HocVi.all.collect{|o| ["#{o.ten_hoc_vi}", o.id]}, {:include_blank => "Không", :casein_label => "Học vị #{link_hoc_vi}".html_safe } %>
 </div>
 
 <div class="tfContainer">
@@ -20,23 +22,28 @@
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_select f, f.object, :trinh_do_chuyen_mon_id, TrinhDoChuyenMon.all.collect{|o| ["#{o.trinh_do}", o.id]}, { :selected => 4, :casein_label => "Trình độ chuyên môn cao nhất"} %>
+  <% link_tdcm = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_trinh_do_chuyen_mons_path, :title => "Thay đổi, bổ sung trình độ chuyên môn", :style => "text-decoration:none;" %>
+	<%= casein_select f, f.object, :trinh_do_chuyen_mon_id, TrinhDoChuyenMon.all.collect{|o| ["#{o.trinh_do}", o.id]}, { :selected => 4, :casein_label => "Trình độ chuyên môn cao nhất #{link_tdcm}".html_safe } %>
 </div>
 
 <div class="tfContainer">
-	<%= casein_select f, f.object, :chuyen_nganh_id, ChuyenNganh.all.collect{|o| ["#{o.ten_chuyen_nganh}", o.id]}, {:include_blank => "Không", :casein_label => "Chuyên ngành"} %>
+  <% link_cn = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_chuyen_nganhs_url, :title => "Thay đổi, bổ sung chuyên ngành", :style => "text-decoration:none;" %>
+	<%= casein_select f, f.object, :chuyen_nganh_id, ChuyenNganh.all.collect{|o| ["#{o.ten_chuyen_nganh}", o.id]}, {:include_blank => "Không", :casein_label => "Chuyên ngành #{link_cn}".html_safe } %>
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_select f, f.object, :ly_luan_chinh_tri_id, LyLuanChinhTri.all.collect{|o| ["#{o.trinh_do}", o.id]}, {:include_blank => "Không", :casein_label => "Lý luận chính trị"} %>
+  <% link_llct = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_ly_luan_chinh_tris_path, :title => "Thay đổi, bổ sung thông tin lý luận chính trị", :style => "text-decoration:none;" %>
+	<%= casein_select f, f.object, :ly_luan_chinh_tri_id, LyLuanChinhTri.all.collect{|o| ["#{o.trinh_do}", o.id]}, {:include_blank => "Không", :casein_label => "Lý luận chính trị #{link_llct}".html_safe } %>
 </div>
 
 <div class="tfContainer">
-	<%= casein_select f, f.object, :quan_ly_nha_nuoc_id, QuanLyNhaNuoc.all.collect{|o| ["#{o.trinh_do}", o.id]}, {:include_blank => "Không", :casein_label => "Quản lý nhà nước"} %>
+  <% link_qlnn = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_quan_ly_nha_nuocs_url, :title => "Thay đổi, bổ sung quản lý nhà nước", :style => "text-decoration:none;" %>
+	<%= casein_select f, f.object, :quan_ly_nha_nuoc_id, QuanLyNhaNuoc.all.collect{|o| ["#{o.trinh_do}", o.id]}, {:include_blank => "Không", :casein_label => "Quản lý nhà nước #{link_qlnn}".html_safe } %>
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_select f, f.object, :ngoai_ngu_id, NgoaiNgu.all.collect{|o| ["#{o.ten_ngoai_ngu}", o.id]}, {:include_blank => "Không", :casein_label => "Ngoại ngữ"} %>
+  <% link_nn = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_ngoai_ngus_url, :title => "Thay đổi, bổ sung ngoại ngữ", :style => "text-decoration:none;" %>
+	<%= casein_select f, f.object, :ngoai_ngu_id, NgoaiNgu.all.collect{|o| ["#{o.ten_ngoai_ngu}", o.id]}, {:include_blank => "Không", :casein_label => "Ngoại ngữ #{link_nn}".html_safe } %>
 </div>
 
 <div class="tfContainer">
