@@ -79,7 +79,7 @@
       <% else %>
       <tr>
         <td></td>
-        <td><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")} Bổ sung thông tin trình độ cán bộ".html_safe, new_casein_can_bo_trinh_do_url %></td>
+        <td><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")} Bổ sung thông tin trình độ cán bộ".html_safe, new_casein_can_bo_trinh_do_url, :class => "link" %></td>
       </tr>
 <% end %>
 </table>
@@ -90,12 +90,12 @@
   <h2>Quan hệ gia đình</h2>
   <% if @than_nhans.count != 0 %>
     <%= render :partial => 'casein/can_bo_thong_tins/table_quan_he_gia_dinh', :locals => { :than_nhans => @than_nhans } %>
-      <% else %>
-      <p style="text-align: center;"><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")} Bổ sung thông tin quan hệ gia đình".html_safe, new_casein_than_nhan_url %></p>
-      <p></p>
+      <% else %><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")} Bổ sung thông tin quan hệ gia đình".html_safe, new_casein_than_nhan_url, :class => "link" %>
   <% end %>
 </div>
-
+<div class="clearer">
+<p></p>
+</div>
 <div class="tfcontenerfull">
 <%# nếu có tập tin attachment %>
 

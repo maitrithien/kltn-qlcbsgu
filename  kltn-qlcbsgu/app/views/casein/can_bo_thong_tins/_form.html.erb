@@ -18,7 +18,8 @@
 </div>
 
 <div class="tfContainer">
-  <%= casein_select f, f.object, :bac_luong_id, BacLuong.all.collect{|o| ["Ngạch #{o.ngach.ten_ngach} - Bậc #{o.bac}", o.id]}, :casein_label => "Ngạch - Bậc" %>
+<% link = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_bac_luongs_url, :title => "Thay đổi, bổ sung thông tin Ngạch - Bậc", :style => "text-decoration:none;" %>
+  <%= casein_select f, f.object, :bac_luong_id, BacLuong.all.collect{|o| ["Ngạch #{o.ngach.ten_ngach} - Bậc #{o.bac}", o.id]}, :casein_label => "Ngạch - Bậc #{link}".html_safe %>
 
 </div>
 

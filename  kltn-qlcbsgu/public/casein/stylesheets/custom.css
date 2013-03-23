@@ -5,6 +5,13 @@ body, fieldset, legend, header, footer, tr, td, textarea, input, label, select, 
     font-size: 12px;
     font-family: tahoma, arial;
 }
+#content a.link:hover
+{
+	text-decoration:none;
+	padding: 3px;
+	background-color:#eee;
+	box-shadow: 1px 1px 10px #888888;
+}
 fieldset
 {
     padding-bottom: 10px;

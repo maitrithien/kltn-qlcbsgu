@@ -180,7 +180,7 @@ module Casein
     end
  
     def new
-      @casein_page_title = Param.get_param_value("can_bo_thong_tin_new_title")
+      @casein_page_title = Param.get_param_value("can_bo_thong_tin_new_page_title")
     	@can_bo_thong_tin = CanBoThongTin.new
     end
 

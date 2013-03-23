@@ -9,7 +9,8 @@
 </div>
 
 <div class="tfContainer">
-	<%= casein_select f, f.object, :quan_he_gia_dinh_id, QuanHeGiaDinh.all.collect{|o| ["#{o.ten_quan_he}", o.id]}, {:casein_label => "Quan hệ với cán bộ"} %>
+<% link = link_to "<image src='/casein/images/icons/custom.png' style='margin-top: 2px; vertical-align: bottom;' />".html_safe, casein_quan_he_gia_dinhs_url, :title => "Thay đổi, bổ sung thông tin Quan hệ gia đình", :style => "text-decoration:none;" %>
+	<%= casein_select f, f.object, :quan_he_gia_dinh_id, QuanHeGiaDinh.all.collect{|o| ["#{o.ten_quan_he}", o.id]}, {:casein_label => "Quan hệ với cán bộ #{link}".html_safe } %>
 </div>
 
 <div class="tfContainer tfContainerSecond">
