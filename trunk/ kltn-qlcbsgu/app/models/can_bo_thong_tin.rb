@@ -1,6 +1,6 @@
 class CanBoThongTin < ActiveRecord::Base
-  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted
-  attr_accessor :search_by_gioi_tinh
+  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted,:don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
+  attr_accessor :search_by_gioi_tinh,:don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
 
   #check unique of attributes
   validates_uniqueness_of :ma_cb, :so_cmnd, :message =>"#{Param.get_param_value("has_already_been_taken")}"
@@ -32,11 +32,29 @@ class CanBoThongTin < ActiveRecord::Base
   def self.search_advance(options={})
     sql_exc = "1"
     options.each do |key, value|
-      if key == :gioi_tinh || key == :is_deleted
-        sql_exc << " AND #{key} = #{value}"
+      if key == :don_vi_id ||key == :chuc_vu_id
+        sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where #{key} = #{value} )"
       else
-        sql_exc << " AND #{key} LIKE '%#{value}%'"
+          if key == :trinh_do_chuyen_mon_id
+            sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where trinh_do_chuyen_mon_id = #{value} )"
+          else
+            if key == :ngach_id
+              sql_exc << " AND bac_luong_id in (select id from bac_luongs where ngach_id = #{value} )"
+            else
+              if key == :ngay_sinh
+                ngay_sinh = Date.parse(search_value) rescue nil
+                sql_exc << " AND #{key} = #{value}"
+              else
+                if key == :gioi_tinh || key == :is_deleted
+                  sql_exc << " AND #{key} = #{value}"
+                else
+                  sql_exc << " AND #{key} LIKE '%#{value}%'"
+                end
+              end
+            end
+          end
       end
+
     end
     where(sql_exc)
   end

@@ -112,7 +112,7 @@ module Casein
       sheet.each 1 do |row|
         @counter += 1
         p = CanBoCongTac.new
-        cbid = CanBoThongTin.find_by_ma_cb(row[0].to_s)
+        cbid = CanBoThongTin.find_by_ma_cb(row[0].to_i.to_s)
         if cbid
           p.can_bo_thong_tin_id = cbid.id
           p.nghe_nghiep_truoc_tuyen_dung = row[3].to_s
@@ -120,17 +120,25 @@ module Casein
           p.so_truong_cong_tac = row[5].to_s
           p.ngay_bat_dau_lam_viec =  row[6].to_date
           p.ghi_chu = row[7].to_s
+
+          iddv = DonVi.find_by_ten_don_vi(row[2].to_s)
+          if iddv
+            p.don_vi_id = iddv.id
+          else
+            @wrong += 1
+            @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+          end
+        else
+          @wrong += 1
+          @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
         end
-        iddv = DonVi.find_by_ten_don_vi(row[2].to_s)
-        if iddv
-           p.don_vi_id = iddv.id
-        end
+
 
         if p.valid?
             @commit += 1
             p.save
         else
-          @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[2].to_s}"
+          @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_s}"
           @wrong += 1
         end
       end

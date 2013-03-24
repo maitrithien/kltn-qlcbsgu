@@ -1,0 +1,23 @@
+<% unless @errors.nil? %>
+    <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
+
+    <table class="import_table">
+      <tr>
+        <th>STT dòng</th>
+        <th>Thông đơn vị</th>
+      </tr>
+      <% @errors.each do |mgs| %>
+          <tr>
+            <td>Dòng <%= mgs[0]%></td>
+            <td><%= mgs[1] %></td>
+          </tr>
+      <% end %>
+
+    </table>
+<% end %>
+
+<%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới đơn vị".html_safe, new_casein_don_vi_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới đơn vị từ file excel".html_safe, import_from_excel_casein_don_vis_path %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách đơn vị".html_safe, casein_don_vis_path %></li>
+<% end %>

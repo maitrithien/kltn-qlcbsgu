@@ -9,7 +9,27 @@ module Casein
   
     def index
       @casein_page_title = 'Don vis'
+      @don_vis_xls = DonVi.all
   		@don_vis = DonVi.paginate :page => params[:page]
+      respond_to do |format|
+        format.html
+        format.xls{
+          don_vi = Spreadsheet::Workbook.new
+          list = don_vi.create_worksheet :name => 'Danh sach Don Vi'
+          list.row(0).concat %w{Ten_Don_Vi Dia_Chi So_Dien_Thoai}
+          @don_vis_xls.each_with_index { |ct, i|
+            list.row(i+1).push(ct.ten_don_vi, ct.dia_chi ,ct.so_dien_thoai)
+          }
+
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          don_vi.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Danh_Sach_Don_vi.xls"
+        }
+      end
     end
   
     def show
@@ -55,6 +75,58 @@ module Casein
       flash[:notice] = Param.get_param_value("deleting_success")
       redirect_to casein_don_vis_path
     end
-  
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("don_vi_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      file_path = params[:excel_file]
+      file = XlsUploader.new
+      file.store!(file_path)
+
+      book = Spreadsheet.open "public/#{file.store_path}"
+
+      sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+      @errors = Hash.new
+      @counter = 0
+      @commit = 0
+      @wrong = 0
+      sheet.each 1 do |row|
+          @counter += 1
+          p = DonVi.new
+          p.ten_don_vi = row[0].to_s
+          p.dia_chi =  row[1].to_s
+          p.so_dien_thoai = row[2].to_s
+          if p.valid?
+            @commit += 1
+            p.save
+          else
+            @wrong += 1
+            @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+          end
+      end
+      book.io.close
+      if @wrong == 0
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+        file.remove!
+        redirect_to casein_don_vis_path
+      else
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+        file.remove!
+        render :action => 'show_result', :errors => @errors
+      end
+
+    end
+
+    def show_result
+      @casein_page_title = Param.get_param_value("don_vi_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
+    end
   end
 end

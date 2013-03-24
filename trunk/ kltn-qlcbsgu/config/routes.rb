@@ -3,16 +3,36 @@ QLTtCbvcSgu::Application.routes.draw do
 	#Casein routes
 	namespace :casein do
 		resources :quan_he_gia_dinhs
-		resources :qua_trinh_cong_tacs
+		resources :hang_thuong_binhs
+		resources :cap_bac_quan_dois
+		resources :qua_trinh_cong_tacs do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :can_bo_cong_tacs do
     get "import_from_excel", :on => :collection
     post "parse_save_from_excel", :on => :collection
     end
-		resources :don_vis
-		resources :chuc_vus
-		resources :lich_su_bac_luongs
-		resources :bac_luongs
-		resources :ngaches
+		resources :don_vis do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
+		resources :chuc_vus do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
+		resources :lich_su_bac_luongs do
+    get "import_from_excel", :on => :collection
+    post "parse_save_from_excel", :on => :collection
+    end
+		resources :bac_luongs do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
+		resources :ngaches do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :ngoai_ngus
 		resources :can_bo_trinh_dos
 		resources :quan_ly_nha_nuocs

@@ -31,9 +31,9 @@ module Casein
         format.xls {
           can_bo = Spreadsheet::Workbook.new
           list = can_bo.create_worksheet :name => 'Danh sach Can Bo - Qua Trinh Cong Tac'
-          list.row(0).concat %w{ID Ho_va_Ten Don_Vi Chu_Vu Thoi_Gian_Bat_Dau Thoi_Gian_Ket_Thuc}
+          list.row(0).concat %w{Ma_Can_Bo Ho_va_Ten Don_Vi Chu_Vu Thoi_Gian_Bat_Dau Thoi_Gian_Ket_Thuc}
           @qua_trinh_cong_tacs_xls.each_with_index { |canbo, i|
-            list.row(i+1).push canbo.id, canbo.can_bo_thong_tin.ho_ten, canbo.don_vi.ten_don_vi,canbo.chuc_vu.ten_chuc_vu,canbo.thoi_gian_bat_dau, canbo.thoi_gian_ket_thuc
+            list.row(i+1).push canbo.can_bo_thong_tin.ma_cb, canbo.can_bo_thong_tin.ho_ten, canbo.don_vi.ten_don_vi,canbo.chuc_vu.ten_chuc_vu,canbo.thoi_gian_bat_dau, canbo.thoi_gian_ket_thuc
           }
           header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
           list.row(0).default_format = header_format
@@ -92,6 +92,74 @@ module Casein
       flash[:notice] = Param.get_param_value("deleting_success")
       redirect_to casein_qua_trinh_cong_tacs_path
     end
-  
+
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("qua_trinh_cong_tac_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      file_path = params[:excel_file]
+      file = XlsUploader.new
+      file.store!(file_path)
+
+      book = Spreadsheet.open "public/#{file.store_path}"
+
+      sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+      @errors = Hash.new
+      @counter = 0
+      @commit = 0
+      @wrong = 0
+      sheet.each 1 do |row|
+        @counter += 1
+        p = QuaTrinhCongTac.new
+        canbo = CanBoThongTin.find_by_ma_cb(row[0].to_i.to_s)
+        if canbo
+          p.can_bo_thong_tin_id = canbo.id
+          p.thoi_gian_bat_dau = row[4].to_date
+          p.thoi_gian_ket_thuc = row[5].to_date
+          dv = DonVi.find_by_ten_don_vi(row[2].to_s)
+          if dv
+            p.don_vi_id = dv.id
+          end
+          cv = ChucVu.find_by_ten_chuc_vu(row[3].to_s)
+          if cv
+            p.chuc_vu_id = cv.id
+          end
+          if p.valid?
+            @commit += 1
+            p.save
+          else
+            @wrong += 1
+            @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+
+          end
+        else
+          @wrong += 1
+          @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+        end
+      end
+      book.io.close
+      if @wrong == 0
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+        file.remove!
+        redirect_to casein_qua_trinh_cong_tacs_path
+      else
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+        file.remove!
+        render :action => 'show_result', :errors => @errors
+      end
+
+    end
+
+    def show_result
+      @casein_page_title = Param.get_param_value("can_bo_li_lich_ct_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
+    end
   end
 end

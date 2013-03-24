@@ -31,7 +31,7 @@ module Casein
           list = can_bo_li_lich.create_worksheet :name => 'Danh sach Li lich chinh tri can bo'
           list.row(0).concat %w{Ma_CB Ho_ten Ngay_vao_dang Ngay_nhap_ngu Ngay_xuat_ngu Quan_ham_cao_nhat Danh_hieu_duoc_phong_tang Thuong_binh Gia_dinh_chinh_sach}
           @can_bo_li_lich_cts_xls.each_with_index { |ct, i|
-            list.row(i+1).push(ct.can_bo_thong_tin.ma_cb, ct.can_bo_thong_tin.ho_ten,ct.ngay_vao_dang,ct.ngay_nhap_ngu,ct.ngay_xuat_ngu,ct.quan_ham_cao_nhat,ct.danh_hieu_duoc_phong_tang,ct.thuong_binh_hang,ct.con_gia_dinh_chinh_sach)
+            list.row(i+1).push(ct.can_bo_thong_tin.ma_cb, ct.can_bo_thong_tin.ho_ten,ct.ngay_vao_dang,ct.ngay_nhap_ngu,ct.ngay_xuat_ngu,ct.cap_bac_quan_doi.ten_cap_bac,ct.danh_hieu_duoc_phong_tang,ct.hang_thuong_binh.ti_le_thuong_tat,ct.con_gia_dinh_chinh_sach)
           }
 
           header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
@@ -66,8 +66,8 @@ module Casein
       if params["nhap_ngu"].to_s !="1"
         @can_bo_li_lich_ct.ngay_nhap_ngu = nil
         @can_bo_li_lich_ct.ngay_xuat_ngu = nil
-        @can_bo_li_lich_ct.thuong_binh_hang = nil
-        @can_bo_li_lich_ct.quan_ham_cao_nhat = nil
+        @can_bo_li_lich_ct.hang_thuong_binh_id = nil
+        @can_bo_li_lich_ct.cap_bac_quan_doi_id = nil
       end
       if @can_bo_li_lich_ct.save
         flash[:notice] =  Param.get_param_value("adding_success");
@@ -121,33 +121,43 @@ module Casein
       sheet.each 1 do |row|
         @counter += 1
         p = CanBoLiLichCt.new
-        canbo = CanBoThongTin.find_by_ma_cb(row[0].to_s)
+        canbo = CanBoThongTin.find_by_ma_cb(row[0].to_i.to_s)
         if canbo
           p.can_bo_thong_tin_id = canbo.id
           p.ngay_vao_dang = row[2].to_date
           p.ngay_nhap_ngu = row[3].to_date
           p.ngay_xuat_ngu = row[4].to_date
-          p.quan_ham_cao_nhat = row[5].to_s
           p.danh_hieu_duoc_phong_tang = row[6].to_s
-          p.thuong_binh_hang = row[7].to_s
           p.con_gia_dinh_chinh_sach= row[8].to_s
-        end
 
-        if p.valid?
+          qd = CapBacQuanDoi.find_by_ten_cap_bac(row[5].to_s)
+          if qd
+            p.cap_bac_quan_doi_id = qd.id
+          end
+          tb = HangThuongBinh.find_by_ti_le_thuong_tat(row[7].to_s)
+          if tb
+             p.hang_thuong_binh_id = tb.id
+          end
+          if p.valid?
             @commit += 1
             p.save
+          else
+            @wrong += 1
+            @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+
+          end
         else
-          @errors["#{@counter + 1}"] = p.errors
           @wrong += 1
+          @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
         end
       end
       book.io.close
       if @wrong == 0
-        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         redirect_to casein_can_bo_li_lich_cts_path
       else
-        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         render :action => 'show_result', :errors => @errors
       end

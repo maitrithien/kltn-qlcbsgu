@@ -8,7 +8,8 @@ class CanBoLiLichCt < ActiveRecord::Base
 
   #relationship
   belongs_to :can_bo_thong_tin
-
+  belongs_to :cap_bac_quan_doi
+  belongs_to :hang_thuong_binh
   def self.search(search_value)
 
     if search_value
