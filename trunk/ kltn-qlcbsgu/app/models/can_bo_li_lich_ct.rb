@@ -1,5 +1,5 @@
 class CanBoLiLichCt < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :con_gia_dinh_chinh_sach, :danh_hieu_duoc_phong_tang, :ngay_nhap_ngu, :ngay_xuat_ngu, :ngay_vao_dang, :quan_ham_cao_nhat, :thuong_binh_hang ,:ho_ten_return
+  attr_accessible :can_bo_thong_tin_id, :con_gia_dinh_chinh_sach, :danh_hieu_duoc_phong_tang, :ngay_nhap_ngu, :ngay_xuat_ngu, :ngay_vao_dang, :cap_bac_quan_doi_id, :hang_thuong_binh_id ,:ho_ten_return
   attr_accessor :ho_ten_return
   #not allow null attributes
   validates_presence_of :can_bo_thong_tin_id, :message =>"#{Param.get_param_value("is_not_blank")}"
