@@ -25,7 +25,7 @@
 
 
       <div class="tfContainer2">
-         <%= casein_date_select f, f.object, :ngay_sinh,{:style => "display:block", :start_year => 1900, :date_separator => "/", :order => [:day, :month, :year], :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'] , :casein_label => "Ngày sinh"} %>
+         <%= casein_date_select f, f.object, :ngay_sinh,{:style => "display:block", :start_year => 1900, :end_year =>Time.now.year, :date_separator => "/", :order => [:day, :month, :year], :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'] ,:include_blank =>"...", :casein_label => "Ngày sinh"} %>
       </div>
 
       <div class="tfContainer2 ">
@@ -53,6 +53,21 @@
       </div>
       <div class="tfContainer2 ">
         <%= casein_text_field f, f.object, :noi_sinh, {:casein_label => "Nơi sinh"} %>
+      </div>
+
+      <div class="tfContainer2 ">
+        <%= casein_select f, f.object, :don_vi_id, DonVi.all.collect{|o| ["#{o.ten_don_vi}", o.id]},{:include_blank =>"-----------Chọn----------", :casein_label => "Đơn vị"} %>
+      </div>
+      <div class="tfContainer2 ">
+        <%= casein_select f, f.object, :ngach_id, Ngach.all.collect{|o| ["#{o.ten_ngach}", o.id]},{:include_blank =>"-----------Chọn----------", :casein_label => "Ngạch"} %>
+      </div>
+
+      <div class="tfContainer2 ">
+        <%= casein_select f, f.object, :trinh_do_chuyen_mon_id, TrinhDoChuyenMon.all.collect{|o| ["#{o.trinh_do}", o.id]},{:include_blank =>"-----------Chọn----------", :casein_label => "Trình độ chuyên môn"} %>
+      </div>
+
+      <div class="tfContainer2 ">
+        <%= casein_select f, f.object, :chuc_vu_id, ChucVu.all.collect{|o| ["#{o.ten_chuc_vu}", o.id]},{:include_blank =>"-----------Chọn----------", :casein_label => "Tên chức vụ"} %>
       </div>
       <%= hidden_field :search_advance_req, "true" %>
       <p style="text-align: right;">

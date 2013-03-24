@@ -6,13 +6,15 @@
 
 <% end %>
   </div>
-<h2>Quá Trình Công Tác</h2>
+<h2>lịch sử Công Tác</h2>
 
 <%= render :partial => 'casein/qua_trinh_cong_tacs/table', :locals => { :qua_trinh_cong_tacs => @qua_trinh_cong_tacs } %>
 
 <%= will_paginate @qua_trinh_cong_tacs %>
 
 <%= content_for :sidebar do %>
-	<li><%= link_to "#{casein_show_icon "add"}Thêm mới quá trình công tác".html_safe, new_casein_qua_trinh_cong_tac_path %></li>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử công tác".html_safe, new_casein_qua_trinh_cong_tac_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử công tác từ file excel".html_safe, import_from_excel_casein_qua_trinh_cong_tacs_path %></li>
     <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_qua_trinh_cong_tacs_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
+
 <% end %>

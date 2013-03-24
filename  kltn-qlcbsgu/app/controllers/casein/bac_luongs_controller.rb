@@ -9,7 +9,28 @@ module Casein
   
     def index
       @casein_page_title = Param.get_param_value "bac_luong_index_page_title"
+      @bac_luongs_xls  = BacLuong.all
   		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> :ngach_id , :per_page => 8
+
+      respond_to do |format|
+        format.html
+        format.xls{
+          bac_luong = Spreadsheet::Workbook.new
+          list = bac_luong.create_worksheet :name => 'Danh sach bac luong'
+          list.row(0).concat %w{Ma_ngach Ten_ngach Bac He_so_luong Ghi_Chu}
+          @bac_luongs_xls.each_with_index { |ct, i|
+            list.row(i+1).push(ct.ngach.ma_ngach, ct.ngach.ten_ngach, ct.bac,ct.he_so_luong,ct.ghi_chu)
+          }
+
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          bac_luong.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Danh_Sach_Bac_luong.xls"
+        }
+      end
     end
   
     def show
@@ -64,6 +85,66 @@ module Casein
       flash[:notice] = Param.get_param_value("deleting_success")
       redirect_to casein_bac_luongs_path
     end
-  
+
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("bac_luong_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      file_path = params[:excel_file]
+      file = XlsUploader.new
+      file.store!(file_path)
+
+      book = Spreadsheet.open "public/#{file.store_path}"
+
+      sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+      @errors = Hash.new
+      @counter = 0
+      @commit = 0
+      @wrong = 0
+      sheet.each 1 do |row|
+        @counter += 1
+        p = BacLuong.new
+        ngach = Ngach.find_by_ma_ngach(row[0].to_s)
+        if ngach
+          p.ngach_id = ngach.id
+          p.bac = row[2].to_i
+          p.he_so_luong = row[3].to_s
+          p.ghi_chu = row[4].to_s
+          if p.valid?
+            @commit += 1
+            p.save
+          else
+            @wrong += 1
+            @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+          end
+        else
+          @wrong += 1
+          @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+        end
+      end
+      book.io.close
+      if @wrong == 0
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+        file.remove!
+        redirect_to casein_bac_luongs_path
+      else
+        flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+        file.remove!
+        render :action => 'show_result', :errors => @errors
+      end
+
+    end
+
+    def show_result
+      @casein_page_title = Param.get_param_value("bac_luong_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
+    end
   end
 end

@@ -1,0 +1,23 @@
+<% unless @errors.nil? %>
+    <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
+
+    <table class="import_table">
+      <tr>
+        <th>STT dòng</th>
+        <th>Thông tin cán bộ</th>
+      </tr>
+      <% @errors.each do |mgs| %>
+          <tr>
+            <td>Dòng <%= mgs[0]%></td>
+            <td><%= mgs[1] %></td>
+          </tr>
+      <% end %>
+
+    </table>
+<% end %>
+
+<%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới bậc lương".html_safe, new_casein_bac_luong_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới bậc lương từ file excel".html_safe, import_from_excel_casein_bac_luongs_path %></li>
+    <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_bac_luongs_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
+<% end %>

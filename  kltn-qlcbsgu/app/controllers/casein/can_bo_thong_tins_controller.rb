@@ -339,10 +339,23 @@ def advance_search
         end
          #each attribute to hash, except gioi_tinh, ngay_sinh,
          @can_bo_thong_tin.attributes.each do |attr_name, attr_value|
-             if attr_value.to_s.length>0 && attr_name !='gioi_tinh' && attr_name !='ngay_sinh' && attr_name !='is_deleted'
+             if attr_value.to_s.length>0 && attr_name !='gioi_tinh' && attr_name !='is_deleted'
                 options = options.merge(attr_name =>attr_value)
              end
          end
+        if @can_bo_thong_tin.don_vi_id.to_s.length>0
+          options = options.merge(:don_vi_id =>  @can_bo_thong_tin.don_vi_id)
+        end
+        if @can_bo_thong_tin.trinh_do_chuyen_mon_id.to_s.length>0
+          options = options.merge(:trinh_do_chuyen_mon_id =>  @can_bo_thong_tin.trinh_do_chuyen_mon_id)
+        end
+        if @can_bo_thong_tin.chuc_vu_id.to_s.length>0
+          options = options.merge(:chuc_vu_id =>  @can_bo_thong_tin.chuc_vu_id)
+        end
+        if @can_bo_thong_tin.ngach_id.to_s.length>0
+          options = options.merge(:ngach_id =>  @can_bo_thong_tin.ngach_id)
+        end
+
 
         # set sql excute query is_deleted = false (only get employee not deleted)
         options = options.merge(:is_deleted =>  false)
