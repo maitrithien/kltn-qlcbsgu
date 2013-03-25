@@ -58,17 +58,6 @@ module Casein
 
     def create
       @can_bo_li_lich_ct = CanBoLiLichCt.new params[:can_bo_li_lich_ct]
-
-      if params["dang_vien"].to_s !="1"
-        @can_bo_li_lich_ct.ngay_vao_dang = nil
-      end
-
-      if params["nhap_ngu"].to_s !="1"
-        @can_bo_li_lich_ct.ngay_nhap_ngu = nil
-        @can_bo_li_lich_ct.ngay_xuat_ngu = nil
-        @can_bo_li_lich_ct.hang_thuong_binh_id = nil
-        @can_bo_li_lich_ct.cap_bac_quan_doi_id = nil
-      end
       if @can_bo_li_lich_ct.save
         flash[:notice] =  Param.get_param_value("adding_success");
         redirect_to casein_can_bo_li_lich_cts_path
