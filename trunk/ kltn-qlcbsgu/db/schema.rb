@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(:version => 20130322055205) do
     t.integer  "bac"
     t.float    "he_so_luong"
     t.string   "ghi_chu"
+    t.boolean  "vuot_khung",  :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.boolean  "vuot_khung",  :default => false
   end
 
   create_table "can_bo_cong_tacs", :force => true do |t|
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20130322055205) do
     t.integer  "cap_bac_quan_doi_id"
     t.integer  "hang_thuong_binh_id"
   end
+
+  add_index "can_bo_li_lich_cts", ["can_bo_thong_tin_id"], :name => "can_bo_thong_tin_id", :unique => true
 
   create_table "can_bo_thong_tins", :force => true do |t|
     t.string   "ma_cb"
@@ -75,18 +77,18 @@ ActiveRecord::Schema.define(:version => 20130322055205) do
 
   create_table "can_bo_trinh_dos", :force => true do |t|
     t.string   "trinh_do_gd_pho_thong"
-    t.integer  "can_bo_thong_tin_id"
     t.integer  "trinh_do_chuyen_mon_id"
     t.integer  "chuyen_nganh_id"
     t.integer  "ly_luan_chinh_tri_id"
     t.integer  "quan_ly_nha_nuoc_id"
     t.integer  "ngoai_ngu_id"
-    t.integer  "hoc_ham_id"
-    t.integer  "hoc_vi_id"
     t.string   "trinh_do_ngoai_ngu"
     t.string   "trinh_do_tin_hoc"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+    t.integer  "can_bo_thong_tin_id"
+    t.integer  "hoc_ham_id"
+    t.integer  "hoc_vi_id"
   end
 
   create_table "cap_bac_quan_dois", :force => true do |t|

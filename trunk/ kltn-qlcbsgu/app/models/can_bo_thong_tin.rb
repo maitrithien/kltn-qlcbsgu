@@ -8,6 +8,7 @@ class CanBoThongTin < ActiveRecord::Base
   #not allow null attributes
   validates_presence_of :ma_cb, :ho_ten, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :noi_dang_ky_ho_khau_thuong_tru,:noi_o_hien_nay, :message => "#{Param.get_param_value("is_not_blank")}"
 
+
   mount_uploader :hinh_anh, ImageUploader
   mount_uploader :tep_tin_dinh_kem, FileUploader
 
