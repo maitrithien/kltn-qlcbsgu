@@ -1,6 +1,6 @@
 <h1>Nhập dữ liệu từ tập tin excel</h1>
 <h2>Lựa chọn tập tin</h2>
-<%= form_tag(parse_save_from_excel_casein_can_bo_cong_tacs_path, :multipart => true) %>
+<%= form_tag(parse_save_from_excel_casein_can_bo_cong_tacs_path, :multipart => true) do %>
 
 <p>
   <%= file_field_tag 'excel_file' %>
@@ -8,7 +8,7 @@
 <p>
   <%= submit_tag "Lưu dữ liệu", :disable_with => "Đang xử lý dữ liệu..." %>
 </p>
-</form>
+<% end %>
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới cán bộ công tác".html_safe, new_casein_can_bo_cong_tac_path %></li>
