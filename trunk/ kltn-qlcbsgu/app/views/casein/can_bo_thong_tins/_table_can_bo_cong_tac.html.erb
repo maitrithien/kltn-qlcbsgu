@@ -1,0 +1,24 @@
+  <tr>
+    <td><b>Đơn vị tuyển dụng:</b></td>
+    <td>
+        <% if can_bo_cong_tac.don_vi_id %>
+          <%= can_bo_cong_tac.don_vi.ten_don_vi %>
+        <% end %>
+    </td>
+  </tr>
+ <tr>
+    <td><b>Nghề nghiệp trước tuyển dụng:</b></td>
+    <td><%= can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung %></td>
+  </tr>
+  <tr>
+    <td><b>Công việc chính được giao:</b>&nbsp;</td>
+    <td><%= can_bo_cong_tac.cong_viec_chinh_duoc_giao %></td>
+  </tr>
+  <tr>
+    <td><b>Sở trường công tác:</b>&nbsp;</td>
+    <td><%= can_bo_cong_tac.so_truong_cong_tac %></td>
+  </tr>
+  <tr>
+    <td><b>Ngày bắt đầu làm việc:</b>&nbsp;</td>
+    <td><%= can_bo_cong_tac.ngay_bat_dau_lam_viec %></td>
+  </tr>

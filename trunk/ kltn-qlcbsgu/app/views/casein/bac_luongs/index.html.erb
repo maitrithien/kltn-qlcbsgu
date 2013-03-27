@@ -4,7 +4,7 @@
 
 <%= render :partial => 'casein/bac_luongs/table', :locals => { :bac_luongs => @bac_luongs } %>
 
-<%= will_paginate @bac_luongs %>
+<%= will_paginate @bac_luongs,:previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới bậc lương".html_safe, new_casein_bac_luong_path %></li>

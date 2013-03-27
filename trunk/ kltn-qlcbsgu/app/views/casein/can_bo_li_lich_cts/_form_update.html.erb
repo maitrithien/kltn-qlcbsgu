@@ -14,7 +14,7 @@
 </div>
 <div class="tfContainer tfContainerSecond" >
       <div id="ngay_vao_dang_zone" style="display: none;">
-        <%= casein_date_select f, f.object, :ngay_vao_dang, {:start_year => 1900, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :casein_label => "Ngày vào Đảng"} %>
+        <%= casein_date_select f, f.object, :ngay_vao_dang, { :start_year => Date.current.year, :end_year => 1920, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :casein_label => "Ngày vào Đảng"} %>
       </div>
 </div>
 <div id="nhap_ngu_zone" style="display: none;">
@@ -22,7 +22,7 @@
       <%= casein_date_select f, f.object, :ngay_nhap_ngu, {:start_year => 1900, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :casein_label => "Ngày nhập ngũ"} %>
     </div>
     <div class="tfContainer  tfContainerSecond">
-      <%= casein_date_select f, f.object, :ngay_xuat_ngu, {:start_year => 1900, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :casein_label => "Ngày xuất ngũ"} %>
+      <%= casein_date_select f, f.object, :ngay_xuat_ngu, {:start_year => Date.current.year, :end_year => 1920, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :casein_label => "Ngày xuất ngũ"} %>
     </div>
   <div class="tfContainer">
     <%= casein_select f, f.object,:cap_bac_quan_doi_id,CapBacQuanDoi.all.collect{|o| ["#{o.ten_cap_bac}", o.id]},{:include_blank =>"-----------Không----------", :casein_label => "Quân hàm cao nhất"} %>

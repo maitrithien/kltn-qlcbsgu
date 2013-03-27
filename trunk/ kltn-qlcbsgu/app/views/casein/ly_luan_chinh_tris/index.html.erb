@@ -4,7 +4,7 @@
 
 <%= render :partial => 'casein/ly_luan_chinh_tris/table', :locals => { :ly_luan_chinh_tris => @ly_luan_chinh_tris } %>
 
-<%= will_paginate @ly_luan_chinh_tris %>
+<%= will_paginate @ly_luan_chinh_tris, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới trình độ Lý luận chính trị".html_safe, new_casein_ly_luan_chinh_tri_path %></li>

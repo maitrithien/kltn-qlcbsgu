@@ -1,0 +1,29 @@
+
+<table cellpadding="0" cellspacing="0" id="itemList" class="itemList center">
+  <tr>
+    <th><p>Đơn vị công tác</p></th>
+    <th><p>Chức vụ</p></th>
+    <th><p>Thời gian bắt đầu</p></th>
+    <th><p>Thời gian chuyển công tác</p></th>
+    <th><p>Ghi chú</p></th>
+  </tr>
+  <% chuc_vu = "" %>
+  <% don_vi = "" %>
+  <% qua_trinh_cong_tacs.each_with_index do |q, index| %>
+      <% if q.chuc_vu_id %>
+              <% chuc_vu = q.chuc_vu.ten_chuc_vu %>
+      <% end %>
+      <% if q.don_vi_id %>
+              <% don_vi = q.don_vi.ten_don_vi %>
+      <% end %>
+      <tr class="hover">
+        <td><%= casein_table_cell_link don_vi, casein_qua_trinh_cong_tac_path(q) %></td>
+        <td><%= casein_table_cell_link chuc_vu, casein_qua_trinh_cong_tac_path(q) %></td>
+        <td><%= casein_table_cell_link q.thoi_gian_bat_dau, casein_qua_trinh_cong_tac_path(q) %></td>
+        <td><%= casein_table_cell_link q.thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(q) %></td>
+        <td><%= casein_table_cell_link q.ghi_chu, casein_qua_trinh_cong_tac_path(q) %></td>
+      </tr>
+
+  <% end %>
+</table>
+<p></p>

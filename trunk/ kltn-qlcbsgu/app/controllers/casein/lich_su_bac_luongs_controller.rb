@@ -59,8 +59,15 @@ module Casein
 
     def create
       @lich_su_bac_luong = LichSuBacLuong.new params[:lich_su_bac_luong]
-    
+      
       if @lich_su_bac_luong.save
+        bac_luong_id = @lich_su_bac_luong.bac_luong_id
+        p = nil
+        p = CanBoThongTin.find(@lich_su_bac_luong.can_bo_thong_tin_id)
+        if p != nil
+          p.update_attribute(:bac_luong_id, bac_luong_id)
+        end
+
         flash[:notice] = Param.get_param_value("adding_success")
         redirect_to casein_lich_su_bac_luongs_path
       else
@@ -73,8 +80,18 @@ module Casein
       @casein_page_title = 'Update lich su bac luong'
       
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
-    
+      
+
       if @lich_su_bac_luong.update_attributes params[:lich_su_bac_luong]
+        lich_su_last = LichSuBacLuong.get_last(@lich_su_bac_luong.can_bo_thong_tin_id)
+        if lich_su_last.id == @lich_su_bac_luong.id
+          bac_luong_id = @lich_su_bac_luong.bac_luong_id
+          p = nil
+          p = CanBoThongTin.find(@lich_su_bac_luong.can_bo_thong_tin_id)
+          if p != nil
+            p.update_attribute(:bac_luong_id, bac_luong_id)
+          end
+        end
         flash[:notice] = Param.get_param_value("updating_success")
         redirect_to casein_lich_su_bac_luongs_path
       else
@@ -95,6 +112,7 @@ module Casein
     end
 
     def parse_save_from_excel
+      if params[:excel_file]
       file_path = params[:excel_file]
       file = XlsUploader.new
       file.store!(file_path)
@@ -151,6 +169,11 @@ module Casein
         flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         render :action => 'show_result', :errors => @errors
+      end
+
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_lich_su_bac_luongs_path
       end
 
     end

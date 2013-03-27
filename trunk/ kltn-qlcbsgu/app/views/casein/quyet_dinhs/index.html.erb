@@ -2,7 +2,7 @@
 
 <div class="search_basic_form">
   <%= form_tag casein_quyet_dinhs_path, :method => "get" do %>
-      <%= text_field_tag "keyword", params["keyword"] || "Nhập vào số QĐ/Ngày ra QĐ", {:title => "Nhập vào số QĐ/Ngày ra QĐ", :onfocus => "if(this.value == 'Nhập vào số QĐ/Ngày ra QĐ') {this.value=''}", :onblur => "if(this.value == ''){this.value ='Nhập vào số QĐ/Ngày ra QĐ'}",  :style => "color: gray; width: 300px; padding: 2px;"}%>
+      <%= text_field_tag "keyword", params["keyword"], {:placeholder => "Nhập vào số QĐ/Ngày ra QĐ", :style => "color: gray; width: 300px; padding: 2px;"}%>
       <%= submit_tag "Tìm Kiếm",:disable_with => "Đang tìm kiếm...", :style => "padding: 3px 10px;" %>
 
   <% end %>
@@ -12,7 +12,7 @@
 
 <%= render :partial => 'casein/quyet_dinhs/table', :locals => { :quyet_dinhs => @quyet_dinhs } %>
 
-<%= will_paginate @quyet_dinhs %>
+<%= will_paginate @quyet_dinhs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới quyết định".html_safe, new_casein_quyet_dinh_path %></li>

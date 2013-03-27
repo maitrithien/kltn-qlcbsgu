@@ -36,7 +36,7 @@
 
 <% if @session_user.is_admin? %>
 
-	<h2>Lấy lại mật khẩu (Hoạt động của người quản trị - sử dụng cẩn thận)</h2>
+	<h2>Đặt lại mật khẩu (Hoạt động của người quản trị - sử dụng cẩn thận)</h2>
 
 	<%= form_for @casein_user, :url => reset_password_casein_user_path(@casein_user) do |f| %>
 
@@ -51,7 +51,7 @@
 		<div class="clearer"></div>
 	
 		<p class="submits">
-			<%= f.submit "Lấy lại mật khẩu", :class => "update" %>
+			<%= f.submit "Đặt lại mật khẩu", :class => "update" %>
 		</p>
 		
 	<% end %>

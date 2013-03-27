@@ -115,6 +115,104 @@ module Casein
       flash[:notice] = Param.get_param_value("deleting_success")
       redirect_to casein_can_bo_trinh_dos_path
     end
+
+
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("can_bo_trinh_do_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      if params[:excel_file]
+      file_path = params[:excel_file]
+      file = XlsUploader.new
+      file.store!(file_path)
+
+      book = Spreadsheet.open "public/#{file.store_path}"
+
+      sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+      @errors = Hash.new
+      @counter = 0
+      @commit = 0
+      @wrong = 0
+      sheet.each 1 do |row|
+        @counter += 1
+        p = CanBoTrinhDo.new
+        can_bo = CanBoThongTin.find_by_ma_cb(row[0].to_i.to_s)
+        if can_bo
+
+          p.can_bo_thong_tin_id = can_bo.id
+          p.trinh_do_gd_pho_thong = row[1].to_s
+
+          hoc_ham = HocHam.find_by_ten_hoc_ham(row[2].to_s)
+          if hoc_ham
+            p.hoc_ham_id = hoc_ham.id
+          end
+          hoc_vi = HocVi.find_by_ten_hoc_vi(row[3].to_s)
+          if hoc_vi
+            p.hoc_vi_id = hoc_vi.id
+          end
+          trinh_do_chuyen_mon = TrinhDoChuyenMon.find_by_trinh_do(row[4].to_s)
+          if trinh_do_chuyen_mon
+            p.trinh_do_chuyen_mon_id = trinh_do_chuyen_mon.id
+          end
+          chuyen_nganh = ChuyenNganh.find_by_ten_chuyen_nganh(row[5].to_s)
+          if chuyen_nganh
+            p.chuyen_nganh_id = chuyen_nganh.id
+          end
+          ly_luan_chinh_tri = LyLuanChinhTri.find_by_trinh_do(row[6].to_i)
+          if ly_luan_chinh_tri
+            p.ly_luan_chinh_tri_id = ly_luan_chinh_tri.id
+          end
+          quan_ly_nha_nuoc = QuanLyNhaNuoc.find_by_trinh_do(row[7].to_i)
+          if quan_ly_nha_nuoc
+            p.quan_ly_nha_nuoc_id = quan_ly_nha_nuoc.id
+          end
+          ngoai_ngu = NgoaiNgu.find_by_ten_ngoai_ngu(row[8].to_i)
+          if ngoai_ngu
+            p.ngoai_ngu_id = ngoai_ngu.id
+          end
+          
+          p.trinh_do_ngoai_ngu = row[9].to_s
+          p.trinh_do_tin_hoc = row[10].to_s
+
+        end #end if can_bo
+
+        if p.valid?
+          @commit += 1
+          p.save
+        else
+          @errors["#{@counter + 1}"] = p.errors
+          @wrong += 1
+        end
+      end
+      book.io.close
+      if @wrong == 0
+        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        file.remove!
+        redirect_to casein_can_bo_trinh_dos_path
+      else
+        flash[:notice] = "Successfully import!\r\nCommit: #{@commit}.\r\nWrong: #{@wrong}"
+        file.remove!
+        render :action => 'show_result', :errors => @errors
+      end
+
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_can_bo_thong_tins_path
+      end
+
+    end
+
+    def show_result
+      @casein_page_title = Param.get_param_value("can_bo_thong_tin_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
+    end
   
   end
 end

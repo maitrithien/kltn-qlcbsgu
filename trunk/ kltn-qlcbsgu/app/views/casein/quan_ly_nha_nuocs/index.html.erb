@@ -4,7 +4,7 @@
 
 <%= render :partial => 'casein/quan_ly_nha_nuocs/table', :locals => { :quan_ly_nha_nuocs => @quan_ly_nha_nuocs } %>
 
-<%= will_paginate @quan_ly_nha_nuocs %>
+<%= will_paginate @quan_ly_nha_nuocs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới trình độ Quản lý Nhà nước".html_safe, new_casein_quan_ly_nha_nuoc_path %></li>

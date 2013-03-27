@@ -15,4 +15,14 @@ class BacLuong < ActiveRecord::Base
       return true
     end
   end
+
+  def self.check_bac_exists(bac_id)
+    bac_luong = BacLuong.find_by_sql("select 1 from bac_luongs where id = #{ bac_id.to_i}")
+    if bac_luong.count == 0
+      return false
+    else
+      return true
+    end
+  end
+
 end

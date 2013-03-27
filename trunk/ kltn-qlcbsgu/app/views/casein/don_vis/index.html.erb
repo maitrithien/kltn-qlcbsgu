@@ -4,7 +4,7 @@
 
 <%= render :partial => 'casein/don_vis/table', :locals => { :don_vis => @don_vis } %>
 
-<%= will_paginate @don_vis %>
+<%= will_paginate @don_vis, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới đơn vị".html_safe, new_casein_don_vi_path %></li>

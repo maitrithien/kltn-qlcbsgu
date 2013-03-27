@@ -2,7 +2,7 @@
 
 <div class="search_basic_form">
 <%= form_tag casein_can_bo_thong_tins_path, :method => "get" do %>
-	<%= text_field_tag "keyword", params["keyword"] || "Nhập vào mã cán bộ/họ tên/ngày sinh/số CMND", {:title => "Nhập vào mã cán bộ/họ tên/ngày sinh/số CMND", :onfocus => "if(this.value == 'Nhập vào mã cán bộ/họ tên/ngày sinh/số CMND') {this.value=''}", :onblur => "if(this.value == ''){this.value ='Nhập vào mã cán bộ/họ tên/ngày sinh/số CMND'}",  :style => "color: gray; width: 300px; padding: 2px;"}%>
+	<%= text_field_tag "keyword", params["keyword"] , {:title => "Nhập vào mã cán bộ/họ tên/ngày sinh/số CMND", :placeholder => "Nhập vào mã cán bộ/họ tên/ngày sinh/số CMND",:style => "color: gray; width: 300px; padding: 2px;"}%>
 	<%= submit_tag "Tìm Kiếm",:disable_with => "Đang tìm kiếm...", :style => "padding: 3px 10px;" %>
 
 <% end %>

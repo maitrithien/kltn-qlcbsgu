@@ -12,6 +12,15 @@ class LichSuBacLuong < ActiveRecord::Base
       scoped
     end
   end
+
+  def self.get_last can_bo_thong_tin_id
+    p = []
+    if can_bo_thong_tin_id
+      p = LichSuBacLuong.find_all_by_can_bo_thong_tin_id(can_bo_thong_tin_id, :order => :ngay_thay_doi_bac)
+      return p.last
+    end
+      
+  end
 end
 
 

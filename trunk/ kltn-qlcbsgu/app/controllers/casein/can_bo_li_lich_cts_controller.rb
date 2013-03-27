@@ -30,8 +30,16 @@ module Casein
           can_bo_li_lich = Spreadsheet::Workbook.new
           list = can_bo_li_lich.create_worksheet :name => 'Danh sach Li lich chinh tri can bo'
           list.row(0).concat %w{Ma_CB Ho_ten Ngay_vao_dang Ngay_nhap_ngu Ngay_xuat_ngu Quan_ham_cao_nhat Danh_hieu_duoc_phong_tang Thuong_binh Gia_dinh_chinh_sach}
+          cap_bac = ""
+          ti_le_thuong_tat = ""
           @can_bo_li_lich_cts_xls.each_with_index { |ct, i|
-            list.row(i+1).push(ct.can_bo_thong_tin.ma_cb, ct.can_bo_thong_tin.ho_ten,ct.ngay_vao_dang,ct.ngay_nhap_ngu,ct.ngay_xuat_ngu,ct.cap_bac_quan_doi.ten_cap_bac,ct.danh_hieu_duoc_phong_tang,ct.hang_thuong_binh.ti_le_thuong_tat,ct.con_gia_dinh_chinh_sach)
+            if ct.cap_bac_quan_doi_id
+              cap_bac = ct.cap_bac_quan_doi.ten_cap_bac
+            end
+            if ct.hang_thuong_binh_id
+              ti_le_thuong_tat = ct.hang_thuong_binh.ti_le_thuong_tat
+            end
+            list.row(i+1).push(ct.can_bo_thong_tin.ma_cb, ct.can_bo_thong_tin.ho_ten, ct.ngay_vao_dang, ct.ngay_nhap_ngu, ct.ngay_xuat_ngu,cap_bac, ct.danh_hieu_duoc_phong_tang, ti_le_thuong_tat, ct.con_gia_dinh_chinh_sach)
           }
 
           header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
@@ -95,6 +103,7 @@ module Casein
     end
 
     def parse_save_from_excel
+      if params[:excel_file]
       file_path = params[:excel_file]
       file = XlsUploader.new
       file.store!(file_path)
@@ -149,6 +158,11 @@ module Casein
         flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         render :action => 'show_result', :errors => @errors
+      end
+
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_can_bo_li_lich_cts_path
       end
 
     end

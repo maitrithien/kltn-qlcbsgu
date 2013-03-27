@@ -40,7 +40,10 @@ QLTtCbvcSgu::Application.routes.draw do
       post "parse_save_from_excel", :on => :collection
     end
 		resources :ngoai_ngus
-		resources :can_bo_trinh_dos
+		resources :can_bo_trinh_dos do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :quan_ly_nha_nuocs
 		resources :ly_luan_chinh_tris
 		resources :trinh_do_chuyen_mons do
