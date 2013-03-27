@@ -8,9 +8,12 @@
   </tr>
 
   <% than_nhans.each_with_index do |than_nhan, index| %>
-
+      <% quan_he = "" %>
+      <% if than_nhan.quan_he_gia_dinh_id %>
+              <% quan_he = than_nhan.quan_he_gia_dinh.ten_quan_he %>
+      <% end %>
       <tr class="hover">
-        <td><%= casein_table_cell_link than_nhan.quan_he_gia_dinh.ten_quan_he, casein_than_nhan_path(than_nhan) %></td>
+        <td><%= casein_table_cell_link quan_he, casein_than_nhan_path(than_nhan) %></td>
         <td><%= casein_table_cell_link than_nhan.ho_ten, casein_than_nhan_path(than_nhan) %></td>
         <td><%= casein_table_cell_link than_nhan.nam_sinh, casein_than_nhan_path(than_nhan) %></td>
         <td><%= casein_table_cell_link than_nhan.nghe_nghiep, casein_than_nhan_path(than_nhan) %></td>

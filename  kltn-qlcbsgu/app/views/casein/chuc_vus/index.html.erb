@@ -4,7 +4,7 @@
 
 <%= render :partial => 'casein/chuc_vus/table', :locals => { :chuc_vus => @chuc_vus } %>
 
-<%= will_paginate @chuc_vus %>
+<%= will_paginate @chuc_vus, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới chức vụ".html_safe, new_casein_chuc_vu_path %></li>

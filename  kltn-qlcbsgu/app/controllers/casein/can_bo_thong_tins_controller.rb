@@ -57,19 +57,37 @@ module Casein
     end
 
     def show
+
+      @lich_su_bac_luongs = []
+      @can_bo_trinh_do = nil
+      @than_nhans = []
+      @qua_trinh_cong_tacs = []
+      @can_bo_cong_tac = nil
+
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_show_page_title")
       @can_bo_thong_tin = CanBoThongTin.find params[:id]
       than_nhans = ThanNhan.find_all_by_can_bo_thong_tin_id params[:id]
-      @than_nhans = []
-      if than_nhans
+      lich_su_bac_luongs = LichSuBacLuong.find_all_by_can_bo_thong_tin_id params[:id]  
+      qua_trinh_cong_tacs = QuaTrinhCongTac.find_all_by_can_bo_thong_tin_id params[:id]
+      trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id params[:id]
+      can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id params[:id]
+
+      if than_nhans.count > 0
         @than_nhans = than_nhans
       end
-
-      trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id params[:id]
-      @can_bo_trinh_do = nil
+      if lich_su_bac_luongs.count > 0
+        @lich_su_bac_luongs = lich_su_bac_luongs
+      end
+      if qua_trinh_cong_tacs.count > 0
+        @qua_trinh_cong_tacs = qua_trinh_cong_tacs
+      end
       if trinh_do
         @can_bo_trinh_do = trinh_do
       end
+      if can_bo_cong_tac
+        @can_bo_cong_tac = can_bo_cong_tac
+      end
+
       respond_to do |format|
         format.html
         format.xls{

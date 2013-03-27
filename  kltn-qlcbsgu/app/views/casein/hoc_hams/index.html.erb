@@ -4,7 +4,7 @@
 
 <%= render :partial => 'casein/hoc_hams/table', :locals => { :hoc_hams => @hoc_hams } %>
 
-<%= will_paginate @hoc_hams %>
+<%= will_paginate @hoc_hams, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới học hàm".html_safe, new_casein_hoc_ham_path %></li>

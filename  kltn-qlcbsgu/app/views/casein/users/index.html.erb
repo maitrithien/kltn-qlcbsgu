@@ -28,7 +28,7 @@
 	<% end %>
 </table>
 
-<%= will_paginate @users %>
+<%= will_paginate @users, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 
 <%= content_for :sidebar do %>
   <li><%= link_to "#{casein_show_icon('add')}Thêm mới người dùng".html_safe, new_casein_user_path %></li>

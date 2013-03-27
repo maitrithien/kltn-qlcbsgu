@@ -97,6 +97,7 @@ module Casein
     end
 
     def parse_save_from_excel
+      if params[:excel_file]
       file_path = params[:excel_file]
       file = XlsUploader.new
       file.store!(file_path)
@@ -144,6 +145,11 @@ module Casein
         flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         render :action => 'show_result', :errors => @errors
+      end
+
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_than_nhans_path
       end
 
     end

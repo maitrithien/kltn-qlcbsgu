@@ -97,6 +97,7 @@ module Casein
     end
 
     def parse_save_from_excel
+      if params[:excel_file]
       file_path = params[:excel_file]
       file = XlsUploader.new
       file.store!(file_path)
@@ -153,7 +154,14 @@ module Casein
         render :action => 'show_result', :errors => @errors
       end
 
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_can_bo_cong_tacs_path
+      end
+
     end
+
+
     def show_result
       @casein_page_title = Param.get_param_value("can_bo_cong_tac_show_result_page_title")
       @errors = Hash.new

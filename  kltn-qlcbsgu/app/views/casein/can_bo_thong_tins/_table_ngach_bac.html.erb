@@ -1,22 +1,31 @@
-<tr>
-  <td><b>Ngạch công chức (viên chức):</b></td>
-  <td><%= can_bo_thong_tin.bac_luong.ngach.ten_ngach %></td>
-</tr>
-<tr>
-  <td><b>Mã ngạch:</b>&nbsp;</td>
-  <td><%= can_bo_thong_tin.bac_luong.ngach.ma_ngach %></td>
-</tr>
-<tr>
-  <td><b>Bậc lương:</b>&nbsp;</td>
-  <td>Bậc <%= can_bo_thong_tin.bac_luong.bac%></td>
-</tr>
-<tr>
-  <td><b>Hệ số:</b>&nbsp;</td>
-  <td>
-    <% if can_bo_thong_tin.bac_luong.vuot_khung %>
-        <span>Vượt khung <%= can_bo_thong_tin.bac_luong.he_so_luong %>%</span>
-    <% else %>
-        <span><%= can_bo_thong_tin.bac_luong.he_so_luong %></span>
-    <% end %>
-  </td>
-</tr>
+<%# kiem tra thong tin id bac luong %>
+<% if can_bo_thong_tin.bac_luong_id %>
+    <%# kiem tra su ton tai cua bac luong voi id references %>
+  <% if BacLuong.check_bac_exists(can_bo_thong_tin.bac_luong_id)  %>
+        <%# kiem tra thong tin id ngach %>
+        <% if can_bo_thong_tin.bac_luong.ngach_id %>
+            <tr>
+              <td><b>Ngạch công chức (viên chức):</b></td>
+              <td><%= can_bo_thong_tin.bac_luong.ngach.ten_ngach %></td>
+            </tr>
+            <tr>
+              <td><b>Mã ngạch:</b>&nbsp;</td>
+              <td><%= can_bo_thong_tin.bac_luong.ngach.ma_ngach %></td>
+            </tr>
+            <tr>
+              <td><b>Bậc lương:</b>&nbsp;</td>
+              <td>Bậc <%= can_bo_thong_tin.bac_luong.bac%></td>
+            </tr>
+            <tr>
+              <td><b>Hệ số:</b>&nbsp;</td>
+              <td>
+                <% if can_bo_thong_tin.bac_luong.vuot_khung %>
+                    <span>Vượt khung <%= can_bo_thong_tin.bac_luong.he_so_luong %>%</span>
+                <% else %>
+                    <span><%= can_bo_thong_tin.bac_luong.he_so_luong %></span>
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+     <% end %>
+<% end %>

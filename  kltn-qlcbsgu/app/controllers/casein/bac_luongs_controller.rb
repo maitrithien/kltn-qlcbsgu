@@ -91,6 +91,7 @@ module Casein
     end
 
     def parse_save_from_excel
+      if params[:excel_file]
       file_path = params[:excel_file]
       file = XlsUploader.new
       file.store!(file_path)
@@ -109,8 +110,13 @@ module Casein
         ngach = Ngach.find_by_ma_ngach(row[0].to_s)
         if ngach
           p.ngach_id = ngach.id
-          p.bac = row[2].to_i
-          p.he_so_luong = row[3].to_s
+          p.bac = row[1].to_i
+          p.he_so_luong = row[2].to_s
+          flag = false
+          if row[3].to_i == 1
+            flag = true
+          end
+          p.vuot_khung = flag
           p.ghi_chu = row[4].to_s
           if p.valid?
             @commit += 1
@@ -133,6 +139,11 @@ module Casein
         flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
         file.remove!
         render :action => 'show_result', :errors => @errors
+      end
+
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_bac_luongs_path
       end
 
     end
