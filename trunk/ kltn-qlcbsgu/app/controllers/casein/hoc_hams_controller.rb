@@ -10,6 +10,23 @@ module Casein
     def index
       @casein_page_title = Param.get_param_value("hoc_ham_index_page_title")
   		@hoc_hams = HocHam.paginate :page => params[:page]
+
+      respond_to do |format|
+        format.html
+        format.xls{
+          hoc_ham = Spreadsheet::Workbook.new
+          list = hoc_ham.create_worksheet :name => 'Danh sach hoc ham'
+          list.row(0).concat %w{Ten_hoc_ham Ghi_chu}
+          @hoc_hams.each_with_index { |h, i| list.row(i+1).push h.ten_hoc_ham, h.ghi_chu}
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          hoc_ham.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Danh_Sach_Hoc_ham.xls"
+        }
+      end
     end
   
     def show
@@ -55,6 +72,68 @@ module Casein
       flash[:notice] = Param.get_param_value("deleting_success")
       redirect_to casein_hoc_hams_path
     end
-  
+
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("hoc_ham_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      if params[:excel_file]
+        file_path = params[:excel_file]
+        file = XlsUploader.new
+        file.store!(file_path)
+
+        book = Spreadsheet.open "public/#{file.store_path}"
+
+        sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+        @errors = Hash.new
+        @counter = 0
+        @commit = 0
+        @wrong = 0
+        sheet.each 1 do |row|
+          @counter += 1
+          p = HocHam.new          
+          p.ten_hoc_ham = row[0].to_s
+          p.ghi_chu = row[1].to_s
+
+
+
+          if p.valid?
+            @commit += 1
+            p.save
+          else
+            @errors["#{@counter + 1}"] = "#{row[0]}"
+            @wrong += 1
+          end
+        end
+        book.io.close
+        if @wrong == 0
+          flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+          file.remove!
+          redirect_to casein_hoc_hams_path
+        else
+          flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+          file.remove!
+          render :action => 'show_result', :errors => @errors
+        end
+
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_hoc_hams_path
+      end
+    end
+
+
+    def show_result
+      @casein_page_title = Param.get_param_value("hoc_ham_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
+    end
+
+    end
   end
-end

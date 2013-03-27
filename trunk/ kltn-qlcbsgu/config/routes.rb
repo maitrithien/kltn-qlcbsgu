@@ -2,7 +2,10 @@ QLTtCbvcSgu::Application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
-		resources :quan_he_gia_dinhs
+		resources :quan_he_gia_dinhs do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :hang_thuong_binhs do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
@@ -39,13 +42,22 @@ QLTtCbvcSgu::Application.routes.draw do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
     end
-		resources :ngoai_ngus
+		resources :ngoai_ngus do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :can_bo_trinh_dos do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
     end
-		resources :quan_ly_nha_nuocs
-		resources :ly_luan_chinh_tris
+		resources :quan_ly_nha_nuocs do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
+		resources :ly_luan_chinh_tris do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :trinh_do_chuyen_mons do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
@@ -54,10 +66,22 @@ QLTtCbvcSgu::Application.routes.draw do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
     end
-		resources :quyet_dinhs
-		resources :loai_quyet_dinhs
-		resources :hoc_hams
-		resources :hoc_vis
+		resources :quyet_dinhs  do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
+		resources :loai_quyet_dinhs do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
+		resources :hoc_hams do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
+		resources :hoc_vis do
+      get "import_from_excel", :on => :collection
+      post "parse_save_from_excel", :on => :collection
+    end
 		resources :can_bo_li_lich_cts  do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
