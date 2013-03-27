@@ -10,6 +10,25 @@ module Casein
     def index
       @casein_page_title = Param.get_param_value("quan_ly_nha_nuoc_index_page_title")
   		@quan_ly_nha_nuocs = QuanLyNhaNuoc.paginate :page => params[:page], :per_page => 10
+      @quan_ly_nha_nuocs_xls = QuanLyNhaNuoc.all
+
+      respond_to do |format|
+        format.html
+        format.xls{
+          quan_ly_nha_nuoc = Spreadsheet::Workbook.new
+          list = quan_ly_nha_nuoc.create_worksheet :name => 'Danh sach trinh do quan ly nha nuoc'
+          list.row(0).concat %w{Trinh_do Ghi_chu}
+          @quan_ly_nha_nuocs_xls.each_with_index { |h, i| list.row(i+1).push h.trinh_do, h.ghi_chu}
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          quan_ly_nha_nuoc.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Danh_sach_trinh_do_quan_ly_nha_nuoc.xls"
+        }
+      end
+
     end
   
     def show
@@ -54,6 +73,68 @@ module Casein
       @quan_ly_nha_nuoc.destroy
       flash[:notice] = Param.get_param_value("deleting_success")
       redirect_to casein_quan_ly_nha_nuocs_path
+    end
+
+    def import_from_excel
+      @casein_page_title = Param.get_param_value("quan_ly_nha_nuoc_import_from_excel_page_title")
+    end
+
+    def parse_save_from_excel
+      if params[:excel_file]
+        file_path = params[:excel_file]
+        file = XlsUploader.new
+        file.store!(file_path)
+
+        book = Spreadsheet.open "public/#{file.store_path}"
+
+        sheet = book.worksheet 0  # first sheet in the spreadsheet file will be used
+
+        @errors = Hash.new
+        @counter = 0
+        @commit = 0
+        @wrong = 0
+        sheet.each 1 do |row|
+          @counter += 1
+          p = QuanLyNhaNuoc.new
+          p.trinh_do = row[0].to_s
+          p.ghi_chu = row[1].to_s
+
+
+
+          if p.valid?
+            @commit += 1
+            p.save
+          else
+            @errors["#{@counter + 1}"] = "#{row[0]}"
+            @wrong += 1
+          end
+        end
+        book.io.close
+        if @wrong == 0
+          flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+          file.remove!
+          redirect_to casein_quan_ly_nha_nuocs_path
+        else
+          flash[:notice] = "#{Param.get_param_value "import_success"} | #{Param.get_param_value "commit"}: #{@commit}/#{@counter} | #{Param.get_param_value "wrong"}: #{@wrong}"
+          file.remove!
+          render :action => 'show_result', :errors => @errors
+        end
+
+      else #if :excel_file is null
+        flash[:warning] = Param.get_param_value ("let_choose_file_now")
+        redirect_to import_from_excel_casein_quan_ly_nha_nuocs_path
+      end
+    end
+
+
+    def show_result
+      @casein_page_title = Param.get_param_value("hoc_ham_show_result_page_title")
+      @errors = Hash.new
+      @errors = params[:errors]
+      respond_to do |format|
+        format.html
+        format.json {head :no_content}
+      end
     end
   
   end
