@@ -1,0 +1,22 @@
+<% unless @errors.nil? %>
+    <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
+
+    <table class="import_table">
+      <tr>
+        <th>STT dòng trong excel</th>
+        <th>Thông tin</th>
+      </tr>
+      <% @errors.each do |mgs| %>
+          <tr>
+            <td>Dòng&nbsp;<%= mgs[0]%>&nbsp;:</td>
+            <td><%= mgs[1]%></td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>
+
+<%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới trình độ lý luận chính trị".html_safe, new_casein_ly_luan_chinh_tri_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới trình độ lý luận chính trị từ excel".html_safe, import_from_excel_casein_ly_luan_chinh_tris_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Danh sách trình độ lý luận chính trị".html_safe, casein_ly_luan_chinh_tris_path %></li>
+<% end %>
