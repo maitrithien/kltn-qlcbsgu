@@ -83,9 +83,9 @@
 
 <%# searching result %>
 <% if @has_result %>
-<div class="blk-share">
-<div class="second_paragraph">
 
+<div class="second_paragraph">
+<div class="blk-share">
     <%= render :partial => 'casein/can_bo_thong_tins/table', :locals => { :can_bo_thong_tins => @can_bo_thong_tins } %>
 
     <%= will_paginate @can_bo_thong_tins %>

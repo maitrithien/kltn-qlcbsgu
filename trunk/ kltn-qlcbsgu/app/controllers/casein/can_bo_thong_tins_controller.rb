@@ -105,7 +105,7 @@ module Casein
               if attr_value
                 attr_value = "Nam"
               else
-                attr_value = "Nu"
+                attr_value = ""
               end
             end
 
@@ -176,16 +176,95 @@ module Casein
 
           sheet_second = book.create_worksheet :name => "Than nhan"
           #write than_nhan info
-          i = 0
+          i = 2
+          sheet_second.row(0)[1] = "#{Param.get_param_value("thong_tin_than_nhan")}"
+          sheet_second.merge_cells(0, 1, 0, 4)
+          sheet_second.row(0).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :size => 12, :align => :center
+          sheet_second.row(i)[1] = "#{Param.get_param_value("moi_quan_he")}"
+          sheet_second.row(i)[2] = "#{Param.get_param_value("ho_ten")}"
+          sheet_second.row(i)[3] = "#{Param.get_param_value("nam_sinh")}"
+          sheet_second.row(i)[4] = "#{Param.get_param_value("nghe_nghiep")}"
+          sheet_second.row(i).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :top, :text_wrap => true
           if @than_nhans.count > 0
             @than_nhans.each do |than_nhan|
               i = i + 1
-              sheet_second.row(i).push than_nhan.quan_he_gia_dinh.ten_quan_he, than_nhan.ho_ten, than_nhan.nam_sinh, than_nhan.nghe_nghiep
-              sheet_second.row(i).set_format(i, none_format)
+              sheet_second.row(i)[1] = than_nhan.quan_he_gia_dinh.ten_quan_he
+              sheet_second.row(i)[2] = than_nhan.ho_ten
+              sheet_second.row(i)[3] = than_nhan.nam_sinh
+              sheet_second.row(i)[4] = than_nhan.nghe_nghiep
+              sheet_second.row(i).default_format =  Spreadsheet::Format.new :align => :top, :text_wrap => true
             end
+            sheet_second.column(1).width = 20
+            sheet_second.column(2).width = 20
+            sheet_second.column(3).width = 20
+            sheet_second.column(4).width = 30
           end
 
+          sheet_third = book.create_worksheet :name => "Qua trinh cong tac"
+          #write than_nhan info
+          i = 2
+          sheet_third.row(0)[1] = "#{Param.get_param_value("qua_trinh_cong_tac")}"
+          sheet_third.merge_cells(0, 1, 0, 4)
+          sheet_third.row(0).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :size => 12, :align => :center
+          sheet_third.row(i)[1] = "#{Param.get_param_value("don_vi")}"
+          sheet_third.row(i)[2] = "#{Param.get_param_value("chuc_vu")}"
+          sheet_third.row(i)[3] = "#{Param.get_param_value("thoi_gian_bat_dau")}"
+          sheet_third.row(i)[4] = "#{Param.get_param_value("thoi_gian_chuyen_cong_tac")}"
+          sheet_third.row(i).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :top, :text_wrap => true
+          if @qua_trinh_cong_tacs.count > 0
+            @qua_trinh_cong_tacs.each do |qua_trinh_cong_tac|
+              i = i + 1
+              if qua_trinh_cong_tac.don_vi_id
+                sheet_third.row(i)[1] = qua_trinh_cong_tac.don_vi.ten_don_vi
+              end
+              if qua_trinh_cong_tac.chuc_vu_id
+                sheet_third.row(i)[2] = qua_trinh_cong_tac.chuc_vu.ten_chuc_vu
+              end
+              if qua_trinh_cong_tac.thoi_gian_bat_dau
+                sheet_third.row(i)[3] = qua_trinh_cong_tac.thoi_gian_bat_dau.strftime("%d/%m/%Y")
+              end
+              if qua_trinh_cong_tac.thoi_gian_ket_thuc
+                sheet_third.row(i)[4] = qua_trinh_cong_tac.thoi_gian_ket_thuc.strftime("%d/%m/%Y")
+              end
+              sheet_third.row(i).default_format =  Spreadsheet::Format.new :align => :top, :text_wrap => true
+            end
+            sheet_third.column(1).width = 20
+            sheet_third.column(2).width = 20
+            sheet_third.column(3).width = 20
+            sheet_third.column(4).width = 30
+          end
 
+          sheet_fourth = book.create_worksheet :name => "Lich su thay doi bac luong"
+          #write than_nhan info
+          i = 2
+          sheet_fourth.row(0)[1] = "#{Param.get_param_value("lich_su_bac_luong")}"
+          sheet_fourth.merge_cells(0, 1, 0, 4)
+          sheet_fourth.row(0).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :size => 12, :align => :center
+          sheet_fourth.row(i)[1] = "#{Param.get_param_value("ngach")}"
+          sheet_fourth.row(i)[2] = "#{Param.get_param_value("bac")}"
+          sheet_fourth.row(i)[3] = "#{Param.get_param_value("ngay_thay_doi_bac")}"
+          sheet_fourth.row(i)[4] = "#{Param.get_param_value("ghi_chu")}"
+          sheet_fourth.row(i).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :top, :text_wrap => true
+          if @lich_su_bac_luongs.count > 0
+            @lich_su_bac_luongs.each do |lich_su_bac_luong|
+              i = i + 1
+              if lich_su_bac_luong.bac_luong_id
+                if lich_su_bac_luong.bac_luong.ngach_id
+                  sheet_fourth.row(i)[1] = lich_su_bac_luong.bac_luong.ngach.ten_ngach
+                end
+                sheet_fourth.row(i)[2] = lich_su_bac_luong.bac_luong.bac
+              end
+              if lich_su_bac_luong.ngay_thay_doi_bac
+                sheet_fourth.row(i)[3] = lich_su_bac_luong.ngay_thay_doi_bac.strftime("%d/%m/%Y")
+              end
+              sheet_fourth.row(i)[4] = lich_su_bac_luong.ghi_chu
+              sheet_fourth.row(i).default_format =  Spreadsheet::Format.new :align => :top, :text_wrap => true
+            end
+            sheet_fourth.column(1).width = 20
+            sheet_fourth.column(2).width = 20
+            sheet_fourth.column(3).width = 20
+            sheet_fourth.column(4).width = 30
+          end
 
           #output to blob object
           blob = StringIO.new("")
