@@ -1,5 +1,5 @@
-<h1>Nhập dữ liệu từ tập tin excel</h1>
-
+<div class="blk-share">
+<h2>Nhập dữ liệu từ tập tin excel</h2>
 
 <div id="import_form" style="display: block;">
   <p><%= button_tag "Tùy chọn với cột tương ứng trong tập tin excel", :onclick=>"toggleSwitchDiv('import_form', 'custom_column');" %></p>
@@ -39,9 +39,9 @@
 
 <a href="/template/template_import_xls_cbtt.xls"><%= casein_show_icon("download") %>tải xuống tập tin excel mẫu</a>
 <p>
-   <%= image_tag "tempate_xls_cbtt.png", :title => "Cấu trúc tập tin excel Cán bộ - Thông tin", :size => "900x150" %>
+   <%= image_tag "tempate_xls_cbtt.png", :title => "Cấu trúc tập tin excel Cán bộ - Thông tin", :size => "850x150" %>
 </p>
-
+</div>
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon_custom_style("search", "width:20px; margin-top:-5px;")}Tìm kiếm nâng cao".html_safe, advance_search_casein_can_bo_thong_tins_path %></li>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới thông tin cán bộ".html_safe, new_casein_can_bo_thong_tin_path %></li>

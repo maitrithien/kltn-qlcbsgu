@@ -7,11 +7,14 @@
   <% end %>
 </div>
 
+<div class="blk-share">
 <h2>Danh sách chuyên ngành</h2>
 
 <%= render :partial => 'casein/chuyen_nganhs/table', :locals => { :chuyen_nganhs => @chuyen_nganhs } %>
 
 <%= will_paginate @chuyen_nganhs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+</div>
+
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới chuyên ngành".html_safe, new_casein_chuyen_nganh_path %></li>
