@@ -9,15 +9,33 @@
 		<th>Thời Gian Kết Thúc</th>
 		<th>&nbsp;</th>
 	</tr>
-	
+	<% don_vi = "" %>
+	<% chuc_vu = "" %>
+	<% thoi_gian_bat_dau = "" %>
+	<% thoi_gian_ket_thuc = "" %>
+
 	<% qua_trinh_cong_tacs.each_with_index do |qua_trinh_cong_tac, index| %>
+		<% if qua_trinh_cong_tac.don_vi_id %>
+			<% don_vi = qua_trinh_cong_tac.don_vi.ten_don_vi %>
+		<% end %>
+		<% if qua_trinh_cong_tac.chuc_vu_id %>
+			<% don_vi = qua_trinh_cong_tac.chuc_vu.ten_chuc_vu %>
+		<% end %>
+		<% if qua_trinh_cong_tac.thoi_gian_bat_dau %>
+			<% thoi_gian_bat_dau = qua_trinh_cong_tac.thoi_gian_bat_dau.strftime("%d/%m/%Y") %>
+		<% end %>
+		<% if qua_trinh_cong_tac.thoi_gian_ket_thuc %>
+			<% thoi_gian_ket_thuc = qua_trinh_cong_tac.thoi_gian_ket_thuc.strftime("%d/%m/%Y") %>
+		<% end %>
+
+
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
           <td><%= casein_table_cell_link "#{qua_trinh_cong_tac.can_bo_thong_tin.ma_cb} - #{qua_trinh_cong_tac.can_bo_thong_tin.ho_ten}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-          <td><%= casein_table_cell_link "#{qua_trinh_cong_tac.don_vi.ten_don_vi}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-          <td><%= casein_table_cell_link "#{qua_trinh_cong_tac.chuc_vu.ten_chuc_vu}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-			<td><%= casein_table_cell_link qua_trinh_cong_tac.thoi_gian_bat_dau.strftime("%d/%m/%Y"), casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+          <td><%= casein_table_cell_link "#{don_vi}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+          <td><%= casein_table_cell_link "#{chuc_vu}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+			<td><%= casein_table_cell_link thoi_gian_bat_dau, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
           <% if qua_trinh_cong_tac.thoi_gian_ket_thuc  %>
-			<td><%= casein_table_cell_link qua_trinh_cong_tac.thoi_gian_ket_thuc.strftime("%d/%m/%Y"), casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+			<td><%= casein_table_cell_link thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
            <% else %>
               <td><%= casein_table_cell_link qua_trinh_cong_tac.thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
              <% end %>

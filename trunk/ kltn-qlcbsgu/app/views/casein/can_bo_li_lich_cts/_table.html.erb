@@ -12,22 +12,36 @@
 		<th>Gia đình C.Sách</th>
 		<th>&nbsp;</th>
 	</tr>
+	<% cap_bac = "" %>
+    <% ti_le_thuong_tat = "" %>
+    <% ngay_vao_dang = "" %>
+    <% ngay_nhap_ngu = "" %>   
+    <% ngay_xuat_ngu = "" %>
 
 	<% can_bo_li_lich_cts.each_with_index do |can_bo_li_lich_ct, index| %>
-      <% cap_bac = "" %>
-      <% ti_le_thuong_tat = "" %>
+      
       <% if can_bo_li_lich_ct.cap_bac_quan_doi_id %>
            <% cap_bac = can_bo_li_lich_ct.cap_bac_quan_doi.ten_cap_bac %>
       <% end %>
       <% if can_bo_li_lich_ct.hang_thuong_binh_id %>
           <% ti_le_thuong_tat = can_bo_li_lich_ct.hang_thuong_binh.ti_le_thuong_tat %>
       <% end %>
+      <% if can_bo_li_lich_ct.ngay_vao_dang %>
+          <% ngay_vao_dang = can_bo_li_lich_ct.ngay_vao_dang.strftime("%d/%m/%Y") %>
+      <% end %>
+      <% if can_bo_li_lich_ct.ngay_nhap_ngu %>
+          <% ngay_nhap_ngu = can_bo_li_lich_ct.ngay_nhap_ngu.strftime("%d/%m/%Y") %>
+      <% end %>
+      <% if can_bo_li_lich_ct.ngay_xuat_ngu %>
+          <% ngay_xuat_ngu = can_bo_li_lich_ct.ngay_xuat_ngu.strftime("%d/%m/%Y") %>
+      <% end %>
+
 
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
 			<td><%= casein_table_cell_link "#{can_bo_li_lich_ct.can_bo_thong_tin.ma_cb} - #{can_bo_li_lich_ct.can_bo_thong_tin.ho_ten}", casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
-			<td><%= casein_table_cell_link can_bo_li_lich_ct.ngay_vao_dang, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
-			<td><%= casein_table_cell_link can_bo_li_lich_ct.ngay_nhap_ngu, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
-			<td><%= casein_table_cell_link can_bo_li_lich_ct.ngay_xuat_ngu, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
+			<td><%= casein_table_cell_link ngay_vao_dang, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
+			<td><%= casein_table_cell_link ngay_nhap_ngu, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
+			<td><%= casein_table_cell_link ngay_xuat_ngu, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link cap_bac, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link truncate(can_bo_li_lich_ct.danh_hieu_duoc_phong_tang, :length => 15), casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>
 			<td><%= casein_table_cell_link ti_le_thuong_tat, casein_can_bo_li_lich_ct_path(can_bo_li_lich_ct) %></td>

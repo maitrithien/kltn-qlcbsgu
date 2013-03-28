@@ -115,6 +115,9 @@ div.loginBox {
 
 #navigation {
 	position: absolute;
+	display: block;
+	background: transparent;
+	line-height: auto;
 	bottom: 28px;
 	left: 25px;
 	font-size: 13px;

@@ -266,7 +266,8 @@ ul#css3menu,ul#css3menu ul{
     margin-bottom:-10px;
     list-style:none;
     padding:0;
-    background-color:#000;
+    display: block;
+    background: #0a1602;
     background-image:url("../images/mainbk.png");
     background-repeat:repeat;
     border-width:0px;
