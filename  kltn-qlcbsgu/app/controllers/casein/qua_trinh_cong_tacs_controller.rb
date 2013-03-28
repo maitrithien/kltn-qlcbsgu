@@ -8,7 +8,7 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Qua trinh cong tacs'
+      @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_index_page_titile"
   		#@qua_trinh_cong_tacs = QuaTrinhCongTac.paginate :page => params[:page]
       search_value = params["keyword"]
       if search_value != nil
@@ -48,20 +48,17 @@ module Casein
     end
   
     def show
-      @casein_page_title = 'View qua trinh cong tac'
+      @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_view_page_titile"
       @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
     end
  
     def new
-      @casein_page_title = 'Add a new qua trinh cong tac'
+      @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_new_page_titile"
     	@qua_trinh_cong_tac = QuaTrinhCongTac.new
     end
 
     def create
       @qua_trinh_cong_tac = QuaTrinhCongTac.new params[:qua_trinh_cong_tac]
-      if params["biet_nkt"].to_s !="1"
-        @qua_trinh_cong_tac.thoi_gian_ket_thuc = nil
-      end
       if @qua_trinh_cong_tac.save
         flash[:notice] = Param.get_param_value("adding_success")
         redirect_to casein_qua_trinh_cong_tacs_path
@@ -72,7 +69,7 @@ module Casein
     end
   
     def update
-      @casein_page_title = 'Update qua trinh cong tac'
+      @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_update_page_titile"
       
       @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
     
@@ -159,7 +156,7 @@ module Casein
     end
 
     def show_result
-      @casein_page_title = Param.get_param_value("can_bo_li_lich_ct_show_result_page_title")
+      @casein_page_title = Param.get_param_value("can_bo_cong_tac_show_result_page_title")
       @errors = Hash.new
       @errors = params[:errors]
       respond_to do |format|
