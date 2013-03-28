@@ -1,4 +1,5 @@
-<h1>Nhập dữ liệu từ tập tin excel</h1>
+<div class="blk-share">
+<h2>Nhập dữ liệu từ tập tin excel</h2>
 <h2>Lựa chọn tập tin</h2>
 <%= form_tag(parse_save_from_excel_casein_don_vis_path, :multipart => true) do %>
 
@@ -9,6 +10,7 @@
       <%= submit_tag "Lưu dữ liệu", :disable_with => "Đang xử lý dữ liệu..." %>
     </p>
 <% end %>
+</div>
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới đơn vị".html_safe, new_casein_don_vi_path %></li>

@@ -1,3 +1,4 @@
+<div class="blk-share">
 <% unless @errors.nil? %>
     <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
 
@@ -5,6 +6,7 @@
         <p>Dòng thứ: <%= mgs[0]%> Lỗi: <%= mgs[1] %> </p>
     <% end %>
 <% end %>
+</div>
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới chuyên ngành".html_safe, new_casein_chuyen_nganh_path %></li>

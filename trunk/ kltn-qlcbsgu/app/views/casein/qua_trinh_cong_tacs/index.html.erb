@@ -5,12 +5,17 @@
     <%= submit_tag "Tìm Kiếm",:disable_with => "Đang tìm kiếm...", :style => "padding: 3px 10px;" %>
 
 <% end %>
-  </div>
+</div>
+
+<div class="blk-share">
 <h2>lịch sử Công Tác</h2>
 
 <%= render :partial => 'casein/qua_trinh_cong_tacs/table', :locals => { :qua_trinh_cong_tacs => @qua_trinh_cong_tacs } %>
 
 <%= will_paginate @qua_trinh_cong_tacs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+</div>
+
+
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử công tác".html_safe, new_casein_qua_trinh_cong_tac_path %></li>

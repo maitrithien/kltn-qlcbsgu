@@ -1,7 +1,15 @@
+<div class="blk-share">
 <% unless @errors.nil? %>
     <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
 
     <% @errors.each do |mgs| %>
         <p>Tên tham số: <%= mgs[0]%> Lỗi: <%= mgs[1] %> </p>
     <% end %>
+<% end %>
+</div>
+
+<%= content_for :sidebar do %>
+		<li><%= link_to "#{casein_show_icon "add"}Thêm mới tham số".html_safe, new_casein_param_path %></li>
+        <li><%= link_to "#{casein_show_icon "add"}Thêm mới tham số từ file excel".html_safe, import_from_excel_casein_params_path %></li>
+        <li><%= link_to "#{casein_show_icon "table"}Danh sách tham số".html_safe, casein_params_path %></li>
 <% end %>

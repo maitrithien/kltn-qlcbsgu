@@ -8,11 +8,14 @@
   <% end %>
 </div>
 
+<div class="blk-share">
 <h2>Danh sách quyết định</h2>
 
 <%= render :partial => 'casein/quyet_dinhs/table', :locals => { :quyet_dinhs => @quyet_dinhs } %>
 
 <%= will_paginate @quyet_dinhs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+</div>
+
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới quyết định".html_safe, new_casein_quyet_dinh_path %></li>

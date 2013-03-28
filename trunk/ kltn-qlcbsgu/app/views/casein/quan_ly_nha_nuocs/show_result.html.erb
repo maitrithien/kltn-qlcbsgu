@@ -1,3 +1,5 @@
+
+<div class="blk-share">
 <% unless @errors.nil? %>
     <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
 
@@ -14,6 +16,8 @@
       <% end %>
     </table>
 <% end %>
+</div>
+
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới trình độ quản lý Nhà nước".html_safe, new_casein_quan_ly_nha_nuoc_path %></li>

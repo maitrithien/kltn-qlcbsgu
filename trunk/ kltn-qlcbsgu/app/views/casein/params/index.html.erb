@@ -7,11 +7,14 @@
   <% end %>
 </div>
 
+<div class="blk-share">
 <h2>Bảng tham số</h2>
 
 <%= render :partial => 'casein/params/table', :locals => { :params => @params } %>
 
 <%= will_paginate @params, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;'%>
+</div>
+
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới tham số".html_safe, new_casein_param_path %></li>

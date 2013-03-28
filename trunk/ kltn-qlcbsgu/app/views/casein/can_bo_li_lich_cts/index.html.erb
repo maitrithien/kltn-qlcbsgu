@@ -6,11 +6,14 @@
 
  <% end %>
 </div>
+
+<div class="blk-share">
 <h2>Lí lịch chính trị của cán bộ</h2>
 
 <%= render :partial => 'casein/can_bo_li_lich_cts/table', :locals => { :can_bo_li_lich_cts => @can_bo_li_lich_cts } %>
 
 <%= will_paginate @can_bo_li_lich_cts, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+</div>
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lí lịch chính trị cán bộ".html_safe, new_casein_can_bo_li_lich_ct_path %></li>

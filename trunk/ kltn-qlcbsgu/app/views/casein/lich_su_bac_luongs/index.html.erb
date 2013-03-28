@@ -6,11 +6,15 @@
 
   <% end %>
 </div>
+
+<div class="blk-share">
 <h2>Lịch sử thay đổi Ngạch - Bậc</h2>
 
 <%= render :partial => 'casein/lich_su_bac_luongs/table', :locals => { :lich_su_bac_luongs => @lich_su_bac_luongs } %>
 
 <%= will_paginate @lich_su_bac_luongs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+</div>
+
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử Ngạch - Bậc".html_safe, new_casein_lich_su_bac_luong_path %></li>

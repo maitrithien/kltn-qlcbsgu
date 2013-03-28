@@ -52,8 +52,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content h2, #preview h2 {
+    font-weight: bold;
 	font-size: 15px;
-	font-weight: normal;
 	color: rgb(0, 0, 0);
 	border-bottom: 2px solid #ddd;
 	padding: 0 0 5px 0;
@@ -359,6 +359,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     width: 100%;
     height: auto;
     background: rgba(231, 252, 249, 0.21);
+    display: block;
     float: left;
     padding: 0;
 }
@@ -368,6 +369,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 {
     width: 100%;
     height: auto;
+    display: block;
     background: none;
     float: left;
 
