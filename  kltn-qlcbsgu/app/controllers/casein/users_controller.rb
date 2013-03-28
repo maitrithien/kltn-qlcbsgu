@@ -8,7 +8,7 @@ module Casein
  
     def index
       @casein_page_title = Param.get_param_value("users_index_page_title")
-    	@users = Casein::User.paginate :order => "login", :page => params[:page]
+    	@users = Casein::User.paginate :order => "login", :page => params[:page], :per_page => 10
     end
  
     def new
