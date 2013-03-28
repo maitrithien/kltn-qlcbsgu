@@ -109,13 +109,65 @@ module Casein
               end
             end
 
-            if attr_name != 'is_deleted' && attr_name != 'tep_tin_dinh_kem' && attr_name != 'id' && attr_name != 'hinh_anh' && attr_name != 'created_at' && attr_name != 'updated_at'
+            if attr_name != 'is_deleted' && attr_name != 'tep_tin_dinh_kem' && attr_name != 'id' && attr_name != 'bac_luong_id' && attr_name != 'hinh_anh' && attr_name != 'created_at' && attr_name != 'updated_at'
               i = i + 1
               sheet.row(i)[1] = "#{Param.get_param_value"#{attr_name}"}"
               sheet.row(i)[2] = attr_value
             end
 
+            if attr_name == 'bac_luong_id'
+              if attr_value
+                bac_luong = BacLuong.find(attr_value)
+                if bac_luong
+                  i = i + 1
+                  sheet.row(i)[1] = "#{Param.get_param_value"ngach"}"
+                  sheet.row(i)[2] = bac_luong.ngach.ten_ngach
+                  i = i + 1
+                  sheet.row(i)[1] = "#{Param.get_param_value"ma_ngach"}"
+                  sheet.row(i)[2] = bac_luong.ngach.ma_ngach
+                  i = i + 1
+                  sheet.row(i)[1] = "#{Param.get_param_value"bac_luong"}"
+                  sheet.row(i)[2] = bac_luong.bac
+                  i = i + 1
+                  sheet.row(i)[1] = "#{Param.get_param_value"he_so_luong"}"
+                  if bac_luong.vuot_khung
+                    sheet.row(i)[2] = "VK #{bac_luong.he_so_luong}%"
+                  else
+                    sheet.row(i)[2] = bac_luong.he_so_luong
+                  end
+
+
+                end
+              end
+
+            end
+
+
           end  #end can_bo_thong_tin loop function
+
+          if @can_bo_cong_tac
+            i = i + 1
+            sheet.row(i)[1] = "#{Param.get_param_value"don_vi_tuyen_dung"}"
+            if  @can_bo_cong_tac.don_vi_id
+              sheet.row(i)[2] = @can_bo_cong_tac.don_vi.ten_don_vi
+            end
+            i = i + 1
+            sheet.row(i)[1] = "#{Param.get_param_value"nghe_nghiep_truoc_tuyen_dung"}"
+            sheet.row(i)[2] =  @can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung
+            i = i + 1
+            sheet.row(i)[1] = "#{Param.get_param_value"cong_viec"}"
+            sheet.row(i)[2] = @can_bo_cong_tac.cong_viec_chinh_duoc_giao
+            i = i + 1
+            sheet.row(i)[1] = "#{Param.get_param_value"so_truong"}"
+            sheet.row(i)[2] = @can_bo_cong_tac.so_truong_cong_tac
+            i = i + 1
+            sheet.row(i)[1] = "#{Param.get_param_value"ngay_bat_dau_lam_viec"}"
+            if @can_bo_cong_tac.ngay_bat_dau_lam_viec
+              sheet.row(i)[2] = @can_bo_cong_tac.ngay_bat_dau_lam_viec.strftime("%d/%m/%Y")
+            end
+
+          end
+
           i = i + 1
           #write can_bo_thong_tin info
           sheet.row(i)[1] = Param.get_param_value("trinh_do_pho_thong")
@@ -194,9 +246,9 @@ module Casein
               sheet_second.row(i)[4] = than_nhan.nghe_nghiep
               sheet_second.row(i).default_format =  Spreadsheet::Format.new :align => :top, :text_wrap => true
             end
-            sheet_second.column(1).width = 20
+            sheet_second.column(1).width = 15
             sheet_second.column(2).width = 20
-            sheet_second.column(3).width = 20
+            sheet_second.column(3).width = 15
             sheet_second.column(4).width = 30
           end
 
@@ -229,9 +281,9 @@ module Casein
               sheet_third.row(i).default_format =  Spreadsheet::Format.new :align => :top, :text_wrap => true
             end
             sheet_third.column(1).width = 20
-            sheet_third.column(2).width = 20
-            sheet_third.column(3).width = 20
-            sheet_third.column(4).width = 30
+            sheet_third.column(2).width = 15
+            sheet_third.column(3).width = 15
+            sheet_third.column(4).width = 15
           end
 
           sheet_fourth = book.create_worksheet :name => "Lich su thay doi bac luong"
@@ -261,9 +313,9 @@ module Casein
               sheet_fourth.row(i).default_format =  Spreadsheet::Format.new :align => :top, :text_wrap => true
             end
             sheet_fourth.column(1).width = 20
-            sheet_fourth.column(2).width = 20
+            sheet_fourth.column(2).width = 10
             sheet_fourth.column(3).width = 20
-            sheet_fourth.column(4).width = 30
+            sheet_fourth.column(4).width = 20
           end
 
           #output to blob object
