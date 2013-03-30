@@ -48,7 +48,7 @@ tr, td
 .search_basic_form
 {
     text-align: right;
-    padding: 10px;
+    padding-bottom: 20px; 
     display: block;
     z-index: 0;
 }
@@ -633,7 +633,6 @@ a {
 .import_table th{
 	border: 1px solid rgb(152, 191, 33);
 	text-align: left;
-    padding: 5px 10px 4px 5px;
 	background-color: rgb(167, 201, 66);
 	color: rgb(255, 255, 255);
 }
@@ -648,13 +647,18 @@ a {
 {
     width: 100%;
 }
-
+.view{
+    display: inline;
+    margin-top: 2px;
+    float: left;
+    position: absolute;
+}
 .avatar{
   box-shadow: 1px 1px 10px #888888;  
 }
 .blk-share {
     padding: 8px 14px 6px 14px;
-    border: 1px solid #dedede;
+    border: 2px solid #dedede;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -665,4 +669,152 @@ a {
     font-size: 12px;
     color: #555;
     line-height: 19px;
+}
+
+#menu, #menu ul {
+    margin-top: 28px;
+    padding: 0;
+    list-style: none;
+}
+#menu {
+    background: #369;
+    background: -webkit-gradient(linear, left top, left bottom, from(#69c), to(#369));
+    background: -moz-linear-gradient(top,  #69c,  #369);
+    background: filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#69c', endColorstr='#369');
+    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 2px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 2px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 1px 2px;
+    display: block;
+    float: left;
+    width: 100%;
+    position: static;
+}
+#menu:before,
+#menu:after {
+    content: "";
+    display: table;
+}
+
+#menu:after {
+    clear: both;
+}
+
+#menu {
+    zoom:1;
+}
+#menu li {
+    float: left;
+    position: relative;
+}
+
+#menu a {
+    float: left;
+    padding: 12px 30px;
+    color: #fff;
+    text-transform: uppercase;
+    font: bold 12px Arial, Helvetica;
+    text-decoration: none;
+}
+
+#menu li:hover > a {
+    color: #fff;
+    background: #902517;
+
+}
+
+*html #menu li a:hover { /* IE6 only */
+    color: #fff;
+}
+#menu ul {
+    margin: 20px 0 0 0;
+    _margin: 0; /*IE6 only*/
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 38px;
+    left: 0;
+    z-index: 1;    
+    background: #444;   
+    background: linear-gradient(#444, #111);
+    box-shadow: 0 -1px 0 rgba(255,255,255,.3);  
+    border-radius: 3px;
+    transition: all .2s ease-in-out;  
+}
+
+#menu li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+    margin: 0;
+}
+
+#menu ul ul {
+    top: 0;
+    left: 150px;
+    margin: 0 0 0 20px;
+    _margin: 0; /*IE6 only*/
+    box-shadow: -1px 0 0 rgba(255,255,255,.3);      
+}
+
+#menu ul li {
+    float: none;
+    display: block;
+    border: 0;
+    _line-height: 0; /*IE6 only*/
+    box-shadow: 0 1px 0 #111, 0 2px 0 #666;
+}
+
+#menu ul li:last-child {   
+    box-shadow: none;    
+}
+
+#menu ul a {    
+    padding: 10px;
+    color: #eee;
+    width: 130px;
+    _height: 10px; /*IE6 only*/
+    display: block;
+    white-space: nowrap;
+    float: none;
+    text-transform: none;
+}
+
+#menu ul a:hover {
+    background-color: #2080c1;
+    background-image: linear-gradient(#04acec, #0186ba);
+}
+#menu ul li:first-child > a {
+    border-radius: 3px 3px 0 0;
+}
+
+#menu ul li:first-child > a:after {
+    content: '';
+    position: absolute;
+    left: 40px;
+    top: -6px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #444;
+}
+
+#menu ul ul li:first-child a:after {
+    left: -6px;
+    top: 50%;
+    margin-top: -6px;
+    border-left: 0; 
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid transparent;
+    border-right: 6px solid #3b3b3b;
+}
+
+#menu ul li:first-child a:hover:after {
+    border-bottom-color: #04acec; 
+}
+
+#menu ul ul li:first-child a:hover:after {
+    border-right-color: #0299d3; 
+    border-bottom-color: transparent;   
+}
+
+#menu ul li:last-child > a {
+    border-radius: 0 0 3px 3px;
 }

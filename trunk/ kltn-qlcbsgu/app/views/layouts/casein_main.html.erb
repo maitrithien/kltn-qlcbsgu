@@ -16,6 +16,18 @@
 
 		<%= csrf_meta_tag %>
       <script src="http://code.jquery.com/jquery-latest.js"></script>
+      <script type="text/javascript">
+      	$(function() {
+		  if ($.browser.msie && $.browser.version.substr(0,1)<7)
+		  {
+			$('li').has('ul').mouseover(function(){
+				$(this).children('ul').css('visibility','visible');
+				}).mouseout(function(){
+				$(this).children('ul').css('visibility','hidden');
+				})
+		  }
+		}); 
+      </script>
 
     </head>
 	<body>
@@ -33,17 +45,9 @@
 				</ul>	
 				<% end %>
 			</div>
-			<div id="navigation">
-				<ul class="topmenu" id="css3menu">
-					<%= render :partial => '/casein/layouts/left_navigation' %>
-				</ul>		
-			</div>
-			<div id="altNavigation">
-				<ul>
-					<% if @session_user.is_admin? %>
-						<li><%= link_to 'Tài khoản người dùng', casein_users_path %></li>
-					<% end %>
-					<%= render :partial => '/casein/layouts/right_navigation' %>
+			<div>
+				<ul id="menu">
+					<%= render :partial => '/casein/layouts/left_navigation' %>	
 				</ul>
 			</div>
 		</div>

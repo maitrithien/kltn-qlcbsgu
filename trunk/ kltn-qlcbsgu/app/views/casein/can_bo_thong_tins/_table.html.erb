@@ -6,38 +6,32 @@
 		<th>Họ và tên</th>
         <th>Giới tính</th>
 		<th>Ngày sinh</th>
-		<th>Nơi sinh</th>
-        <th>Quê quán</th>
-        <th>Thường trú</th>
 		<th>Số CMND</th>
 		<th>Nơi ở hiện nay</th>
-		<th>Đ.kèm</th>
+		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
 	
 	<% can_bo_thong_tins.each_with_index do |can_bo_thong_tin, index| %>
 
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
-			<td><%= casein_table_cell_link can_bo_thong_tin.ma_cb, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<td><%= casein_table_cell_link can_bo_thong_tin.ho_ten, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
+			<td><b><%= casein_table_cell_link can_bo_thong_tin.ma_cb, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></b></td>
+			<td><span style="text-transform:uppercase;"><%= casein_table_cell_link can_bo_thong_tin.ho_ten, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></span></td>
             <% if can_bo_thong_tin.gioi_tinh %>
             <td><%= casein_table_cell_link "Nam", casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
             <% else %>
             <td><%= casein_table_cell_link "Nữ", casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
             <% end %>
 			<td><%= casein_table_cell_link can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y"), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<td><%= casein_table_cell_link truncate(can_bo_thong_tin.noi_sinh, :length => 10), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-            <td><%= casein_table_cell_link truncate(can_bo_thong_tin.que_quan, :length => 15), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-            <td><%= casein_table_cell_link truncate(can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru, :length => 15), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
             <td><%= casein_table_cell_link can_bo_thong_tin.so_cmnd, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<td><%= casein_table_cell_link truncate(can_bo_thong_tin.noi_o_hien_nay, :length => 15), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
+			<td><%= casein_table_cell_link truncate(can_bo_thong_tin.noi_o_hien_nay, :length => 40), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
 			<td>
               <% if can_bo_thong_tin.tep_tin_dinh_kem != "" %>
-              <a href="<%= can_bo_thong_tin.tep_tin_dinh_kem %>" title="tải về tệp tin đính kèm"><%= casein_show_icon_custom_style("download", "margin-top:-5px;") %></a>
+              <a href="<%= can_bo_thong_tin.tep_tin_dinh_kem %>" title="tải về tập tin đính kèm"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
               <% end %>
             </td>
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_thong_tin_path(can_bo_thong_tin), :method => :delete, :confirm => "Bạn có chắc muốn xóa thông tin cán bộ #{can_bo_thong_tin.ma_cb}?") %>
+				<%= link_to(casein_show_icon_custom_style("delete", "margin-top:5px;"), casein_can_bo_thong_tin_path(can_bo_thong_tin), :method => :delete, :confirm => "Bạn có chắc muốn xóa thông tin cán bộ #{can_bo_thong_tin.ma_cb}?") %>
 			</td>
 		</tr>
 
