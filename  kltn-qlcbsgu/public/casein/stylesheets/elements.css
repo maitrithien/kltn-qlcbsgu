@@ -3,6 +3,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     margin: 0px;
     padding: 0px;
     border: 0px none;
+    color: #000;
     outline: 0px none;
     vertical-align: baseline;
 }
@@ -52,11 +53,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content h2, #preview h2 {
+	content: '.';
     font-weight: bold;
 	font-size: 15px;
-	color: rgb(0, 0, 0);
+	color: #000101;
+	background: #e9eaeb;
+	border-top: 1px solid #c5c9cb;
+	border-right: 1px solid #c5c9cb;
 	border-bottom: 2px solid #ddd;
-	padding: 0 0 5px 0;
+	border-left: 10px solid #46A73E;
+	padding: 5px 0 5px 10px;
 	margin: 0 0 15px 0;
 	position: relative;
     text-transform: uppercase;
@@ -73,7 +79,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content .openFolder {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #000;
 	background: url(/casein/images/icons/folder.png) no-repeat center left;
 	font-weight: bold;
 	cursor: pointer;
@@ -81,7 +87,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 #content .itemList {
 	width: 100%;
+	vertical-align: bottom;
 	border-bottom: 3px solid #666;
+	background: #edf3fe;
 }
 
 #content .itemList .center {
@@ -94,12 +102,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 #content .itemList th {
 	text-align: left;
+	padding: 5px;
 	font-size: 11px;
     cursor: default;
+    color: #000;
     border-collapse: collapse;
-	padding: 5px 6px 5px 6px;
 	border-bottom: 3px solid #666;
-    background: none repeat scroll 0% 0% rgb(241, 241, 241);
+	background: #e0e2e3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#e0e2e3), to(#c5c9cb));
+    background: -moz-linear-gradient(top,  #e0e2e3,  #c5c9cb);
+    background: filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e2e3', endColorstr='#c5c9cb');
     border-top: 1px solid rgb(229, 229, 229);
 }
 
@@ -127,7 +139,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #content .itemList td a {
 	display: block;
 	padding: 9px 8px 7px 8px;
-	line-height: 11px;
 	color: #333;
 	text-decoration: none;
 }
@@ -143,7 +154,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 #content .even {
-	background: #e7edfc;
+	background: #dfeffe;
 }
 
 #content .tfContainer2 {
