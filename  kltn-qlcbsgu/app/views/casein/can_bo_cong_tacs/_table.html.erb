@@ -3,11 +3,11 @@
 <table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
 	<tr>
 		<th>Cán bộ</th>
-		<th>Đơn vị tuyển dụng</th>
-		<th>Nghề nghiệp trước tuyển dụng</th>
-		<th>Công việc chính được giao</th>
-		<th>Sở trường công tác</th>
-		<th>Ngày bắt đầu làm việc</th>
+		<th>Đơn vị<br>tuyển dụng</th>
+		<th>Nghề nghiệp<br>trước tuyển dụng</th>
+		<th>Công việc chính<br>được giao</th>
+		<th>Sở trường<br>công tác</th>
+		<th>Ngày bắt đầu<br>làm việc</th>
 
 		<th>&nbsp;</th>
 	</tr>
@@ -19,13 +19,13 @@
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
           <td><%= casein_table_cell_link "#{can_bo_cong_tac.can_bo_thong_tin.ma_cb} - #{can_bo_cong_tac.can_bo_thong_tin.ho_ten}", casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 			<td><%= casein_table_cell_link can_bo_cong_tac.don_vi.ten_don_vi, casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
-			<td><%= casein_table_cell_link can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung, casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
-			<td><%= casein_table_cell_link can_bo_cong_tac.cong_viec_chinh_duoc_giao, casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
-			<td><%= casein_table_cell_link can_bo_cong_tac.so_truong_cong_tac, casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
+			<td><%= casein_table_cell_link truncate(can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung, :length => 20), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
+			<td><%= casein_table_cell_link truncate(can_bo_cong_tac.cong_viec_chinh_duoc_giao, :length => 20), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
+			<td><%= casein_table_cell_link truncate(can_bo_cong_tac.so_truong_cong_tac, :length => 25), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 			<td><%= casein_table_cell_link ngay_bat_dau_lam_viec, casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 
 			<td class="delete">
-				<%= link_to(casein_show_row_icon("delete"), casein_can_bo_cong_tac_path(can_bo_cong_tac), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử công tác này?") %>
+				<%= link_to(casein_show_icon_custom_style("delete", "margin-top:7px;"), casein_can_bo_cong_tac_path(can_bo_cong_tac), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử công tác này?") %>
 			</td>
 		</tr>
 	<% end %>

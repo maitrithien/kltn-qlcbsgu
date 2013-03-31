@@ -10,18 +10,24 @@ module Casein
     def index
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_index_page_title"
       search_value = params["keyword"]
+      @option = Option.new
+      view = 10
+      if params["num_view"].to_s != ""
+        view = params["num_view"].to_i if params["num_view"].match(/^\d+$/)
+      end
+      order = "can_bo_thong_tin_id"
       if search_value != nil
-        @can_bo_cong_tacs = CanBoCongTac.search(search_value).paginate(:per_page => 10, :page => params[:page],:order=> :can_bo_thong_tin_id)
+        @can_bo_cong_tacs = CanBoCongTac.search(search_value).paginate(:per_page => view, :page => params[:page],:order=> order)
         @can_bo_cong_tacs_xls = CanBoCongTac.search(search_value)
         if @can_bo_cong_tacs.count == 0
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
-          @can_bo_cong_tacs = CanBoCongTac.paginate :page => params[:page], :per_page => 10, :order=> :can_bo_thong_tin_id
+          @can_bo_cong_tacs = CanBoCongTac.paginate :page => params[:page], :per_page => view, :order=> order
           @can_bo_cong_tacs_xls = CanBoCongTac.all
         else
           flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_cong_tacs.count}"
         end
       else
-        @can_bo_cong_tacs = CanBoCongTac.paginate :page => params[:page], :per_page => 10,:order=> :can_bo_thong_tin_id
+        @can_bo_cong_tacs = CanBoCongTac.paginate :page => params[:page], :per_page => view,:order=> order
         @can_bo_cong_tacs_xls = CanBoCongTac.all
       end
 
