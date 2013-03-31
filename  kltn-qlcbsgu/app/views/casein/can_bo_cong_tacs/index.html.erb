@@ -4,6 +4,7 @@
 	<label>Hiển thị: 
 		<%= number_field_tag "num_view", params["num_view"] || 10 , {:onchange => "this.form.submit();", :onKeyPress => "return isNumberKey(event)", :style => "width:50px;", :placeholder => "10"}%> dòng/trang&nbsp;&nbsp;&nbsp;</label>
 	<% end %>
+
 </div>
 
 <div class="search_basic_form">
@@ -16,10 +17,8 @@
 
 <div class="blk-share">
 <h2>Danh sách cán bộ</h2>
-
-<%= render :partial => 'casein/can_bo_cong_tacs/table', :locals => { :can_bo_cong_tacs => @can_bo_cong_tacs } %>
-
-<%= will_paginate @can_bo_cong_tacs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+    <%= render :partial => 'casein/can_bo_cong_tacs/table', :locals => { :can_bo_cong_tacs => @can_bo_cong_tacs } %>
+    <%= will_paginate @can_bo_cong_tacs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 </div>
 
 <%= content_for :sidebar do %>

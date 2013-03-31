@@ -1,9 +1,9 @@
 class CanBoTrinhDo < ActiveRecord::Base
   attr_accessible :can_bo_thong_tin_id, :hoc_ham_id, :hoc_vi_id, :chuyen_nganh_id, :ly_luan_chinh_tri_id, :ngoai_ngu_id, :quan_ly_nha_nuoc_id, :trinh_do_chuyen_mon_id, :trinh_do_gd_pho_thong, :trinh_do_ngoai_ngu, :trinh_do_tin_hoc
 
-  validates_presence_of :can_bo_thong_tin_id, :trinh_do_chuyen_mon_id, :trinh_do_gd_pho_thong
+  validates_presence_of :can_bo_thong_tin_id, :trinh_do_chuyen_mon_id, :trinh_do_gd_pho_thong, :message => "#{Param.get_param_value "is_not_blank"}"
 
-  validates_uniqueness_of :can_bo_thong_tin_id
+  validates_uniqueness_of :can_bo_thong_tin_id, :message => "#{Param.get_param_value "has_already_been_taken"}"
 
   belongs_to :can_bo_thong_tin
   belongs_to :trinh_do_chuyen_mon

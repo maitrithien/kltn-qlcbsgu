@@ -1,0 +1,9 @@
+<div class="blk-share">
+<h2>Danh sách cán bộ viên chức</h2>
+
+<% if @can_bo_thong_tins != nil %>
+<%= render :partial => 'casein/can_bo_thong_tins/table', :locals => { :can_bo_thong_tins => @can_bo_thong_tins } %>
+
+<%= will_paginate @can_bo_thong_tins, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+<% end %>
+</div>

@@ -402,6 +402,178 @@ module Casein
       redirect_to casein_can_bo_thong_tins_path
     end
 
+    def custom_export_data
+      @casein_page_title = Param.get_param_value("can_bo_thong_tin_custom_export_data_page_title")
+    end
+
+    def get_and_export_to_excel
+      @casein_page_title = Param.get_param_value("can_bo_thong_tin_get_and_export_to_excel_page_title")
+      @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page]
+      @can_bo_thong_tins.each do |cb|
+        if params[:ho_ten].to_s != "1"
+          cb.ho_ten = ""
+        end
+        if params[:ten_goi_khac].to_s != "1"
+          cb.ten_goi_khac = ""
+        end
+        if params[:ngay_sinh].to_s != "1"
+          cb.ngay_sinh = ""
+        end
+        if params[:gioi_tinh].to_s != "1"
+          cb.gioi_tinh = ""
+        end
+        if params[:noi_sinh].to_s != "1"
+          cb.noi_sinh = ""
+        end
+        if params[:que_quan].to_s != "1"
+          cb.que_quan = ""
+        end
+        if params[:dan_toc].to_s != "1"
+          cb.dan_toc = ""
+        end
+        if params[:ton_giao].to_s != "1"
+          cb.ton_giao = ""
+        end
+        if params[:noi_o_hien_nay].to_s != "1"
+          cb.noi_o_hien_nay = ""
+        end
+        if params[:noi_dang_ky_ho_khau_thuong_tru].to_s != "1"
+          cb.noi_dang_ky_ho_khau_thuong_tru = ""
+        end
+        if params[:so_cmnd].to_s != "1"
+          cb.so_cmnd = ""
+        end
+        if params[:ngay_cap_cmnd].to_s != "1"
+          cb.ngay_cap_cmnd = ""
+        end
+        if params[:so_BHXH].to_s != "1"
+          cb.so_BHXH = ""
+        end
+        if params[:ngach].to_s != "1"
+          cb.bac_luong.ngach.ten_ngach = ""
+        end
+        if params[:bac_luong].to_s != "1"
+          cb.bac_luong.bac = ""
+        end
+        if params[:he_so].to_s != "1"
+          cb.bac_luong.he_so_luong = ""
+        end
+        if params[:don_vi].to_s != "1"
+          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_cong_tac
+            if can_bo_cong_tac.don_vi_id
+              don_vi = DonVi.find(can_bo_cong_tac.don_vi_id)
+              if don_vi
+                can_bo_cong_tac.don_vi.ten_don_vi = ""
+              end
+            end
+          end
+        end
+        if params[:nghe_nghiep].to_s != "1"
+          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_cong_tac
+            can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung = ""
+          end
+        end
+        if params[:cong_viec_chinh_duoc_giao].to_s != "1"
+          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_cong_tac
+            can_bo_cong_tac.cong_viec_chinh_duoc_giao = ""
+          end
+        end
+        if params[:so_truong_cong_tac].to_s != "1"
+          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_cong_tac
+            can_bo_cong_tac.cong_viec_chinh_duoc_giao = ""
+          end
+        end
+        if params[:ngay_bat_dau_lam_viec].to_s != "1"
+          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_cong_tac
+            can_bo_cong_tac.ngay_bat_dau_lam_viec = ""
+          end
+        end
+        if params[:trinh_do_pho_thong].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            can_bo_trinh_do.trinh_do_gd_pho_thong = ""
+          end
+        end
+        if params[:trinh_do_chuyen_mon].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            if can_bo_trinh_do.trinh_do_chuyen_mon_id
+              trinh_do_chuyen_mon = TrinhDoChuyenMon.find(can_bo_trinh_do.trinh_do_chuyen_mon_id)
+              if trinh_do_chuyen_mon
+                can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do = ""
+              end
+            end
+          end
+        end
+        if params[:hoc_ham].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            if can_bo_trinh_do.hoc_ham_id
+              hoc_ham = HocHam.find(can_bo_trinh_do.hoc_ham_id)
+              if hoc_ham
+                hoc_ham.ten_hoc_ham = ""
+              end
+            end
+          end
+        end
+        if params[:hoc_vi].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            if can_bo_trinh_do.hoc_vi_id
+              hoc_vi = HocVi.find(can_bo_trinh_do.hoc_vi_id)
+              if hoc_vi
+                hoc_vi.ten_hoc_vi = ""
+              end
+            end
+          end
+        end
+        if params[:ly_luan_chinh_tri].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            if can_bo_trinh_do.ly_luan_chinh_tri_id
+              ly_luan_chinh_tri = LyLuanChinhTri.find(can_bo_trinh_do.ly_luan_chinh_tri_id)
+              if ly_luan_chinh_tri
+                ly_luan_chinh_tri.trinh_do = ""
+              end
+            end
+          end
+        end
+        if params[:quan_ly_nha_nuoc].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            if can_bo_trinh_do.quan_ly_nha_nuoc_id
+              quan_ly_nha_nuoc = QuanLyNhaNuoc.find(can_bo_trinh_do.quan_ly_nha_nuoc_id)
+              if quan_ly_nha_nuoc
+                quan_ly_nha_nuoc.trinh_do = ""
+              end
+            end
+          end
+        end
+        if params[:ngoai_ngu].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            if can_bo_trinh_do.ngoai_ngu_id
+              ngoai_ngu = NgoaiNgu.find(can_bo_trinh_do.ngoai_ngu_id)
+              if ngoai_ngu
+                ngoai_ngu.ten_ngoai_ngu = ""
+              end
+            end
+          end
+        end
+        if params[:tin_hoc].to_s != "1"
+          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if can_bo_trinh_do
+            can_bo_trinh_do.trinh_do_tin_hoc = ""
+          end
+        end
+      end
+    end
+
     def import_from_excel
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_import_from_excel_page_title")
     end
