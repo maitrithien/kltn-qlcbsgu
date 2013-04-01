@@ -1,5 +1,6 @@
 class LichSuBacLuong < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :ngay_thay_doi_bac, :ghi_chu, :bac_luong_id
+  attr_accessible :can_bo_thong_tin_id, :ngay_thay_doi_bac, :ghi_chu, :bac_luong_id ,:ngach_sl , :bac_sl
+  attr_accessor :ngach_sl , :bac_sl
   #relationship
   belongs_to :bac_luong
   belongs_to :can_bo_thong_tin
@@ -19,8 +20,16 @@ class LichSuBacLuong < ActiveRecord::Base
       p = LichSuBacLuong.find_all_by_can_bo_thong_tin_id(can_bo_thong_tin_id, :order => :ngay_thay_doi_bac)
       return p.last
     end
-      
   end
+
+  def self.get_bl_id(ngach_id,bac)
+    bacluong = BacLuong.find(:first, :conditions => ['ngach_id = ? and bac = ?',ngach_id, bac])
+    if bacluong
+      return bacluong.id
+    end
+      return nil
+  end
+
 end
 
 

@@ -2,7 +2,7 @@
 <div class="view">
 	<%= form_tag casein_can_bo_cong_tacs_path, :method => "get" do %>
 	<label>Hiển thị: 
-		<%= number_field_tag "num_view", params["num_view"] || 10 , {:onchange => "this.form.submit();", :onKeyPress => "return isNumberKey(event)", :style => "width:50px;", :placeholder => "10"}%> dòng/trang&nbsp;&nbsp;&nbsp;</label>
+		<%= number_field_tag "num_view", params["num_view"] || 10 , {:onchange => "this.form.submit();", :style => "width:50px;", :placeholder => "10"}%> dòng/trang&nbsp;&nbsp;&nbsp;</label>
 	<% end %>
 
 </div>
