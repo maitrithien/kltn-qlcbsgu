@@ -175,52 +175,54 @@ module Casein
             end
 
           end
-
-          i = i + 1
-          #write can_bo_thong_tin info
-          sheet.row(i)[1] = Param.get_param_value("trinh_do_pho_thong")
-          sheet.row(i)[2] = @can_bo_trinh_do.trinh_do_gd_pho_thong
-          i = i + 1
-          if  @can_bo_trinh_do.hoc_ham_id
-            sheet.row(i)[1] = Param.get_param_value("hoc_ham")
-            sheet.row(i)[2] = @can_bo_trinh_do.hoc_ham.ten_hoc_ham
+          if @can_bo_trinh_do
             i = i + 1
-          end
-
-          if  @can_bo_trinh_do.hoc_vi_id
-            sheet.row(i)[1] = Param.get_param_value("hoc_vi")
-            sheet.row(i)[2] = @can_bo_trinh_do.hoc_vi.ten_hoc_vi
+            #write can_bo_thong_tin info
+            sheet.row(i)[1] = Param.get_param_value("trinh_do_pho_thong")
+            sheet.row(i)[2] = @can_bo_trinh_do.trinh_do_gd_pho_thong
             i = i + 1
-          end
+            if  @can_bo_trinh_do.hoc_ham_id
+              sheet.row(i)[1] = Param.get_param_value("hoc_ham")
+              sheet.row(i)[2] = @can_bo_trinh_do.hoc_ham.ten_hoc_ham
+              i = i + 1
+            end
 
-          if  @can_bo_trinh_do.chuyen_nganh_id
-            sheet.row(i)[1] = Param.get_param_value("trinh_do_chuyen_mon")
-            sheet.row(i)[2] = "#{@can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do} #{@can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh}"
-            i = i + 1
-          end
+            if  @can_bo_trinh_do.hoc_vi_id
+              sheet.row(i)[1] = Param.get_param_value("hoc_vi")
+              sheet.row(i)[2] = @can_bo_trinh_do.hoc_vi.ten_hoc_vi
+              i = i + 1
+            end
 
-          if  @can_bo_trinh_do.ly_luan_chinh_tri_id
-            sheet.row(i)[1] = Param.get_param_value("ly_luan_chinh_tri")
-            sheet.row(i)[2] = @can_bo_trinh_do.ly_luan_chinh_tri.trinh_do
-            i = i + 1
-          end
+            if  @can_bo_trinh_do.chuyen_nganh_id
+              sheet.row(i)[1] = Param.get_param_value("trinh_do_chuyen_mon")
+              sheet.row(i)[2] = "#{@can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do} #{@can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh}"
+              i = i + 1
+            end
 
-          if  @can_bo_trinh_do.quan_ly_nha_nuoc_id
-            sheet.row(i)[1] = Param.get_param_value("quan_ly_nha_nuoc")
-            sheet.row(i)[2] = @can_bo_trinh_do.quan_ly_nha_nuoc.trinh_do
-            i = i + 1
-          end
+            if  @can_bo_trinh_do.ly_luan_chinh_tri_id
+              sheet.row(i)[1] = Param.get_param_value("ly_luan_chinh_tri")
+              sheet.row(i)[2] = @can_bo_trinh_do.ly_luan_chinh_tri.trinh_do
+              i = i + 1
+            end
 
-          if  @can_bo_trinh_do.ngoai_ngu_id
-            sheet.row(i)[1] = Param.get_param_value("ngoai_ngu")
-            sheet.row(i)[2] = "#{@can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu} #{@can_bo_trinh_do.trinh_do_ngoai_ngu}"
-            i = i + 1
-          end
+            if  @can_bo_trinh_do.quan_ly_nha_nuoc_id
+              sheet.row(i)[1] = Param.get_param_value("quan_ly_nha_nuoc")
+              sheet.row(i)[2] = @can_bo_trinh_do.quan_ly_nha_nuoc.trinh_do
+              i = i + 1
+            end
 
-          if  @can_bo_trinh_do.trinh_do_tin_hoc
-            sheet.row(i)[1] = Param.get_param_value("tin_hoc")
-            sheet.row(i)[2] = "#{@can_bo_trinh_do.trinh_do_tin_hoc}"
-            i = i + 1
+            if  @can_bo_trinh_do.ngoai_ngu_id
+              sheet.row(i)[1] = Param.get_param_value("ngoai_ngu")
+              sheet.row(i)[2] = "#{@can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu} #{@can_bo_trinh_do.trinh_do_ngoai_ngu}"
+              i = i + 1
+            end
+
+            if  @can_bo_trinh_do.trinh_do_tin_hoc
+              sheet.row(i)[1] = Param.get_param_value("tin_hoc")
+              sheet.row(i)[2] = "#{@can_bo_trinh_do.trinh_do_tin_hoc}"
+              i = i + 1
+            end
+
           end
 
 
@@ -700,6 +702,21 @@ def advance_search
         end
       else
         @can_bo_thong_tin = CanBoThongTin.new
+      end
+end
+    def statistic
+      @casein_page_title = Param.get_param_value("can_bo_thong_tin_thong_ke_page_title")
+      statistic_req = params["statistic_req"]
+      if statistic_req
+        @can_bo_thong_tins = CanBoThongTin.statistic(params["don_vi_id"], params["hoc_ham_id"],params["hoc_vi_id"],params["ngach_id"],params["gioi_tinh"].to_s,params["dan_toc"],params["nam_sinh"],params["dang_vien"],params["nam_cong_tac"],params["gia_dinh_chinh_sach"])
+        if @can_bo_thong_tins.count>0
+          @can_bo_thong_tins = @can_bo_thong_tins.paginate :page=>params[:page], :per_page => 10
+          @has_result =true
+          flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_thong_tins.count}"
+        else
+          flash.now[:warning] = Param.get_param_value("searching_has_no_result")
+          @has_result = false
+        end
       end
     end
 

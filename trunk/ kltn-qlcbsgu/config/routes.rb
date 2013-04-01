@@ -98,6 +98,7 @@ QLTtCbvcSgu::Application.routes.draw do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
       get "advance_search", :on => :collection
+      get "statistic", :on => :collection
       get "custom_export_data", :on => :collection
       post "get_and_export_to_excel", :on => :collection
     end

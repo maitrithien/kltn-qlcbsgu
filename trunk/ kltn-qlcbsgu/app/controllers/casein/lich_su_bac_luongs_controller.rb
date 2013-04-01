@@ -50,6 +50,8 @@ module Casein
     def show
       @casein_page_title = 'View lich su bac luong'
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
+      @lich_su_bac_luong.ngach_sl = @lich_su_bac_luong.bac_luong.ngach_id
+      @lich_su_bac_luong.bac_sl = @lich_su_bac_luong.bac_luong.bac
     end
  
     def new
@@ -59,17 +61,25 @@ module Casein
 
     def create
       @lich_su_bac_luong = LichSuBacLuong.new params[:lich_su_bac_luong]
-      
-      if @lich_su_bac_luong.save
-        bac_luong_id = @lich_su_bac_luong.bac_luong_id
-        p = nil
-        p = CanBoThongTin.find(@lich_su_bac_luong.can_bo_thong_tin_id)
-        if p != nil
-          p.update_attribute(:bac_luong_id, bac_luong_id)
-        end
+      bacluong_id = LichSuBacLuong.get_bl_id(@lich_su_bac_luong.ngach_sl, @lich_su_bac_luong.bac_sl)
+      if bacluong_id
+         @lich_su_bac_luong.bac_luong_id = bacluong_id
+      end
+      if @lich_su_bac_luong.valid?
+          if @lich_su_bac_luong.save
+            bac_luong_id = @lich_su_bac_luong.bac_luong_id
+            p = nil
+            p = CanBoThongTin.find(@lich_su_bac_luong.can_bo_thong_tin_id)
+            if p != nil
+              p.update_attribute(:bac_luong_id, bac_luong_id)
+            end
 
-        flash[:notice] = Param.get_param_value("adding_success")
-        redirect_to casein_lich_su_bac_luongs_path
+            flash[:notice] = Param.get_param_value("adding_success")
+            redirect_to casein_lich_su_bac_luongs_path
+          else
+            flash.now[:warning] = Param.get_param_value("adding_false")
+            render :action => :new
+          end
       else
         flash.now[:warning] = Param.get_param_value("adding_false")
         render :action => :new
@@ -80,7 +90,11 @@ module Casein
       @casein_page_title = 'Update lich su bac luong'
       
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
-      
+
+      bacluong_id = LichSuBacLuong.get_bl_id(params[:lich_su_bac_luong][:ngach_sl],params[:lich_su_bac_luong][:bac_sl])
+      if bacluong_id
+        params[:lich_su_bac_luong][:bac_luong_id] = bacluong_id
+      end
 
       if @lich_su_bac_luong.update_attributes params[:lich_su_bac_luong]
         lich_su_last = LichSuBacLuong.get_last(@lich_su_bac_luong.can_bo_thong_tin_id)

@@ -1,0 +1,61 @@
+<div class="blk-share" style="float: left;">
+  <h2>Thống Kê</h2>
+  <div class="paragraph">
+    <%= form_tag statistic_casein_can_bo_thong_tins_path, :method => "get" do %>
+        <div class="tfContainer2">
+          <label>Đơn Vị:  <%= select_tag "don_vi_id", options_from_collection_for_select(DonVi.all, "id", "ten_don_vi", :selected => params["don_vi_id"]),{:prompt =>"-----------Chọn----------"}  %> </label>
+        </div>
+        <div class="tfContainer2">
+          <label>Học hàm: <%= select_tag "hoc_ham_id", options_from_collection_for_select(HocHam.all, "id", "ten_hoc_ham", :selected => params["hoc_ham_id"]),{:prompt =>"-----------Chọn----------"}  %> </label>
+        </div>
+        <div class="tfContainer2">
+          <label>Học vị: <%= select_tag "hoc_vi_id", options_from_collection_for_select(HocVi.all, "id", "ten_hoc_vi", :selected => params["hoc_vi_id"]),{:prompt =>"-----------Chọn----------"}  %></label>
+        </div>
+        <div class="tfContainer2">
+          <label>Ngạch: <%= select_tag "ngach_id", options_from_collection_for_select(Ngach.all, "id", "ten_ngach", :selected => params["ngach_id"]),{:prompt =>"-----------Chọn----------"}  %></label>
+        </div>
+        <div class="tfContainer2">
+          <label>Số năm công tác: <%= select_tag "nam_cong_tac", options_for_select(Array(1..50),:selected => params["nam_cong_tac"]),{:prompt => "--------Chọn------"} %></label>
+        </div>
+
+        <div class="tfContainer2">
+          <label>Sinh năm: <%= select_tag "nam_sinh", options_for_select(Array(1930.. Time.current.year),:selected => params["nam_sinh"]),{:prompt => "--------Chọn------"} %></label>
+        </div>
+        <div class="tfContainer2">
+            <label>Đảng viên: <%= select_tag "dang_vien", options_for_select([ ["tất cả", "all"], ["Đã vào Đảng", "davao"], ["Chưa vào Đảng", "chuavao"]], :selected => params["dan_toc"]) %></label>
+        </div>
+        <div class="tfContainer2">
+          <label>Giới tính: <%= select_tag "gioi_tinh", options_for_select([ ["tất cả", "all"], ["Nam", "true"], ["Nữ", "false"]], :selected => params["gioi_tinh"]) %></label>
+
+        </div>
+        <div class="tfContainer2">
+          <label>Dân tộc: <%= select_tag "dan_toc", options_for_select([ ["tất cả", "all"], ["Kinh", "kinh"], ["Thiểu số", "thieuso"]], :selected => params["dan_toc"]) %></label>
+        </div>
+        <div class="tfContainer2">
+          <label>Gia đình chính sách: <%= select_tag "gia_dinh_chinh_sach", options_for_select([ ["tất cả", "all"], ["không", "khong"], ["Có", "co"]], :selected => params["gia_dinh_chinh_sach"]) %></label>
+        </div>
+        <%= hidden_field_tag "statistic_req", "true" %>
+        <p style="text-align: right;">
+          <%= submit_tag "Thống kê", :style => "text-align: right; padding: 5px 12px; margin-right: 20px; margin-top: 30px;"%>
+        </p>
+    <% end %>
+
+  </div>
+</div>
+
+<% if @has_result %>
+
+    <div class="second_paragraph">
+      <div class="blk-share">
+        <%= render :partial => 'casein/can_bo_thong_tins/table', :locals => { :can_bo_thong_tins => @can_bo_thong_tins } %>
+
+        <%= will_paginate @can_bo_thong_tins %>
+
+      </div>
+    </div>
+<% end %>
+
+<%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới thông tin cán bộ".html_safe, new_casein_can_bo_thong_tin_path %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách thông tin cán bộ".html_safe, casein_can_bo_thong_tins_path %></li>
+<% end %>

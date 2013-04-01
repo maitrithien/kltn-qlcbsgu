@@ -10,7 +10,7 @@ module Casein
     def index
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_index_page_title"
       search_value = params["keyword"]
-      @option = Option.new
+
       view = 10
       if params["num_view"].to_s != ""
         view = params["num_view"].to_i if params["num_view"].match(/^\d+$/)

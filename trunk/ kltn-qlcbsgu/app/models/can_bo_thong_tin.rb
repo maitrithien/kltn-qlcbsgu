@@ -33,27 +33,31 @@ class CanBoThongTin < ActiveRecord::Base
   def self.search_advance(options={})
     sql_exc = "1"
     options.each do |key, value|
-      if key == :don_vi_id ||key == :chuc_vu_id
-        sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where #{key} = #{value} )"
+      if key ==:ngach_id
+        sql_exc << "  AND bac_luong_id in (select id from bac_luongs where  #{key} = #{value} )"
       else
-          if key == :trinh_do_chuyen_mon_id
-            sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where trinh_do_chuyen_mon_id = #{value} )"
-          else
-            if key == :ngach_id
-              sql_exc << " AND bac_luong_id in (select id from bac_luongs where ngach_id = #{value} )"
+        if key == :don_vi_id ||key == :chuc_vu_id
+          sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where #{key} = #{value} )"
+        else
+            if key == :trinh_do_chuyen_mon_id
+              sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where trinh_do_chuyen_mon_id = #{value} )"
             else
-              if key == :ngay_sinh
-                ngay_sinh = Date.parse(search_value) rescue nil
-                sql_exc << " AND #{key} = #{value}"
+              if key == :ngach_id
+                sql_exc << " AND bac_luong_id in (select id from bac_luongs where ngach_id = #{value} )"
               else
-                if key == :gioi_tinh || key == :is_deleted
+                if key == :ngay_sinh
+                  ngay_sinh = Date.parse(search_value) rescue nil
                   sql_exc << " AND #{key} = #{value}"
                 else
-                  sql_exc << " AND #{key} LIKE '%#{value}%'"
+                  if key == :gioi_tinh || key == :is_deleted
+                    sql_exc << " AND #{key} = #{value}"
+                  else
+                    sql_exc << " AND #{key} LIKE '%#{value}%'"
+                  end
                 end
               end
             end
-          end
+        end
       end
 
     end
@@ -71,5 +75,60 @@ class CanBoThongTin < ActiveRecord::Base
   def self.can_bo_chua_co_li_lich_ct
     where('id not in (select can_bo_thong_tin_id from can_bo_li_lich_cts)')
   end
+
+  def self.statistic(don_vi_id,hoc_ham_id,hoc_vi_id,ngach_id,gioi_tinh,dan_toc,nam_sinh,dang_vien,nam_cong_tac,gia_dinh_chinh_sach)
+    sql_exc = "1 AND is_deleted = false"
+    if gioi_tinh != "all"
+      sql_exc << " AND gioi_tinh =" << gioi_tinh
+    end
+    if !don_vi_id.blank?
+      sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where don_vi_id = " << don_vi_id << " )"
+    end
+    if !hoc_vi_id.blank?
+      sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where hoc_vi_id = " << hoc_vi_id << " )"
+    end
+    if !hoc_ham_id.blank?
+      sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where hoc_ham_id = " << hoc_ham_id << " )"
+    end
+    if !ngach_id.blank?
+      sql_exc << " AND bac_luong_id in (select id from bac_luongs where ngach_id = " << ngach_id  << " )"
+    end
+    if !dan_toc.blank?
+       if dan_toc =="kinh"
+         sql_exc << " AND dan_toc like 'kinh'"
+       else
+         if dan_toc == "thieuso"
+               sql_exc << " AND dan_toc not like 'kinh'"
+          end
+       end
+    end
+    if nam_sinh.nil?
+      sql_exc << " AND year(ngay_sinh) = " << nam_sinh
+    end
+    if !dang_vien.blank?
+      if dang_vien == "davao"
+        sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_li_lich_cts where ngay_vao_dang is not null)"
+      else
+          if dang_vien=="chuavao"
+            sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_li_lich_cts where ngay_vao_dang is null)"
+          end
+      end
+    end
+    if nam_cong_tac.to_s.length>0
+      sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_cong_tacs where YEAR(CURDATE())- YEAR(ngay_bat_dau_lam_viec) + 1 = " << nam_cong_tac << " )"
+    end
+    if !gia_dinh_chinh_sach.blank?
+      if gia_dinh_chinh_sach == "co"
+        sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_li_lich_cts where con_gia_dinh_chinh_sach is not null)"
+      else
+        if dang_vien=="khong"
+          sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_li_lich_cts where con_gia_dinh_chinh_sach is null)"
+        end
+      end
+    end
+    where(sql_exc)
+  end
+
+
 
 end
