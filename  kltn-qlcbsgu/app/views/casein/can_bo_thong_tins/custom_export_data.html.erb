@@ -1,7 +1,7 @@
 <div class="blk-share">
 	<h2>Tùy chọn nội dung trích xuất</h2>
 
-	<%= form_tag get_and_export_to_excel_casein_can_bo_thong_tins_url, :method=>"get", :name => "form" do %>
+	<%= form_tag get_and_export_to_excel_casein_can_bo_thong_tins_url({:format => :xls}), :method=>"get", :name => "form" do %>
 	<table class="import_table">
 		<tr>
 			<th class="head">Thuộc tính</th>
@@ -13,176 +13,185 @@
 		<tr>
 			<th>Họ và tên</th>
 			<td class="check">
-				<%=check_box 'check', 'ho_ten', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ho_ten,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Tên gọi khác:</th>
 			<td class="check">
-				<%=check_box 'check', 'ten_goi_khac', {:checked => false}, "1", "0"  %>
+				<%=check_box_tag :ten_goi_khac,  true   %>
 			</td>
 		</tr>
 		<tr>
-			<th>Ngày sinh:</th>
+			<th>Ngày sinh</th>
 			<td class="check">
-				<%=check_box 'check', 'ngay_sinh', {:checked => false}, "1", "0"  %>
+				<%=check_box_tag :ngay_sinh,  true   %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Giới tính:</th>
 			<td class="check">
-				<%=check_box 'check', 'gioi_tinh', {:checked => false}, "1", "0"  %>
+				<%=check_box_tag :gioi_tinh,  true   %>
 			</td>
 		</tr>
 		<tr>
 			<th>Nơi sinh:</th>
 			<td class="check">
-				<%=check_box 'check', 'noi_sinh', {:checked => false}, "1", "0"  %>
+				<%=check_box_tag :noi_sinh,  true   %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Quê quán:</th>
 			<td class="check">
-				<%=check_box 'check', 'que_quan', {:checked => false}, "1", "0"  %>
+				<%=check_box_tag :que_quan,  true   %>
 			</td>
 		</tr>
 		<tr>
 			<th>Tin học:</th>
 			<td class="check">
-				<%=check_box 'check', 'tin_hoc', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :tin_hoc,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Tôn giáo:</th>
 			<td class="check">
-				<%=check_box 'check', 'ton_giao', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ton_giao,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Dân tộc:</th>
 			<td class="check">
-				<%=check_box 'check', 'dan_toc', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :dan_toc,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Nơi ở hiện nay:</th>
 			<td class="check">
-				<%=check_box 'check', 'noi_o_hien_nay', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :noi_o_hien_nay,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Nơi ĐK HKTT:</th>
 			<td class="check">
-				<%=check_box 'check', 'noi_dang_ky_ho_khau_thuong_tru', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :noi_dang_ky_ho_khau_thuong_tru,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Số CMND:</th>
 			<td class="check">
-				<%=check_box 'check', 'so_cmnd', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :so_cmnd,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Ngày cấp:</th>
 			<td class="check">
-				<%=check_box 'check', 'ngay_cap_cmnd', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ngay_cap_cmnd,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Số sổ BHXH:</th>
 			<td class="check">
-				<%=check_box 'check', 'so_BHXH', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :so_BHXH,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Ngạch công chức (viên chức):</th>
 			<td class="check">
-				<%=check_box 'check', 'ngach', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ngach,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Mã ngạch:</th>
 			<td class="check">
-				<%=check_box 'check', 'ma_ngach', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ma_ngach,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Bậc lương:</th>
 			<td class="check">
-				<%=check_box 'check', 'bac_luong', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :bac_luong,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Hệ số:</th>
 			<td class="check">
-				<%=check_box 'check', 'he_so', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :he_so,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Đơn vị tuyển dụng:</th>
 			<td class="check">
-				<%=check_box 'check', 'don_vi', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :don_vi,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Nghề nghiệp trước tuyển dụng:</th>
 			<td class="check">
-				<%=check_box 'check', 'nghe_nghiep', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :nghe_nghiep,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Công việc chính được giao:</th>
 			<td class="check">
-				<%=check_box 'check', 'cong_viec_chinh_duoc_giao', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :cong_viec_chinh_duoc_giao,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Sở trường công tác:</th>
 			<td class="check">
-				<%=check_box 'check', 'so_truong_cong_tac', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :so_truong_cong_tac,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Ngày bắt đầu làm việc:</th>
 			<td class="check">
-				<%=check_box 'check', 'ngay_bat_dau_lam_viec', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ngay_bat_dau_lam_viec,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Trình độ giáo dục phổ thông:</th>
 			<td class="check">
-				<%=check_box 'check', 'trinh_do_giao_duc_pho_thong', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :trinh_do_giao_duc_pho_thong,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Trình độ chuyên môn cao nhất:</th>
 			<td class="check">
-				<%=check_box 'check', 'trinh_do_chuyen_mon', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :trinh_do_chuyen_mon,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Học hàm:</th>
 			<td class="check">
-				<%=check_box 'check', 'hoc_ham', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :hoc_ham,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Học vị:</th>
 			<td class="check">
-				<%=check_box 'check', 'hoc_vi', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :hoc_vi,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Lý luận chính trị:</th>
 			<td class="check">
-				<%=check_box 'check', 'ly_luan_chinh_tri', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ly_luan_chinh_tri,  true  %>
 			</td>
 		</tr>
 		<tr>
 			<th>Quản lý nhà nước:</th>
 			<td class="check">
-				<%=check_box 'check', 'quan_ly_nha_nuoc', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :quan_ly_nha_nuoc,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Ngoại ngữ:</th>
 			<td class="check">
-				<%=check_box 'check', 'ngoai_ngu', {:checked => false}, "1", "0" %>
+				<%=check_box_tag :ngoai_ngu,  true  %>
 			</td>
 		</tr>
 	</table>
-	<div class="down_arrow" onclick="document.forms.form.submit()" title="Tiếp tục"><span>Đồng ý</span></div>
+	<div class="down_arrow" onclick="document.forms.form.submit()" title="Xử lý và tải xuống"><span>Đồng ý</span></div>
 	<% end %>
 
 
  </div> <!--end div blk-share-->	
 	 
- 	 
+ <%= content_for :sidebar do %>
+ 	<li>
+      <%= link_to "#{casein_show_icon "statistics"}Báo cáo - Thống kê".html_safe, 
+            advance_search_casein_can_bo_thong_tins_path %>
+    </li>
+    <li><%= link_to "#{casein_show_icon_custom_style("search", "width:20px; margin-top:-5px;")}Tìm kiếm nâng cao".html_safe, advance_search_casein_can_bo_thong_tins_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới cán bộ".html_safe, new_casein_can_bo_thong_tin_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới cán bộ từ tập tin excel".html_safe, import_from_excel_casein_can_bo_thong_tins_path %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách thông tin cán bộ".html_safe, casein_can_bo_thong_tins_path %></li>
+<% end %>	 
 	
 	 
 	 
