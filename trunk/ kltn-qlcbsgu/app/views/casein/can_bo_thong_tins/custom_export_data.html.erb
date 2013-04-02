@@ -1,7 +1,7 @@
 <div class="blk-share">
 	<h2>Tùy chọn nội dung trích xuất</h2>
 
-	<%= form_tag get_and_export_to_excel_casein_can_bo_thong_tins_url, :method=>"post", :name => "form" do %>
+	<%= form_tag get_and_export_to_excel_casein_can_bo_thong_tins_url, :method=>"get", :name => "form" do %>
 	<table class="import_table">
 		<tr>
 			<th class="head">Thuộc tính</th>
@@ -12,111 +12,171 @@
 		</tr>
 		<tr>
 			<th>Họ và tên</th>
-			<td class="check"><input type="checkbox"  name="ho_ten" id="ho_ten" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ho_ten', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Tên gọi khác:</th>
-			<td class="check"><input type="checkbox"  name="ten_goi_khac" id="ten_goi_khac" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ten_goi_khac', {:checked => false}, "1", "0"  %>
+			</td>
 		</tr>
 		<tr>
 			<th>Ngày sinh:</th>
-			<td class="check"><input type="checkbox"  name="ngay_sinh" id="ngay_sinh" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ngay_sinh', {:checked => false}, "1", "0"  %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Giới tính:</th>
-			<td class="check"><input type="checkbox"  name="gioi_tinh" id="gioi_tinh" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'gioi_tinh', {:checked => false}, "1", "0"  %>
+			</td>
 		</tr>
 		<tr>
 			<th>Nơi sinh:</th>
-			<td class="check"><input type="checkbox"  name="noi_sinh" id="noi_sinh" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'noi_sinh', {:checked => false}, "1", "0"  %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Quê quán:</th>
-			<td class="check"><input type="checkbox"  name="que_quan" id="que_quan" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'que_quan', {:checked => false}, "1", "0"  %>
+			</td>
 		</tr>
 		<tr>
 			<th>Tin học:</th>
-			<td class="check"><input type="checkbox"  name="tin_hoc" id="tin_hoc" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'tin_hoc', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Tôn giáo:</th>
-			<td class="check"><input type="checkbox"  name="ton_giao" id="ton_giao" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ton_giao', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Dân tộc:</th>
-			<td class="check"><input type="checkbox"  name="dan_toc" id="dan_toc" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'dan_toc', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Nơi ở hiện nay:</th>
-			<td class="check"><input type="checkbox"  name="noi_o_hien_nay" id="noi_o_hien_nay" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'noi_o_hien_nay', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Nơi ĐK HKTT:</th>
-			<td class="check"><input type="checkbox"  name="noi_dang_ky_ho_khau_thuong_tru" id="noi_dang_ky_ho_khau_thuong_tru" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'noi_dang_ky_ho_khau_thuong_tru', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Số CMND:</th>
-			<td class="check"><input type="checkbox"  name="so_cmnd" id="so_cmnd" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'so_cmnd', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Ngày cấp:</th>
-			<td class="check"><input type="checkbox"  name="ngay_cap_cmnd" id="ngay_cap_cmnd" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ngay_cap_cmnd', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Số sổ BHXH:</th>
-			<td class="check"><input type="checkbox"  name="so_BHXH" id="so_BHXH" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'so_BHXH', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Ngạch công chức (viên chức):</th>
-			<td class="check"><input type="checkbox"  name="ngach" id="ngach" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ngach', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Mã ngạch:</th>
-			<td class="check"><input type="checkbox"  name="ma_ngach" id="ma_ngach" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ma_ngach', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Bậc lương:</th>
-			<td class="check"><input type="checkbox"  name="bac_luong" id="bac_luong" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'bac_luong', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Hệ số:</th>
-			<td class="check"><input type="checkbox"  name="he_so" id="he_so" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'he_so', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Đơn vị tuyển dụng:</th>
-			<td class="check"><input type="checkbox"  name="don_vi" id="don_vi" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'don_vi', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Nghề nghiệp trước tuyển dụng:</th>
-			<td class="check"><input type="checkbox"  name="nghe_nghiep" id="nghe_nghiep" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'nghe_nghiep', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Công việc chính được giao:</th>
-			<td class="check"><input type="checkbox"  name="cong_viec_chinh_duoc_giao" id="cong_viec_chinh_duoc_giao" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'cong_viec_chinh_duoc_giao', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Sở trường công tác:</th>
-			<td class="check"><input type="checkbox"  name="so_truong_cong_tac" id="so_truong_cong_tac" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'so_truong_cong_tac', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Ngày bắt đầu làm việc:</th>
-			<td class="check"><input type="checkbox"  name="ngay_bat_dau_lam_viec" id="ngay_bat_dau_lam_viec" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ngay_bat_dau_lam_viec', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Trình độ giáo dục phổ thông:</th>
-			<td class="check"><input type="checkbox"  name="trinh_do_giao_duc_pho_thong" id="trinh_do_giao_duc_pho_thong" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'trinh_do_giao_duc_pho_thong', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Trình độ chuyên môn cao nhất:</th>
-			<td class="check"><input type="checkbox"  name="trinh_do_chuyen_mon" id="trinh_do_chuyen_mon" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'trinh_do_chuyen_mon', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Học hàm:</th>
-			<td class="check"><input type="checkbox"  name="hoc_ham" id="hoc_ham" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'hoc_ham', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Học vị:</th>
-			<td class="check"><input type="checkbox"  name="hoc_vi" id="hoc_vi" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'hoc_vi', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Lý luận chính trị:</th>
-			<td class="check"><input type="checkbox"  name="ly_luan_chinh_tri" id="ly_luan_chinh_tri" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ly_luan_chinh_tri', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 		<tr>
 			<th>Quản lý nhà nước:</th>
-			<td class="check"><input type="checkbox"  name="quan_ly_nha_nuoc" id="quan_ly_nha_nuoc" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'quan_ly_nha_nuoc', {:checked => false}, "1", "0" %>
+			</td>
 			<td class="none">&nbsp;</td>
 			<th>Ngoại ngữ:</th>
-			<td class="check"><input type="checkbox"  name="ngoai_ngu" id="ngoai_ngu" value="1" /></td>
+			<td class="check">
+				<%=check_box 'check', 'ngoai_ngu', {:checked => false}, "1", "0" %>
+			</td>
 		</tr>
 	</table>
-	<div class="down_arrow" onclick="document.forms.form.submit()" title="Xuất nội dung tùy chọn ra excel"><span>Đồng ý</span></div>
+	<div class="down_arrow" onclick="document.forms.form.submit()" title="Tiếp tục"><span>Đồng ý</span></div>
 	<% end %>
 
 
