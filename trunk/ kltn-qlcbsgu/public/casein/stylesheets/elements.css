@@ -369,7 +369,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 {
     width: 100%;
     height: auto;
-    background: rgba(231, 252, 249, 0.21);
+    background: transparent;
     display: block;
     float: left;
     padding: 0;
@@ -437,4 +437,11 @@ background-color: rgb(249, 249, 249);
     font-weight: normal;
     text-align: left;
     line-height: 18px;
+}
+
+#content .autocomplete{
+	content: '.';
+	padding: 5px;
+	background: gray;
+	border: 1px solid #111;
 }

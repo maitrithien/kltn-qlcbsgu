@@ -13,7 +13,7 @@ module Casein
       search_value = params["keyword"]
       view = 10
       if params["num_view"].to_s != ""
-        view = params["num_view"].to_i
+        view = params["num_view"].to_i if params["num_view"].match(/^\d+$/)
       end
       order = ""
       if params["order_by"].to_s != ""
@@ -262,7 +262,7 @@ module Casein
             end
             sheet_second.column(1).width = 15
             sheet_second.column(2).width = 20
-            sheet_second.column(3).width = 15
+            sheet_second.column(2).width = 15
             sheet_second.column(4).width = 30
           end
 
@@ -296,7 +296,7 @@ module Casein
             end
             sheet_third.column(1).width = 20
             sheet_third.column(2).width = 15
-            sheet_third.column(3).width = 15
+            sheet_third.column(2).width = 15
             sheet_third.column(4).width = 15
           end
 
@@ -328,7 +328,7 @@ module Casein
             end
             sheet_fourth.column(1).width = 20
             sheet_fourth.column(2).width = 10
-            sheet_fourth.column(3).width = 20
+            sheet_fourth.column(2).width = 20
             sheet_fourth.column(4).width = 20
           end
 
@@ -421,82 +421,86 @@ module Casein
         format.xls {
           can_bo = Spreadsheet::Workbook.new
           list = can_bo.create_worksheet :name => 'Danh sach can bo'
-		
+		      last = 4    
           @can_bo_thong_tins.each_with_index {|cb, index|
-            i = 0
-            index = index + 1
-            if params['check[ho_ten]'].to_s != "1"
-              i = i + 1
-              list.row(0)[i] = "Ho va Ten"
-              list.row(index)[i] = cb.ho_ten
+            i = 1
+            index = index + 3
+            list.row(2)[i] = "Ma can bo"
+            list.row(index)[i] = cb.ma_cb
+
+            if params['ho_ten'].to_s != ""
+                i = i + 1
+                list.row(2)[i] = "Ho va Ten"
+                list.row(index)[i] = cb.ho_ten
+             
             end
-            if params["check[ten_goi_khac]"].to_s != "1"
+            if params['ten_goi_khac'].to_s != ""
               i = i + 1
-              list.row(0)[i] = "Ten goi khac"
+              list.row(2)[i] = "Ten goi khac"
               list.row(index)[i] = cb.ten_goi_khac
             end
-            if params["check[ngay_sinh]"].to_s != "1"
+            if params["ngay_sinh"].to_s != ""
               i = i + 1
-              list.row(0)[i] = "Ngay sinh"
+              list.row(2)[i] = "Ngay sinh"
               list.row(index)[i] = cb.ngay_sinh
             end
-            if params["check[gioi_tinh]"].to_s != "1"
+            if params["gioi_tinh"].to_s != ""
               i = i + 1
-              list.row(0)[i] = "Gioi tinh"
+              list.row(2)[i] = "Gioi tinh"
               if cb.gioi_tinh
                 list.row(index)[i] = "Nam"
               else
                 list.row(index)[i] = ""
               end
             end
-            if params["check[noi_sinh]"].to_s != "1"
+            if params["noi_sinh"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Noi sinh"
+              list.row(2)[i] = "Noi sinh"
               list.row(index)[i] = cb.noi_sinh
             end
-            if params["check[que_quan]"].to_s != "1"
+            if params["que_quan"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Que quan"
+              list.row(2)[i] = "Que quan"
               list.row(index)[i] = cb.que_quan
             end
-            if params["check[dan_toc]"].to_s != "1"
+            if params["dan_toc"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Dan toc"
+              list.row(2)[i] = "Dan toc"
               list.row(index)[i] = cb.dan_toc
             end
-            if params["check[ton_giao]"].to_s != "1"
+            if params["ton_giao"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Ton giao"
+              list.row(2)[i] = "Ton giao"
               list.row(index)[i] = cb.ton_giao
             end
-            if params["check[noi_o_hien_nay]"].to_s != "1"
+            if params["noi_o_hien_nay"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Noi o hien nay"
+              list.row(2)[i] = "Noi o hien nay"
               list.row(index)[i] = cb.noi_o_hien_nay
             end
-            if params["check[noi_dang_ky_ho_khau_thuong_tru]"].to_s != "1"
+            if params["noi_dang_ky_ho_khau_thuong_tru"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Noi dang ky ho khau thuong tru"
+              list.row(2)[i] = "Noi dang ky ho khau thuong tru"
               list.row(index)[i] = cb.noi_dang_ky_ho_khau_thuong_tru
             end
-            if params["check[so_cmnd]"].to_s != "1"
+            if params["so_cmnd"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "So CMND"
+              list.row(2)[i] = "So CMND"
               list.row(index)[i] = cb.so_cmnd
             end
-            if params["check[ngay_cap_cmnd]"].to_s != "1"
+            if params["ngay_cap_cmnd"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Ngay cap CMND"
+              list.row(2)[i] = "Ngay cap CMND"
               list.row(index)[i] = cb.ngay_cap_cmnd
             end
-            if params["check[so_BHXH]"].to_s != "1"
+            if params["so_BHXH"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "So so BHXH"
+              list.row(2)[i] = "So so BHXH"
               list.row(index)[i] = cb.so_BHXH 
             end
-            if params["check[ngach]"].to_s != "1"
+            if params["ngach"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Ngach cong chuc"
+              list.row(2)[i] = "Ngach cong chuc"
               if cb.bac_luong_id
                 bac_luong = BacLuong.find(cb.bac_luong_id)
                 if bac_luong
@@ -506,9 +510,9 @@ module Casein
                 end
               end 
             end
-            if params["check[ma_ngach]"].to_s != "1"
+            if params["ma_ngach"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Ma ngach"
+              list.row(2)[i] = "Ma ngach"
               if cb.bac_luong_id
                 bac_luong = BacLuong.find(cb.bac_luong_id)
                 if bac_luong
@@ -518,9 +522,9 @@ module Casein
                 end
               end 
             end
-            if params["check[bac_luong]"].to_s != "1"
+            if params["bac_luong"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Bac luong"
+              list.row(2)[i] = "Bac luong"
               if cb.bac_luong_id
                 bac_luong = BacLuong.find(cb.bac_luong_id)
                 if bac_luong
@@ -528,9 +532,9 @@ module Casein
                 end
               end
             end
-            if params["check[he_so]"].to_s != "1"
+            if params["he_so"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "He so luong"
+              list.row(2)[i] = "He so luong"
               if cb.bac_luong_id
                 bac_luong = BacLuong.find(cb.bac_luong_id)
                 if bac_luong
@@ -538,9 +542,9 @@ module Casein
                 end
               end
             end
-            if params["check[don_vi]"].to_s != "1"
+            if params["don_vi"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Don vi tuyen dung"
+              list.row(2)[i] = "Don vi tuyen dung"
               can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_cong_tac
                 if can_bo_cong_tac.don_vi_id
@@ -551,49 +555,49 @@ module Casein
                 end
               end
             end
-            if params["check[nghe_nghiep]"].to_s != "1"
+            if params["nghe_nghiep"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Nghe nghiep truoc tuyen dung"
+              list.row(2)[i] = "Nghe nghiep truoc tuyen dung"
               can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_cong_tac
                 list.row(index)[i] = can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung
               end
             end
-            if params["check[cong_viec_chinh_duoc_giao]"].to_s != "1"
+            if params["cong_viec_chinh_duoc_giao"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Cong viec chinh duoc giao"
+              list.row(2)[i] = "Cong viec chinh duoc giao"
               can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_cong_tac
                 list.row(index)[i] = can_bo_cong_tac.cong_viec_chinh_duoc_giao
               end
             end
-            if params["check[so_truong_cong_tac]"].to_s != "1"
+            if params["so_truong_cong_tac"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "So truong cong tac"
+              list.row(2)[i] = "So truong cong tac"
               can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_cong_tac
                 list.row(index)[i] = can_bo_cong_tac.cong_viec_chinh_duoc_giao
               end
             end
-            if params["check[ngay_bat_dau_lam_viec]"].to_s != "1"
+            if params["ngay_bat_dau_lam_viec"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Ngay bat dau lam viec"
+              list.row(2)[i] = "Ngay bat dau lam viec"
               can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_cong_tac
                 list.row(index)[i] = can_bo_cong_tac.ngay_bat_dau_lam_viec
               end
             end
-            if params["check[trinh_do_pho_thong]"].to_s != "1"
+            if params["trinh_do_pho_thong"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Trinh do giao duc pho thong"
+              list.row(2)[i] = "Trinh do giao duc pho thong"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 list.row(index)[i] = can_bo_trinh_do.trinh_do_gd_pho_thong
               end
             end
-            if params["check[trinh_do_chuyen_mon]"].to_s != "1"
+            if params["trinh_do_chuyen_mon"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Trinh do chuyen mon cao nhat"
+              list.row(2)[i] = "Trinh do chuyen mon cao nhat"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 if can_bo_trinh_do.trinh_do_chuyen_mon_id
@@ -604,9 +608,9 @@ module Casein
                 end
               end
             end
-            if params["check[hoc_ham]"].to_s != "1"
+            if params["hoc_ham"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Hoc ham"
+              list.row(2)[i] = "Hoc ham"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 if can_bo_trinh_do.hoc_ham_id
@@ -617,9 +621,9 @@ module Casein
                 end
               end
             end
-            if params["check[hoc_vi]"].to_s != "1"
+            if params["hoc_vi"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Hoc vi"
+              list.row(2)[i] = "Hoc vi"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 if can_bo_trinh_do.hoc_vi_id
@@ -630,9 +634,9 @@ module Casein
                 end
               end
             end
-            if params["check[ly_luan_chinh_tri]"].to_s != "1"
+            if params["ly_luan_chinh_tri"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Trinh do ly luan chinh tri"
+              list.row(2)[i] = "Trinh do ly luan chinh tri"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 if can_bo_trinh_do.ly_luan_chinh_tri_id
@@ -643,9 +647,9 @@ module Casein
                 end
               end
             end
-            if params["check[quan_ly_nha_nuoc]"].to_s != "1"
+            if params["quan_ly_nha_nuoc"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Trinh do quan ly nha nuoc"
+              list.row(2)[i] = "Trinh do quan ly nha nuoc"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 if can_bo_trinh_do.quan_ly_nha_nuoc_id
@@ -656,9 +660,9 @@ module Casein
                 end
               end
             end
-            if params["check[ngoai_ngu]"].to_s != "1"
+            if params["ngoai_ngu"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Ngoai ngu"
+              list.row(2)[i] = "Ngoai ngu"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 if can_bo_trinh_do.ngoai_ngu_id
@@ -669,17 +673,25 @@ module Casein
                 end
               end
             end
-            if params["check[tin_hoc]"].to_s != "1"
+            if params["tin_hoc"].to_s == "true"
               i = i + 1
-              list.row(0)[i] = "Tin hoc"
+              list.row(2)[i] = "Tin hoc"
               can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_trinh_do
                 list.row(index)[i] = can_bo_trinh_do.trinh_do_tin_hoc
               end
             end
+			     last = i
           }
-          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
-          list.row(0).default_format = header_format
+          list.row(0)[1] = "DANH SACH CAN BO CONG CHUC"
+          list.merge_cells(0, 1, 1, last)
+          list.row(0).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
+		      list.row(2).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          #format columns width
+          1.upto(last) do |index|
+            list.column(index).width = 20
+          end
+
           #output to blob object
           blob = StringIO.new("")
           can_bo.write blob

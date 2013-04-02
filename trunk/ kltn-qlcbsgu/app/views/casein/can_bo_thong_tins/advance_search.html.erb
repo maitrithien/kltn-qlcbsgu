@@ -95,7 +95,17 @@
 <% end %>
 
 <%= content_for :sidebar do %>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới cán bộ".html_safe, new_casein_can_bo_thong_tin_path %></li>
-    <li><%= link_to "#{casein_show_icon "import"}Thêm mới cán bộ từ file excel".html_safe, import_from_excel_casein_can_bo_thong_tins_path %></li>
-    <li><%= link_to "#{casein_show_icon "table"}Danh sách cán bộ".html_safe, casein_can_bo_thong_tins_path %></li>
+    <li>
+      <%= link_to "#{casein_show_icon "statistics"}Báo cáo - Thống kê".html_safe, 
+            statistic_casein_can_bo_thong_tins_path %>
+    </li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới cán bộ".html_safe, new_casein_can_bo_thong_tin_path %>
+    </li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới cán bộ từ file excel".html_safe, import_from_excel_casein_can_bo_thong_tins_path %>
+    </li>
+    <li>
+    <%= link_to "#{casein_show_icon_custom_style("custom_download", "width:20px; margin-top:-5px;")}Tùy chọn nội dung xuất ra excel".html_safe, custom_export_data_casein_can_bo_thong_tins_path %>
+    </li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách cán bộ".html_safe, casein_can_bo_thong_tins_path %>
+    </li>
 <% end %>
