@@ -144,9 +144,14 @@
 <% if @can_bo_thong_tin.tep_tin_dinh_kem.to_s != "" %>
       <h2>tập tin đính kèm</h2>
     <table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
+      <tr>
+        <th>Tên tập tin</th>
+        <th>Kích thước (KB)</th>
+      </tr>
+      
       <tr class="hover">
-        <td style="padding-left: 20px;"><%= File.basename("#{@can_bo_thong_tin.tep_tin_dinh_kem}") %></td>
-        <td><a href="<%= @can_bo_thong_tin.tep_tin_dinh_kem %>"><%= casein_show_icon_custom_style("download", "margin-top:-5px; margin-left: 5px;") %>tải về</a></td>
+        <td style="padding-left: 5px;"><a href="<%= @can_bo_thong_tin.tep_tin_dinh_kem %>" style="color:#3561b1; font-size:1em; font-weight:bold;"><%= File.basename("#{@can_bo_thong_tin.tep_tin_dinh_kem}") %></a></td>
+        <td style="padding-left: 5px;"><%= (File.size?("#{Rails.root}/public#{@can_bo_thong_tin.tep_tin_dinh_kem}").to_f / 2**10).round(1) %> KB</td>
       </tr>
     </table>
 <% end %>

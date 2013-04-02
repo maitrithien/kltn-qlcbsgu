@@ -33,6 +33,10 @@ module Casein
         @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :per_page => view, :order => order
         @can_bo_thong_tins_xls = CanBoThongTin.all
       end
+      @available_complete_tags = []
+      CanBoThongTin.all.each{ |c| 
+        @available_complete_tags.push c.ho_ten
+      }
       
       respond_to do |format|
         format.html
@@ -410,170 +414,280 @@ module Casein
 
     def get_and_export_to_excel
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_get_and_export_to_excel_page_title")
-      @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page]
-      @can_bo_thong_tins.each do |cb|
-        if params[:ho_ten].to_s != "1"
-          cb.ho_ten = ""
-        end
-        if params[:ten_goi_khac].to_s != "1"
-          cb.ten_goi_khac = ""
-        end
-        if params[:ngay_sinh].to_s != "1"
-          cb.ngay_sinh = ""
-        end
-        if params[:gioi_tinh].to_s != "1"
-          cb.gioi_tinh = ""
-        end
-        if params[:noi_sinh].to_s != "1"
-          cb.noi_sinh = ""
-        end
-        if params[:que_quan].to_s != "1"
-          cb.que_quan = ""
-        end
-        if params[:dan_toc].to_s != "1"
-          cb.dan_toc = ""
-        end
-        if params[:ton_giao].to_s != "1"
-          cb.ton_giao = ""
-        end
-        if params[:noi_o_hien_nay].to_s != "1"
-          cb.noi_o_hien_nay = ""
-        end
-        if params[:noi_dang_ky_ho_khau_thuong_tru].to_s != "1"
-          cb.noi_dang_ky_ho_khau_thuong_tru = ""
-        end
-        if params[:so_cmnd].to_s != "1"
-          cb.so_cmnd = ""
-        end
-        if params[:ngay_cap_cmnd].to_s != "1"
-          cb.ngay_cap_cmnd = ""
-        end
-        if params[:so_BHXH].to_s != "1"
-          cb.so_BHXH = ""
-        end
-        if params[:ngach].to_s != "1"
-          cb.bac_luong.ngach.ten_ngach = ""
-        end
-        if params[:bac_luong].to_s != "1"
-          cb.bac_luong.bac = ""
-        end
-        if params[:he_so].to_s != "1"
-          cb.bac_luong.he_so_luong = ""
-        end
-        if params[:don_vi].to_s != "1"
-          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_cong_tac
-            if can_bo_cong_tac.don_vi_id
-              don_vi = DonVi.find(can_bo_cong_tac.don_vi_id)
-              if don_vi
-                can_bo_cong_tac.don_vi.ten_don_vi = ""
+      @can_bo_thong_tins = CanBoThongTin.all
+      
+      respond_to do |format|
+        format.html
+        format.xls {
+          can_bo = Spreadsheet::Workbook.new
+          list = can_bo.create_worksheet :name => 'Danh sach can bo'
+		
+          @can_bo_thong_tins.each_with_index {|cb, index|
+            i = 0
+            index = index + 1
+            if params['check[ho_ten]'].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ho va Ten"
+              list.row(index)[i] = cb.ho_ten
+            end
+            if params["check[ten_goi_khac]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ten goi khac"
+              list.row(index)[i] = cb.ten_goi_khac
+            end
+            if params["check[ngay_sinh]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ngay sinh"
+              list.row(index)[i] = cb.ngay_sinh
+            end
+            if params["check[gioi_tinh]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Gioi tinh"
+              if cb.gioi_tinh
+                list.row(index)[i] = "Nam"
+              else
+                list.row(index)[i] = ""
               end
             end
-          end
-        end
-        if params[:nghe_nghiep].to_s != "1"
-          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_cong_tac
-            can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung = ""
-          end
-        end
-        if params[:cong_viec_chinh_duoc_giao].to_s != "1"
-          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_cong_tac
-            can_bo_cong_tac.cong_viec_chinh_duoc_giao = ""
-          end
-        end
-        if params[:so_truong_cong_tac].to_s != "1"
-          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_cong_tac
-            can_bo_cong_tac.cong_viec_chinh_duoc_giao = ""
-          end
-        end
-        if params[:ngay_bat_dau_lam_viec].to_s != "1"
-          can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_cong_tac
-            can_bo_cong_tac.ngay_bat_dau_lam_viec = ""
-          end
-        end
-        if params[:trinh_do_pho_thong].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            can_bo_trinh_do.trinh_do_gd_pho_thong = ""
-          end
-        end
-        if params[:trinh_do_chuyen_mon].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            if can_bo_trinh_do.trinh_do_chuyen_mon_id
-              trinh_do_chuyen_mon = TrinhDoChuyenMon.find(can_bo_trinh_do.trinh_do_chuyen_mon_id)
-              if trinh_do_chuyen_mon
-                can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do = ""
+            if params["check[noi_sinh]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Noi sinh"
+              list.row(index)[i] = cb.noi_sinh
+            end
+            if params["check[que_quan]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Que quan"
+              list.row(index)[i] = cb.que_quan
+            end
+            if params["check[dan_toc]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Dan toc"
+              list.row(index)[i] = cb.dan_toc
+            end
+            if params["check[ton_giao]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ton giao"
+              list.row(index)[i] = cb.ton_giao
+            end
+            if params["check[noi_o_hien_nay]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Noi o hien nay"
+              list.row(index)[i] = cb.noi_o_hien_nay
+            end
+            if params["check[noi_dang_ky_ho_khau_thuong_tru]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Noi dang ky ho khau thuong tru"
+              list.row(index)[i] = cb.noi_dang_ky_ho_khau_thuong_tru
+            end
+            if params["check[so_cmnd]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "So CMND"
+              list.row(index)[i] = cb.so_cmnd
+            end
+            if params["check[ngay_cap_cmnd]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ngay cap CMND"
+              list.row(index)[i] = cb.ngay_cap_cmnd
+            end
+            if params["check[so_BHXH]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "So so BHXH"
+              list.row(index)[i] = cb.so_BHXH 
+            end
+            if params["check[ngach]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ngach cong chuc"
+              if cb.bac_luong_id
+                bac_luong = BacLuong.find(cb.bac_luong_id)
+                if bac_luong
+                  if Ngach.find(bac_luong.ngach_id)
+                    list.row(index)[i] = bac_luong.ngach.ten_ngach
+                  end
+                end
+              end 
+            end
+            if params["check[ma_ngach]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ma ngach"
+              if cb.bac_luong_id
+                bac_luong = BacLuong.find(cb.bac_luong_id)
+                if bac_luong
+                  if Ngach.find(bac_luong.ngach_id)
+                    list.row(index)[i] = bac_luong.ngach.ma_ngach
+                  end
+                end
+              end 
+            end
+            if params["check[bac_luong]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Bac luong"
+              if cb.bac_luong_id
+                bac_luong = BacLuong.find(cb.bac_luong_id)
+                if bac_luong
+                  list.row(index)[i] = bac_luong.bac
+                end
               end
             end
-          end
-        end
-        if params[:hoc_ham].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            if can_bo_trinh_do.hoc_ham_id
-              hoc_ham = HocHam.find(can_bo_trinh_do.hoc_ham_id)
-              if hoc_ham
-                hoc_ham.ten_hoc_ham = ""
+            if params["check[he_so]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "He so luong"
+              if cb.bac_luong_id
+                bac_luong = BacLuong.find(cb.bac_luong_id)
+                if bac_luong
+                  list.row(index)[i] = bac_luong.he_so_luong
+                end
               end
             end
-          end
-        end
-        if params[:hoc_vi].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            if can_bo_trinh_do.hoc_vi_id
-              hoc_vi = HocVi.find(can_bo_trinh_do.hoc_vi_id)
-              if hoc_vi
-                hoc_vi.ten_hoc_vi = ""
+            if params["check[don_vi]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Don vi tuyen dung"
+              can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_cong_tac
+                if can_bo_cong_tac.don_vi_id
+                  don_vi = DonVi.find(can_bo_cong_tac.don_vi_id)
+                  if don_vi
+                    list.row(index)[i] = can_bo_cong_tac.don_vi.ten_don_vi
+                  end
+                end
               end
             end
-          end
-        end
-        if params[:ly_luan_chinh_tri].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            if can_bo_trinh_do.ly_luan_chinh_tri_id
-              ly_luan_chinh_tri = LyLuanChinhTri.find(can_bo_trinh_do.ly_luan_chinh_tri_id)
-              if ly_luan_chinh_tri
-                ly_luan_chinh_tri.trinh_do = ""
+            if params["check[nghe_nghiep]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Nghe nghiep truoc tuyen dung"
+              can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_cong_tac
+                list.row(index)[i] = can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung
               end
             end
-          end
-        end
-        if params[:quan_ly_nha_nuoc].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            if can_bo_trinh_do.quan_ly_nha_nuoc_id
-              quan_ly_nha_nuoc = QuanLyNhaNuoc.find(can_bo_trinh_do.quan_ly_nha_nuoc_id)
-              if quan_ly_nha_nuoc
-                quan_ly_nha_nuoc.trinh_do = ""
+            if params["check[cong_viec_chinh_duoc_giao]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Cong viec chinh duoc giao"
+              can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_cong_tac
+                list.row(index)[i] = can_bo_cong_tac.cong_viec_chinh_duoc_giao
               end
             end
-          end
-        end
-        if params[:ngoai_ngu].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            if can_bo_trinh_do.ngoai_ngu_id
-              ngoai_ngu = NgoaiNgu.find(can_bo_trinh_do.ngoai_ngu_id)
-              if ngoai_ngu
-                ngoai_ngu.ten_ngoai_ngu = ""
+            if params["check[so_truong_cong_tac]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "So truong cong tac"
+              can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_cong_tac
+                list.row(index)[i] = can_bo_cong_tac.cong_viec_chinh_duoc_giao
               end
             end
-          end
-        end
-        if params[:tin_hoc].to_s != "1"
-          can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
-          if can_bo_trinh_do
-            can_bo_trinh_do.trinh_do_tin_hoc = ""
-          end
-        end
+            if params["check[ngay_bat_dau_lam_viec]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ngay bat dau lam viec"
+              can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_cong_tac
+                list.row(index)[i] = can_bo_cong_tac.ngay_bat_dau_lam_viec
+              end
+            end
+            if params["check[trinh_do_pho_thong]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Trinh do giao duc pho thong"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                list.row(index)[i] = can_bo_trinh_do.trinh_do_gd_pho_thong
+              end
+            end
+            if params["check[trinh_do_chuyen_mon]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Trinh do chuyen mon cao nhat"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                if can_bo_trinh_do.trinh_do_chuyen_mon_id
+                  trinh_do_chuyen_mon = TrinhDoChuyenMon.find(can_bo_trinh_do.trinh_do_chuyen_mon_id)
+                  if trinh_do_chuyen_mon
+                    list.row(index)[i] = can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do
+                  end
+                end
+              end
+            end
+            if params["check[hoc_ham]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Hoc ham"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                if can_bo_trinh_do.hoc_ham_id
+                  hoc_ham = HocHam.find(can_bo_trinh_do.hoc_ham_id)
+                  if hoc_ham
+                    list.row(index)[i] = hoc_ham.ten_hoc_ham
+                  end
+                end
+              end
+            end
+            if params["check[hoc_vi]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Hoc vi"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                if can_bo_trinh_do.hoc_vi_id
+                  hoc_vi = HocVi.find(can_bo_trinh_do.hoc_vi_id)
+                  if hoc_vi
+                    list.row(index)[i] = hoc_vi.ten_hoc_vi
+                  end
+                end
+              end
+            end
+            if params["check[ly_luan_chinh_tri]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Trinh do ly luan chinh tri"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                if can_bo_trinh_do.ly_luan_chinh_tri_id
+                  ly_luan_chinh_tri = LyLuanChinhTri.find(can_bo_trinh_do.ly_luan_chinh_tri_id)
+                  if ly_luan_chinh_tri
+                    list.row(index)[i] = ly_luan_chinh_tri.trinh_do
+                  end
+                end
+              end
+            end
+            if params["check[quan_ly_nha_nuoc]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Trinh do quan ly nha nuoc"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                if can_bo_trinh_do.quan_ly_nha_nuoc_id
+                  quan_ly_nha_nuoc = QuanLyNhaNuoc.find(can_bo_trinh_do.quan_ly_nha_nuoc_id)
+                  if quan_ly_nha_nuoc
+                    list.row(index)[i] = quan_ly_nha_nuoc.trinh_do
+                  end
+                end
+              end
+            end
+            if params["check[ngoai_ngu]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Ngoai ngu"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                if can_bo_trinh_do.ngoai_ngu_id
+                  ngoai_ngu = NgoaiNgu.find(can_bo_trinh_do.ngoai_ngu_id)
+                  if ngoai_ngu
+                    list.row(index)[i] = "#{ngoai_ngu.ten_ngoai_ngu} #{can_bo_trinh_do.trinh_do_ngoai_ngu}"
+                  end
+                end
+              end
+            end
+            if params["check[tin_hoc]"].to_s != "1"
+              i = i + 1
+              list.row(0)[i] = "Tin hoc"
+              can_bo_trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+              if can_bo_trinh_do
+                list.row(index)[i] = can_bo_trinh_do.trinh_do_tin_hoc
+              end
+            end
+          }
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          can_bo.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Danh_sach_can_bo_#{Time.now.to_i.to_s}.xls"
+        }
       end
+      
     end
 
     def import_from_excel
@@ -708,7 +822,19 @@ end
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_thong_ke_page_title")
       statistic_req = params["statistic_req"]
       if statistic_req
-        @can_bo_thong_tins = CanBoThongTin.statistic(params["don_vi_id"], params["hoc_ham_id"],params["hoc_vi_id"],params["ngach_id"],params["gioi_tinh"].to_s,params["dan_toc"],params["nam_sinh"],params["dang_vien"],params["nam_cong_tac"],params["gia_dinh_chinh_sach"])
+        @can_bo_thong_tins = CanBoThongTin.statistic({
+                                                      :don_vi_id => params["don_vi_id"], 
+                                                      :hoc_ham_id => params["hoc_ham_id"],
+                                                      :hoc_vi_id => params["hoc_vi_id"],
+                                                      :ngach_id => params["ngach_id"],
+                                                      :gioi_tinh => params["gioi_tinh"],
+                                                      :dan_toc => params["dan_toc"],
+                                                      :nam_sinh_tu => params["nam_sinh_tu"],
+                                                      :nam_sinh_den => params["nam_sinh_den"],
+                                                      :dang_vien => params["dang_vien"],
+                                                      :nam_cong_tac => params["nam_cong_tac"],
+                                                      :gia_dinh_chinh_sach => params["gia_dinh_chinh_sach"]
+                                                      })
         if @can_bo_thong_tins.count>0
           @can_bo_thong_tins = @can_bo_thong_tins.paginate :page=>params[:page], :per_page => 10
           @has_result =true

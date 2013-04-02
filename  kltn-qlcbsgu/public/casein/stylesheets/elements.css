@@ -375,7 +375,27 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     padding: 0;
 }
 
-
+.stat select{
+	padding: 5px;
+	width: 90%;
+	height: auto;
+}
+.stat .spec_label select.spec{
+	width: 100%;
+}
+.stat .spec_mid_label{
+	width: 10%;
+	vertical-align: bottom;
+	float: left;
+}
+.stat .spec_mid_label img{
+	margin-top: 25px;
+}
+.stat label.spec_label{
+	float: left;
+	width: 40%;
+	display: inline;
+}
 #content #data .second_paragraph
 {
     width: 100%;
