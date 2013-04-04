@@ -15,5 +15,7 @@
 </div>
 
 <%= content_for :sidebar do %>
+	<li><%= link_to "#{casein_show_icon "import"}Thêm mới bậc lương từ file excel".html_safe, import_from_excel_casein_bac_luongs_path %></li>
 	<li><%= link_to "#{casein_show_icon "table"}Danh sách bậc lương".html_safe, casein_bac_luongs_path %></li>
+
 <% end %>
