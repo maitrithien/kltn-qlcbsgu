@@ -1,5 +1,6 @@
 class Param < ActiveRecord::Base
   attr_accessible :param_name, :param_value, :options, :description
+
   validates_presence_of :param_name, :param_value
   validates_uniqueness_of :param_name
   def self.search(search_value)
