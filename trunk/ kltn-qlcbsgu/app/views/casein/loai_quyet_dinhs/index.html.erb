@@ -10,6 +10,6 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới loại quyết định".html_safe, new_casein_loai_quyet_dinh_path %></li>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới loại quyết định từ file excel".html_safe, import_from_excel_casein_loai_quyet_dinhs_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới loại quyết định từ tập tin excel".html_safe, import_from_excel_casein_loai_quyet_dinhs_path %></li>
     <li><%= link_to "#{casein_show_icon "excel"}Xuất danh sách ra excel".html_safe,casein_loai_quyet_dinhs_path({:format => :xls}) %></li>
 <% end %>

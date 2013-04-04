@@ -21,7 +21,6 @@ module Casein
           @bac_luongs_xls.each_with_index { |ct, i|
             list.row(i+1).push(ct.ngach.ma_ngach, ct.ngach.ten_ngach, ct.bac,ct.he_so_luong,ct.ghi_chu)
           }
-
           header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
           list.row(0).default_format = header_format
           #output to blob object

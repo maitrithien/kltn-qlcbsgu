@@ -16,5 +16,6 @@
 
 
 <%= content_for :sidebar do %>
-	<li><%= link_to "#{casein_show_icon "table"}Danh sách trình độ Quản lý Nhà nước".html_safe, casein_quan_ly_nha_nuocs_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới trình độ quản lý nhà nước từ tập tin excel".html_safe, import_from_excel_casein_quan_ly_nha_nuocs_path %></li>
+	<li><%= link_to "#{casein_show_icon "table"}Danh sách trình độ quản lý nhà nước".html_safe, casein_quan_ly_nha_nuocs_path %></li>
 <% end %>

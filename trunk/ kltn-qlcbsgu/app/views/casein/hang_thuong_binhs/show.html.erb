@@ -16,5 +16,7 @@
 
 
 <%= content_for :sidebar do %>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới hạng thương binh".html_safe, new_casein_hang_thuong_binh_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới hạng thương binh từ tập tin excel".html_safe, import_from_excel_casein_hang_thuong_binhs_path %></li>
 	<li><%= link_to "#{casein_show_icon "table"}Danh sách hạng thương binh".html_safe, casein_hang_thuong_binhs_path %></li>
 <% end %>

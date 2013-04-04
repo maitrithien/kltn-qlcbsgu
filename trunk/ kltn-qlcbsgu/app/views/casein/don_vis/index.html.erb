@@ -9,6 +9,6 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới đơn vị".html_safe, new_casein_don_vi_path %></li>
-    <li><%= link_to "#{casein_show_icon "import"}Thêm mới đơn vị từ file excel".html_safe, import_from_excel_casein_don_vis_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới đơn vị từ tập tin excel".html_safe, import_from_excel_casein_don_vis_path %></li>
     <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_don_vis_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
 <% end %>

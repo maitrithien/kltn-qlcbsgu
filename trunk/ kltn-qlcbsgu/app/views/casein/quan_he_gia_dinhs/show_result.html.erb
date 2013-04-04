@@ -20,6 +20,6 @@
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới quan hệ thân nhân".html_safe, new_casein_quan_he_gia_dinh_path %></li>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới ngoại quan hệ thân nhân từ excel".html_safe, import_from_excel_casein_quan_he_gia_dinhs_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới ngoại quan hệ thân nhân từ tập tin excel".html_safe, import_from_excel_casein_quan_he_gia_dinhs_path %></li>
     <li><%= link_to "#{casein_show_icon "table"}Danh sách quan hệ thân nhân".html_safe, casein_quan_he_gia_dinhs_path %></li>
 <% end %>

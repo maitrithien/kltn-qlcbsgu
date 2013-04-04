@@ -15,5 +15,7 @@
 </div>
 
 <%= content_for :sidebar do %>
-	<li><%= link_to "#{casein_show_icon "table"}Back to list".html_safe, casein_chuc_vus_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới chức vụ".html_safe, new_casein_chuc_vu_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới chức vụ từ tập tin excel".html_safe, import_from_excel_casein_chuc_vus_path %></li>
+	<li><%= link_to "#{casein_show_icon "table"}Danh sách chức vụ".html_safe, casein_chuc_vus_path %></li>
 <% end %>

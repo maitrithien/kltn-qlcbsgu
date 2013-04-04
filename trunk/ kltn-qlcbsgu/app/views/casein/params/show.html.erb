@@ -16,6 +16,6 @@
 
 <%= content_for :sidebar do %>
 		<li><%= link_to "#{casein_show_icon "add"}Thêm mới tham số".html_safe, new_casein_param_path %></li>
-        <li><%= link_to "#{casein_show_icon "add"}Thêm mới tham số từ file excel".html_safe, import_from_excel_casein_params_path %></li>
+        <li><%= link_to "#{casein_show_icon "import"}Thêm mới tham số từ tập tin excel".html_safe, import_from_excel_casein_params_path %></li>
         <li><%= link_to "#{casein_show_icon "table"}Danh sách tham số".html_safe, casein_params_path %></li>
 <% end %>

@@ -93,6 +93,8 @@ QLTtCbvcSgu::Application.routes.draw do
 		resources :params do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
+      get "website_config", :on => :collection
+      post "save_change_config", :on => :collection
     end
 		resources :can_bo_thong_tins do
       get "import_from_excel", :on => :collection

@@ -20,6 +20,6 @@
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới chức vụ".html_safe, new_casein_chuc_vu_path %></li>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới chức vụ từ file excel".html_safe, import_from_excel_casein_chuc_vus_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới chức vụ từ tập tin excel".html_safe, import_from_excel_casein_chuc_vus_path %></li>
     <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_chuc_vus_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
 <% end %>

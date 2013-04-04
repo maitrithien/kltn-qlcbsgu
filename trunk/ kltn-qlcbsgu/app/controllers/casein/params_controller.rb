@@ -144,5 +144,44 @@ module Casein
         format.json {head :no_content}
       end
     end
+
+    def website_config
+      @casein_page_title = Param.get_param_value("param_website_config_page_title")
+    end
+
+    def save_change_config
+      if !params[:website_name].blank?
+        p = Param.find_by_param_name(params[:website_name])
+        if p
+          p.update_attributes(:param_value => params[:website_name])
+        else
+          p = Param.new(:param_name => "website_name", :param_value => params[:website_name])
+          p.save
+        end
+      end
+      if !params[:lo_go].blank?
+        p = Param.find_by_param_name(params[:lo_go])
+        if p
+          p.update_attributes(:param_value => params[:lo_go])
+        else
+          p = Param.new(:param_name => "lo_go", :param_value => params[:lo_go])
+          p.save
+        end
+      end
+
+      if !params[:favicon].blank?
+        p = Param.find_by_param_name(params[:favicon])
+        if p
+          p.update_attributes(:param_value => params[:favicon])
+        else
+          p = Param.new(:param_name => "favicon", :param_value => params[:favicon])
+          p.save
+        end
+      end
+
+      redirect_to casein_blank_url
+    end
+
+
   end
 end
