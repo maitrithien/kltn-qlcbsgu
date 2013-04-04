@@ -3,12 +3,12 @@
 <table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
 	<tr>
     <th>Cán bộ</th>
-		<th>Trình độ giáo dục phổ thông</th>
+		<th>Trình độ GD<br>phổ thông</th>
     <th>Học hàm</th>
     <th>Học vị</th>
-		<th>Trình độ chuyên môn</th>
-		<th>Lý luận chính trị</th>
-		<th>Quản lý nhà nước</th>
+		<th>Trình độ<br>chuyên môn</th>
+		<th>Lý luận<br>chính trị</th>
+		<th>Quản lý<br>nhà nước</th>
 		<th>Ngoại ngữ</th>
 		<th>Tin học</th>
 		<th>&nbsp;</th>
@@ -16,7 +16,7 @@
 	
 	<% can_bo_trinh_dos.each_with_index do |can_bo_trinh_do, index| %>
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
-          <td><%= casein_table_cell_link "#{can_bo_trinh_do.can_bo_thong_tin.ma_cb} <br><br> #{can_bo_trinh_do.can_bo_thong_tin.ho_ten}".html_safe, casein_can_bo_trinh_do_path(can_bo_trinh_do) %></td>
+          <td><%= casein_table_cell_link "#{can_bo_trinh_do.can_bo_thong_tin.ma_cb} #{can_bo_trinh_do.can_bo_thong_tin.ho_ten}".html_safe, casein_can_bo_trinh_do_path(can_bo_trinh_do) %></td>
           <td><%= casein_table_cell_link can_bo_trinh_do.trinh_do_gd_pho_thong, casein_can_bo_trinh_do_path(can_bo_trinh_do) %></td>
           <td>
             <% if can_bo_trinh_do.hoc_ham %>
@@ -34,7 +34,7 @@
           </td>
           <td>
             <% if can_bo_trinh_do.chuyen_nganh %>
-			<%= casein_table_cell_link "#{can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do} #{can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh}", casein_can_bo_trinh_do_path(can_bo_trinh_do) %>
+			<%= casein_table_cell_link truncate("#{can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do} #{can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh}", :length => 20), casein_can_bo_trinh_do_path(can_bo_trinh_do) %>
             <% else %>
                 <%= casein_table_cell_link "#", casein_can_bo_trinh_do_path(can_bo_trinh_do) %>
             <% end %>
@@ -56,7 +56,7 @@
           </td>
 		  <td>
             <% if can_bo_trinh_do.ngoai_ngu_id %>
-              <%= casein_table_cell_link "#{can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu} - #{can_bo_trinh_do.trinh_do_ngoai_ngu}", casein_can_bo_trinh_do_path(can_bo_trinh_do) %>
+              <%= casein_table_cell_link can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu, casein_can_bo_trinh_do_path(can_bo_trinh_do) %>
             <% else %>
                 <%= casein_table_cell_link "#", casein_can_bo_trinh_do_path(can_bo_trinh_do) %>
             <% end %>

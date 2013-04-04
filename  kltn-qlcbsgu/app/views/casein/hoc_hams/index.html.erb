@@ -10,6 +10,6 @@
 
 <%= content_for :sidebar do %>
 	<li><%= link_to "#{casein_show_icon "add"}Thêm mới học hàm".html_safe, new_casein_hoc_ham_path %></li>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới học hàm từ file excel".html_safe, import_from_excel_casein_hoc_hams_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới học hàm từ tập tin excel".html_safe, import_from_excel_casein_hoc_hams_path %></li>
 	<li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_hoc_hams_path({:format => :xls}) %></li>
 <% end %>

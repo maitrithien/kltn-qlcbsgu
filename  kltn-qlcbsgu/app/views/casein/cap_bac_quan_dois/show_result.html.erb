@@ -20,6 +20,6 @@
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Add a new cap bac quan doi".html_safe, new_casein_cap_bac_quan_doi_path %></li>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới Cấp từ file excel".html_safe, import_from_excel_casein_cap_bac_quan_dois_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới Cấp từ tập tin excel".html_safe, import_from_excel_casein_cap_bac_quan_dois_path %></li>
     <li><%= link_to "#{casein_show_icon('excel')}Xuất Cấp bậc ra excel".html_safe, casein_cap_bac_quan_dois_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
 <% end %>

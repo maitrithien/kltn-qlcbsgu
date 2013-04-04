@@ -12,6 +12,9 @@ module Casein
     	"#{Param.get_param_value("logo")}"
     end
 
+    def casein_config_favicon
+      "#{Param.get_param_value("favicon")}"
+    end
   	# The server hostname where Casein will run
     def casein_config_hostname
       if ENV['RAILS_ENV'] == 'production'

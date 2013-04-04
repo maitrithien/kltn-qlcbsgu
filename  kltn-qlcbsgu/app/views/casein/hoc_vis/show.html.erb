@@ -16,5 +16,7 @@
 
 
 <%= content_for :sidebar do %>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới học vị".html_safe, new_casein_hoc_vi_path %></li>
+	<li><%= link_to "#{casein_show_icon "import"}Thêm mới học vị từ tập tin excel".html_safe, import_from_excel_casein_hoc_vis_path %></li>
 	<li><%= link_to "#{casein_show_icon "table"}Danh sách học vị".html_safe, casein_hoc_vis_path %></li>
 <% end %>

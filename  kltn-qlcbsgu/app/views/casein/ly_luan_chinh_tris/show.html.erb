@@ -17,5 +17,6 @@
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới trình độ Lý luận chính trị".html_safe, new_casein_ly_luan_chinh_tri_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới trình độ Lý luận chính trị từ tập tin excel".html_safe, import_from_excel_casein_ly_luan_chinh_tris_path %></li>
 	<li><%= link_to "#{casein_show_icon "table"}Danh sách trình độ Lý luận chính trị".html_safe, casein_ly_luan_chinh_tris_path %></li>
 <% end %>

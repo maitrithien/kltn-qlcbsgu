@@ -58,7 +58,7 @@ module Casein
           blob = StringIO.new("")
           can_bo.write blob
           #respond with blob object as a file
-          send_data blob.string, :type => :xls, :filename => "Danh_Sach_CBVC_TT.xls"
+          send_data blob.string, :type => :xls, :filename => "Danh_sach_can_bo_vien_chuc_#{Time.now.to_i.to_s}.xls"
         }
       end
     end
@@ -336,7 +336,7 @@ module Casein
           blob = StringIO.new("")
           book.write blob
           #respond with blob object as a file
-          send_data blob.string, :type => :xls, :filename => "so_yeu_ly_lich.xls"
+          send_data blob.string, :type => :xls, :filename => "so_yeu_ly_lich_can_bo_#{@can_bo_thong_tin.ma_cb}_#{@can_bo_thong_tin.ho_ten}_#{Time.now.to_i}.xls"
         }
       end
 

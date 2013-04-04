@@ -10,6 +10,6 @@
 
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới ngoại ngữ".html_safe, new_casein_ngoai_ngu_path %></li>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới ngoại ngữ từ excel".html_safe, import_from_excel_casein_ngoai_ngus_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới ngoại ngữ từ tập tin excel".html_safe, import_from_excel_casein_ngoai_ngus_path %></li>
     <li><%= link_to "#{casein_show_icon "excel"}Xuất danh sách ra excel".html_safe, casein_ngoai_ngus_path({:format => :xls}) %></li>
 <% end %>
