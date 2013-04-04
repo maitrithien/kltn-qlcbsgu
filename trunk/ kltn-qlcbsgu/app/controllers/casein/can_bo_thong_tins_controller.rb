@@ -683,14 +683,20 @@ module Casein
             end
 			     last = i
           }
-          list.row(0)[1] = "DANH SACH CAN BO CONG CHUC"
-          list.merge_cells(0, 1, 1, last)
+          list.row(0)[0] = "DANH SACH CAN BO CONG CHUC"
+          list.merge_cells(0, 0, 1, last)
           list.row(0).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
 		      list.row(2).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+			
           #format columns width
           1.upto(last) do |index|
             list.column(index).width = 20
           end
+		  list.row(2)[0] = "STT"
+		  list.column(0).width = 5
+		  1.upto(@can_bo_thong_tins.count) do |stt|
+			list.row(stt + 2)[0] = stt
+		  end
 
           #output to blob object
           blob = StringIO.new("")

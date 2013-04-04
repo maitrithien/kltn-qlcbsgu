@@ -1,5 +1,5 @@
 <div class="blk-share">
-	<h2>Tùy chọn nội dung trích xuất</h2>
+	<h2>Tùy chọn nội dung tải xuống</h2>
 
 	<%= form_tag get_and_export_to_excel_casein_can_bo_thong_tins_url({:format => :xls}), :method=>"get", :name => "form" do %>
 	<table class="import_table">
@@ -176,7 +176,7 @@
 			</td>
 		</tr>
 	</table>
-	<div class="down_arrow" onclick="document.forms.form.submit()" title="Xử lý và tải xuống"><span>Đồng ý</span></div>
+	<div class="down_arrow" onclick="document.forms.form.submit()" title="Xử lý và tải xuống"><span>Tải về</span></div>
 	<% end %>
 
 

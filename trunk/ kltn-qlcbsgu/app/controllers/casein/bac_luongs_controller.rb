@@ -10,7 +10,7 @@ module Casein
     def index
       @casein_page_title = Param.get_param_value "bac_luong_index_page_title"
       @bac_luongs_xls  = BacLuong.all
-  		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> :ngach_id , :per_page => 8
+  		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> [:ngach_id, :bac], :per_page => 8
 
       respond_to do |format|
         format.html
@@ -119,15 +119,20 @@ module Casein
           p.vuot_khung = flag
           p.ghi_chu = row[4].to_s
           if p.valid?
-            @commit += 1
-            p.save
+			if !BacLuong.check_exists(p.ngach_id, p.bac)
+				@commit += 1
+				p.save
+			else
+				@wrong += 1
+				@errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_i}"
+			end
           else
             @wrong += 1
-            @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+            @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_i}"
           end
         else
           @wrong += 1
-          @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+          @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_i}"
         end
       end
       book.io.close
