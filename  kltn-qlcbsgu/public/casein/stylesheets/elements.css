@@ -99,20 +99,44 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #content .itemList .icon {
 	width: 16px;
 }
-
+ul.download{
+	margin-top: -15px;
+	background: #eee;
+	background: url('../images/arrow_tile.png') no-repeat 0 0;
+	border-radius: 3px;
+	border: 1px solid #b2d18d;
+	position: relative;
+	width: 180px;
+	height: 25px;
+	margin-bottom:5px;
+	overflow: hidden;
+}
+.download li{
+	float:left;
+	width: 58px;
+	list-style:none;
+	padding: 5px 15px;
+}
+.download a{
+	text-decoration:none;
+}
+li.first{
+	width:58px;
+	border-radius: 3px 0 0 3px
+}
 #content .itemList th {
+	overflow: hidden;
+	background: url('../images/net_5.png');
 	text-align: left;
 	padding: 5px;
-	font-size: 11px;
+	font-size: 14px;
     cursor: default;
-    color: #000;
-    border-collapse: collapse;
-	border-bottom: 3px solid #666;
-	background: #e0e2e3;
-	background: -webkit-gradient(linear, left top, left bottom, from(#e0e2e3), to(#c5c9cb));
-    background: -moz-linear-gradient(top,  #e0e2e3,  #c5c9cb);
-    background: filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e2e3', endColorstr='#c5c9cb');
-    border-top: 1px solid rgb(229, 229, 229);
+    font-size: 13px;
+	margin: 0 0 0 5px;
+	color: #111;
+	font-weight:bold;
+	text-shadow: 0 1px #b2d18d;
+	font-family: Arial;
 }
 
 #content .itemList th a {
