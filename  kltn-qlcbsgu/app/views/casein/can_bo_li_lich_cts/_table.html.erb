@@ -4,23 +4,23 @@
 	<tr>
 		<th>Mã cán bộ</th>
 		<th>Ngày vào Đảng</th>
-		<th>Nhập ngủ</th>
-		<th>Xuất ngủ</th>
+		<th>Nhập ngũ</th>
+		<th>Xuất ngũ</th>
 		<th>Quân hàm</th>
 		<th>Danh hiệu</th>
 		<th>Thương binh hạng</th>
 		<th>Gia đình C.Sách</th>
 		<th>&nbsp;</th>
 	</tr>
-	<% cap_bac = "" %>
+	
+
+	<% can_bo_li_lich_cts.each_with_index do |can_bo_li_lich_ct, index| %>
+      <% cap_bac = "" %>
     <% ti_le_thuong_tat = "" %>
     <% ngay_vao_dang = "" %>
     <% ngay_nhap_ngu = "" %>   
     <% ngay_xuat_ngu = "" %>
-
-	<% can_bo_li_lich_cts.each_with_index do |can_bo_li_lich_ct, index| %>
-      
-      <% if can_bo_li_lich_ct.cap_bac_quan_doi_id %>
+      <% if !can_bo_li_lich_ct.cap_bac_quan_doi_id.blank?  %>
            <% cap_bac = can_bo_li_lich_ct.cap_bac_quan_doi.ten_cap_bac %>
       <% end %>
       <% if can_bo_li_lich_ct.hang_thuong_binh_id %>

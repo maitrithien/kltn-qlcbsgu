@@ -9,12 +9,13 @@
 		<th>Thời Gian Kết Thúc</th>
 		<th>&nbsp;</th>
 	</tr>
-	<% don_vi = "" %>
-	<% chuc_vu = "" %>
-	<% thoi_gian_bat_dau = "" %>
-	<% thoi_gian_ket_thuc = "" %>
+	
 
 	<% qua_trinh_cong_tacs.each_with_index do |qua_trinh_cong_tac, index| %>
+		<% don_vi = "" %>
+		<% chuc_vu = "" %>
+		<% thoi_gian_bat_dau = "" %>
+		<% thoi_gian_ket_thuc = "" %>
 		<% if qua_trinh_cong_tac.don_vi_id %>
 			<% don_vi = qua_trinh_cong_tac.don_vi.ten_don_vi %>
 		<% end %>
