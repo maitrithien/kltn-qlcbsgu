@@ -1,3 +1,4 @@
+<fieldset>
 <%= form_for @user_session, :url => casein_user_session_path do |f| %>
 
 	<% if @user_session.errors.any? %>
@@ -26,20 +27,20 @@
 	<div class="text" style="margin-bottom:10px;">
 		<p>
 			<%= f.label :login, "Tên đăng nhập:" %>
-		  <%= f.text_field :login, :class => "caseinTextField" %>
+		  <%= f.text_field :login, :class => "caseinTextField", placeholder:"Nhập tên đăng nhập", required:"required" %>
 		</p>
 	</div>
 
 	<div class="text">
 		<p>
 			<%= f.label :password, "Mật khẩu:" %>
-		  <%= f.password_field :password, :class => "caseinTextField" %>
+		  <%= f.password_field :password, :class => "caseinTextField", required:"required" %>
 		</p>
 	</div>
 	
 	<div class="submit_remember">
 		<p>
-			<%= f.check_box :remember_me %> Ghi nhớ tên đăng nhập và mật khẩu
+			<label for="casein_user_session_remember_me"><%= f.check_box :remember_me %> Ghi nhớ tên đăng nhập và mật khẩu</label>
 			<br /><br />
 			<%= f.submit "Đăng nhập", :class => "caseinSubmit" %>
 			<input type="button" value="Quên mật khẩu?" class="caseinSubmitBlue" onclick="toggleDiv('recover');" />
@@ -49,7 +50,7 @@
 <% end %>
 
 <%= form_tag casein_password_reset_url do %>
-	<div id="recover">
+	<div id="recover" style="display:none">
 	
 		<div class="text">
 			<p>
@@ -64,3 +65,4 @@
 		</div>
 	</div>
 <% end %>
+</fieldset>
