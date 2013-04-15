@@ -1,7 +1,4 @@
-<fieldset>
-<%= form_for @user_session, :url => casein_user_session_path do |f| %>
-
-	<% if @user_session.errors.any? %>
+<% if @user_session.errors.any? %>
 		<div class="error">
 			<p>
 				<% @user_session.errors.keys.each do |key| %>
@@ -10,59 +7,61 @@
 				<% end %>
 			</p>
 		</div>
-	<% end %>
-
-	<% if flash[:warning] %>
+<% end %>
+<% if flash[:warning] %>
 		<div class="error">
 			<p><%= flash[:warning] %></p>
 		</div>
-	<% end %>
-
-	<% if flash[:notice] %>
-		<div class="notice">
-			<p><%= flash[:notice] %></p>
-		</div>
-	<% end %>
-
-	<div class="text" style="margin-bottom:10px;">
-		<p>
-			<%= f.label :login, "Tên đăng nhập:" %>
-		  <%= f.text_field :login, :class => "caseinTextField", placeholder:"Nhập tên đăng nhập", required:"required" %>
-		</p>
-	</div>
-
-	<div class="text">
-		<p>
-			<%= f.label :password, "Mật khẩu:" %>
-		  <%= f.password_field :password, :class => "caseinTextField", required:"required" %>
-		</p>
-	</div>
-	
-	<div class="submit_remember">
-		<p>
-			<label for="casein_user_session_remember_me"><%= f.check_box :remember_me %> Ghi nhớ tên đăng nhập và mật khẩu</label>
-			<br /><br />
-			<%= f.submit "Đăng nhập", :class => "caseinSubmit" %>
-			<input type="button" value="Quên mật khẩu?" class="caseinSubmitBlue" onclick="toggleDiv('recover');" />
-		</p>
-	</div>
-
 <% end %>
 
-<%= form_tag casein_password_reset_url do %>
-	<div id="recover" style="display:none">
-	
-		<div class="text">
-			<p>
-				<%= label_tag :recover_email, "Email:" %>
-				<%= text_field_tag :recover_email, params[:recover_email], :class => "caseinTextField" %>
-			</p>
-		</div>
-		<div class="submit_remember">
-			<p>
-				<%= submit_tag "Lấy lại mật khẩu", :class => "caseinSubmit" %>
-			</p>
-		</div>
+<% if flash[:notice] %>
+	<div class="notice">
+		<p><%= flash[:notice] %></p>
 	</div>
 <% end %>
-</fieldset>
+<div class="clear"></div>
+<center>
+	<fieldset>
+			<%= form_for @user_session, :url => casein_user_session_path do |f| %>
+				<div class="text" style="margin-bottom:10px;">
+					<p>
+						<%= f.label :login, "Tên đăng nhập:" %>
+					  <%= f.text_field :login, :class => "caseinTextField", placeholder:"Nhập tên đăng nhập", required:"required" %>
+					</p>
+				</div>
+
+				<div class="text">
+					<p>
+						<%= f.label :password, "Mật khẩu:" %>
+					  <%= f.password_field :password, :class => "caseinTextField", required:"required" %>
+					</p>
+				</div>
+				
+				<div class="submit_remember">
+					<p>
+						<label for="casein_user_session_remember_me"><%= f.check_box :remember_me %> Ghi nhớ tên đăng nhập và mật khẩu</label>
+						<br /><br />
+						<%= f.submit "Đăng nhập", :class => "caseinSubmit" %>
+						<input type="button" value="Quên mật khẩu?" class="caseinSubmitBlue" onclick="toggleDiv('recover');" />
+					</p>
+				</div>
+
+			<% end %>
+
+			<%= form_tag casein_password_reset_url do %>
+				<div id="recover" style="display:none">
+					<div class="text">
+						<p>
+							<%= label_tag :recover_email, "Email:" %>
+							<%= text_field_tag :recover_email, params[:recover_email], :class => "caseinTextField" %>
+						</p>
+					</div>
+					<div class="submit_remember">
+						<p>
+							<%= submit_tag "Lấy lại mật khẩu", :class => "caseinSubmit" %>
+						</p>
+					</div>
+				</div>
+			<% end %>
+	</fieldset>
+</center>

@@ -7,6 +7,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     outline: 0px none;
     vertical-align: baseline;
 }
+table{
+	border-collapse: collapse;
+}
 .icon {
 	height: 16px;
 	width: 16px;
@@ -154,22 +157,25 @@ li.first{
 	float: left;
 	padding: 0px;
 }
-
+#content .delete img {
+	margin-top: 8px;
+	width: 15px;
+}
 #content .itemList td {
 	font-size: 11px;
 	color: #333;
-	border-bottom: 1px solid #ddd;
+	border: 1px solid #ddd;
 }
 
 #content .itemList td a {
 	display: block;
-	padding: 9px 8px 7px 8px;
+	padding: 0px 8px 7px 8px;
 	color: #333;
 	text-decoration: none;
 }
 
 #content .itemList td div.noLink {
-	padding: 9px 8px 7px 8px;
+	padding: 0px 8px 7px 8px;
 }
 
 #content .itemList tr.hover:hover {
