@@ -1,0 +1,25 @@
+﻿- thêm đơn vị vào mỗi cán bộ
+- xem cán bộ theo phòng ban
+- tach show và update riêng:
+khong tinh casein controller
+thiện 12 controller đầu: bac_luong > học vị - Hủy -> trở về
+- thống kê: multiple value
+- trình bày ngạch bậc bảng ngang
+- sửa lại bậc lương: chọn lên bậc 30
+
+
+- tach show và update riêng:
+khong tinh casein controller
+thành 12 controller sau: lich_su_bac_luong > hết - Hủy -> trở về
+- thiết kê database phụ thêm
+QD(maqd, loaiQD, noidung, attach)
+LoaiQD(maloai, tenloai)
+CanBoQD(macbqd, maqd, macb)
+LSCT(mals, ngaychuyen, macb, madv, macv, macbqd)
+...
+Chucvu:chinhquyen-3doanthe-danguy
+Chucvu: so tiet phu cap
+Canbo-tinhtrang
+
+Path1:C:\RailsInstaller\Git\cmd;C:\RailsInstaller\Ruby1.9.3\bin
+Path2:%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\
