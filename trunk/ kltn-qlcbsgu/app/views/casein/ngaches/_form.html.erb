@@ -2,20 +2,39 @@
 
 
 <div class="tfContainer">
-	<%= casein_text_field f, f.object, :ma_ngach, :casein_label => "Mã Ngạch" %>
+	<%= casein_text_field 	f, 
+							f.object, 
+							:ma_ngach, 
+							:casein_label => "Mã Ngạch" %>
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_text_field f, f.object, :ten_ngach, :casein_label => "Tên Ngạch" %>
+	<%= casein_text_field 	f, 
+							f.object, 
+							:ten_ngach, 
+							:casein_label => "Tên Ngạch" %>
 
 </div>
 
 <div class="tfContainer">
-	<%= casein_select f, f.object, :nien_han, options_for_select(Array(1..5), 2), :casein_label => "Niên Hạn" %>
+	<%= casein_text_area 	f, 
+							f.object, 
+							:ghi_chu, 
+							:casein_label => "Ghi Chú", 
+							:style => "	font-family: curency, arial; 
+										max-width: 100%; 
+										max-height: 100px; 
+										background: none;
+										border: 1px solid #ddd;" %>
+	
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_text_field f, f.object, :ghi_chu, :casein_label => "Ghi Chú" %>
+	<%= casein_select 	f, 
+						f.object, 
+						:nien_han, 
+						options_for_select(Array(0..5), :selected => 2), 
+						:casein_label => "Niên Hạn" %>
 </div>
 
 

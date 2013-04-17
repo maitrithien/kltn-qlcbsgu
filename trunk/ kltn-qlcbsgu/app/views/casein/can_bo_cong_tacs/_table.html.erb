@@ -11,8 +11,9 @@
 
 		<th>&nbsp;</th>
 	</tr>
-	<% ngay_bat_dau_lam_viec = "" %>
+	
 	<% can_bo_cong_tacs.each_with_index do |can_bo_cong_tac, index| %>
+		<% ngay_bat_dau_lam_viec = "" %>
 		<% if can_bo_cong_tac.ngay_bat_dau_lam_viec %>
 			<% ngay_bat_dau_lam_viec = can_bo_cong_tac.ngay_bat_dau_lam_viec.strftime("%d/%m/%Y") %>
 		<% end %>

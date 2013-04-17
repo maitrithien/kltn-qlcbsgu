@@ -1,0 +1,44 @@
+
+<div class="tfContainer">
+<% link = link_to 	"<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, 
+					casein_ngaches_url, 
+					:title => "Thay đổi, bổ sung thông tin Ngạch", 
+					:style => "text-decoration:none;" %>
+
+<%= casein_select 	f, 
+					f.object, 
+					:ngach_id, 
+					Ngach.all.collect {|p| 
+						["#{p.ma_ngach} - #{p.ten_ngach}", p.id] 
+					}, 
+					{
+						:include_blank => '------Ngạch----', 
+						:disabled => true, :casein_label => "Ngạch #{link}".html_safe 
+					}%>
+
+</div>
+
+<div class="tfContainer tfContainerSecond">
+	<%= casein_select 	f, 
+						f.object, 
+						:bac, 
+						options_for_select(Array(1..30), @bac_luong.bac), 
+						:casein_label => "Bậc Lương"%>
+</div>
+
+<div class="tfContainer">
+	<%= casein_text_field 	f, 
+							f.object, 
+							:he_so_luong, 
+							:casein_label => "Hệ Số Lương <label style='float: right;'><input type='checkbox' #{'checked="checked"' if @bac_luong.vuot_khung} name='vuot_khung' id='vuot_khung' value='1' /> là % vượt khung</label>".html_safe %>
+</div>
+
+<div class="tfContainer tfContainerSecond">
+	<%= casein_text_field 	f, 
+							f.object, 
+							:ghi_chu, 
+							:casein_label => "Ghi Chú" %>
+</div>
+
+
+<div class="clearer"></div>

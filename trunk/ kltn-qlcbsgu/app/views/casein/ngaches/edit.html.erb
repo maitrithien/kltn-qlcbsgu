@@ -1,0 +1,21 @@
+<div class="blk-share">
+<h2>Cập nhật thông tin ngạch</h2>
+
+<%= form_for @ngach, :url => casein_ngach_path(@ngach) do |f| %>
+
+	<%= render :partial => 'casein/ngaches/form', :locals => { :f => f } %>
+	
+	<p class="submits">
+	  <%= link_to 'Trở về', casein_ngaches_path, :class => 'cancel' %> hoặc
+		<%= f.submit "Lưu thay đổi", :class => "update" %>
+	</p>
+
+<% end %>
+</div>
+
+
+<%= content_for :sidebar do %>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới ngạch".html_safe, new_casein_ngach_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới ngạch từ tập tin excel".html_safe, import_from_excel_casein_ngaches_path %></li>
+	<li><%= link_to "#{casein_show_icon "table"}Danh sách ngạch".html_safe, casein_ngaches_path %></li>
+<% end %>

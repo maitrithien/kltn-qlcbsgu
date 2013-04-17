@@ -12,7 +12,7 @@ module Casein
   		#@qua_trinh_cong_tacs = QuaTrinhCongTac.paginate :page => params[:page]
       search_value = params["keyword"]
       if search_value != nil
-        @qua_trinh_cong_tacs = QuaTrinhCongTac.search(search_value).paginate(:per_page => 10, :page => params[:page],:order=> :can_bo_thong_tin_id)
+        @qua_trinh_cong_tacs = QuaTrinhCongTac.search(search_value).paginate :per_page => 10, :page => params[:page],:order=> :can_bo_thong_tin_id
         @qua_trinh_cong_tacs_xls = QuaTrinhCongTac.search(search_value)
         if @qua_trinh_cong_tacs.count == 0
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
@@ -48,10 +48,15 @@ module Casein
     end
   
     def show
-      @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_view_page_titile"
+      @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_show_page_titile"
       @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
     end
- 
+    
+    def edit
+      @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_edit_page_titile"
+      @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
+    end
+
     def new
       @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_new_page_titile"
     	@qua_trinh_cong_tac = QuaTrinhCongTac.new

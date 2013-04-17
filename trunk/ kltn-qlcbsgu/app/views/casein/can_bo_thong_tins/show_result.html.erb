@@ -1,11 +1,12 @@
 
 <div class="blk-share">
 <% unless @errors.nil? %>
-    <h2>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h2>
+    <h2>Kết quả nhập dữ liệu từ tập tin excel</h2>
+    <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
     <table class="import_table">
       <tr>
         <th>STT dòng trong excel</th>
-        <th>Cán bộ</th>
+        <th>Nội dung</th>
       </tr>
       <% @errors.each do |mgs| %>
       <tr>

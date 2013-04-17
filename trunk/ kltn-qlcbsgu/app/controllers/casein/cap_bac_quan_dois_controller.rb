@@ -8,7 +8,7 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Cap bac quan dois'
+      @casein_page_title = Param.get_param_value 'cap_bac_quan_doi_index_page_title'
       @cap_bac_quan_dois_xls = CapBacQuanDoi.all
   		@cap_bac_quan_dois = CapBacQuanDoi.paginate :page => params[:page]
 	  	respond_to do |format|
@@ -33,12 +33,17 @@ module Casein
     end
   
     def show
-      @casein_page_title = 'View cap bac quan doi'
+      @casein_page_title = Param.get_param_value 'cap_bac_quan_doi_show_page_title'
       @cap_bac_quan_doi = CapBacQuanDoi.find params[:id]
     end
- 
+    
+    def edit
+      @casein_page_title = Param.get_param_value 'cap_bac_quan_doi_edit_page_title'
+      @cap_bac_quan_doi = CapBacQuanDoi.find params[:id]
+    end
+
     def new
-      @casein_page_title = 'Add a new cap bac quan doi'
+      @casein_page_title = Param.get_param_value 'cap_bac_quan_doi_new_page_title'
     	@cap_bac_quan_doi = CapBacQuanDoi.new
     end
 
@@ -46,24 +51,24 @@ module Casein
       @cap_bac_quan_doi = CapBacQuanDoi.new params[:cap_bac_quan_doi]
     
       if @cap_bac_quan_doi.save
-        flash[:notice] = 'Cap bac quan doi created'
+        flash[:notice] = Param.get_param_value 'adding_success'
         redirect_to casein_cap_bac_quan_dois_path
       else
-        flash.now[:warning] = 'There were problems when trying to create a new cap bac quan doi'
+        flash.now[:warning] = Param.get_param_value 'adding_false'
         render :action => :new
       end
     end
   
     def update
-      @casein_page_title = 'Update cap bac quan doi'
+      @casein_page_title = Param.get_param_value 'cap_bac_quan_doi_update_page_title'
       
       @cap_bac_quan_doi = CapBacQuanDoi.find params[:id]
     
       if @cap_bac_quan_doi.update_attributes params[:cap_bac_quan_doi]
-        flash[:notice] = 'Cap bac quan doi has been updated'
+        flash[:notice] = Param.get_param_value 'updating_success'
         redirect_to casein_cap_bac_quan_dois_path
       else
-        flash.now[:warning] = 'There were problems when trying to update this cap bac quan doi'
+        flash.now[:warning] = Param.get_param_value 'updating_false'
         render :action => :show
       end
     end
@@ -72,7 +77,7 @@ module Casein
       @cap_bac_quan_doi = CapBacQuanDoi.find params[:id]
 
       @cap_bac_quan_doi.destroy
-      flash[:notice] = 'Cap bac quan doi has been deleted'
+      flash[:notice] = Param.get_param_value 'deleting_success'
       redirect_to casein_cap_bac_quan_dois_path
     end
     def import_from_excel
@@ -80,6 +85,7 @@ module Casein
     end
 
     def parse_save_from_excel
+
       if params[:excel_file]
       file_path = params[:excel_file]
       file = XlsUploader.new

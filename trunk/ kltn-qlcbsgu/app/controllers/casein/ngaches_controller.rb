@@ -8,7 +8,7 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Ngaches'
+      @casein_page_title = Param.get_param_value "ngach_index_page_title"
   		@ngaches = Ngach.paginate :page => params[:page]
       @ngaches_xls = Ngach.all
 
@@ -34,12 +34,17 @@ module Casein
     end
   
     def show
-      @casein_page_title = 'View ngach'
+      @casein_page_title =  Param.get_param_value "ngach_show_page_title"
+      @ngach = Ngach.find params[:id]
+    end
+
+    def edit
+      @casein_page_title =  Param.get_param_value "ngach_edit_page_title"
       @ngach = Ngach.find params[:id]
     end
  
     def new
-      @casein_page_title = 'Add a new ngach'
+      @casein_page_title =  Param.get_param_value "ngach_new_page_title"
     	@ngach = Ngach.new
     end
 
@@ -56,7 +61,7 @@ module Casein
     end
   
     def update
-      @casein_page_title = 'Update ngach'
+      @casein_page_title =  Param.get_param_value "ngach_update_page_title"
       
       @ngach = Ngach.find params[:id]
     

@@ -127,7 +127,7 @@ li.first{
 	width:58px;
 	border-radius: 3px 0 0 3px
 }
-#content .itemList th {
+#content .itemList th  {
 	overflow: hidden;
 	background: url("../images/blue.png") repeat-x;
     background-size: 100px;
@@ -142,9 +142,73 @@ li.first{
 	text-shadow: 0 1px #666;
 	font-family: Arial;
 }
-
+#content .blk-share span.head_table{
+	background: url("../images/blue.png") repeat-x;
+    background-size: 100px;
+	text-align: left;
+	padding: 0;
+	font-size: 14px;
+    cursor: default;
+    font-size: 13px;
+	margin: 0;
+	color: #fff;
+	line-height: 30px;
+	font-weight:bold;
+	text-shadow: 0 1px #666;
+	font-family: Arial;
+}
+#content .grid_link, .list_link{
+	padding: 2px;
+	margin-bottom: 10px;
+	position: relative;
+	
+}
+#content th.align-center{
+	text-align: center;
+}
+#content .grid_link img, .list_link img{
+	-webkit-box-shadow: 0 0 6px #EBEBEB;
+    -moz-box-shadow: 0 0 6px #EBEBEB;
+    box-shadow: 0 0 6px #EBEBEB;
+    border: 1px solid #ddd;
+    padding: 3px;
+}
 #content .itemList th a {
 	color: #000;
+}
+
+#content .itemList td.over, td.normal{
+	text-align: center;	
+}
+#content .itemList td.normal:hover{
+	background: #7cbefb;
+}
+#content .itemList td.normal a{
+	padding: 2px;
+	min-width: 50px;
+}
+#content .itemList td.over{
+	color: #fff;
+    background: #cfe7fd;
+}
+#content .overflow{
+	overflow: auto;
+	position: relative;
+	width: 100%;
+	max-height: 300px;
+	padding-bottom: 20px;
+}
+
+#content .details th, td{
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-collapse: none;
+}
+
+#content .details th{
+	background: #ddd;
+	text-align: left;
+	border: 1px solid #ccc;
 }
 
 #content .delete {

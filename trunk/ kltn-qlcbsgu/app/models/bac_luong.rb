@@ -7,6 +7,18 @@ class BacLuong < ActiveRecord::Base
 
   validates_presence_of :ngach_id, :bac,:he_so_luong, :message => "#{Param.get_param_value("is_not_blank")}"
 
+  def get_bac_luong_by_id(id)
+    if id
+      bac_luong = BacLuong.find(id)
+      if bac_luong
+        return bac_luong
+      else
+        return nil
+      end
+    end 
+  end
+
+
   def self.check_exists(ngach, bac)
       bac_luong = BacLuong.find_by_sql("select 1 from bac_luongs where ngach_id = #{ngach.to_i} and bac = #{ bac.to_i}")
     if bac_luong.count == 0

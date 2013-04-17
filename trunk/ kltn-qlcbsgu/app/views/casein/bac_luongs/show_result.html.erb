@@ -1,7 +1,7 @@
 <div class="blk-share">
 <% unless @errors.nil? %>
-    <h2>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h2>
-
+    <h2>Kết quả nhập dữ liệu từ tập tin excel</h2>
+    <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
     <table class="import_table">
       <tr>
         <th>STT dòng</th>
@@ -19,7 +19,7 @@
 </div>
 
 <%= content_for :sidebar do %>
-    <li><%= link_to "#{casein_show_icon "add"}Thêm mới bậc lương".html_safe, new_casein_bac_luong_path %></li>
-    <li><%= link_to "#{casein_show_icon "import"}Thêm mới bậc lương từ file excel".html_safe, import_from_excel_casein_bac_luongs_path %></li>
-	<li><%= link_to "#{casein_show_icon "table"}Danh sách bậc lương".html_safe, casein_bac_luongs_path %></li>
+    <li><%= link_to "#{casein_show_icon "add"}Thêm mới ngạch - bậc lương".html_safe, new_casein_bac_luong_path %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới ngạch - bậc lương từ file excel".html_safe, import_from_excel_casein_bac_luongs_path %></li>
+	<li><%= link_to "#{casein_show_icon "table"}Danh sách ngạch - bậc lương".html_safe, casein_bac_luongs_path %></li>
 <% end %>
