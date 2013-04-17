@@ -1,12 +1,24 @@
 <div class="blk-share">
 <% unless @errors.nil? %>
+    <h2>Kết quả nhập dữ liệu từ tập tin excel</h2>
     <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
+    <table class="import_table">
+      <tr>
+        <th>STT dòng</th>
+        <th>Nội dung</th>
+      </tr>
+      <% @errors.each do |mgs| %>
+          <tr>
+            <td>Dòng <%= mgs[0]%></td>
+            <td><%= mgs[1] %></td>
+          </tr>
+      <% end %>
 
-    <% @errors.each do |mgs| %>
-        <p>Dòng thứ: <%= mgs[0]%> Lỗi: <%= mgs[1] %> </p>
-    <% end %>
+    </table>
+
 <% end %>
 </div>
+
 
 
 <%= content_for :sidebar do %>

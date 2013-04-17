@@ -68,6 +68,11 @@ module Casein
       @casein_page_title = Param.get_param_value("can_bo_trinh_do_show_page_title")
       @can_bo_trinh_do = CanBoTrinhDo.find params[:id]
     end
+
+    def edit
+      @casein_page_title = Param.get_param_value("can_bo_trinh_do_edit_page_title")
+      @can_bo_trinh_do = CanBoTrinhDo.find params[:id]
+    end
  
     def new
       @casein_page_title = Param.get_param_value("can_bo_trinh_do_new_page_title")

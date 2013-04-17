@@ -1,12 +1,13 @@
 
 <div class="blk-share">
 <% unless @errors.nil? %>
+    <h2>Kết quả nhập dữ liệu từ tập tin excel</h2>
     <h1>Danh sách các dòng không thể lưu vào cơ sở dữ liệu</h1>
 
     <table class="import_table">
       <tr>
         <th>STT dòng</th>
-        <th>Thông đơn vị</th>
+        <th>Nội dung</th>
       </tr>
       <% @errors.each do |mgs| %>
           <tr>
@@ -23,5 +24,5 @@
 <%= content_for :sidebar do %>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới ngạch".html_safe, new_casein_ngach_path %></li>
     <li><%= link_to "#{casein_show_icon "import"}Thêm mới ngạch từ tập tin excel".html_safe, import_from_excel_casein_ngaches_path %></li>
-    <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_ngaches_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
+    <li><%= link_to "#{casein_show_icon('table')}Danh sách ngạch".html_safe, casein_ngaches_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
 <% end %>

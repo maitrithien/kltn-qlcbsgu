@@ -58,6 +58,11 @@ module Casein
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_show_page_title"
       @can_bo_cong_tac = CanBoCongTac.find params[:id]
     end
+
+    def edit
+      @casein_page_title = Param.get_param_value "can_bo_cong_tac_edit_page_title"
+      @can_bo_cong_tac = CanBoCongTac.find params[:id]
+    end
  
     def new
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_new_page_title"

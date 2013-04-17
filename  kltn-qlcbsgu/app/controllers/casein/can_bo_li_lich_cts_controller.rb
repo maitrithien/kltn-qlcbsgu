@@ -58,7 +58,12 @@ module Casein
       @can_bo_li_lich_ct = CanBoLiLichCt.find params[:id]
       @can_bo_li_lich_ct.ho_ten_return = CanBoThongTin.find(@can_bo_li_lich_ct.can_bo_thong_tin_id).ho_ten
     end
- 
+    
+    def edit
+      @casein_page_title =  Param.get_param_value("can_bo_li_lich_ct_edit_page_title")
+      @can_bo_li_lich_ct = CanBoLiLichCt.find params[:id]
+    end
+
     def new
       @casein_page_title = Param.get_param_value("can_bo_li_lich_ct_new_page_title")
     	@can_bo_li_lich_ct = CanBoLiLichCt.new

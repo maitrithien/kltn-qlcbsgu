@@ -8,7 +8,7 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Lich su bac luongs'
+      @casein_page_title = Param.get_param_value "lich_su_bac_luong_index_page_title"
       search_value = params["keyword"]
       if search_value != nil
         @lich_su_bac_luongs = LichSuBacLuong.search(search_value).paginate(:per_page => 10, :page => params[:page],:order=> :can_bo_thong_tin_id)
@@ -48,18 +48,26 @@ module Casein
     end
   
     def show
-      @casein_page_title = 'View lich su bac luong'
+      @casein_page_title = Param.get_param_value "lich_su_bac_luong_show_page_title"
+      @lich_su_bac_luong = LichSuBacLuong.find params[:id]
+      @lich_su_bac_luong.ngach_sl = @lich_su_bac_luong.bac_luong.ngach_id
+      @lich_su_bac_luong.bac_sl = @lich_su_bac_luong.bac_luong.bac
+    end
+
+    def edit
+      @casein_page_title = Param.get_param_value "lich_su_bac_luong_edit_page_title"
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
       @lich_su_bac_luong.ngach_sl = @lich_su_bac_luong.bac_luong.ngach_id
       @lich_su_bac_luong.bac_sl = @lich_su_bac_luong.bac_luong.bac
     end
  
     def new
-      @casein_page_title = 'Add a new lich su bac luong'
+      @casein_page_title = Param.get_param_value "lich_su_bac_luong_new_page_title"
     	@lich_su_bac_luong = LichSuBacLuong.new
     end
 
     def create
+
       @lich_su_bac_luong = LichSuBacLuong.new params[:lich_su_bac_luong]
       bacluong_id = LichSuBacLuong.get_bl_id(@lich_su_bac_luong.ngach_sl, @lich_su_bac_luong.bac_sl)
       if bacluong_id
@@ -87,7 +95,7 @@ module Casein
     end
   
     def update
-      @casein_page_title = 'Update lich su bac luong'
+      @casein_page_title = Param.get_param_value "lich_su_bac_luong_update_page_title"
       
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
 

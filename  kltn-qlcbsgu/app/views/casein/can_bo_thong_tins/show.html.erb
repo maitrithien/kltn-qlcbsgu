@@ -96,7 +96,9 @@
   
 <% end %>
 </table>
-
+<p class="submits">
+    <%= link_to 'Sửa thông tin cán bộ', edit_casein_can_bo_thong_tin_path(@can_bo_thong_tin), :class => 'update', :style => "text-decoration:none; color: #fff; padding:5px;" %>
+  </p>
 </div>
 
 </div> <%# end div .blk-share %>
@@ -164,7 +166,6 @@
             statistic_casein_can_bo_thong_tins_path %>
     </li>
     <li><%= link_to "#{casein_show_icon_custom_style("search", "width:20px; margin-top:-5px;")}Tìm kiếm nâng cao".html_safe, advance_search_casein_can_bo_thong_tins_path %></li>
-    <li><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")}Sửa lý lịch cán bộ".html_safe, edit_casein_can_bo_thong_tin_path(@can_bo_thong_tin) %></li>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới cán bộ".html_safe, new_casein_can_bo_thong_tin_path %></li>
     <li><%= link_to "#{casein_show_icon "import"}Thêm mới cán bộ từ tập tin excel".html_safe, import_from_excel_casein_can_bo_thong_tins_path %></li>
     <li><%= link_to "#{casein_show_icon('excel')}Xuất nội dung ra excel".html_safe, casein_can_bo_thong_tin_path(params[:id],{:format => :xls}) %></li>

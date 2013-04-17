@@ -11,6 +11,29 @@ module Casein
       @casein_page_title = Param.get_param_value "bac_luong_index_page_title"
       @bac_luongs_xls  = BacLuong.all
   		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> [:ngach_id, :bac], :per_page => 8
+      @bac_luongs_group = []
+      arr = []
+      @max = 0
+      if !BacLuong.all.empty?
+        BacLuong.all.each { |b| 
+          arr = arr.push b.bac
+        }
+      end
+      if !arr.empty?
+        @max = arr.max
+      end
+
+      Ngach.all.each do |o|
+        ngach = []
+        hash = []
+        BacLuong.all.each do |p|
+          if p.ngach_id && p.ngach_id == o.id
+            hash << {:id => p.id, :bac => p.bac, :ngach_id => p.ngach_id, :he_so_luong => p.he_so_luong, :vuot_khung => p.vuot_khung}
+          end
+        end
+       ngach << {:ngach_id => o.ma_ngach, :ten_ngach => o.ten_ngach, :bac_luongs => hash}
+       @bac_luongs_group << ngach
+      end
 
       respond_to do |format|
         format.html
@@ -29,13 +52,20 @@ module Casein
           #respond with blob object as a file
           send_data blob.string, :type => :xls, :filename => "Danh_Sach_Bac_luong.xls"
         }
+        format.json{
+          render json:@bac_luongs_group
+        }
       end
     end
   
     def show
       @casein_page_title = Param.get_param_value "bac_luong_show_page_title"
       @bac_luong = BacLuong.find params[:id]
+    end
 
+    def edit
+      @casein_page_title = Param.get_param_value "bac_luong_edit_page_title"
+      @bac_luong = BacLuong.find params[:id]
     end
  
     def new
@@ -70,7 +100,7 @@ module Casein
     
       if @bac_luong.update_attributes params[:bac_luong]
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_bac_luongs_path
+        redirect_to casein_bac_luong_path(@bac_luong)
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show
@@ -105,34 +135,35 @@ module Casein
       @wrong = 0
       sheet.each 1 do |row|
         @counter += 1
-        p = BacLuong.new
+        
         ngach = Ngach.find_by_ma_ngach(row[0].to_s)
+        bac_vk = row[3].to_i
         if ngach
-          p.ngach_id = ngach.id
-          p.bac = row[1].to_i
-          p.he_so_luong = row[2].to_s
-          flag = false
-          if row[3].to_i == 1
-            flag = true
-          end
-          p.vuot_khung = flag
-          p.ghi_chu = row[4].to_s
-          if p.valid?
-			if !BacLuong.check_exists(p.ngach_id, p.bac)
-				@commit += 1
-				p.save
-			else
-				@wrong += 1
-				@errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_i}"
-			end
-          else
-            @wrong += 1
-            @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_i}"
-          end
-        else
-          @wrong += 1
-          @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_i}"
-        end
+          0.upto(29) do |i|
+            p = BacLuong.new
+            p.ngach_id = ngach.id
+            p.bac = i + 1
+            p.he_so_luong = row[i + 4].to_s
+            flag = false
+            if i >= bac_vk
+              flag = true
+            end
+            p.vuot_khung = flag
+          
+            if p.valid?
+              if !BacLuong.check_exists(p.ngach_id, p.bac)
+                @commit += 1
+                p.save
+              else
+                @wrong += 1
+                @errors["#{@counter + 1}"] = "#{i.to_s} - #{row[i + 4].to_i}"
+              end #end check
+            else
+              @wrong += 1
+              @errors["#{@counter + 1}"] = "#{row[0].to_s} - #{row[1].to_i}"
+            end #end valid?
+          end #end upto
+        end #end ngach  
       end
       book.io.close
       if @wrong == 0
