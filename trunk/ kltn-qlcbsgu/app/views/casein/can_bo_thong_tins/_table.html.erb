@@ -8,7 +8,7 @@
 		<th>Ngày sinh</th>
 		<th>Số CMND</th>
 		<th>Nơi ở hiện nay</th>
-		<th><%= casein_show_icon("attach") %></th>
+		<th title="Tập tin đính kèm"><%= casein_show_icon("attach") %></th>
 		<th>&nbsp;</th>
 	</tr>
 	
@@ -24,8 +24,8 @@
             <% end %>
 			<td><%= casein_table_cell_link can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y"), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
             <td><%= casein_table_cell_link can_bo_thong_tin.so_cmnd, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<td><%= casein_table_cell_link truncate(can_bo_thong_tin.noi_o_hien_nay, :length => 40), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<td>
+			<td><%= casein_table_cell_link truncate(can_bo_thong_tin.noi_o_hien_nay, :length => 30), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
+			<td class="attach">
               <% if can_bo_thong_tin.tep_tin_dinh_kem != "" %>
               <a href="<%= can_bo_thong_tin.tep_tin_dinh_kem %>" title="tải về tập tin đính kèm"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
               <% end %>

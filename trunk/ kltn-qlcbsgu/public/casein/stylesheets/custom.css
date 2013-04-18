@@ -880,7 +880,6 @@ a {
 
 .pagina{
     font-family: century, "wf_SegoeUI","Tahoma","Verdana","Arial","sans-serif";
-    
     width:auto;
     height:auto;    
 }
@@ -892,12 +891,12 @@ a {
     display:table;     
 }
 .tile{
+    font-size: 15px;
     outline: none;
+    border: 1px dotted;
     color: #fff;
     text-align: center;
     font-weight: bolder;
-    font-size: 12px;
-    text-shadow:1px 1px #111;
     vertical-align: middle;
     height:100px;  
     width:100px; 
@@ -909,19 +908,48 @@ a {
 .tileLargo{
     width:210px;
 }
-.amarelo{
-    background: url("../images/blue.png") repeat-x;
-    background-size: 100px;
+.yellow{
+    background: #fdf0d5;
+    border-color: #ecd4a3;
+    color: #f7b42c;
 }
   
-.vermelho{
-    background:#38688f; 
+.gray{
+    background: #ebeef1;
+    border-color: #cbd0d6;
+    color: #9ab;
+
 }
   
-.azul{
-    background:#0d4131;
+.green{
+    background: #eef6dc;
+    border-color: #d0dfb0;
+    color: #aad450;
 }
   
-.verde{
-    background: #385c18;
+.blue{
+    background: #daf1ff;
+    border-color: #acd6ef;
+    color: #4bf;
+}
+.brown {
+background: #f5eedd;
+border-color: #ddd0b1;
+color: #ca5;
+}
+.orange {
+background: #ffe8d8;
+border-color: #efc5a8;
+color: #ff8a3c;
+}
+.purple {
+background: #f0defa;
+border-color: #e0beea;
+color: #c09eda;
+}
+
+.magenta {
+background: #fdebf3;
+border-color: #ddcbd3;
+color: #f49ac1;
 }
