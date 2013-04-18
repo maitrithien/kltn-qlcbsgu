@@ -133,9 +133,8 @@ li.first{
     background-size: 100px;
 	text-align: left;
 	padding: 5px;
-	font-size: 14px;
+	font-size: 12px;
     cursor: default;
-    font-size: 13px;
 	margin: 0 0 0 5px;
 	color: #fff;
 	font-weight:bold;
@@ -200,6 +199,7 @@ li.first{
 }
 #content .toggleLink{
 	float: right;
+	font-size: 15px;
 	margin-top: -3px;
 	margin-right: 5px;
 	text-align: center;
@@ -235,7 +235,6 @@ li.first{
 
 #content .delete {
 	width: 16px;
-	height: 16px;
 	padding: 0px;
 }
 
@@ -245,17 +244,21 @@ li.first{
 }
 #content .delete img {
 	margin-top: 8px;
-	width: 15px;
+	width: 16px;
 }
 #content .itemList td {
 	font-size: 11px;
 	color: #333;
 	border: 1px solid #ddd;
 }
-
+#content .itemList .attach
+{
+	width: 16px;
+	padding: 0px;
+}
 #content .itemList td a {
 	display: block;
-	padding: 0px 8px 7px 8px;
+	padding: 0px 6px 5px 6px;
 	color: #333;
 	text-decoration: none;
 }
@@ -556,6 +559,10 @@ background-color: rgb(249, 249, 249);
     line-height: 18px;
 }
 
+#content .normal-table th, td{
+		border: none;
+		padding: 2px;
+}
 #content .autocomplete{
 	content: '.';
 	padding: 5px;

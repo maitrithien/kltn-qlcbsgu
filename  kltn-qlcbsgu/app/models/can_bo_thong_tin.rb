@@ -102,7 +102,7 @@ class CanBoThongTin < ActiveRecord::Base
           append << " don_vi_id = #{element}"
         end
         if !append.blank?
-          sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where " << append << " )"
+          sql_exc << " AND id in (select id from can_bo_thong_tins where " << append << " )"
         end
       end
     end

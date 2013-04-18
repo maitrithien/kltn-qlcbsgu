@@ -1,5 +1,5 @@
-<div class="blk-share" style="float: left; width: 96%;">
-  <h2>Thống Kê</h2>
+<div class="blk-share" style="float: left; width: 97%;">
+  <h2>Chọn các tiêu chí thống Kê</h2>
   <div class="paragraph stat toggle">
     <%= form_tag statistic_casein_can_bo_thong_tins_path, :method => "get" do %>
         <div class="tfContainer">
@@ -145,8 +145,8 @@
 <% if @has_result %>
 
     <div class="second_paragraph">
-      <div class="blk-share">
-        <h2>Kết quả thống kê</h2>
+      <div class="blk-share" style="width:97%;">
+        <h2>Kết quả thống kê <div style="float: right; text-transform:none; margin-right: 5px;"> Tổng số kết quả tìm thấy: <%= @can_bo_thong_tins.count %> / <%= CanBoThongTin.all.count %></div> </h2>
         <%= render  :partial => 'casein/can_bo_thong_tins/table', 
                     :locals => { :can_bo_thong_tins => @can_bo_thong_tins } %>
 
