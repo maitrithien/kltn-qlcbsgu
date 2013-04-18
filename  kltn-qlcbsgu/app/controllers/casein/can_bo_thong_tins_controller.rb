@@ -790,7 +790,7 @@ module Casein
 
     end
 
-def advance_search
+    def advance_search
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_advance_search_page_title")
       search_advance_req = params["search_advance_req"]
       if search_advance_req!= nil and search_advance_req.length>0
@@ -835,27 +835,31 @@ def advance_search
       else
         @can_bo_thong_tin = CanBoThongTin.new
       end
-end
+    end
+
+
     def statistic
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_thong_ke_page_title")
       statistic_req = params["statistic_req"]
+      hash_params = {
+                      :don_vi_id => params["don_vi_id"] || [], 
+                      :hoc_ham_id => params["hoc_ham_id"] || [],
+                      :hoc_vi_id => params["hoc_vi_id"] || [],
+                      :ngach_id => params["ngach_id"] || [],
+                      :gioi_tinh => params["gioi_tinh"],
+                      :dan_toc => params["dan_toc"],
+                      :nam_sinh_tu => params["nam_sinh_tu"],
+                      :nam_sinh_den => params["nam_sinh_den"],
+                      :dang_vien => params["dang_vien"],
+                      :nam_cong_tac => params["nam_cong_tac"],
+                      :gia_dinh_chinh_sach => params["gia_dinh_chinh_sach"]
+                    }
       if statistic_req
-        @can_bo_thong_tins = CanBoThongTin.statistic({
-                                                      :don_vi_id => params["don_vi_id"], 
-                                                      :hoc_ham_id => params["hoc_ham_id"],
-                                                      :hoc_vi_id => params["hoc_vi_id"],
-                                                      :ngach_id => params["ngach_id"],
-                                                      :gioi_tinh => params["gioi_tinh"],
-                                                      :dan_toc => params["dan_toc"],
-                                                      :nam_sinh_tu => params["nam_sinh_tu"],
-                                                      :nam_sinh_den => params["nam_sinh_den"],
-                                                      :dang_vien => params["dang_vien"],
-                                                      :nam_cong_tac => params["nam_cong_tac"],
-                                                      :gia_dinh_chinh_sach => params["gia_dinh_chinh_sach"]
-                                                      })
+        @can_bo_thong_tins = CanBoThongTin.statistic(hash_params)
         if @can_bo_thong_tins.count>0
           @can_bo_thong_tins = @can_bo_thong_tins.paginate :page=>params[:page], :per_page => 10
           @has_result =true
+          @counter = @can_bo_thong_tins.count
           flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_thong_tins.count}"
         else
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
@@ -863,6 +867,7 @@ end
         end
       end
     end
+
 
     def show_result
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_show_result_page_title")

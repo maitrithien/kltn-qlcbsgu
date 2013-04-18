@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322055205) do
+ActiveRecord::Schema.define(:version => 20130417170809) do
 
   create_table "bac_luongs", :force => true do |t|
     t.integer  "ngach_id"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20130322055205) do
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
     t.integer  "bac_luong_id"
+    t.integer  "don_vi_id"
   end
 
   add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true

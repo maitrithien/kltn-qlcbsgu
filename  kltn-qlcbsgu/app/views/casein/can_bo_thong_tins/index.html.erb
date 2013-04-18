@@ -27,7 +27,8 @@
     						["Họ tên giảm dần", "ho_ten desc"],
     						["Ngày sinh tăng dần", "ngay_sinh"],
     						["Ngày sinh giảm dần", "ngay_sinh desc"],
-    						["Giới tính", "gioi_tinh"]], :selected => params["order_by"]),:onchange => "this.form.submit();" %>
+    						["Giới tính", "gioi_tinh"]], :selected => params["order_by"]),
+    						:onchange => "this.form.submit();" %>
       </label>
 
   <% end %>
@@ -65,7 +66,24 @@
 -->
 <%# Listing Can_bo_thong_tins %>
 <div class="blk-share">
-<h2>Danh sách cán bộ viên chức</h2>
+<%= form_tag casein_can_bo_thong_tins_path, :method => "get" do %>
+<h2>Danh sách cán bộ viên chức
+	
+	<%= select_tag  "don_vi", 
+                    options_from_collection_for_select( DonVi.all, 
+                                                        "id", 
+                                                        "ten_don_vi", 
+                                                        :selected => params["don_vi"]
+                                                      ),
+                    {
+                    	:prompt => "Toàn trường",
+                    	:onchange => "this.form.submit();",
+                    	:class => "select_link_top",
+                    	:title => "Xem theo phòng ban - đơn vị"
+                	}  %>
+   
+</h2>
+<% end %>
 
 <% if @can_bo_thong_tins != nil %>
 	<%= render 	:partial => 'casein/can_bo_thong_tins/table', 
