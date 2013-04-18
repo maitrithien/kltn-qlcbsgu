@@ -42,7 +42,7 @@ module Casein
 	
   	# A list of JavaScript files to include in the page head section
   	def casein_config_javascript_includes
-  	  %w[/casein/javascripts/jquery /casein/javascripts/custom /casein/javascripts/casein /casein/javascripts/rails]
+  	  %w[/casein/javascripts/jquery /casein/javascripts/showhide /casein/javascripts/custom /casein/javascripts/casein /casein/javascripts/rails]
   	end
   	
   end

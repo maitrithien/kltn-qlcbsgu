@@ -30,7 +30,7 @@ class CanBoThongTin < ActiveRecord::Base
 	  end
   end
 
-  def self.search_advance(options={})
+  def self.search_advance(options = {})
     sql_exc = "1"
     options.each do |key, value|
       if key ==:ngach_id
@@ -91,23 +91,67 @@ class CanBoThongTin < ActiveRecord::Base
       end
     end
     if key == :don_vi_id
-      if !value.blank?
-        sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where don_vi_id = " << value << " )"
+      if value.any?
+        append = ""
+        i = 0
+        value.map do |element|
+          i += 1
+          if i >= 2
+            append << " OR "
+          end
+          append << " don_vi_id = #{element}"
+        end
+        if !append.blank?
+          sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where " << append << " )"
+        end
       end
     end
     if key == :hoc_vi_id
-      if !value.blank?
-        sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where hoc_vi_id = " << value << " )"
+      if value.any?
+        append = ""
+        i = 0
+        value.map do |element|
+          i += 1
+          if i >= 2
+            append << " OR "
+          end
+          append << " hoc_vi_id = #{element}"
+        end
+        if !append.blank?
+          sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where " << append << " )"
+        end
       end
     end
     if key == :hoc_ham_id
-      if !value.blank?
-        sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where hoc_ham_id = " << value << " )"
+      if value.any?
+        append = ""
+        i = 0
+        value.map do |element|
+          i += 1
+          if i >= 2
+            append << " OR "
+          end
+          append << " hoc_ham_id = #{element}"
+        end
+        if !append.blank?
+          sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where " << append << " )"
+        end
       end
     end
     if key == :ngach_id
-      if !value.blank?
-        sql_exc << " AND bac_luong_id in (select id from bac_luongs where ngach_id = " << value  << " )"
+      if value.any?
+        append = ""
+        i = 0
+        value.map do |element|
+          i += 1
+          if i >= 2
+            append << " OR "
+          end
+          append << " ngach_id = #{element}"
+        end
+        if !append.blank?
+          sql_exc << " AND bac_luong_id in (select id from bac_luongs where " << append  << " )"
+        end
       end
     end
     if key == :dan_toc
