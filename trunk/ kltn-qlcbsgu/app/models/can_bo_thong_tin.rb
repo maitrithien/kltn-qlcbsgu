@@ -1,6 +1,6 @@
 class CanBoThongTin < ActiveRecord::Base
-  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted,:don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
-  attr_accessor :search_by_gioi_tinh,:don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
+  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted, :don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
+  attr_accessor :search_by_gioi_tinh, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
 
   #check unique of attributes
   validates_uniqueness_of :ma_cb, :so_cmnd, :message =>"#{Param.get_param_value("has_already_been_taken")}"
@@ -20,10 +20,15 @@ class CanBoThongTin < ActiveRecord::Base
   has_many :can_bo_cong_tacs
   has_many :qua_trinh_cong_tacs
   belongs_to :bac_luong
+  belongs_to :don_vi
 
-  def self.search(search_value)
+  def self.search(search_value, don_vi_id)
     ngay_sinh = Date.parse(search_value) rescue nil
 	  if search_value
+      if don_vi_id != 0
+        don_vi = don_vi_id.to_i
+        where('ma_cb = ? OR ho_ten LIKE ? OR ngay_sinh = ? OR so_cmnd = ? AND don_vi_id = ?',search_value,"%#{search_value}%", ngay_sinh, search_value, don_vi_id)
+      end
 		where('ma_cb = ? OR ho_ten LIKE ? OR ngay_sinh = ? OR so_cmnd = ?',search_value,"%#{search_value}%", ngay_sinh, search_value)
 	  else
 		scoped
@@ -35,31 +40,29 @@ class CanBoThongTin < ActiveRecord::Base
     options.each do |key, value|
       if key ==:ngach_id
         sql_exc << "  AND bac_luong_id in (select id from bac_luongs where  #{key} = #{value} )"
-      else
-        if key == :don_vi_id ||key == :chuc_vu_id
-          sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where #{key} = #{value} )"
-        else
-            if key == :trinh_do_chuyen_mon_id
-              sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where trinh_do_chuyen_mon_id = #{value} )"
-            else
-              if key == :ngach_id
-                sql_exc << " AND bac_luong_id in (select id from bac_luongs where ngach_id = #{value} )"
-              else
-                if key == :ngay_sinh
-                  ngay_sinh = Date.parse(search_value) rescue nil
-                  sql_exc << " AND #{key} = #{value}"
-                else
-                  if key == :gioi_tinh || key == :is_deleted
-                    sql_exc << " AND #{key} = #{value}"
-                  else
-                    sql_exc << " AND #{key} LIKE '%#{value}%'"
-                  end
-                end
-              end
-            end
-        end
       end
-
+      if key == :chuc_vu_id
+        sql_exc << " AND id in (select can_bo_thong_tin_id from qua_trinh_cong_tacs where #{key} = #{value} )"
+      end 
+      if key == :trinh_do_chuyen_mon_id
+        sql_exc << " AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where trinh_do_chuyen_mon_id = #{value} )"
+      end
+      if key == :ngach_id
+        sql_exc << " AND bac_luong_id in (select id from bac_luongs where ngach_id = #{value} )"
+      end
+      if key == :don_vi_id
+        sql_exc << " AND don_vi_id = #{value}"
+      end
+      if key == :ngay_sinh
+        ngay_sinh = Date.parse(search_value) rescue nil
+        sql_exc << " AND #{key} = #{value}"
+      end
+      if key == :gioi_tinh || key == :is_deleted
+        sql_exc << " AND #{key} = #{value}"
+      end
+      unless [:ngach_id, :chuc_vu_id, :trinh_do_chuyen_mon_id, :ngay_sinh, :gioi_tinh, :is_deleted].include?(key)
+        sql_exc << " AND #{key} LIKE '%#{value}%'"
+      end
     end
     where(sql_exc)
   end

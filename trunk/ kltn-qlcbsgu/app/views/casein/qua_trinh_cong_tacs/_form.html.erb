@@ -2,7 +2,12 @@
 
 
 <div class="tfContainer">
+<% if @is_edited %>
+	<%= casein_hidden_field f, f.object, :can_bo_thong_tin_id, :value => f.object.can_bo_thong_tin_id %>
+	<%= casein_text_field f, f.object, :can_bo_thong_tin_name, :value => f.object.can_bo_thong_tin.ho_ten, :casein_label => "Cán bộ", :readonly => true %>
+<% else %>
   <%= casein_select f, f.object, :can_bo_thong_tin_id, CanBoThongTin.all.collect {|p| [ "#{p.ma_cb} - #{p.ho_ten}", p.id ] }, {:include_blank => '---Chọn cán bộ---', :casein_label => "Cán bộ"} %>
+<% end %>
 </div>
 
 <div class="tfContainer tfContainerSecond">

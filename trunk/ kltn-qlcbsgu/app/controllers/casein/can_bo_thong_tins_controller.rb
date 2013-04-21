@@ -12,31 +12,43 @@ module Casein
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_index_page_title")
       search_value = params["keyword"]
       view = 10
+      don_vi = 0
+
       if params["num_view"].to_s != ""
         view = params["num_view"].to_i if params["num_view"].match(/^\d+$/)
       end
+
+      if params[:don_vi]
+        don_vi = params[:don_vi].to_i if params[:don_vi].match(/^\d+$/)
+      end
+
       order = ""
       if params["order_by"].to_s != ""
         order = params["order_by"]
       end
+
+      paginate_conditions = ""
+      paginate_conditions = ['don_vi_id = ?', don_vi] if don_vi != 0
+
       if search_value != nil
-        @can_bo_thong_tins = CanBoThongTin.search(search_value).paginate(:per_page => view, :page => params[:page], :order => order)
-        @can_bo_thong_tins_xls = CanBoThongTin.search(search_value)
+        @can_bo_thong_tins = CanBoThongTin.search(search_value, don_vi).paginate(:per_page => view, :page => params[:page], :conditions => paginate_conditions, :order => order)
+        @can_bo_thong_tins_xls = CanBoThongTin.search(search_value, don_vi)
         if @can_bo_thong_tins.count == 0
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
-          @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :per_page => view, :order => order
+          @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :per_page => view, :conditions => paginate_conditions, :order => order
           @can_bo_thong_tins_xls = CanBoThongTin.all
         else
           flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_thong_tins.count}"
         end
       else
-        @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :per_page => view, :order => order
+        @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :conditions => paginate_conditions, :per_page => view, :order => order
         @can_bo_thong_tins_xls = CanBoThongTin.all
       end
-      @available_complete_tags = []
-      CanBoThongTin.all.each{ |c| 
-        @available_complete_tags.push c.ho_ten
-      }
+
+      #@available_complete_tags = []
+      #CanBoThongTin.all.each{ |c| 
+      #  @available_complete_tags.push c.ho_ten
+      #}
       
       respond_to do |format|
         format.html

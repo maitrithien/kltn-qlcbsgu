@@ -80,7 +80,7 @@ module Casein
     
       if @qua_trinh_cong_tac.update_attributes params[:qua_trinh_cong_tac]
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_qua_trinh_cong_tacs_path
+        redirect_to casein_qua_trinh_cong_tac_path(params[:id])
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show
