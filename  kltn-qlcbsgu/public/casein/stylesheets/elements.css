@@ -224,7 +224,6 @@ li.first{
 #content .details th, td{
 	padding: 10px;
 	border: 1px solid #ddd;
-	border-collapse: none;
 }
 
 #content .details th{
@@ -559,7 +558,7 @@ background-color: rgb(249, 249, 249);
     line-height: 18px;
 }
 
-#content .normal-table th, td{
+#content .normal-table th, .normal-table td{
 		border: none;
 		padding: 2px;
 }

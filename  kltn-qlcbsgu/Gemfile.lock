@@ -41,7 +41,6 @@ GEM
     authlogic (3.0.3)
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
-    bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
     builder (3.0.4)
     carrierwave (0.8.0)
@@ -76,8 +75,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.5.0)
-    mysql2 (0.3.11)
     mysql2 (0.3.11-x86-mingw32)
+    pg (0.14.1-x86-mingw32)
     polyglot (0.3.3)
     rack (1.4.4)
     rack-cache (1.2)
@@ -144,6 +143,7 @@ DEPENDENCIES
   googlecharts
   jquery-rails
   mysql2
+  pg
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
   spreadsheet
