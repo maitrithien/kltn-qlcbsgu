@@ -10,7 +10,11 @@ module Casein
     def index
       @casein_page_title = Param.get_param_value "bac_luong_index_page_title"
       @bac_luongs_xls  = BacLuong.all
-  		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> [:ngach_id, :bac], :per_page => 8
+
+      conditions = ["ngach_id = ?", params["nid"] || Ngach.first.id]
+      @default_select_ngach = Ngach.first.id
+
+  		@bac_luongs = BacLuong.paginate :page => params[:page], :order=> [:ngach_id, :bac], :conditions => conditions, :per_page => 8
       @bac_luongs_group = []
       arr = []
       @max = 0

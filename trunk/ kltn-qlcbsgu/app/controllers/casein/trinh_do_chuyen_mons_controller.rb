@@ -16,6 +16,11 @@ module Casein
       @casein_page_title = Param.get_param_value("trinh_do_chuyen_mon_show_page_title")
       @trinh_do_chuyen_mon = TrinhDoChuyenMon.find params[:id]
     end
+
+    def edit
+      @casein_page_title = Param.get_param_value("trinh_do_chuyen_mon_edit_page_title")
+      @trinh_do_chuyen_mon = TrinhDoChuyenMon.find params[:id]
+    end
  
     def new
       @casein_page_title = Param.get_param_value("trinh_do_chuyen_new_page_title")
@@ -41,7 +46,7 @@ module Casein
     
       if @trinh_do_chuyen_mon.update_attributes params[:trinh_do_chuyen_mon]
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_trinh_do_chuyen_mons_path
+        redirect_to casein_trinh_do_chuyen_mon_path(params[:id])
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show

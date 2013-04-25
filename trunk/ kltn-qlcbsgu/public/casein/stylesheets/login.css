@@ -8,7 +8,8 @@
 body {
 	background: #efefef;
 	text-align: center;
-	font-family: Arial, "Lucida Grande", "Trebuchet MS", Helvetica, sans-serif;
+	font-family: "Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+	/*font-family: Arial, "Lucida Grande", "Trebuchet MS", Helvetica, sans-serif;*/
 }
 
 a, input {

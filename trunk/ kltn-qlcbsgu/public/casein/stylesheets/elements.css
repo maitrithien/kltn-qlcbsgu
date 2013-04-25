@@ -33,6 +33,7 @@ table{
 	left: 0;
 	right: 318px;
 	background: #fff;
+	/*background: url("/casein/images/body_bg.png") repeat;*/
 	z-index: 10;
 	overflow: auto;
 }
@@ -59,11 +60,14 @@ table{
 	content: '.';
     font-weight: bold;
 	font-size: 15px;
-	color: #000101;
-	background: #e9eaeb;
+	color: #fff;
+	/*background: #e9eaeb;*/
+	background-color: #3b5998;
+	border-bottom: 1px solid #133783;
+
 	border-top: 1px solid #c5c9cb;
 	border-right: 1px solid #c5c9cb;
-	border-bottom: 2px solid #ddd;
+	/*border-bottom: 2px solid #ddd;*/
 	border-left: 10px solid #46A73E;
 	padding: 5px 0 5px 10px;
 	margin: 0 0 15px 0;

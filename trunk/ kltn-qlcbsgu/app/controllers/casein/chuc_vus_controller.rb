@@ -8,8 +8,8 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Chuc vus'
-  		@chuc_vus = ChucVu.paginate :page => params[:page]
+      @casein_page_title = Param.get_param_value "chuc_vu_index_page_title"
+  		@chuc_vus = ChucVu.paginate :page => params[:page], :per_page => 10, :order => :ten_chuc_vu
       @chuc_vus_xls = ChucVu.all
       respond_to do |format|
         format.html
@@ -33,12 +33,17 @@ module Casein
     end
   
     def show
-      @casein_page_title = 'View chuc vu'
+      @casein_page_title = Param.get_param_value "chuc_vu_show_page_title"
+      @chuc_vu = ChucVu.find params[:id]
+    end
+
+    def edit
+      @casein_page_title = Param.get_param_value "chuc_vu_edit_page_title"
       @chuc_vu = ChucVu.find params[:id]
     end
  
     def new
-      @casein_page_title = 'Add a new chuc vu'
+      @casein_page_title = Param.get_param_value "chuc_vu_new_page_title"
     	@chuc_vu = ChucVu.new
     end
 
@@ -55,7 +60,7 @@ module Casein
     end
   
     def update
-      @casein_page_title = 'Update chuc vu'
+      @casein_page_title = Param.get_param_value "chuc_vu_update_page_title"
       
       @chuc_vu = ChucVu.find params[:id]
     
@@ -104,7 +109,7 @@ module Casein
           p.save
         else
           @wrong += 1
-          @errors["#{@counter + 1}"] = "CB.#{row[0].to_i.to_s} - #{row[1].to_s}"
+          @errors["#{@counter + 1}"] = "#{row[0]} - #{row[1]}"
         end
       end
       book.io.close

@@ -35,6 +35,11 @@ module Casein
       @casein_page_title = Param.get_param_value("quan_ly_nha_nuoc_show_page_title")
       @quan_ly_nha_nuoc = QuanLyNhaNuoc.find params[:id]
     end
+
+    def edit
+      @casein_page_title = Param.get_param_value("quan_ly_nha_nuoc_edit_page_title")
+      @quan_ly_nha_nuoc = QuanLyNhaNuoc.find params[:id]
+    end
  
     def new
       @casein_page_title = Param.get_param_value("quan_ly_nha_nuoc_new_page_title")

@@ -15,7 +15,14 @@ module Casein
       don_vi = 0
 
       if params["num_view"].to_s != ""
-        view = params["num_view"].to_i if params["num_view"].match(/^\d+$/)
+        #must be a number
+        if params["num_view"].match(/^\d+$/)
+          #must be greater than 0 
+          if params["num_view"].to_i > 0
+            #set view value for pagination
+            view = params["num_view"].to_i
+          end
+        end
       end
 
       if params[:don_vi]
@@ -25,8 +32,18 @@ module Casein
       order = ""
       if params["order_by"].to_s != ""
         order = params["order_by"]
+        #ignore the invalid values for order queries
+        if order.split(":").last != "desc" && order.split(":").count > 1
+          order = ""
+        else
+          #convert to correct format
+          #param values has been submited include colon symbol
+          #e.g: order by query desc
+          order = order.gsub(':', ' ')
+        end
       end
 
+      #set conditions for paginate to filter records, it's base on don_vi parameter
       paginate_conditions = ""
       paginate_conditions = ['don_vi_id = ?', don_vi] if don_vi != 0
 
@@ -44,11 +61,6 @@ module Casein
         @can_bo_thong_tins = CanBoThongTin.paginate :page => params[:page], :conditions => paginate_conditions, :per_page => view, :order => order
         @can_bo_thong_tins_xls = CanBoThongTin.all
       end
-
-      #@available_complete_tags = []
-      #CanBoThongTin.all.each{ |c| 
-      #  @available_complete_tags.push c.ho_ten
-      #}
       
       respond_to do |format|
         format.html
@@ -868,6 +880,7 @@ module Casein
                     }
       if statistic_req
         @can_bo_thong_tins = CanBoThongTin.statistic(hash_params)
+        
         if @can_bo_thong_tins.count>0
           @can_bo_thong_tins = @can_bo_thong_tins.paginate :page=>params[:page], :per_page => 10
           @has_result =true
