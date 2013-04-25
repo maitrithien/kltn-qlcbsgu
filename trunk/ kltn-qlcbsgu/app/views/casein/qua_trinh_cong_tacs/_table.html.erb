@@ -2,20 +2,20 @@
 
 <table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
 	<tr>
-		<th>Cán Bộ</th>
-		<th>Đơn Vị</th>
-		<th>Chức Vụ</th>
-		<th>Thời Gian Bắt Đầu</th>
-		<th>Thời Gian Kết Thúc</th>
+		<th>Cán bộ</th>
+		<th>Đơn vị</th>
+		<th>Chức vụ</th>
+		<th>Ngày bắt đầu công tác</th>
+		<th>Ngày kết thúc công tác</th>
 		<th>&nbsp;</th>
 	</tr>
 	
 
 	<% qua_trinh_cong_tacs.each_with_index do |qua_trinh_cong_tac, index| %>
 		<% don_vi = "" %>
-		<% chuc_vu = "" %>
-		<% thoi_gian_bat_dau = "" %>
-		<% thoi_gian_ket_thuc = "" %>
+		<% chuc_vu = "không" %>
+		<% thoi_gian_bat_dau = "chưa cập nhật" %>
+		<% thoi_gian_ket_thuc = "đang công tác" %>
 		<% if qua_trinh_cong_tac.don_vi_id %>
 			<% don_vi = qua_trinh_cong_tac.don_vi.ten_don_vi %>
 		<% end %>
@@ -35,11 +35,7 @@
           <td><%= casein_table_cell_link "#{don_vi}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
           <td><%= casein_table_cell_link "#{chuc_vu}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
 			<td><%= casein_table_cell_link thoi_gian_bat_dau, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-          <% if qua_trinh_cong_tac.thoi_gian_ket_thuc  %>
 			<td><%= casein_table_cell_link thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-           <% else %>
-              <td><%= casein_table_cell_link qua_trinh_cong_tac.thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-             <% end %>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("delete"), casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử công tác này?") %>
 			</td>
