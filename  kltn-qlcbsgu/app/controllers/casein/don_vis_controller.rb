@@ -36,6 +36,11 @@ module Casein
       @casein_page_title = 'View don vi'
       @don_vi = DonVi.find params[:id]
     end
+
+    def edit
+      @casein_page_title = 'View don vi'
+      @don_vi = DonVi.find params[:id]
+    end
  
     def new
       @casein_page_title = 'Add a new don vi'
@@ -61,7 +66,7 @@ module Casein
     
       if @don_vi.update_attributes params[:don_vi]
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_don_vis_path
+        redirect_to casein_don_vi_path(params[:id])
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show

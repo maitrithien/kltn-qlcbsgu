@@ -50,7 +50,7 @@
 		<div id="header">
 			
 			<h1><%= link_to(image_tag(casein_config_logo, :alt => casein_config_website_name, :size => "50x50"), :controller => :casein) %>
-            <div style="font-family: tahoma, arial; font-size: smaller; margin-left: 70px; margin-top: -22px;text-transform: uppercase;"><%= Param.get_param_value("website_name") %></div>
+            <div class="website_name"><%= Param.get_param_value("website_name") %></div>
             </h1>
 			<div id="dashboard">
 				<% if @session_user != nil %>

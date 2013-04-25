@@ -8,7 +8,7 @@ module Casein
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
   
     def index
-      @casein_page_title = 'Hang thuong binhs'
+      @casein_page_title = Param.get_param_value 'hang_thuong_binh_index_page_title'
       @hang_thuong_binh_xls = HangThuongBinh.all
   		@hang_thuong_binhs = HangThuongBinh.paginate :page => params[:page]
       respond_to do |format|
@@ -33,12 +33,17 @@ module Casein
     end
   
     def show
-      @casein_page_title = 'View hang thuong binh'
+      @casein_page_title = Param.get_param_value 'hang_thuong_binh_view_page_title'
+      @hang_thuong_binh = HangThuongBinh.find params[:id]
+    end
+
+    def edit
+      @casein_page_title = Param.get_param_value 'hang_thuong_binh_edit_page_title'
       @hang_thuong_binh = HangThuongBinh.find params[:id]
     end
  
     def new
-      @casein_page_title = 'Add a new hang thuong binh'
+      @casein_page_title = Param.get_param_value 'hang_thuong_binh_new_page_title'
     	@hang_thuong_binh = HangThuongBinh.new
     end
 
@@ -46,24 +51,24 @@ module Casein
       @hang_thuong_binh = HangThuongBinh.new params[:hang_thuong_binh]
     
       if @hang_thuong_binh.save
-        flash[:notice] = 'Hang thuong binh created'
+        flash[:notice] = Param.get_param_value 'adding_success'
         redirect_to casein_hang_thuong_binhs_path
       else
-        flash.now[:warning] = 'There were problems when trying to create a new hang thuong binh'
+        flash.now[:warning] = Param.get_param_value 'adding_false'
         render :action => :new
       end
     end
   
     def update
-      @casein_page_title = 'Update hang thuong binh'
+      @casein_page_title = Param.get_param_value 'hang_thuong_binh_update_page_title'
       
       @hang_thuong_binh = HangThuongBinh.find params[:id]
     
       if @hang_thuong_binh.update_attributes params[:hang_thuong_binh]
-        flash[:notice] = 'Hang thuong binh has been updated'
-        redirect_to casein_hang_thuong_binhs_path
+        flash[:notice] = Param.get_param_value 'updating_success'
+        redirect_to casein_hang_thuong_binh_path(params[:id])
       else
-        flash.now[:warning] = 'There were problems when trying to update this hang thuong binh'
+        flash.now[:warning] = Param.get_param_value 'updating_false'
         render :action => :show
       end
     end
@@ -72,7 +77,7 @@ module Casein
       @hang_thuong_binh = HangThuongBinh.find params[:id]
 
       @hang_thuong_binh.destroy
-      flash[:notice] = 'Hang thuong binh has been deleted'
+      flash[:notice] = Param.get_param_value 'deleting_success'
       redirect_to casein_hang_thuong_binhs_path
     end
 

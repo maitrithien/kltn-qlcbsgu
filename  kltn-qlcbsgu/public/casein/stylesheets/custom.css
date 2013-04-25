@@ -6,8 +6,14 @@
 body, fieldset, legend, header, footer, tr, td, textarea, input, label, select, option, optgroup, a, ul, li
 {
     font-size: 12px;
-    font-family: tahoma, arial;
+    font-family: "Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
 }
+input[type="number"], input[type="text"], select, option
+{
+    background-color: #f7f7f7;
+    color: #111;
+}
+
 #content a.link:hover
 {
 	text-decoration:none;

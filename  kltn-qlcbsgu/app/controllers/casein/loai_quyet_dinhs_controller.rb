@@ -34,7 +34,12 @@ module Casein
       @casein_page_title = Param.get_param_value("loai_quyet_dinh_show_page_title")
       @loai_quyet_dinh = LoaiQuyetDinh.find params[:id]
     end
- 
+  
+    def edit
+      @casein_page_title = Param.get_param_value("loai_quyet_dinh_edit_page_title")
+      @loai_quyet_dinh = LoaiQuyetDinh.find params[:id]
+    end
+
     def new
       @casein_page_title = Param.get_param_value("loai_quyet_dinh_new_page_title")
     	@loai_quyet_dinh = LoaiQuyetDinh.new

@@ -53,7 +53,12 @@ module Casein
       @casein_page_title = Param.get_param_value("quyet_dinh_show_page_title")
       @quyet_dinh = QuyetDinh.find params[:id]
     end
- 
+    
+    def edit
+      @casein_page_title = Param.get_param_value("quyet_dinh_edit_page_title")
+      @quyet_dinh = QuyetDinh.find params[:id]
+    end
+
     def new
       @casein_page_title = Param.get_param_value("quyet_dinh_new_page_title")
     	@quyet_dinh = QuyetDinh.new
@@ -78,7 +83,7 @@ module Casein
     
       if @quyet_dinh.update_attributes params[:quyet_dinh]
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_quyet_dinhs_path
+        redirect_to casein_quyet_dinh_path(params[:id])
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show

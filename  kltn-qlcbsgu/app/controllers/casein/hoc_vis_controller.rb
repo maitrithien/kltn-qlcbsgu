@@ -32,6 +32,11 @@ module Casein
       @casein_page_title = Param.get_param_value("hoc_vi_show_page_title")
       @hoc_vi = HocVi.find params[:id]
     end
+
+    def edit
+      @casein_page_title = Param.get_param_value("hoc_vi_edit_page_title")
+      @hoc_vi = HocVi.find params[:id]
+    end
  
     def new
       @casein_page_title = Param.get_param_value("hoc_vi_new_page_title")
@@ -57,7 +62,7 @@ module Casein
     
       if @hoc_vi.update_attributes params[:hoc_vi]
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_hoc_vis_path
+        redirect_to casein_hoc_vi_path(params[:id])
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show

@@ -13,7 +13,7 @@ body {
 	overflow: hidden;
 	background: white;
 	color: black;
-	font-family: Arial, "Lucida Grande", "Trebuchet MS", Helvetica,  sans-serif;
+	font-family: "Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;/*Arial, "Lucida Grande", "Trebuchet MS", Helvetica,  sans-serif;*/
 	margin: 0;
 	padding: 0;
 }
@@ -70,6 +70,13 @@ div.loginBox {
 	padding: 25px;
 	position: relative;
 	background: url(/casein/images/header.png) repeat-x top left;
+	/*font-family: "Helvetica Neue",Helvetica,Arial,Geneva,sans-serif;
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	padding: 2em 0 0.2em 0;
+	background: #29264d;
+	border-bottom: 2px solid #494573;*/
+	color: #29264d;
 	z-index: 900;
 }
 
@@ -81,9 +88,16 @@ div.loginBox {
 	display: block;
 	width: 230px;
 	height: 33px;
+	color: #29264d;
 	text-decoration: none;
 }
-
+#header .website_name {
+	font-size: smaller; 
+	margin-left: 70px; 
+	margin-top: -22px;
+	text-transform: uppercase;
+	color: #29264d;
+}
 #dashboard {
 	position: absolute;
 	top: 15px;
