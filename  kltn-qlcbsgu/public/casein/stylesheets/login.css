@@ -15,7 +15,10 @@ body {
 a, input {
 	outline: none;
 }
-
+.column{
+	width: 33%;
+	float: left;
+}
 #header {
 	background: #efefef url(/casein/images/login/top.png) repeat-x bottom left;
 	padding: 80px 0 70px 0;

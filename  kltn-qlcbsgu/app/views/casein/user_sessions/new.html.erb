@@ -22,6 +22,11 @@
 <div class="clear"></div>
 <center>
 	<fieldset>
+		<div class="column">
+			<%= image_tag "l_cover.jpg", :style=>"float:right; height:200px;" %>
+		</div>
+		<div class="column">
+	
 			<%= form_for @user_session, :url => casein_user_session_path do |f| %>
 				<div class="text" style="margin-bottom:10px;">
 					<p>
@@ -63,5 +68,11 @@
 					</div>
 				</div>
 			<% end %>
+			</div>
+
+			<div class="column">
+				<%= image_tag "r_cover.jpg", :style=>"float:left;height:200px;" %>
+			</div>
+
 	</fieldset>
 </center>

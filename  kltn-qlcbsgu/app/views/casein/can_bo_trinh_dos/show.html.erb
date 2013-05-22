@@ -38,7 +38,7 @@
 
 %>
 
-<h2>Chi tiết trình độ cán bộ || Mã số: <%= @can_bo_trinh_do.can_bo_thong_tin.ma_cb %></h2>
+<h2>Chi tiết cán bộ || Mã số: <%= @can_bo_trinh_do.can_bo_thong_tin.ma_cb %></h2>
 <table  class="details">
 	<tr>
 		<th><b>Họ và tên:</b></th>
@@ -89,11 +89,11 @@
 
 <%= content_for :sidebar do %>
     <li>
-    	<%= link_to "#{casein_show_icon "add"}Thêm mới trình độ cán bộ".html_safe, 
+    	<%= link_to "#{casein_show_icon "add"}Thêm mới cán bộ".html_safe, 
     				new_casein_can_bo_trinh_do_path %>
     </li>
 	<li>
-		<%= link_to "#{casein_show_icon "table"}Danh sách trình độ cán bộ".html_safe, 
+		<%= link_to "#{casein_show_icon "table"}Danh sách cán bộ".html_safe, 
 					casein_can_bo_trinh_dos_path %>
 	</li>
 <% end %>
