@@ -1,7 +1,9 @@
 <div class="blk-share" style="float: left; width: 97%;">
-  <h2>Chọn các tiêu chí thống kê</h2>
+  
+  <h2>Chi tiết thống kê</h2>
   <div class="paragraph stat toggle">
     <%= form_tag statistic_casein_can_bo_thong_tins_path, :method => "get" do %>
+        
         <div class="tfContainer">
           <label>Thống kê theo đơn vị (*): <br> 
             <%= select_tag  "don_vi_id", 
@@ -12,6 +14,9 @@
                                                               ),{:multiple => true} %> 
           </label>
         </div>
+        
+
+        
         <div class="tfContainer tfContainerSecond">
           <label>Thống kê theo học hàm (*): <br>
             <%= select_tag "hoc_ham_id", 
@@ -22,6 +27,8 @@
                                                               ),{:multiple => true}  %> 
           </label>
         </div>
+        
+       
         <div class="tfContainer">
           <label>Thống kê theo học vị (*): <br>
             <%= select_tag "hoc_vi_id", 
@@ -32,6 +39,9 @@
                                                               ),{:multiple => true}  %>
           </label>
         </div>
+       
+
+        
         <div class="tfContainer tfContainerSecond">
           <label>Thống kê theo ngạch (*): <br>
             <%= select_tag  "ngach_id", 
@@ -42,6 +52,9 @@
                                                               ),{:multiple => true}  %>
           </label>
         </div>
+        
+
+        
         <div class="tfContainer">
           <label>Thống kê theo số năm công tác (trở lên): <br>
             <%= select_tag  "nam_cong_tac", 
@@ -50,7 +63,9 @@
                                               ),{:prompt => "-----------Chọn----------"} %>
           </label>
         </div>
+        
 
+        
         <div class="tfContainer tfContainerSecond">
           <label class="spec_label">Thống kê theo năm sinh: <br>
             <%= select_tag  "nam_sinh_tu", 
@@ -76,6 +91,9 @@
                                               } %>
           </label>
         </div>
+        
+
+        
         <div class="tfContainer">
             <label>Thống kê theo đảng viên: <br>
               <%= select_tag  "dang_vien", 
@@ -90,6 +108,9 @@
                                                 } %>
             </label>
         </div>
+        
+
+        
         <div class="tfContainer tfContainerSecond">
           <label>Thống kê theo giới tính: <br>
             <%= select_tag  "gioi_tinh", 
@@ -104,6 +125,9 @@
                                               } %>
           </label>
         </div>
+        
+
+        
         <div class="tfContainer">
           <label>Thống kê theo dân tộc: <br>
             <%= select_tag  "dan_toc", 
@@ -118,6 +142,9 @@
                                               }  %>
           </label>
         </div>
+        
+
+        
         <div class="tfContainer tfContainerSecond">
           <label>Thống kê theo gia đình chính sách: <br>
             <%= select_tag  "gia_dinh_chinh_sach", 
@@ -132,6 +159,8 @@
                                               }  %>
           </label>
         </div>
+        
+
         <p style="font-style:italic; font-size: 11px; color: gray;"> (*) Bấm giữ phím CTRL hoặc SHIFT để chọn nhiều hoặc bỏ chọn</p>
         <%= hidden_field_tag "statistic_req", true %>
         <p style="text-align: right;">
@@ -146,15 +175,18 @@
 
     <div class="second_paragraph">
       <div class="blk-share" style="width:97%;">
-        <h2>Kết quả thống kê <div style="float: right; text-transform:none; margin-right: 5px;"> Tổng số kết quả tìm thấy: <%= @can_bo_thong_tins.count %> / <%= CanBoThongTin.all.count %></div> </h2>
+        <h2>Kết quả thống kê <div style="float: right; text-transform:none; margin-right: 5px; color:white;"> Tổng số kết quả tìm thấy: <%= @can_bo_thong_tins.count %> / <%= CanBoThongTin.all.count %></div> </h2>
         <%= render  :partial => 'casein/can_bo_thong_tins/table_static_result', 
                     :locals => { :can_bo_thong_tins => @can_bo_thong_tins } %>
 
-        <%= will_paginate @can_bo_thong_tins %>
+        <%= will_paginate @can_bo_thong_tins, 
+          :previous_label => '&#8592; Trước', 
+          :next_label => 'Sau &#8594;' %>
 
       </div>
     </div>
 <% end %>
+
 
 <%= content_for :sidebar do %>
     <li>
