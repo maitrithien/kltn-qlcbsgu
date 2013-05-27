@@ -59,6 +59,7 @@ module Casein
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
       @lich_su_bac_luong.ngach_sl = @lich_su_bac_luong.bac_luong.ngach_id
       @lich_su_bac_luong.bac_sl = @lich_su_bac_luong.bac_luong.bac
+      @lich_su_bac_luong.so_quyet_dinh = @lich_su_bac_luong.quyet_dinh.so_qd
     end
  
     def new
@@ -70,10 +71,12 @@ module Casein
 
       @lich_su_bac_luong = LichSuBacLuong.new params[:lich_su_bac_luong]
       bacluong_id = LichSuBacLuong.get_bl_id(@lich_su_bac_luong.ngach_sl, @lich_su_bac_luong.bac_sl)
+      quyetdinh_id= QuyetDinh.find_by_so_qd(@lich_su_bac_luong.so_quyet_dinh)
       if bacluong_id
          @lich_su_bac_luong.bac_luong_id = bacluong_id
       end
-      if @lich_su_bac_luong.valid?
+      if @lich_su_bac_luong.valid? && quyetdinh_id
+          @lich_su_bac_luong.quyet_dinh_id = quyetdinh_id.id
           if @lich_su_bac_luong.save
             bac_luong_id = @lich_su_bac_luong.bac_luong_id
             p = nil
@@ -100,11 +103,18 @@ module Casein
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
 
       bacluong_id = LichSuBacLuong.get_bl_id(params[:lich_su_bac_luong][:ngach_sl],params[:lich_su_bac_luong][:bac_sl])
+
       if bacluong_id
         params[:lich_su_bac_luong][:bac_luong_id] = bacluong_id
       end
 
+
       if @lich_su_bac_luong.update_attributes params[:lich_su_bac_luong]
+        quyetdinh = QuyetDinh.find_by_so_qd(params[:lich_su_bac_luong][:so_quyet_dinh])
+        if quyetdinh 
+          @lich_su_bac_luong.update_attribute(:quyet_dinh_id, quyetdinh.id)
+        end
+
         lich_su_last = LichSuBacLuong.get_last(@lich_su_bac_luong.can_bo_thong_tin_id)
         if lich_su_last.id == @lich_su_bac_luong.id
           bac_luong_id = @lich_su_bac_luong.bac_luong_id

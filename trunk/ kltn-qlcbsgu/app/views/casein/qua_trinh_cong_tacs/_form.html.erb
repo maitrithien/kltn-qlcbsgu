@@ -30,5 +30,5 @@
   <%= casein_select f, f.object, :chuc_vu_id, ChucVu.all.collect {|p| [ "#{p.ten_chuc_vu}", p.id ] }, {:include_blank => '---Chọn chức vụ---', :casein_label => "Chức vụ #{link_cv}".html_safe } %>
 </div>
 
-<div class="tfContainer tfContainerSecond"></div>
+<div class="tfContainer tfContainerSecond"><%= casein_text_field f, f.object, :so_quyet_dinh, {:casein_label => "Số quyết định"} %></div>
 <div class="clearer"></div>

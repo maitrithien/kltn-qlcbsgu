@@ -6,6 +6,7 @@
         <th>Ngạch</th>
 		<th>Bậc lương</th>
 		<th>Ngày thay đổi</th>
+		<th>Số Quyết Định</th>
 		<th>Ghi chú</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -16,6 +17,11 @@
             <td><%= casein_table_cell_link "#{lich_su_bac_luong.bac_luong.ngach.ten_ngach}", casein_lich_su_bac_luong_path(lich_su_bac_luong) %> </td>
 			<td><%= casein_table_cell_link "#{lich_su_bac_luong.bac_luong.bac}", casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
 			<td><%= casein_table_cell_link lich_su_bac_luong.ngay_thay_doi_bac.strftime("%d/%m/%Y"), casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
+			<td>
+				<%if lich_su_bac_luong.quyet_dinh_id.to_s.length>0%>
+				<%= casein_table_cell_link lich_su_bac_luong.quyet_dinh.so_qd, casein_lich_su_bac_luong_path(lich_su_bac_luong) %>
+				<% end %>
+			</td>
 			<td><%= casein_table_cell_link lich_su_bac_luong.ghi_chu, casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
 			<td class="delete">
 			<%= link_to(casein_show_row_icon("delete"), casein_lich_su_bac_luong_path(lich_su_bac_luong), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử này?") %>

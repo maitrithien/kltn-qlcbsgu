@@ -90,6 +90,7 @@ module Casein
     def edit
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_edit_page_title")
       @can_bo_thong_tin = CanBoThongTin.find params[:id]
+      @can_bo_thong_tin.so_quyet_dinh = @can_bo_thong_tin.quyet_dinh.so_qd
     end
 
     def show
@@ -387,12 +388,20 @@ module Casein
       if params[:can_bo_thong_tin][:ten_goi_khac] == ""
         params[:can_bo_thong_tin][:ten_goi_khac] = params[:can_bo_thong_tin][:ho_ten]
       end
-      if @can_bo_thong_tin.save
-        flash[:notice] = Param.get_param_value("adding_success")
-        redirect_to casein_can_bo_thong_tins_path
+
+      quyet_dinh = QuyetDinh.find_by_so_qd(@can_bo_thong_tin.so_quyet_dinh)
+      if quyet_dinh
+        @can_bo_thong_tin.quyet_dinh_id = quyet_dinh.id
+        if @can_bo_thong_tin.save
+          flash[:notice] = Param.get_param_value("adding_success")
+          redirect_to casein_can_bo_thong_tins_path
+        else
+          flash.now[:warning] = Param.get_param_value("adding_false")
+          render :action => :new
+        end
       else
         flash.now[:warning] = Param.get_param_value("adding_false")
-        render :action => :new
+          render :action => :new
       end
     end
   
@@ -413,6 +422,12 @@ module Casein
       end
 
       @can_bo_thong_tin = CanBoThongTin.find params[:id]
+
+      quyetdinh = QuyetDinh.find_by_so_qd(params[:can_bo_thong_tin][:so_quyet_dinh])
+        if quyetdinh 
+          @can_bo_thong_tin.update_attribute(:quyet_dinh_id, quyetdinh.id)
+        end
+        
 
       if @can_bo_thong_tin.update_attributes params[:can_bo_thong_tin]
 

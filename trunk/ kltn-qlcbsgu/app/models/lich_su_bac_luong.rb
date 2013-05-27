@@ -1,9 +1,10 @@
 class LichSuBacLuong < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :ngay_thay_doi_bac, :ghi_chu, :bac_luong_id ,:ngach_sl , :bac_sl
-  attr_accessor :ngach_sl , :bac_sl
+  attr_accessible :can_bo_thong_tin_id, :ngay_thay_doi_bac, :ghi_chu, :bac_luong_id ,:ngach_sl , :bac_sl,:so_quyet_dinh
+  attr_accessor :ngach_sl , :bac_sl,:so_quyet_dinh
   #relationship
   belongs_to :bac_luong
   belongs_to :can_bo_thong_tin
+  belongs_to :quyet_dinh
   validates_presence_of :can_bo_thong_tin_id, :ngay_thay_doi_bac, :bac_luong_id, :message => "#{Param.get_param_value("is_not_blank")}"
 
   def self.search(search_value)

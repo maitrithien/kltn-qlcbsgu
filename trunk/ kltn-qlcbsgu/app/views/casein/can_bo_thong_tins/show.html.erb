@@ -72,6 +72,10 @@
 	<td><b>Số sổ BHXH:</b></td>
 	<td><%= @can_bo_thong_tin.so_BHXH %></td>
 </tr>
+<tr>
+  <td><b>Quyết Định tuyển dụng:</b></td>
+  <td><%= @can_bo_thong_tin.quyet_dinh.so_qd %></td>
+</tr>
 <%# Thông tin ngạch bậc hiện tại %>
 <%= render :partial =>  'casein/can_bo_thong_tins/table_ngach_bac', :locals => {:can_bo_thong_tin => @can_bo_thong_tin} %>
 

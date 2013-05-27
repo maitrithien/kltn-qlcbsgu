@@ -7,6 +7,7 @@
 		<th>Chức vụ</th>
 		<th>Ngày bắt đầu công tác</th>
 		<th>Ngày kết thúc công tác</th>
+		<th>Số Quyết Định</th>
 		<th>&nbsp;</th>
 	</tr>
 	
@@ -36,6 +37,11 @@
           <td><%= casein_table_cell_link "#{chuc_vu}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
 			<td><%= casein_table_cell_link thoi_gian_bat_dau, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
 			<td><%= casein_table_cell_link thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+			<td>
+				<%if qua_trinh_cong_tac.quyet_dinh_id.to_s.length>0%>
+				<%= casein_table_cell_link qua_trinh_cong_tac.quyet_dinh.so_qd, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %>
+				<% end %>
+			</td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("delete"), casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử công tác này?") %>
 			</td>
