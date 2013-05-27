@@ -4,83 +4,84 @@
 	<tr>
 		<th>Mã CB</th>
 		<th>Họ và tên</th>
-        <th>Giới tính</th>
 		<th>Ngày sinh</th>
 		<th>Dân tộc</th>
-		<th>Đơn vị</th>
 		<th>Chức danh</th>
 		<th>Ngạch</th>
 		
 	</tr>
-	
-	<% can_bo_thong_tins.each_with_index do |can_bo_thong_tin, index| %>
-		<%
-			gioi_tinh = "Nam"
-			ngay_sinh = ""
-			don_vi = ""
-			chuc_danh = ""
-			ngach = ""
-			trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id can_bo_thong_tin.id
-			unless can_bo_thong_tin.gioi_tinh
-				gioi_tinh = "Nữ"
-			end
-			if can_bo_thong_tin.ngay_sinh
-				ngay_sinh = can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y")
-			end
-			if can_bo_thong_tin.don_vi_id
-				don_vi = can_bo_thong_tin.don_vi.ten_don_vi
-			end
-			if trinh_do
-				if trinh_do.hoc_ham_id
-					chuc_danh << "#{trinh_do.hoc_ham.ten_hoc_ham} "
-					if trinh_do.hoc_vi_id
-						chuc_danh << "#{trinh_do.hoc_vi.ten_hoc_vi}"
-					end
-				end
-			end
-
-			if can_bo_thong_tin.bac_luong_id
-				if can_bo_thong_tin.bac_luong.ngach_id
-					ngach << "#{can_bo_thong_tin.bac_luong.ngach.ten_ngach} - Bậc #{can_bo_thong_tin.bac_luong.bac} - Hệ số lương #{can_bo_thong_tin.bac_luong.he_so_luong}"
-				end
-			end
-		%>
-		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
-			<td>
-				<b>
-					<%= casein_table_cell_link 	can_bo_thong_tin.ma_cb, 
-												casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-				</b>
-			</td>
-			<td>
-				<span style="text-transform:uppercase;">
-					<%= casein_table_cell_link 	can_bo_thong_tin.ho_ten, 
-												casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-				</span>
-			</td>
-            <td>
-            	<%= casein_table_cell_link 	"#{gioi_tinh}", 
-            								casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-            </td>
-			<td>
-				<%= casein_table_cell_link 	"#{ngay_sinh}", 
-											casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-			</td>
-			<td>
-				<%= casein_table_cell_link 	can_bo_thong_tin.dan_toc, 
-											casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-			</td>
-            <td>
-            	<%= casein_table_cell_link 	"#{don_vi}", 
-            								casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-            </td>
-			<td>
-				<%= casein_table_cell_link "#{chuc_danh}", casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-			</td>
-			<td>
-				<%= casein_table_cell_link "#{ngach}", casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-			</td>
+	<% gt_f = [true, false] %>
+	<% DonVi.all.each do |dv| %>
+		<tr class="even">
+			<td colspan="6"><a><b style="text-transform:uppercase;"><%= dv.ten_don_vi %></b></a></td>
 		</tr>
+		<% gt_f.map do |g| %>
+			<tr class="even">
+				<td>&nbsp;</td>
+				<td colspan="5">
+					<% if g %>
+						<a><b>Nam</b></a>
+					<% else %>
+						<a><b>Nữ</b></a>
+					<% end %>
+				</td>
+			</tr>
+		<% can_bo_thong_tins.each do |can_bo_thong_tin| %>
+				<%
+				if can_bo_thong_tin.don_vi_id == dv.id and can_bo_thong_tin.gioi_tinh == g
+					count += 1
+					ngay_sinh = ""
+					chuc_danh = ""
+					ngach = ""
+					trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id can_bo_thong_tin.id
+					if can_bo_thong_tin.ngay_sinh
+						ngay_sinh = can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y")
+					end
+					if trinh_do
+						if trinh_do.hoc_ham_id
+							chuc_danh << "#{trinh_do.hoc_ham.ten_hoc_ham} "
+							if trinh_do.hoc_vi_id
+								chuc_danh << "#{trinh_do.hoc_vi.ten_hoc_vi}"
+							end
+						end
+					end
 
+					if can_bo_thong_tin.bac_luong_id
+						if can_bo_thong_tin.bac_luong.ngach_id
+							ngach << "#{can_bo_thong_tin.bac_luong.ngach.ten_ngach} - Bậc #{can_bo_thong_tin.bac_luong.bac} - Hệ số lương #{can_bo_thong_tin.bac_luong.he_so_luong}"
+						end
+					end
+				%>
+				<tr class="hover">
+					<td>
+						<b>
+							<%= casein_table_cell_link 	can_bo_thong_tin.ma_cb, 
+														casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
+						</b>
+					</td>
+					<td>
+						<span style="text-transform:uppercase;">
+							<%= casein_table_cell_link 	can_bo_thong_tin.ho_ten, 
+														casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
+						</span>
+					</td>
+					<td>
+						<%= casein_table_cell_link 	"#{ngay_sinh}", 
+													casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
+					</td>
+					<td>
+						<%= casein_table_cell_link 	can_bo_thong_tin.dan_toc, 
+													casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
+					</td>
+					<td>
+						<%= casein_table_cell_link "#{chuc_danh}", casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
+					</td>
+					<td>
+						<%= casein_table_cell_link "#{ngach}", casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
+					</td>
+				</tr>
+				<% end %>
+			<% end %>
+		<% end %>
 	<% end %>
 </table>
