@@ -50,11 +50,13 @@ module Casein
     def show
       @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_show_page_titile"
       @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
+
     end
     
     def edit
       @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_edit_page_titile"
       @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
+      @qua_trinh_cong_tac.so_quyet_dinh = @qua_trinh_cong_tac.quyet_dinh.so_qd
     end
 
     def new
@@ -64,12 +66,19 @@ module Casein
 
     def create
       @qua_trinh_cong_tac = QuaTrinhCongTac.new params[:qua_trinh_cong_tac]
-      if @qua_trinh_cong_tac.save
-        flash[:notice] = Param.get_param_value("adding_success")
-        redirect_to casein_qua_trinh_cong_tacs_path
+      quyet_dinh = QuyetDinh.find_by_so_qd(@qua_trinh_cong_tac.so_quyet_dinh)
+      if quyet_dinh
+        @qua_trinh_cong_tac.quyet_dinh_id = quyet_dinh.id
+        if @qua_trinh_cong_tac.save
+          flash[:notice] = Param.get_param_value("adding_success")
+          redirect_to casein_qua_trinh_cong_tacs_path
+        else
+          flash.now[:warning] = Param.get_param_value("adding_false")
+          render :action => :new
+        end
       else
-        flash.now[:warning] = Param.get_param_value("adding_false")
-        render :action => :new
+         flash.now[:warning] = Param.get_param_value("adding_false")
+          render :action => :new
       end
     end
   
@@ -78,6 +87,11 @@ module Casein
       
       @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
     
+      quyetdinh = QuyetDinh.find_by_so_qd(params[:qua_trinh_cong_tac][:so_quyet_dinh])
+        if quyetdinh 
+          @qua_trinh_cong_tac.update_attribute(:quyet_dinh_id, quyetdinh.id)
+        end
+        
       if @qua_trinh_cong_tac.update_attributes params[:qua_trinh_cong_tac]
         flash[:notice] = Param.get_param_value("updating_success")
         redirect_to casein_qua_trinh_cong_tac_path(params[:id])

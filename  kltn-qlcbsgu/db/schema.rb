@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417170809) do
+ActiveRecord::Schema.define(:version => 20130523152830) do
 
   create_table "bac_luongs", :force => true do |t|
     t.integer  "ngach_id"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20130417170809) do
     t.datetime "updated_at",                                                       :null => false
     t.integer  "bac_luong_id"
     t.integer  "don_vi_id"
+    t.integer  "quyet_dinh_id"
   end
 
   add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
@@ -172,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20130417170809) do
     t.string   "ghi_chu"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "quyet_dinh_id"
   end
 
   create_table "loai_quyet_dinhs", :force => true do |t|
@@ -221,6 +223,7 @@ ActiveRecord::Schema.define(:version => 20130417170809) do
     t.date     "thoi_gian_ket_thuc"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.integer  "quyet_dinh_id"
   end
 
   create_table "quan_he_gia_dinhs", :force => true do |t|

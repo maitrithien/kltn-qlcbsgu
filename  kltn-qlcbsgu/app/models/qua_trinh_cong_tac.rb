@@ -1,11 +1,11 @@
 class QuaTrinhCongTac < ActiveRecord::Base
-    attr_accessible :can_bo_thong_tin_id, :can_bo_thong_tin_name, :chuc_vu_id, :don_vi_id, :thoi_gian_bat_dau,:thoi_gian_ket_thuc,:ghi_chu
-    attr_accessor :can_bo_thong_tin_name
+    attr_accessible :can_bo_thong_tin_id, :can_bo_thong_tin_name, :chuc_vu_id, :don_vi_id, :thoi_gian_bat_dau,:thoi_gian_ket_thuc,:ghi_chu,:so_quyet_dinh
+    attr_accessor :can_bo_thong_tin_name,:so_quyet_dinh
 
     belongs_to :can_bo_thong_tin
     belongs_to :chuc_vu
     belongs_to :don_vi
-
+    belongs_to :quyet_dinh
     validates_presence_of :can_bo_thong_tin_id, :don_vi_id, :thoi_gian_bat_dau, :message => "#{Param.get_param_value "is_not_blank"}"
 
 

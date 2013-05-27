@@ -1,6 +1,6 @@
 class CanBoThongTin < ActiveRecord::Base
-  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted, :don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
-  attr_accessor :search_by_gioi_tinh, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id
+  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted, :don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id,:so_quyet_dinh
+  attr_accessor :search_by_gioi_tinh, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id,:so_quyet_dinh
 
   #check unique of attributes
   validates_uniqueness_of :ma_cb, :so_cmnd, :message =>"#{Param.get_param_value("has_already_been_taken")}"
@@ -21,6 +21,7 @@ class CanBoThongTin < ActiveRecord::Base
   has_many :qua_trinh_cong_tacs
   belongs_to :bac_luong
   belongs_to :don_vi
+  belongs_to :quyet_dinh
 
   def self.search(search_value, don_vi_id)
     ngay_sinh = Date.parse(search_value) rescue nil
@@ -66,6 +67,28 @@ class CanBoThongTin < ActiveRecord::Base
     end
     where(sql_exc)
   end
+
+  def self.tim_ten_cho_quyet_dinh(search_value)
+   
+    where('id in
+            (
+              select id
+              from can_bo_thong_tins 
+              where quyet_dinh_id = ?
+              union
+              select can_bo_thong_tin_id
+              from qua_trinh_cong_tacs 
+              where quyet_dinh_id = ?
+              union
+              select can_bo_thong_tin_id
+              from lich_su_bac_luongs 
+              where quyet_dinh_id = ?
+            )',search_value,search_value,search_value
+    )  
+   
+    
+  end
+
 
   def self.select_can_bo_thong_tin
     hash = []

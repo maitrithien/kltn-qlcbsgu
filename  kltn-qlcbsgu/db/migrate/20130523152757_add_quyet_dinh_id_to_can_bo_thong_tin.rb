@@ -1,0 +1,5 @@
+class AddQuyetDinhIdToCanBoThongTin < ActiveRecord::Migration
+  def change
+    add_column :can_bo_thong_tins, :quyet_dinh_id, :integer
+  end
+end

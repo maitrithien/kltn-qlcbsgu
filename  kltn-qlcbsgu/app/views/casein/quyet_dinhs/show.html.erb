@@ -19,6 +19,23 @@
 		<td><%= @quyet_dinh.ngay_ra_qd.strftime("%d/%m/%Y") %></td>
 	</tr>
 	<tr>
+		<th><b>Áp dụng cho:</b></th>
+		<td>
+			<% canbothongtin = CanBoThongTin.tim_ten_cho_quyet_dinh(@quyet_dinh.id)
+			if canbothongtin
+				canbothongtin.each do |cb|
+			%>
+			<p>
+			<%= cb.ma_cb%> - <%= cb.ho_ten%>
+		</p>
+
+			<%
+				end
+			end%>
+		</td>
+	</tr>
+	
+	<tr>
 		<th><b>Tập tin đính kèm:</b></th>
 		<td><a href="<%= @quyet_dinh.tep_tin_dinh_kem %>" style="color:#3561b1; font-size:1em; font-weight:bold;"><%= File.basename("#{@quyet_dinh.tep_tin_dinh_kem}") %></a>
 		</td>
