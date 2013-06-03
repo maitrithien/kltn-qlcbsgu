@@ -1,5 +1,5 @@
 class CanBoThongTin < ActiveRecord::Base
-  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted, :don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id,:so_quyet_dinh
+  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted, :don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id,:so_quyet_dinh,:loai_lao_dong_id
   attr_accessor :search_by_gioi_tinh, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_id,:so_quyet_dinh
 
   #check unique of attributes
@@ -22,6 +22,7 @@ class CanBoThongTin < ActiveRecord::Base
   belongs_to :bac_luong
   belongs_to :don_vi
   belongs_to :quyet_dinh
+  belongs_to :loai_lao_dong
 
   def age
     birthday = self.ngay_sinh

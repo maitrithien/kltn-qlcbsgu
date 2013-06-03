@@ -81,6 +81,8 @@
 <div class="tfContainer tfContainerSecond">
 	<%= casein_text_field f, f.object, :so_quyet_dinh, :casein_label => "Số quyết định" %>
 </div>
-
+<div class="tfContainer ">
+	<%= casein_select f, f.object, :loai_lao_dong_id, LoaiLaoDong.all.collect{|o| ["#{o.ten_loai_lao_dong}", o.id]}, :casein_label => "Loại Lao Động".html_safe %>
+</div>
 
 <div class="clearer"></div>

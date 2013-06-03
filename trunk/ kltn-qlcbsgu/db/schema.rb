@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523152830) do
+ActiveRecord::Schema.define(:version => 20130603130040) do
 
   create_table "bac_luongs", :force => true do |t|
     t.integer  "ngach_id"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20130523152830) do
     t.integer  "bac_luong_id"
     t.integer  "don_vi_id"
     t.integer  "quyet_dinh_id"
+    t.integer  "loai_lao_dong_id"
   end
 
   add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
@@ -141,8 +142,9 @@ ActiveRecord::Schema.define(:version => 20130523152830) do
     t.string   "ten_don_vi"
     t.string   "dia_chi"
     t.string   "so_dien_thoai"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "loai_don_vi_id"
   end
 
   create_table "hang_thuong_binhs", :force => true do |t|
@@ -174,6 +176,20 @@ ActiveRecord::Schema.define(:version => 20130523152830) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "quyet_dinh_id"
+  end
+
+  create_table "loai_don_vis", :force => true do |t|
+    t.string   "ten_loai_don_vi"
+    t.string   "ghichu"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "loai_lao_dongs", :force => true do |t|
+    t.string   "ten_loai_lao_dong"
+    t.string   "ghichu"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "loai_quyet_dinhs", :force => true do |t|
