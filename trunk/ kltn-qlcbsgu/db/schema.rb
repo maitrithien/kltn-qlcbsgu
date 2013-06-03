@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603130040) do
+ActiveRecord::Schema.define(:version => 20130603142554) do
 
   create_table "bac_luongs", :force => true do |t|
     t.integer  "ngach_id"
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(:version => 20130603130040) do
     t.integer  "can_bo_thong_tin_id"
     t.integer  "don_vi_id"
     t.string   "nghe_nghiep_truoc_tuyen_dung"
-    t.string   "cong_viec_chinh_duoc_giao"
     t.string   "so_truong_cong_tac"
     t.date     "ngay_bat_dau_lam_viec"
     t.string   "ghi_chu"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.integer  "cong_viec_id"
   end
 
   create_table "can_bo_li_lich_cts", :force => true do |t|
@@ -138,6 +138,13 @@ ActiveRecord::Schema.define(:version => 20130603130040) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "cong_viecs", :force => true do |t|
+    t.string   "ten_cong_viec"
+    t.string   "ghichu"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "don_vis", :force => true do |t|
     t.string   "ten_don_vi"
     t.string   "dia_chi"
@@ -145,6 +152,7 @@ ActiveRecord::Schema.define(:version => 20130603130040) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "loai_don_vi_id"
+    t.string   "email"
   end
 
   create_table "hang_thuong_binhs", :force => true do |t|

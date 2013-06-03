@@ -11,8 +11,10 @@
     <td><%= can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung %></td>
   </tr>
   <tr>
+    <%if can_bo_cong_tac.cong_viec_id%>
     <td><b>Công việc chính được giao:</b>&nbsp;</td>
-    <td><%= can_bo_cong_tac.cong_viec_chinh_duoc_giao %></td>
+    <td><%= can_bo_cong_tac.cong_viec.ten_cong_viec %></td>
+    <%end%>
   </tr>
   <tr>
     <td><b>Sở trường công tác:</b>&nbsp;</td>

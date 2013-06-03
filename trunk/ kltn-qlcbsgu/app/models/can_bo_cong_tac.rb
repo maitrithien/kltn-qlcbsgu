@@ -1,8 +1,9 @@
 class CanBoCongTac < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :don_vi_id, :nghe_nghiep_truoc_tuyen_dung, :cong_viec_chinh_duoc_giao, :so_truong_cong_tac, :ngay_bat_dau_lam_viec, :ghi_chu
+  attr_accessible :can_bo_thong_tin_id, :don_vi_id, :nghe_nghiep_truoc_tuyen_dung, :cong_viec_id, :so_truong_cong_tac, :ngay_bat_dau_lam_viec, :ghi_chu
   belongs_to :can_bo_thong_tin
   belongs_to :don_vi
-  validates_presence_of :can_bo_thong_tin_id,:don_vi_id, :ngay_bat_dau_lam_viec, :cong_viec_chinh_duoc_giao ,:message => "#{Param.get_param_value("is_not_blank")}"
+  belongs_to :cong_viec
+  validates_presence_of :can_bo_thong_tin_id,:don_vi_id, :ngay_bat_dau_lam_viec, :cong_viec_id ,:message => "#{Param.get_param_value("is_not_blank")}"
   validates_uniqueness_of :can_bo_thong_tin_id, :message => "#{Param.get_param_value "has_already_been_taken"}"
 
   def self.search(search_value)

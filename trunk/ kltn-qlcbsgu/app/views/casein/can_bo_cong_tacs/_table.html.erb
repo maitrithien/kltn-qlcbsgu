@@ -21,7 +21,7 @@
           <td><%= casein_table_cell_link "#{can_bo_cong_tac.can_bo_thong_tin.ma_cb} - #{can_bo_cong_tac.can_bo_thong_tin.ho_ten}", casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 			<td><%= casein_table_cell_link can_bo_cong_tac.don_vi.ten_don_vi, casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 			<td><%= casein_table_cell_link truncate(can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung, :length => 20), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
-			<td><%= casein_table_cell_link truncate(can_bo_cong_tac.cong_viec_chinh_duoc_giao, :length => 20), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
+			<td><%= casein_table_cell_link truncate(can_bo_cong_tac.cong_viec.ten_cong_viec, :length => 20), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 			<td><%= casein_table_cell_link truncate(can_bo_cong_tac.so_truong_cong_tac, :length => 25), casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 			<td><%= casein_table_cell_link ngay_bat_dau_lam_viec, casein_can_bo_cong_tac_path(can_bo_cong_tac) %></td>
 

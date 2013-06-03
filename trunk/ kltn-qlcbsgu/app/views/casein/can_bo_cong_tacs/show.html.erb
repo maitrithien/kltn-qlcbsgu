@@ -16,11 +16,11 @@
 </tr>
 <tr>
 	<th><b>Công việc chính được giao:</b></th>
-	<td><%= @can_bo_cong_tac.cong_viec_chinh_duoc_giao %></td>
+	<td><%= @can_bo_cong_tac.cong_viec.ten_cong_viec %></td>
 </tr>
 <tr>
 	<th><b>Sở trường công tác:</b></th>
-	<td><%= @can_bo_cong_tac.so_truong_cong_tac %></td>
+	<td><%= @can_bo_cong_tac.cong_viec.ten_cong_viec %></td>
 </tr>
 <% ngay_bat_dau_lam_viec = "" %>
 <% if @can_bo_cong_tac.ngay_bat_dau_lam_viec %>
@@ -30,6 +30,7 @@
 	<th><b>Ngày bắt đầu làm việc:</b></th>
 	<td><%= ngay_bat_dau_lam_viec %></td>
 </tr>
+
 </table>
 
 <p class="submits">

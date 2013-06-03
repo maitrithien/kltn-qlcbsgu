@@ -5,6 +5,7 @@
 		<th>Tên Đơn Vị</th>
 		<th>Địa Chỉ</th>
 		<th>Số Điện Thoại</th>
+		<th>Email</th>
 		<th>&nbsp;</th>
 	</tr>
 	
@@ -13,6 +14,7 @@
 			<td><%= casein_table_cell_link don_vi.ten_don_vi, casein_don_vi_path(don_vi) %></td>
 			<td><%= casein_table_cell_link don_vi.dia_chi, casein_don_vi_path(don_vi) %></td>
 			<td><%= casein_table_cell_link don_vi.so_dien_thoai, casein_don_vi_path(don_vi) %></td>
+			<td><%= casein_table_cell_link don_vi.email, casein_don_vi_path(don_vi) %></td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("delete"), casein_don_vi_path(don_vi), :method => :delete, :confirm => "Bạn có chắc muốn xóa đơn vị #{don_vi.ten_don_vi}?") %>
 			</td>

@@ -13,6 +13,9 @@
 	<%= casein_text_field f, f.object, :so_dien_thoai, :casein_label => "Số Điện Thoại" %>
 </div>
 <div class="tfContainer tfContainerSecond">
+	<%= casein_text_field f, f.object, :email, :casein_label => "Email" %>
+</div>
+<div class="tfContainer ">
 	<%= casein_select f, f.object, :loai_don_vi_id, LoaiDonVi.all.collect{|o| ["#{o.ten_loai_don_vi}", o.id]}, :casein_label => "Loại Đơn Vị".html_safe %>
 </div>
 
