@@ -909,31 +909,157 @@ module Casein
       end
     end
 
+    def statistic_by_trinh_do_chuyen_mon
+      don_vi_ids = []
+      trinh_do_chuyen_mon_ids = []
+      @trinh_do_chuyen_mons = []
 
-    def statistic_by_age
-      can_bo_thong_tins = 
-      range_of_age = params[:range] || "0"
-      ranges = range_of_age.split(";").map { |r| Param.magick(r) }
-      @hash = {}
       DonVi.all.each do |dv|
+        if params["dv_#{dv.id}"]
+          don_vi_ids.push dv.id
+        end
+      end
+
+      TrinhDoChuyenMon.all.each do |td|
+        if params["td_#{td.id}"]
+          trinh_do_chuyen_mon_ids.push td.id
+          @trinh_do_chuyen_mons.push td.trinh_do
+        end
+      end
+
+      hash_trinh_do_chuyen_mon(don_vi_ids, trinh_do_chuyen_mon_ids)
+
+      respond_to do |f|
+        f.html
+        f.json { render :json => @hash }
+        f.xls {
+          book = Spreadsheet::Workbook.new
+          list = book.create_worksheet :name => 'Can bo don vi - trinh do chuyen mon'
+          
+          list.row(0)[0]= "STT"
+          list.row(0)[1] = "Don vi"
+          @trinh_do_chuyen_mons.each_with_index { |e, i|  
+            list.row(0)[(i + 1)*3 - 1] = e
+            list.row(1)[(i + 1)*3 - 1] = "Nam"
+            list.row(1)[(i + 1)*3] = "Nu"
+            list.row(1)[(i + 1)*3 + 1] = "+"
+          }
+
+          @hash.each_with_index { |h, index|
+            list.row(index + 2)[0] = index + 1
+            list.row(index + 2)[1] = h[0]
+            arr = []
+            h[1].map do |r|
+              r[1].each do |k, v|
+                arr.push v
+              end
+            end
+            arr.each_with_index { |e, i|  
+              list.row(index + 2)[i + 2] = e
+            }
+           
+          }
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          list.row(0).default_format = header_format
+          list.row(1).default_format = header_format
+          list.merge_cells(0, 0, 1, 0)
+          list.merge_cells(0, 1, 1, 1)
+          @trinh_do_chuyen_mons.each_with_index { |e, i|  
+            s = (i + 1) * 3 - 1
+            list.merge_cells(0, s, 0, s + 2)
+          }
+          #output to blob object
+          blob = StringIO.new("")
+          book.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Thong_ke_can_bo_don_vi_trinh_do_chuyen_mon.xls"
+        
+        }
+      end
+    end
+
+    def hash_trinh_do_chuyen_mon don_vi_ids = [], trinh_do_chuyen_mon_ids = []
+      @hash = {}
+      don_vi_ids.map { |dv_id|  
         group = {}
-        ranges.map do |r|
+        trinh_do_chuyen_mon_ids.map { |td_id|  
+          can_bos = CanBoThongTin.find(:all, conditions:["don_vi_id = ? AND id in (select can_bo_thong_tin_id from can_bo_trinh_dos where hoc_vi_id = ?)", dv_id, td_id]) || nil
+          if can_bos
+            count = 0
+            m = 0
+            item = {}
+            can_bos.each do |cb|
+              count += 1
+              if cb.gioi_tinh #dem so can bo co gioi tinh la nam
+                m += 1
+              end
+            end
+            item.merge!({:nam => m, :nu => count - m, :tong => count})
+            group.merge!("#{TrinhDoChuyenMon.find(td_id).trinh_do}" => item)
+          end
+        }
+        @hash.merge!("#{DonVi.find(dv_id).ten_don_vi}" => group)
+      }
+      @hash
+    end
+
+    def hash_age don_vi_ids = [], range_of_age = []
+      @ranges = range_of_age.split(";").map { |r| Param.magick(r) }
+      @hash = {}
+      don_vi_ids.each do |dv_id|
+        group = {}
+        @ranges.map do |r|
           count = 0
-          CanBoThongTin.find_all_by_don_vi_id(dv.id).each do |cb|
+          CanBoThongTin.find_all_by_don_vi_id(dv_id).each do |cb|
             if (r.include? cb.age)
               count += 1
             end
           end
           group.merge!({ "#{r}" => count})
         end
-        @hash.merge!({ "#{dv.ten_don_vi}" => group})
+        @hash.merge!({ "#{DonVi.find(dv_id).ten_don_vi}" => group})
       end
+      @hash
+    end
+
+
+    def statistic_by_age
+      @range_of_age = params[:range] || "0"
+      @don_vi_ids = []
+      DonVi.all.each do |dv|
+        if params["dv_#{dv.id}"]
+          @don_vi_ids.push dv.id
+        end
+      end
+
+      hash_age @don_vi_ids, @range_of_age
 
       respond_to do |f|
         f.html
         f.json { render :json => @hash }
+        f.xls {
+          book = Spreadsheet::Workbook.new
+          list = book.create_worksheet :name => 'Can bo don vi - do tuoi'
+          
+          list.row(0).concat ["STT", "Don vi"] + @range_of_age.split(";").map { |e| "#{e}" }.to_a
+          @hash.each_with_index { |h, index|
+            list.row(index + 1)[0] = index + 1
+            list.row(index + 1)[1] = h[0]
+            h[1].each_with_index { |r, i|
+              list.row(index + 1)[2 + i] = r[1]
+            }
+           
+          }
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          book.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Thong_ke_can_bo_don_vi_do_tuoi.xls"
+        
+        }
       end
-
     end
 
     def show_result

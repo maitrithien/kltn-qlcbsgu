@@ -1,0 +1,64 @@
+<div class="blk-share" style="float: left; width: 97%;">
+  	<h2>Thống kê cán bộ theo độ tuổi</h2>
+  	<% unless params[:f] %>
+  	<div class="paragraph stat toggle">
+  		<%= form_tag statistic_by_trinh_do_chuyen_mon_casein_can_bo_thong_tins_url, :method => :get do %>
+  		<div class="tfcontainer"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p></div>
+		<% DonVi.all.each do |dv| %>
+			<div class="tfcontainer">
+				<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
+			</div>
+		<% end %>
+
+		<p></p>
+
+  		<div class="tfcontainer"><p style="font-weight:bold;">(2). Chọn các trình độ chuyên môn:</p></div>
+  		<% TrinhDoChuyenMon.all.each do |td| %>
+			<div class="tfcontainer">
+				<label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label>
+			</div>
+		<% end %>
+
+
+  		<div class="tfContainerFullWidth" >
+       		<p>
+       			<%= hidden_field_tag :f, 1 %>
+       			<%= submit_tag "Thống kê", :style => "text-align: right; padding: 5px 12px; margin-right: 25px;"%>
+       		</p>
+		</div>
+  		<% end %>
+  	<% else %>
+		<table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
+			<tr>
+				<th>Tên đơn vị</th>
+				<% @trinh_do_chuyen_mons.map do |td| %>
+					<td colspan="3"><%= td %></td>
+				<% end %>
+			</tr>
+			<tr>
+				<th>&nbsp;</th>
+				<% @trinh_do_chuyen_mons.map do |td| %>
+					<td>Nam</td>
+					<td>Nữ</td>
+					<td>+</td>
+				<% end %>			
+			</tr>
+			<% @hash.each do |h| %>
+			<tr>
+				<th align="center"><%= h[0] %></th>
+				<% h[1].map do |r| %>
+					<% r[1].each do |k, v|%>
+						<td><%= v %></td>
+					<% end %>
+				<% end %>
+			</tr>
+			<% end %>
+			
+		</table> 
+		<p class="submits">
+			<% unless @hash.empty? %>
+				<%= link_to "Xuất nội dung ra excel", statistic_by_age_casein_can_bo_thong_tins_url(:format => :xls, :range => params[:range]), :class=> "update", :style => "text-decoration:none; color: #fff;" %>
+			<% end %>
+		</p>
+  	<% end %>
+</div>

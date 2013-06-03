@@ -5,7 +5,6 @@
 		<th>Mã CB</th>
 		<th>Họ và tên</th>
 		<th>Ngày sinh</th>
-		<th>Tuổi</th>
 		<th>Dân tộc</th>
 		<th>Chức danh</th>
 		<th>Ngạch</th>
@@ -31,13 +30,11 @@
 				<%
 				if can_bo_thong_tin.don_vi_id == dv.id and can_bo_thong_tin.gioi_tinh == g
 					ngay_sinh = ""
-					tuoi = ""
 					chuc_danh = ""
 					ngach = ""
 					trinh_do = CanBoTrinhDo.find_by_can_bo_thong_tin_id can_bo_thong_tin.id
 					if can_bo_thong_tin.ngay_sinh
 						ngay_sinh = can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y")
-						tuoi = can_bo_thong_tin.age
 					end
 					if trinh_do
 						if trinh_do.hoc_ham_id
@@ -69,10 +66,6 @@
 					</td>
 					<td>
 						<%= casein_table_cell_link 	"#{ngay_sinh}", 
-													casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
-					</td>
-					<td>
-						<%= casein_table_cell_link 	"#{tuoi}", 
 													casein_can_bo_thong_tin_path(can_bo_thong_tin) %>
 					</td>
 					<td>

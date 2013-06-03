@@ -5,6 +5,14 @@
 	  	<div class="paragraph stat toggle">
 	  		<%= form_tag statistic_by_age_casein_can_bo_thong_tins_url, :method => :get do %>
 	  			<%= hidden_field_tag :f, 1 %>
+	  			<div class="tfcontainer"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p></div>
+	  			<% DonVi.all.each do |dv| %>
+					<div class="tfcontainer">
+						<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
+					</div>
+				<% end %>
+
+				<div class="tfcontainer"><p style="font-weight:bold;">(2). Nhập các khoảng độ tuổi:</p></div>
 	  			<div class="tfContainer">
 	  				<label>Độ tuổi thống kê<br>
 	  					<%= text_field_tag :range, nil, :placeholder => "Nhập vào dãy số, ví dụ: 20..29; 30..49; 40...50; 50...60", :class => "caseinTextField" %>
@@ -42,7 +50,11 @@
 			<% end %>
 			
 		</table> 
-
+		<p class="submits">
+			<% unless @hash.empty? %>
+				<%= link_to "Xuất nội dung ra excel", statistic_by_age_casein_can_bo_thong_tins_url(:format => :xls, :range => params[:range]), :class=> "update", :style => "text-decoration:none; color: #fff;" %>
+			<% end %>
+		</p>
 	<% end %>
 </div>
 

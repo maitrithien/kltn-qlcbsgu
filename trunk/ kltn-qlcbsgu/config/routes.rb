@@ -103,6 +103,7 @@ QLTtCbvcSgu::Application.routes.draw do
       get "advance_search", :on => :collection
       get "statistic", :on => :collection
       get "statistic_by_age", :on => :collection
+      get "statistic_by_trinh_do_chuyen_mon", :on => :collection
       get "custom_export_data", :on => :collection
       get "get_and_export_to_excel", :on => :collection
 
