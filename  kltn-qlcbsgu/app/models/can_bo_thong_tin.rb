@@ -23,6 +23,11 @@ class CanBoThongTin < ActiveRecord::Base
   belongs_to :don_vi
   belongs_to :quyet_dinh
 
+  def age
+    birthday = self.ngay_sinh
+    (Time.now.to_s(:number).to_i - birthday.to_time.to_s(:number).to_i)/10e9.to_i + 1
+  end
+
   def self.search(search_value, don_vi_id)
     ngay_sinh = Date.parse(search_value) rescue nil
 	  if search_value
