@@ -52,7 +52,7 @@
 		</table> 
 		<p class="submits">
 			<% unless @hash.empty? %>
-				<%= link_to "Xuất nội dung ra excel", statistic_by_age_casein_can_bo_thong_tins_url(:format => :xls, :range => params[:range]), :class=> "update", :style => "text-decoration:none; color: #fff;" %>
+				<%= link_to "Xuất nội dung ra excel", "#{statistic_by_age_casein_can_bo_thong_tins_url(:format => :xls, :range => params[:range])}&#{@params.join("&")}", :class=> "update", :style => "text-decoration:none; color: #fff;" %>
 			<% end %>
 		</p>
 	<% end %>

@@ -914,10 +914,12 @@ module Casein
       don_vi_ids = []
       trinh_do_chuyen_mon_ids = []
       @trinh_do_chuyen_mons = []
+      @params = []
 
       DonVi.all.each do |dv|
         if params["dv_#{dv.id}"]
           don_vi_ids.push dv.id
+          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
         end
       end
 
@@ -925,6 +927,7 @@ module Casein
         if params["td_#{td.id}"]
           trinh_do_chuyen_mon_ids.push td.id
           @trinh_do_chuyen_mons.push td.trinh_do
+          @params.push "td_#{td.id}=#{params["td_#{td.id}"]}"
         end
       end
 
@@ -979,6 +982,78 @@ module Casein
       end
     end
 
+    def statistic_by_loai_lao_dong
+      don_vi_ids = []
+      loai_lao_dong_ids = []
+      @loai_lao_dongs = []
+      @params = []
+
+      DonVi.all.each do |dv|
+        if params["dv_#{dv.id}"]
+          don_vi_ids.push dv.id
+          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+        end
+      end
+
+      LoaiLaoDong.all.each do |lld|
+        if params["lld_#{lld.id}"]
+          loai_lao_dong_ids.push lld.id
+          @loai_lao_dongs.push lld.ten_loai_lao_dong
+          @params.push "lld_#{lld.id}=#{params["lld_#{lld.id}"]}"
+        end
+      end
+
+      hash_loai_lao_dong(don_vi_ids, loai_lao_dong_ids)
+
+      respond_to do |f|
+        f.html
+        f.json {render :json => @hash}
+        f.xls {
+          book = Spreadsheet::Workbook.new
+          list = book.create_worksheet :name => 'Can bo don vi - loai lao dong'
+          
+          list.row(0)[0]= "STT"
+          list.row(0)[1] = "Don vi"
+          @loai_lao_dongs.each_with_index { |e, i|  
+            list.row(0)[(i + 1)*3 - 1] = e
+            list.row(1)[(i + 1)*3 - 1] = "Nam"
+            list.row(1)[(i + 1)*3] = "Nu"
+            list.row(1)[(i + 1)*3 + 1] = "+"
+          }
+
+          @hash.each_with_index { |h, index|
+            list.row(index + 2)[0] = index + 1
+            list.row(index + 2)[1] = h[0]
+            arr = []
+            h[1].map do |r|
+              r[1].each do |k, v|
+                arr.push v
+              end
+            end
+            arr.each_with_index { |e, i|  
+              list.row(index + 2)[i + 2] = e
+            }
+           
+          }
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          list.row(0).default_format = header_format
+          list.row(1).default_format = header_format
+          list.merge_cells(0, 0, 1, 0)
+          list.merge_cells(0, 1, 1, 1)
+          @loai_lao_dongs.each_with_index { |e, i|  
+            s = (i + 1) * 3 - 1
+            list.merge_cells(0, s, 0, s + 2)
+          }
+          #output to blob object
+          blob = StringIO.new("")
+          book.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Thong_ke_can_bo_don_vi_loai_lao_dong.xls"
+        
+        }
+      end
+    end
+
     def hash_trinh_do_chuyen_mon don_vi_ids = [], trinh_do_chuyen_mon_ids = []
       @hash = {}
       don_vi_ids.map { |dv_id|  
@@ -1023,13 +1098,112 @@ module Casein
       @hash
     end
 
+    def hash_loai_lao_dong don_vi_ids = [], loai_lao_dong_ids = []
+      @hash = {}
+      don_vi_ids.map { |dv_id|  
+        group = {}
+        loai_lao_dong_ids.map { |lld_id|  
+          can_bos = CanBoThongTin.find(:all, :conditions => ["don_vi_id = ? AND loai_lao_dong_id = ?", dv_id, lld_id])
+          if can_bos
+            count = 0
+            m = 0
+            item = {}
+            can_bos.each_with_index { |c, index|
+              count += 1
+              if c.gioi_tinh
+                m += 1
+              end
+            }
+            item.merge!({:nam => m, :nu => count - m, :tong => count})
+            group.merge!("#{LoaiLaoDong.find(lld_id).ten_loai_lao_dong}" => item)
+          end
+        }
+        @hash.merge!("#{DonVi.find(dv_id).ten_don_vi}" => group)
+      }
+
+      @hash
+    end
+
+    def hash_cong_viec don_vi_ids = [], cong_viec_ids = []
+      @hash = {}
+      don_vi_ids.map { |dv_id|  
+        group = {}
+        cong_viec_ids.map { |cv_id|  
+          can_bos = CanBoThongTin.find(:all, conditions:["don_vi_id = ? AND id in (select can_bo_thong_tin_id from can_bo_cong_tacs where cong_viec_id = ?)", dv_id, cv_id]) || nil
+          if can_bos
+            count = 0
+            can_bos.each do |cb|
+              count += 1
+            end
+            group.merge!("#{CongViec.find(cv_id).ten_cong_viec}" => count)
+          end
+        }
+        @hash.merge!("#{DonVi.find(dv_id).ten_don_vi}" => group)
+      }
+      @hash
+    end
+
+    def statistic_by_cong_viec
+      don_vi_ids = []
+      cong_viec_ids = []
+      @params = []
+      @cong_viecs = []
+
+      DonVi.all.each do |dv|
+        if params["dv_#{dv.id}"]
+          don_vi_ids.push dv.id
+          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+        end
+      end
+
+      CongViec.all.each do |cv|
+        if params["cv_#{cv.id}"]
+          cong_viec_ids.push cv.id
+          @cong_viecs.push cv.ten_cong_viec
+          @params.push "cv_#{cv.id}=#{params["cv_#{cv.id}"]}"
+        end
+      end
+
+      hash_cong_viec don_vi_ids, cong_viec_ids
+
+      respond_to do |f|
+        f.html
+        f.json {render :json => @hash}
+        f.xls {
+          book = Spreadsheet::Workbook.new
+          list = book.create_worksheet :name => 'Can bo don vi - cong viec'
+          
+          list.row(0).concat ["STT", "Don vi"] + @cong_viecs
+          @hash.each_with_index { |h, index|
+            list.row(index + 1)[0] = index + 1
+            list.row(index + 1)[1] = h[0]
+            h[1].each_with_index { |r, i|
+              list.row(index + 1)[2 + i] = r[1]
+            }
+           
+          }
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold
+          list.row(0).default_format = header_format
+          #output to blob object
+          blob = StringIO.new("")
+          book.write blob
+          #respond with blob object as a file
+          send_data blob.string, :type => :xls, :filename => "Thong_ke_can_bo_don_vi_cong_viec.xls"
+        
+        }
+      end
+    end
+
 
     def statistic_by_age
       @range_of_age = params[:range] || "0"
       @don_vi_ids = []
+      @params = []
+
       DonVi.all.each do |dv|
         if params["dv_#{dv.id}"]
           @don_vi_ids.push dv.id
+          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
         end
       end
 
