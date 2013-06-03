@@ -911,19 +911,22 @@ module Casein
 
 
     def statistic_by_age
-      can_bo_thong_tins = CanBoThongTin.all
+      can_bo_thong_tins = 
       range_of_age = params[:range] || "0"
       ranges = range_of_age.split(";").map { |r| Param.magick(r) }
       @hash = {}
-      
-      ranges.map do |r|
-        count = 0
-        can_bo_thong_tins.each do |cb|
-          if (r.include? cb.age)
-            count += 1
+      DonVi.all.each do |dv|
+        group = {}
+        ranges.map do |r|
+          count = 0
+          CanBoThongTin.find_all_by_don_vi_id(dv.id).each do |cb|
+            if (r.include? cb.age)
+              count += 1
+            end
           end
+          group.merge!({ "#{r}" => count})
         end
-        @hash.merge!({ "#{r}" => count})
+        @hash.merge!({ "#{dv.ten_don_vi}" => group})
       end
 
       respond_to do |f|
