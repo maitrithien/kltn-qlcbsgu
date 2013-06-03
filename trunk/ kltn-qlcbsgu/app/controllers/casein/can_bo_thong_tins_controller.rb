@@ -127,6 +127,7 @@ module Casein
 
       respond_to do |format|
         format.html
+        format.json {render :json => @can_bo_thong_tin}
         format.xls{
           book = Spreadsheet::Workbook.new
           none_format = Spreadsheet::Format.new
@@ -851,8 +852,8 @@ module Casein
         if @can_bo_thong_tin.trinh_do_chuyen_mon_id.to_s.length>0
           options = options.merge(:trinh_do_chuyen_mon_id =>  @can_bo_thong_tin.trinh_do_chuyen_mon_id)
         end
-        if @can_bo_thong_tin.chuc_vu_id.to_s.length>0
-          options = options.merge(:chuc_vu_id =>  @can_bo_thong_tin.chuc_vu_id)
+        if @can_bo_thong_tin.chuc_vu_code.to_s.length>0
+          options = options.merge(:chuc_vu_code =>  @can_bo_thong_tin.chuc_vu_code)
         end
         if @can_bo_thong_tin.ngach_id.to_s.length>0
           options = options.merge(:ngach_id =>  @can_bo_thong_tin.ngach_id)

@@ -5,4 +5,5 @@ class ChucVu < ActiveRecord::Base
     validates_uniqueness_of :ten_chuc_vu, :message => "#{Param.get_param_value "has_been_already_taken"}"
 
     has_many :qua_trinh_cong_tacs
+    has_many :can_bo_thong_tins
 end

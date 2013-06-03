@@ -10,7 +10,7 @@ module Casein
     def index
       @casein_page_title = 'Don vis'
       @don_vis_xls = DonVi.all
-  		@don_vis = DonVi.paginate :page => params[:page]
+  		@don_vis = DonVi.paginate :page => params[:page] ,:per_page => 10
       respond_to do |format|
         format.html
         format.xls{

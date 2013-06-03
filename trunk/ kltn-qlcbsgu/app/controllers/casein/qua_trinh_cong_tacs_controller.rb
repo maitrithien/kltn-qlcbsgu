@@ -69,7 +69,27 @@ module Casein
       quyet_dinh = QuyetDinh.find_by_so_qd(@qua_trinh_cong_tac.so_quyet_dinh)
       if quyet_dinh
         @qua_trinh_cong_tac.quyet_dinh_id = quyet_dinh.id
+
+            qua_trinh_last = QuaTrinhCongTac.get_last(@qua_trinh_cong_tac.can_bo_thong_tin_id)
+            unless qua_trinh_last.thoi_gian_ket_thuc
+                thoi_gian_kt = @qua_trinh_cong_tac.thoi_gian_bat_dau
+                qua_trinh_last.update_attribute(:thoi_gian_ket_thuc, thoi_gian_kt)
+              
+            end
+
+
         if @qua_trinh_cong_tac.save
+
+           chuc_vu_id = @qua_trinh_cong_tac.chuc_vu_id
+            p = nil
+            p = CanBoThongTin.find(@qua_trinh_cong_tac.can_bo_thong_tin_id)
+            if p != nil
+              p.update_attribute(:chuc_vu_id, chuc_vu_id)
+            end
+
+           
+
+
           flash[:notice] = Param.get_param_value("adding_success")
           redirect_to casein_qua_trinh_cong_tacs_path
         else
@@ -93,6 +113,17 @@ module Casein
         end
         
       if @qua_trinh_cong_tac.update_attributes params[:qua_trinh_cong_tac]
+
+        qua_trinh_last = QuaTrinhCongTac.get_last(@qua_trinh_cong_tac.can_bo_thong_tin_id)
+        if qua_trinh_last.id == @qua_trinh_cong_tac.id
+          chuc_vu_id = @qua_trinh_cong_tac.chuc_vu_id
+          p = nil
+          p = CanBoThongTin.find(@qua_trinh_cong_tac.can_bo_thong_tin_id)
+          if p != nil
+            p.update_attribute(:chuc_vu_id, chuc_vu_id)
+          end
+        end
+
         flash[:notice] = Param.get_param_value("updating_success")
         redirect_to casein_qua_trinh_cong_tac_path(params[:id])
       else

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603142554) do
+ActiveRecord::Schema.define(:version => 20130603181823) do
 
   create_table "bac_luongs", :force => true do |t|
     t.integer  "ngach_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20130603142554) do
     t.integer  "don_vi_id"
     t.integer  "quyet_dinh_id"
     t.integer  "loai_lao_dong_id"
+    t.integer  "chuc_vu_id"
   end
 
   add_index "can_bo_thong_tins", ["ma_cb"], :name => "ma_cb", :unique => true
