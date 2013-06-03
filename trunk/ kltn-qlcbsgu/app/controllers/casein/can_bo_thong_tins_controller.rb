@@ -910,6 +910,29 @@ module Casein
     end
 
 
+    def statistic_by_age
+      can_bo_thong_tins = CanBoThongTin.all
+      range_of_age = params[:range] || "0"
+      ranges = range_of_age.split(";").map { |r| Param.magick(r) }
+      @hash = {}
+      
+      ranges.map do |r|
+        count = 0
+        can_bo_thong_tins.each do |cb|
+          if (r.include? cb.age)
+            count += 1
+          end
+        end
+        @hash.merge!({ "#{r}" => count})
+      end
+
+      respond_to do |f|
+        f.html
+        f.json { render :json => @hash }
+      end
+
+    end
+
     def show_result
       @casein_page_title = Param.get_param_value("can_bo_thong_tin_show_result_page_title")
       @errors = Hash.new

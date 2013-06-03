@@ -11,6 +11,21 @@ class Param < ActiveRecord::Base
     end
   end
 
+  #change string to array, 
+  #e.g: "1, 2..5, 6" = [1, 2, 3, 4, 5, 6]
+  #e.g: "1, 2...5, 6" = [1, 2, 3, 4, 6]
+  def self.magick(str)
+    str.split(",").map do |item|
+      item.scan(/(\d+)(\.+)(\d+)/)
+      if $1
+        Range.new($1.to_i, $3.to_i, $2 == "...").to_a
+      else
+        item.to_i
+      end
+    end.flatten
+  end
+
+
   #build select_year
   def self.select_year(options = {})
     hash = []
