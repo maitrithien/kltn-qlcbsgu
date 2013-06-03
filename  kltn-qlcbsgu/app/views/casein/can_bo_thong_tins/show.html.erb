@@ -72,6 +72,15 @@
 	<td><b>Số sổ BHXH:</b></td>
 	<td><%= @can_bo_thong_tin.so_BHXH %></td>
 </tr>
+
+<%unless @can_bo_thong_tin.chuc_vu_id.nil?%>
+<tr>
+  <td><b>Chức vụ hiện tại:</b></td>
+  <td><%= @can_bo_thong_tin.chuc_vu.ten_chuc_vu %></td>
+</tr>
+<%end%>
+
+
 <tr>
   <td><b>Quyết Định tuyển dụng:</b></td>
   <td><%= @can_bo_thong_tin.quyet_dinh.so_qd %></td>

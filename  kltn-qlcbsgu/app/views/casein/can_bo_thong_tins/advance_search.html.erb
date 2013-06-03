@@ -67,7 +67,7 @@
       </div>
 
       <div class="tfContainer2 ">
-        <%= casein_select f, f.object, :chuc_vu_id, ChucVu.all.collect{|o| ["#{o.ten_chuc_vu}", o.id]},{:include_blank =>"-----------Chọn----------", :casein_label => "Tên chức vụ"} %>
+        <%= casein_select f, f.object, :chuc_vu_code, ChucVu.all.collect{|o| ["#{o.ten_chuc_vu}", o.id]},{:include_blank =>"-----------Chọn----------", :casein_label => "Tên chức vụ"} %>
       </div>
       <%= hidden_field :search_advance_req, "true" %>
       <p style="text-align: right;">
