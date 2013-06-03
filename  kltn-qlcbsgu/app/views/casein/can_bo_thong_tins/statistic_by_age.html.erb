@@ -1,0 +1,48 @@
+<div class="blk-share" style="float: left; width: 97%;">
+  <% @range = params[:range] || "0" %>
+  	<h2>Thống kê cán bộ theo độ tuổi</h2>
+  	<% unless params[:f] %>
+	  	<div class="paragraph stat toggle">
+	  		<%= form_tag statistic_by_age_casein_can_bo_thong_tins_url, :method => :get do %>
+	  			<%= hidden_field_tag :f, 1 %>
+	  			<div class="tfContainer">
+	  				<label>Độ tuổi thống kê<br>
+	  					<%= text_field_tag :range, nil, :placeholder => "Nhập vào dãy số, ví dụ: 20..29; 30..49; 40...50; 50...60", :class => "caseinTextField" %>
+	  				</label>
+	  			</div>
+	  			<div class="tfContainer tfContainerSecond" ></div>
+	  			<div class="tfContainerFullWidth" >
+	  				<p style="font-style:italic; font-size: 11px; color: gray;">* Lưu ý, Chọn theo dãy số:<br>
+	  					+ Dấu ba chấm "..." cho khoảng số không tính cận, ví dụ: "1...4" => 1, 2, 3<br>
+	  					+ Dấu hai chấm ".." cho khoảng số kể cả cận, ví dụ: "1..3" => 1, 2, 3<br>
+	  					+ Dấu chấm phẩy ";" ngăn cách các khoảng với nhau<br>
+	  				</p>
+			       	<p><%= submit_tag "Thống kê", :style => "text-align: right; padding: 5px 12px; margin-right: 25px;"%></p>
+	  			</div>
+	  		<% end %>
+	  	</div>
+  	<% else %>
+
+	  	<p>Dữ liệu thống kê là các dãy độ tuổi:</p>
+	  	<p><%= @range.split(';').map { |item| Param.magick(item)} %></p>
+		<table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
+			<tr>
+				<th>Tên đơn vị</th>
+				<% @range.split(';').to_a.map do |r| %>
+					<th><%= r %> tuổi</th>
+				<% end %>
+			</tr>
+			<% @hash.each do |h| %>
+			<tr>
+				<th align="center"><%= h[0] %></th>
+				<% h[1].map do |r| %>
+					<td><%= r[1] %></td>
+				<% end %>
+			</tr>
+			<% end %>
+			
+		</table> 
+
+	<% end %>
+</div>
+
