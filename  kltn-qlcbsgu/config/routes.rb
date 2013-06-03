@@ -2,6 +2,7 @@ QLTtCbvcSgu::Application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :cong_viecs
 		resources :loai_lao_dongs
 		resources :loai_don_vis
 		resources :quan_he_gia_dinhs do

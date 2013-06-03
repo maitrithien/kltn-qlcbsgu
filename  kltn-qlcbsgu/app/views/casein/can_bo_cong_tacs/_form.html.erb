@@ -15,7 +15,7 @@
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_text_field f, f.object, :cong_viec_chinh_duoc_giao, :casein_label => "Công việc chính được giao" %>
+	<%= casein_select f, f.object, :cong_viec_id, CongViec.all.collect {|p| [ "#{p.ten_cong_viec}", p.id ] }, {:include_blank => '--Chọn công việc--', :casein_label => "Công việc chính".html_safe } %>
 </div>
 
 <div class="tfContainer">
