@@ -5,27 +5,33 @@
 	  	<div class="paragraph stat toggle">
 	  		<%= form_tag statistic_by_age_casein_can_bo_thong_tins_url, :method => :get do %>
 	  			<%= hidden_field_tag :f, 1 %>
-	  			<div class="tfcontainer"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p></div>
-	  			<% DonVi.all.each do |dv| %>
-					<div class="tfcontainer">
-						<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
+	  			<div class="tfContainerFullWidth"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p>
+		  			<div class="overflow_scroll">
+		  				<% DonVi.all.each do |dv| %>
+						
+							<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label><br>
+						
+						<% end %>
 					</div>
-				<% end %>
-
-				<div class="tfcontainer"><p style="font-weight:bold;">(2). Nhập các khoảng độ tuổi:</p></div>
-	  			<div class="tfContainer">
-	  				<label>Độ tuổi thống kê<br>
-	  					<%= text_field_tag :range, nil, :placeholder => "Nhập vào dãy số, ví dụ: 20..29; 30..49; 40...50; 50...60", :class => "caseinTextField" %>
-	  				</label>
+				</div>
+				<div class="tfContainerFullWidth"><p>&nbsp;</p> </div>
+				<div class="tfContainerFullWidth"><p style="font-weight:bold;">(2). Nhập các khoảng độ tuổi:</p>
+		  			<div class="tfContainer">
+		  				<label>Độ tuổi thống kê<br>
+		  					<%= text_field_tag :range, nil, :placeholder => "Nhập vào dãy số, ví dụ: 20..29; 30..49; 40...50; 50...60", :class => "caseinTextField" %>
+		  				</label>
+		  			</div>
+		  			<div class="tfContainerFullWidth" >
+		  				<p style="font-style:italic; font-size: 11px; color: gray;">* Lưu ý, Chọn theo dãy số:<br>
+		  					+ Dấu ba chấm "..." cho khoảng số không tính cận, ví dụ: "1...4" => 1, 2, 3<br>
+		  					+ Dấu hai chấm ".." cho khoảng số kể cả cận, ví dụ: "1..3" => 1, 2, 3<br>
+		  					+ Dấu chấm phẩy ";" ngăn cách các khoảng với nhau<br>
+		  				</p>
+				       	
+		  			</div>
 	  			</div>
-	  			<div class="tfContainer tfContainerSecond" ></div>
-	  			<div class="tfContainerFullWidth" >
-	  				<p style="font-style:italic; font-size: 11px; color: gray;">* Lưu ý, Chọn theo dãy số:<br>
-	  					+ Dấu ba chấm "..." cho khoảng số không tính cận, ví dụ: "1...4" => 1, 2, 3<br>
-	  					+ Dấu hai chấm ".." cho khoảng số kể cả cận, ví dụ: "1..3" => 1, 2, 3<br>
-	  					+ Dấu chấm phẩy ";" ngăn cách các khoảng với nhau<br>
-	  				</p>
-			       	<p><%= submit_tag "Thống kê", :style => "text-align: right; padding: 5px 12px; margin-right: 25px;"%></p>
+	  			<div class="tfContainer tfContainerFullWidth">
+	  				<p><%= submit_tag "Thống kê", :style => "text-align: right; padding: 5px 12px; margin-right: 25px;"%></p>
 	  			</div>
 	  		<% end %>
 	  	</div>
