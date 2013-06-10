@@ -1,0 +1,159 @@
+<div class="blk-share" style="float: left; width: 97%;">
+  <% @range = params[:range] || "0" %>
+  	<h2>Thống kê cán bộ</h2>
+  	<% unless params[:f] %>
+	  	<div class="paragraph stat toggle">
+	  		<%= form_tag statistic_total_casein_can_bo_thong_tins_url, :method => :get do %>
+	  			<%= hidden_field_tag :f, 1 %>
+	  			<div class="tfContainerFullWidth"><p style="font-weight:bold;">
+	  			Chọn các đơn vị cần thống kê:</p>
+		  			<div class="overflow_scroll">
+		  				<% DonVi.all.each do |dv| %>
+						
+							<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label><br>
+						
+						<% end %>
+					</div>
+				</div>
+				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
+				<%= check_box_tag "tdcm_chk", true %> Chọn trình độ chuyên môn:</label></p>
+			  		<div class="overflow_scroll">
+			  			<% TrinhDoChuyenMon.all.each do |td| %>
+						
+							<label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label><br>
+						
+						<% end %>
+					</div>
+				</div>
+				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
+				<%= check_box_tag "cv_chk", true %> Chọn công việc:</label></p>
+			  		<div class="overflow_scroll">
+			  			<% CongViec.all.each do |cv| %>
+						
+							<label for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label><br>
+						
+						<% end %>
+					</div>
+				</div>
+				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
+				<%= check_box_tag "lld_chk", true %> Chọn loại lao động:</label></p>
+			  		<div class="overflow_scroll">
+			  			<% LoaiLaoDong.all.each do |lld| %>
+						
+							<label for="lld_<%= lld.id %>"><%= check_box_tag "lld_#{lld.id}", true %> <%= lld.ten_loai_lao_dong %></label><br>
+						
+						<% end %>
+					</div>
+				</div>
+				<div class="tfContainerFullWidth"><p>&nbsp;</p> </div>
+				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
+				<%= check_box_tag "age_chk", true %> Nhập khoảng độ tuổi:</label></p>
+		  			<div class="tfContainer">
+		  				<label>Độ tuổi thống kê<br>
+		  					<%= text_field_tag :range, nil, :placeholder => "Nhập vào dãy số, ví dụ: 20..29; 30..49; 40...50; 50...60", :class => "caseinTextField" %>
+		  				</label>
+		  			</div>
+		  			<div class="tfContainerSecond" >
+		  				<p style="font-style:italic; font-size: 11px; color: gray;">* Lưu ý, Chọn theo dãy số:<br>
+		  					+ Dấu ba chấm "..." cho khoảng số không tính cận, ví dụ: "1...4" => 1, 2, 3<br>
+		  					+ Dấu hai chấm ".." cho khoảng số kể cả cận, ví dụ: "1..3" => 1, 2, 3<br>
+		  					+ Dấu chấm phẩy ";" ngăn cách các khoảng với nhau<br>
+		  				</p>
+				       	
+		  			</div>
+	  			</div>
+	  			<div class="tfContainer tfContainerFullWidth">
+	  				<p><%= submit_tag "Thống kê", :style => "text-align: right; padding: 5px 12px; margin-right: 25px;"%></p>
+	  			</div>
+	  		<% end %>
+	  	</div>
+  	<% else %>
+		<table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
+			<tr>
+				<th>Tên đơn vị</th>
+				<% if params["lld_chk"] %>
+					<% @loai_lao_dongs.map do |td| %>
+						<td colspan="3"><%= td %></td>
+					<% end %>
+				<% end %>
+				<% if params["tdcm_chk"] %>
+					<% @trinh_do_chuyen_mons.map do |td| %>
+						<td colspan="3"><%= td %></td>
+					<% end %>
+				<% end %>
+				<% if params["cv_chk"] %>
+					<% @cong_viecs.map do |td| %>
+						<td><%= td %></td>
+					<% end %>
+				<% end %>
+				<% if params["age_chk"] %>
+					<% @range.split(";").each do |cv |%>
+						<td><%= cv %></td>	
+					<% end %>
+				<% end %>
+			</tr>
+			<tr>
+				<th>&nbsp;</th>
+				<% if params["lld_chk"] %>
+					<% @loai_lao_dongs.map do |td| %>
+						<td>Nam</td>
+						<td>Nữ</td>
+						<td>+</td>
+					<% end %>	
+				<% end %>	
+				<% if params["tdcm_chk"] %>
+					<% @trinh_do_chuyen_mons.map do |td| %>
+						<td>Nam</td>
+						<td>Nữ</td>
+						<td>+</td>
+					<% end %>	
+				<% end %>	
+				<% if params["cv_chk"] %>
+					<% @cong_viecs.each do |cv |%>
+						<td>&nbsp;</td>	
+					<% end %>
+				<% end %>
+				<% if params["age_chk"] %>
+					<% @range.split(";").each do |cv |%>
+						<td>&nbsp;</td>	
+					<% end %>
+				<% end %>
+			</tr>
+			<% @don_vi_ids.each_with_index do |dv_id, i| %>
+			<tr>
+				<th><%= DonVi.find(dv_id).ten_don_vi %></th>
+				<% if params["lld_chk"] %>
+					<% @hash_dv_lld["#{dv_id}"].map do |lld| %>
+						<% lld[1].map do |e| %>
+							<td><%= e[1] %></td>
+						<% end %>
+					<% end %>
+				<% end %>
+				<% if params["tdcm_chk"] %>
+					<% @hash_dv_tdcm["#{dv_id}"].map do |td| %>
+						<% td[1].map do |e| %>
+							<td><%= e[1] %></td>
+						<% end %>
+					<% end %>
+				<% end %>
+				<% if params["cv_chk"] %>
+					<% @hash_dv_cv["#{dv_id}"].map do |cv| %>
+						<td><%= cv[1] %></td>
+					<% end %>
+				<% end %>
+				<% if params["age_chk"] %>
+					<% @hash_dv_age["#{dv_id}"].map do |age| %>
+						<td><%= age[1] %></td>
+					<% end %>
+				<% end %>
+
+			</tr>
+			<% end %>
+
+
+		</table> 
+		<p class="submits">
+		</p>
+	<% end %>
+</div>
+

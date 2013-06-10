@@ -3,21 +3,27 @@
   	<% unless params[:f] %>
   	<div class="paragraph stat toggle">
   		<%= form_tag statistic_by_trinh_do_chuyen_mon_casein_can_bo_thong_tins_url, :method => :get do %>
-  		<div class="tfcontainer"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p></div>
-		<% DonVi.all.each do |dv| %>
-			<div class="tfcontainer">
-				<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
-			</div>
-		<% end %>
+  		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p>
+			<div class="overflow_scroll">
+				<% DonVi.all.each do |dv| %>
+				
+					<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label><br>
+				
+			<% end %>
 
-		<p></p>
-
-  		<div class="tfcontainer"><p style="font-weight:bold;">(2). Chọn các trình độ chuyên môn:</p></div>
-  		<% TrinhDoChuyenMon.all.each do |td| %>
-			<div class="tfcontainer">
-				<label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label>
+			<p></p>
 			</div>
-		<% end %>
+		</div>
+
+  		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(2). Chọn các trình độ chuyên môn:</p>
+	  		<div class="overflow_scroll">
+	  			<% TrinhDoChuyenMon.all.each do |td| %>
+				
+					<label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label><br>
+				
+				<% end %>
+			</div>
+		</div>
 
 
   		<div class="tfContainerFullWidth" >

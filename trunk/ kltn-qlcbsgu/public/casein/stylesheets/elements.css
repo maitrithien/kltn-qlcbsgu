@@ -323,7 +323,11 @@ li.first{
 	float: left;
 	padding: 0 5% 12px 0;
 }
-
+.overflow_scroll {
+	overflow: scroll;
+	min-height: 60px;
+	max-height: 200px;
+}
 #content .tfContainer p {
 	margin: 0;
 }
