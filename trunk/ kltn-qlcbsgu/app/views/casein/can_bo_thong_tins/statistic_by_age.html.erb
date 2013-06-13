@@ -48,7 +48,7 @@
 			</tr>
 			<% @hash.each do |h| %>
 			<tr>
-				<th align="center"><%= h[0] %></th>
+				<th align="center"><%= DonVi.find(h[0]).ten_don_vi %></th>
 				<% h[1].map do |r| %>
 					<td><%= r[1] %></td>
 				<% end %>

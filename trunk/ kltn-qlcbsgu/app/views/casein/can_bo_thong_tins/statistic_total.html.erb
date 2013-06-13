@@ -88,7 +88,7 @@
 				<% end %>
 				<% if params["age_chk"] %>
 					<% @range.split(";").each do |cv |%>
-						<td><%= cv %></td>	
+						<td><%= cv %> tuổi</td>	
 					<% end %>
 				<% end %>
 			</tr>
@@ -153,6 +153,9 @@
 
 		</table> 
 		<p class="submits">
+			<% unless @hash.empty? %>
+				<%= link_to "Xuất nội dung ra excel ", "#{statistic_total_casein_can_bo_thong_tins_url(:format => :xls, :range => params["range"])}&#{ @params.join("&") }", :class=> "update", :style => "text-decoration:none; color: #fff;" %>
+			<% end %>
 		</p>
 	<% end %>
 </div>
