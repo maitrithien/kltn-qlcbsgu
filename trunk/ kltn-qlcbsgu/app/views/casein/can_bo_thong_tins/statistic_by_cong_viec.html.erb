@@ -5,22 +5,33 @@
   		<%= form_tag statistic_by_cong_viec_casein_can_bo_thong_tins_url, :method => :get do %>
   		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p>
 			<div class="overflow_scroll">
-				<% DonVi.all.each do |dv| %>
-					
-						<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label><br>
-					
-				<% end %>
+  				<ul style="margin-left:20px;">
+  					<li><%= check_box_tag "dv_all", true%><label for="dv_all"> &nbsp;Tất cả đơn vị</label>
+		  				<ul style="margin-left:20px;">
+		  				<% DonVi.all.each do |dv| %>
+						
+							<li><label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
+						
+						<% end %>
+						</ul>
+					</li>
+				</ul>
 			</div>
-			<p></p>
 		</div>
 
   		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(2). Chọn các công việc cần thống kê:</p>
 	  		<div class="overflow_scroll">
-	  			<% CongViec.all.each do |cv| %>
-				
-					<label for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label><br>
-				
-				<% end %>
+	  			<ul style="margin-left:20px;">
+	  				<li><%= check_box_tag "cv_all", true%><label for="cv_all"> &nbsp;Tất cả công việc</label>
+	  					<ul style="margin-left:20px;">
+			  			<% CongViec.all.each do |cv| %>
+						
+							<li><label for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label></li>
+						
+						<% end %>
+						<ul>
+					</li>
+				</ul>
 			</div>
 		</div>
 

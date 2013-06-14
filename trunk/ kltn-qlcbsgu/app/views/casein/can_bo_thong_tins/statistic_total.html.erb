@@ -1,3 +1,24 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.chk').click(function(){
+			if ($(this).is(':checked')) {
+				$(this).parent().find('input:checkbox').attr('checked', true);
+			}
+			else{
+				$(this).parent().find('input:checkbox').attr('checked', false);
+			}
+			updateCheck();
+		});
+	});
+	function updateCheck(){
+		$('input.chk').change(function() {
+			if ($(this).is(':checked')) {
+				$(this).closest('ul').siblings('input:checkbox').attr('checked', true).closest('ul').siblings('input:checkbox').attr('checked', true);
+			}
+		});
+	}
+</script>
+
 <div class="blk-share" style="float: left; width: 97%;">
   <% @range = params[:range] || "0" %>
   	<h2>Thống kê cán bộ</h2>
@@ -8,41 +29,66 @@
 	  			<div class="tfContainerFullWidth"><p style="font-weight:bold;">
 	  			Chọn các đơn vị cần thống kê:</p>
 		  			<div class="overflow_scroll">
-		  				<% DonVi.all.each do |dv| %>
-						
-							<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label><br>
-						
-						<% end %>
+		  				<ul style="margin-left:20px;">
+		  					<li><%= check_box_tag "dv_all", true%><label for="dv_all"> &nbsp;Tất cả đơn vị</label>
+				  				<ul style="margin-left:20px;">
+				  				<% DonVi.all.each do |dv| %>
+								
+									<li><label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
+								
+								<% end %>
+								</ul>
+							</li>
+						</ul>
 					</div>
 				</div>
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
 				<%= check_box_tag "tdcm_chk", true %> Chọn trình độ chuyên môn:</label></p>
 			  		<div class="overflow_scroll">
-			  			<% TrinhDoChuyenMon.all.each do |td| %>
+			  			<ul style="margin-left:20px;">
+			  				<li><%= check_box_tag "tdcm_all", true%><label for="tdcm_all"> &nbsp;Tất cả trình độ chuyên môn</label>
+			  					<ul style="margin-left:20px;">
+			  						<% TrinhDoChuyenMon.all.each do |td| %>
 						
-							<label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label><br>
-						
-						<% end %>
+										<li><label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label></li>
+									
+									<% end %>
+			  					</ul>
+			  				</li>
+			  			</ul>
+			  			
 					</div>
 				</div>
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
 				<%= check_box_tag "cv_chk", true %> Chọn công việc:</label></p>
 			  		<div class="overflow_scroll">
-			  			<% CongViec.all.each do |cv| %>
-						
-							<label for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label><br>
-						
-						<% end %>
+			  			<ul style="margin-left:20px;">
+			  				<li><%= check_box_tag "cv_all", true%><label for="cv_all"> &nbsp;Tất cả công việc</label>
+			  					<ul style="margin-left:20px;">
+					  			<% CongViec.all.each do |cv| %>
+								
+									<li><label for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label></li>
+								
+								<% end %>
+								<ul>
+							</li>
+						</ul>
 					</div>
 				</div>
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
 				<%= check_box_tag "lld_chk", true %> Chọn loại lao động:</label></p>
 			  		<div class="overflow_scroll">
-			  			<% LoaiLaoDong.all.each do |lld| %>
-						
-							<label for="lld_<%= lld.id %>"><%= check_box_tag "lld_#{lld.id}", true %> <%= lld.ten_loai_lao_dong %></label><br>
-						
-						<% end %>
+			  			<ul style="margin-left:20px;">
+			  				<li><%= check_box_tag "lld_all", true%><label for="lld_all"> &nbsp;Tất cả loại lao động</label>
+			  					<ul style="margin-left:20px;">
+					  			<% LoaiLaoDong.all.each do |lld| %>
+								
+									<li><label for="lld_<%= lld.id %>"><%= check_box_tag "lld_#{lld.id}", true %> <%= lld.ten_loai_lao_dong %></label></li>
+								
+								<% end %>
+								</ul>
+							</li>
+						</ul>
 					</div>
 				</div>
 				<div class="tfContainerFullWidth"><p>&nbsp;</p> </div>

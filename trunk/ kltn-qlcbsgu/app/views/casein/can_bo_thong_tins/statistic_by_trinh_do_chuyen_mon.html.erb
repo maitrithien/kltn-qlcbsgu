@@ -5,23 +5,33 @@
   		<%= form_tag statistic_by_trinh_do_chuyen_mon_casein_can_bo_thong_tins_url, :method => :get do %>
   		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p>
 			<div class="overflow_scroll">
-				<% DonVi.all.each do |dv| %>
-				
-					<label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label><br>
-				
-			<% end %>
-
-			<p></p>
+  				<ul style="margin-left:20px;">
+  					<li><%= check_box_tag "dv_all", true%><label for="dv_all"> &nbsp;Tất cả đơn vị</label>
+		  				<ul style="margin-left:20px;">
+		  				<% DonVi.all.each do |dv| %>
+						
+							<li><label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
+						
+						<% end %>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</div>
 
   		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(2). Chọn các trình độ chuyên môn:</p>
 	  		<div class="overflow_scroll">
-	  			<% TrinhDoChuyenMon.all.each do |td| %>
+	  			<ul style="margin-left:20px;">
+	  				<li><%= check_box_tag "tdcm_all", true%><label for="tdcm_all"> &nbsp;Tất cả trình độ chuyên môn</label>
+	  					<ul style="margin-left:20px;">
+	  						<% TrinhDoChuyenMon.all.each do |td| %>
 				
-					<label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label><br>
-				
-				<% end %>
+								<li><label for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label></li>
+							
+							<% end %>
+	  					</ul>
+	  				</li>
+	  			</ul>
 			</div>
 		</div>
 
