@@ -1,16 +1,31 @@
 <div class="blk-share" style="float: left; width: 97%;">
+<script language="javascript">
+function checkedAll1 (formid,checkBoxNum,preName,checkAllName) {
+	
+	var checked = document.getElementById(formid).elements[checkAllName].checked;
+	for (var i = 1; i <= checkBoxNum; i++)
+	{
+		document.getElementById(formid).elements[preName+i].checked = checked;
+	}
+}
+function unCheckAll(formid,checkAllName)
+{
+	document.getElementById(formid).elements[checkAllName].checked=false;
+}
+
+</script>
   	<h2>Thống kê cán bộ theo công việc</h2>
   	<% unless params[:f] %>
   	<div class="paragraph stat toggle">
-  		<%= form_tag statistic_by_cong_viec_casein_can_bo_thong_tins_url, :method => :get do %>
+  		<%= form_tag statistic_by_cong_viec_casein_can_bo_thong_tins_url,:id=>"formStatisticCongViec", :method => :get do %>
   		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p>
 			<div class="overflow_scroll">
   				<ul style="margin-left:20px;">
-  					<li><%= check_box_tag "dv_all", true%><label for="dv_all"> &nbsp;Tất cả đơn vị</label>
+  					<li><label for="dv_all" onclick="checkedAll1('formStatisticCongViec','<%=DonVi.count%>','dv_','dv_all');"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị</label>
 		  				<ul style="margin-left:20px;">
 		  				<% DonVi.all.each do |dv| %>
 						
-							<li><label for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
+							<li><label for="dv_<%= dv.id %>" onclick="unCheckAll('formStatisticCongViec','dv_all');"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
 						
 						<% end %>
 						</ul>
@@ -22,11 +37,11 @@
   		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(2). Chọn các công việc cần thống kê:</p>
 	  		<div class="overflow_scroll">
 	  			<ul style="margin-left:20px;">
-	  				<li><%= check_box_tag "cv_all", true%><label for="cv_all"> &nbsp;Tất cả công việc</label>
+	  				<li><label for="cv_all" onclick="checkedAll1('formStatisticCongViec','<%=CongViec.count%>','cv_','cv_all');"><%= check_box_tag "cv_all", true%> &nbsp;Tất cả công việc</label>
 	  					<ul style="margin-left:20px;">
 			  			<% CongViec.all.each do |cv| %>
 						
-							<li><label for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label></li>
+							<li><label onclick="unCheckAll('formStatisticCongViec','cv_all');" for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label></li>
 						
 						<% end %>
 						<ul>
