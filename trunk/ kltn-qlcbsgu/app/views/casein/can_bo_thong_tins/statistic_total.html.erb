@@ -43,11 +43,11 @@
 	  			Chọn các đơn vị cần thống kê:</p>
 		  			<div class="overflow_scroll">
 		  				<ul style="margin-left:20px;">
-		  					<li><label onclick="checkedAll1('formStatisticTotal','<%=DonVi.count%>','dv_','dv_all');" for="dv_all"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị</label>
+		  					<li><label onclick="checkedAll1('formStatisticTotal','<%=DonVi.count%>','dv_','dv_all');" for="dv_all"><%= check_box_tag "dv_all",:disabled => true, true%> &nbsp;Tất cả đơn vị</label>
 				  				<ul style="margin-left:20px;">
 				  				<% DonVi.all.each do |dv| %>
 								
-									<li><label onclick="unCheckAll('formStatisticTotal','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
+									<li><label onclick="unCheckAll('formStatisticTotal','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}",:disabled => true, true %> <%= dv.ten_don_vi %></label></li>
 								
 								<% end %>
 								</ul>

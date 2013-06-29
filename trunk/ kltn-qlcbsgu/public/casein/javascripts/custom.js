@@ -45,3 +45,5 @@ toggleSwitchDiv = function(div1, div2)
             break;
     }
 }
+
+
