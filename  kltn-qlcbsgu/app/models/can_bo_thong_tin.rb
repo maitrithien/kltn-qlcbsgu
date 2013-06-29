@@ -238,6 +238,50 @@ class CanBoThongTin < ActiveRecord::Base
     end
   end
 
+  def self.random_record gender = false, f_name = [], m_name = [], l_name = [], place = [], num_record = 0
+    range = Array(10000..11000)
+    card = Array(225500000..225600000)
+    num_record.times do |r|
+      f = f_name.sample
+      m = m_name.sample
+      l = l_name.sample
+      r_id = range.sample
+      p = place.sample
+      
+      begin
+        str = "#{f} #{m} #{l}"
+        r = CanBoThongTin.new
+        r.ma_cb = r_id
+        r.ho_ten = str
+        r.ten_goi_khac = str
+        r.gioi_tinh = gender
+        r.hinh_anh = ""
+        r.ngay_sinh = Date.parse "1/1/1991" rescue nil
+        r.noi_sinh = p
+        r.que_quan = ""
+        r.dan_toc = "Kinh"
+        r.ton_giao = ""
+        r.so_cmnd = card.sample
+        r.ngay_cap_cmnd = Date.parse "1/12/2000" rescue nil
+        r.so_BHXH = ""
+        r.noi_dang_ky_ho_khau_thuong_tru = ""
+        r.noi_o_hien_nay = ""
+        r.tep_tin_dinh_kem = ""
+        r.is_deleted = false
+        r.bac_luong_id = BacLuong.all.sample.id
+        r.quyet_dinh_id = QuyetDinh.all.sample.id
+        r.don_vi_id = DonVi.all.sample.id
+        r.loai_lao_dong_id = LoaiLaoDong.all.sample.id
+        r.chuc_vu_id = ChucVu.all.sample.id
+        puts "#{r.ho_ten} #{r.chuc_vu_id}\n"
+
+        r.save!
+      rescue Exception => e
+        puts e
+        #raise ActiveRecord::Rollback, "Command is terminated!"
+      end #end begin
+    end #end loop
+  end #end func
 
 
-end
+end #end class
