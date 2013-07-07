@@ -1453,5 +1453,42 @@ module Casein
       end
     end
 
+    # get random_record
+    def random_record
+      
+    end
+
+    # post exe_random_record
+    def exe_random_record
+      gender = params[:gender] || true
+      f_or_m = "f"
+      if gender
+        f_or_m = "m"
+      end
+      f_f = Rails.root.join("r_suite/#{f_or_m}_first.txt") || ""
+      m_f = Rails.root.join("r_suite/#{f_or_m}_mid.txt") || ""
+      l_f = Rails.root.join("r_suite/#{f_or_m}_last.txt") || ""
+      w_f = Rails.root.join("r_suite/w_file.txt") || ""
+      p_f = Rails.root.join("r_suite/p_file.txt") || ""
+      record = params[:num_record] || 0
+      @message = "executing..."
+      if (f_f != "") && (m_f != "") && (l_f != "") && (w_f != "") && (p_f != "")
+        f = File.open(f_f, "rb").read().split(",")
+        m = File.open(m_f, "rb").read().split(",")
+        l = File.open(l_f, "rb").read().split(",")
+        w = File.open(w_f, "rb").read().split(",")
+        p = File.open(p_f, "rb").read().split(",")
+        if !f.empty? && !m.empty? && !l.empty? && !w.empty? && !p.empty? && record.to_i > 0
+          CanBoThongTin.random_record gender, f, m, l, p, w, record.to_i
+          @message = "Completed!"
+          redirect_to casein_can_bo_thong_tins_path
+        else
+          redirect_to random_record_casein_can_bo_thong_tins_path
+        end
+      else
+        redirect_to random_record_casein_can_bo_thong_tins_path
+      end
+    end
+
   end
 end

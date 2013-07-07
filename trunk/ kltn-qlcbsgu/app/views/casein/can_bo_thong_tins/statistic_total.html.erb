@@ -43,11 +43,12 @@
 	  			Chọn các đơn vị cần thống kê:</p>
 		  			<div class="overflow_scroll">
 		  				<ul style="margin-left:20px;">
-		  					<li><label onclick="checkedAll1('formStatisticTotal','<%=DonVi.count%>','dv_','dv_all');" for="dv_all"><%= check_box_tag "dv_all",:disabled => true, true%> &nbsp;Tất cả đơn vị</label>
+		  					<li><label onclick="checkedAll1('formStatisticTotal','<%=DonVi.count%>','dv_','dv_all');" for="dv_all"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị
+		  					</label>
 				  				<ul style="margin-left:20px;">
 				  				<% DonVi.all.each do |dv| %>
 								
-									<li><label onclick="unCheckAll('formStatisticTotal','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}",:disabled => true, true %> <%= dv.ten_don_vi %></label></li>
+									<li><label onclick="unCheckAll('formStatisticTotal','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
 								
 								<% end %>
 								</ul>
@@ -56,8 +57,8 @@
 					</div>
 				</div>
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
-				<%= check_box_tag "tdcm_chk", true %> Chọn trình độ chuyên môn:</label></p>
-			  		<div class="overflow_scroll">
+				<%= check_box_tag "tdcm_chk", true, false, {:onclick => "show_hide('lcTDCM');"} %> Chọn trình độ chuyên môn:</label></p>
+			  		<div class="overflow_scroll" id="lcTDCM" style="display:none">
 			  			<ul style="margin-left:20px;">
 			  				<li><label for="tdcm_all" onclick="checkedAll1('formStatisticTotal','<%=TrinhDoChuyenMon.count%>','td_','tdcm_all');"> <%= check_box_tag "tdcm_all", true%>&nbsp;Tất cả trình độ chuyên môn</label>
 			  					<ul style="margin-left:20px;">
@@ -73,8 +74,8 @@
 					</div>
 				</div>
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
-				<%= check_box_tag "cv_chk", true %> Chọn công việc:</label></p>
-			  		<div class="overflow_scroll">
+				<%= check_box_tag "cv_chk", true ,false, {:onclick => "show_hide('lcCV');"} %> Chọn công việc:</label></p>
+			  		<div class="overflow_scroll" id="lcCV" style="display:none">
 			  			<ul style="margin-left:20px;">
 			  				<li><label for="cv_all" onclick="checkedAll1('formStatisticTotal','<%=CongViec.count%>','cv_','cv_all');"> <%= check_box_tag "cv_all", true%>&nbsp;Tất cả công việc</label>
 			  					<ul style="margin-left:20px;">
@@ -89,8 +90,8 @@
 					</div>
 				</div>
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
-				<%= check_box_tag "lld_chk", true %> Chọn loại lao động:</label></p>
-			  		<div class="overflow_scroll">
+				<%= check_box_tag "lld_chk", true,false, {:onclick => "show_hide('lcLLD');"} %> Chọn loại lao động:</label></p>
+			  		<div class="overflow_scroll" id="lcLLD" style="display:none">
 			  			<ul style="margin-left:20px;">
 			  				<li><label for="lld_all" onclick="checkedAll1('formStatisticTotal','<%=LoaiLaoDong.count%>','lld_','lld_all');"> <%= check_box_tag "lld_all", true%>&nbsp;Tất cả loại lao động</label>
 			  					<ul style="margin-left:20px;">

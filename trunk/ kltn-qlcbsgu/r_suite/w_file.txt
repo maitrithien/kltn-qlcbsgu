@@ -1,0 +1,10 @@
+﻿Giảng viên,
+Nhân viên văn phòng,
+Kế Toán,
+Hành chánh,
+Lập trình viên,
+Luật sư,
+Nhạc sĩ,
+Họa sĩ,
+Chuyên viên kinh doanh,
+Quản lý nhà hàng khách sạn
