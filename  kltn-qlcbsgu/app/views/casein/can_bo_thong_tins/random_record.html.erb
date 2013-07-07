@@ -1,0 +1,21 @@
+<div class="blk-share" style="float: left; width: 97%;">
+  
+  	<h2>Random Bộ Thử</h2>
+  	<div class="paragraph stat toggle">
+  	<% if @message %>
+  		<%= @message %>
+  	<% end %>
+		<%= form_tag(exe_random_record_casein_can_bo_thong_tins_path, :multipart => true) do %>
+		<p>Số bộ cần random<br>
+		<%= text_field_tag :num_record, 0, :type => "number" %></p>
+
+		
+		<p style="width:30%">Chọn tập tin Giới tính<br>
+			<%= select_tag :gender,options_for_select([["Nam",true],["Nữ",false]]) %>
+		</p>
+		<p style="text-align: right;">
+          <%= submit_tag "Đồng ý", :style => "text-align: right; padding: 5px 12px; margin-right: 25px;"%>
+        </p>
+		<% end %>
+	</div>
+</div>
