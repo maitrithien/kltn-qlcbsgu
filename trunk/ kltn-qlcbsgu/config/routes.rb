@@ -109,6 +109,8 @@ QLTtCbvcSgu::Application.routes.draw do
       get "statistic_total", :on => :collection
       get "custom_export_data", :on => :collection
       get "get_and_export_to_excel", :on => :collection
+      get "random_record", :on => :collection
+      post "exe_random_record", :on => :collection
 
     end
 
