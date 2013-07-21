@@ -46,9 +46,21 @@
 		  					<li><label onclick="checkedAll1('formStatisticTotal','<%=DonVi.count%>','dv_','dv_all');" for="dv_all"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị
 		  					</label>
 				  				<ul style="margin-left:20px;">
-				  				<% DonVi.all.each do |dv| %>
+				  				<% LoaiDonVi.all.each do |ldv| %>
 								
-									<li><label onclick="unCheckAll('formStatisticTotal','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
+									<li><label onclick="checkedAll1('formStatisticTotal','ldv_all');" for="ldv_<%= ldv.id %>"><%= check_box_tag "ldv_#{ldv.id}", true %> <%= ldv.ten_loai_don_vi %></label>
+
+										<ul style="margin-left:20px;">
+							  				<% DonVi.find_all_by_loai_don_vi_id(ldv.id).each do |dv| %>
+											
+												<li><label onclick="unCheckAll('formStatisticTotal','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
+
+
+												</li>
+											
+											<% end %>
+										</ul>
+									</li>
 								
 								<% end %>
 								</ul>
@@ -179,35 +191,45 @@
 					<% end %>
 				<% end %>
 			</tr>
-			<% @don_vi_ids.each_with_index do |dv_id, i| %>
-			<tr>
-				<th><%= DonVi.find(dv_id).ten_don_vi %></th>
-				<% if params["lld_chk"] %>
-					<% @hash_dv_lld["#{dv_id}"].map do |lld| %>
-						<% lld[1].map do |e| %>
-							<td><%= e[1] %></td>
-						<% end %>
-					<% end %>
+			
+			
+				
+		
+			<% @don_vis.each_with_index do |dv, i| %>
+				<tr>
+					<th colspan="<%= @count_clm %>" style="font-size:16px; text-transform:uppercase;"><%= i + 1 %> - <%= dv[0][1] %></th>
+				</tr>
+				<% dv[1].each do |e| %>
+					<tr>
+						
+							<th><%= e[1] %></th>
+							<% if params["lld_chk"] %>
+								<% @hash_dv_lld["#{e[0]}"].map do |lld| %>
+									<% lld[1].map do |ex| %>
+										<td><%= ex[1] %></td>
+									<% end %>
+								<% end %>
+							<% end %>
+							<% if params["tdcm_chk"] %>
+								<% @hash_dv_tdcm["#{e[0]}"].map do |td| %>
+									<% td[1].map do |ex| %>
+										<td><%= ex[1] %></td>
+									<% end %>
+								<% end %>
+							<% end %>
+							<% if params["cv_chk"] %>
+								<% @hash_dv_cv["#{e[0]}"].map do |cv| %>
+									<td><%= cv[1] %></td>
+								<% end %>
+							<% end %>
+							<% if params["age_chk"] %>
+								<% @hash_dv_age["#{e[0]}"].map do |age| %>
+									<td><%= age[1] %></td>
+								<% end %>
+							<% end %>
+						
+					</tr>
 				<% end %>
-				<% if params["tdcm_chk"] %>
-					<% @hash_dv_tdcm["#{dv_id}"].map do |td| %>
-						<% td[1].map do |e| %>
-							<td><%= e[1] %></td>
-						<% end %>
-					<% end %>
-				<% end %>
-				<% if params["cv_chk"] %>
-					<% @hash_dv_cv["#{dv_id}"].map do |cv| %>
-						<td><%= cv[1] %></td>
-					<% end %>
-				<% end %>
-				<% if params["age_chk"] %>
-					<% @hash_dv_age["#{dv_id}"].map do |age| %>
-						<td><%= age[1] %></td>
-					<% end %>
-				<% end %>
-
-			</tr>
 			<% end %>
 
 

@@ -9,8 +9,30 @@ module Casein
   
     def index
       @casein_page_title = 'Don vis'
+
+      view = 10
+      loai_don_vi = 0
+      paginate_conditions = ""
+      @ten_loai_don_vi = ""
+
+      if params["num_view"].to_s != ""
+        #must be a number
+        if params["num_view"].match(/^\d+$/)
+          #must be greater than 0 
+          if params["num_view"].to_i > 0
+            #set view value for pagination
+            view = params["num_view"].to_i
+          end
+        end
+      end
+      if params[:loai_don_vi]
+        loai_don_vi = params[:loai_don_vi].to_i if params[:loai_don_vi].match(/^\d+$/)
+      end
+      paginate_conditions = ['loai_don_vi_id = ?', loai_don_vi] if loai_don_vi != 0
+      @ten_loai_don_vi = LoaiDonVi.find(loai_don_vi).ten_loai_don_vi if loai_don_vi != 0
+
       @don_vis_xls = DonVi.all
-  		@don_vis = DonVi.paginate :page => params[:page] ,:per_page => 10
+  		@don_vis = DonVi.paginate :page => params[:page] ,:per_page => view, :conditions => paginate_conditions
       respond_to do |format|
         format.html
         format.xls{

@@ -911,8 +911,9 @@ module Casein
     end
 
     def statistic_total
+      @loai_don_vis = {}
       @don_vi_ids = []
-      @don_vis = []
+      @don_vis = {}
       @trinh_do_chuyen_mon_ids = []
       @trinh_do_chuyen_mons = []
       @loai_lao_dong_ids = []
@@ -927,12 +928,22 @@ module Casein
       @hash_dv_cv = {}
       @params = []
 
-      DonVi.all.each do |dv|
-        if params["dv_#{dv.id}"]
-          @don_vi_ids.push dv.id
-          @don_vis.push dv.ten_don_vi
-          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+      LoaiDonVi.all.each do |ldv|
+        if params["ldv_#{ldv.id}"]
+          @loai_don_vis.merge! ldv.id => ldv.ten_loai_don_vi         
         end
+      end
+
+      @loai_don_vis.each do |e|
+        list = []
+        DonVi.find_all_by_loai_don_vi_id(e[0]).each do |dv|
+          if params["dv_#{dv.id}"]
+            @don_vi_ids.push dv.id
+            list.push [dv.id, dv.ten_don_vi]
+            @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+          end
+        end
+        @don_vis.merge! e => list
       end
 
       if params["tdcm_chk"]
@@ -984,6 +995,7 @@ module Casein
         @hash_dv_age = hash_age(@don_vi_ids, @range_of_age)
         @hash.merge! :age => @hash_dv_age
       end
+      @count_clm = @hash_dv_age.count + @hash_dv_cv.count + (@hash_dv_tdcm.count * 3) + (@hash_dv_lld.count * 3)
 
       #render view with multiple format
       respond_to do |f|
