@@ -1,36 +1,4 @@
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.chk').click(function(){
-			if ($(this).is(':checked')) {
-				$(this).parent().find('input:checkbox').attr('checked', true);
-			}
-			else{
-				$(this).parent().find('input:checkbox').attr('checked', false);
-			}
-			updateCheck();
-		});
-	});
-	function updateCheck(){
-		$('input.chk').change(function() {
-			if ($(this).is(':checked')) {
-				$(this).closest('ul').siblings('input:checkbox').attr('checked', true).closest('ul').siblings('input:checkbox').attr('checked', true);
-			}
-		});
-	}
-	function checkedAll1 (formid,checkBoxNum,preName,checkAllName) {
-		
-		var checked = document.getElementById(formid).elements[checkAllName].checked;
-		for (var i = 1; i <= checkBoxNum; i++)
-		{
-			document.getElementById(formid).elements[preName+i].checked = checked;
-		}
-	}
-	function unCheckAll(formid,checkAllName)
-	{
-		document.getElementById(formid).elements[checkAllName].checked=false;
-	}
 
-</script>
 <div class="blk-share" style="float: left; width: 97%;">
   <% @range = params[:range] || "0" %>
   	<h2>Thống kê cán bộ</h2>
@@ -38,21 +6,21 @@
 	  	<div class="paragraph stat toggle">
 	  		<%= form_tag statistic_total_casein_can_bo_thong_tins_url,:id=>"formStatisticTotal", :method => :get do %>
 	  			<%= hidden_field_tag :f, 1 %>
-	  			<div class="tfContainerFullWidth"><p style="font-weight:bold;">
+	  			<div  class="tfContainerFullWidth"><p style="font-weight:bold;">
 	  			Chọn các đơn vị cần thống kê:</p>
 		  			<div class="overflow_scroll">
 		  				<ul style="margin-left:20px;">
-		  					<li><label onclick="checkedAll1('formStatisticTotal','<%=DonVi.count%>','dv_','dv_all');" for="dv_all"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị
+		  					<li><label onclick="checkAll('div_dv',dv_all.checked);" for="dv_all"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị
 		  					</label>
-				  				<ul style="margin-left:20px;">
+				  				<ul style="margin-left:20px;" id="div_dv">
 				  				<% LoaiDonVi.all.each do |ldv| %>
 								
-									<li><label onclick="checkedAll1('formStatisticTotal','ldv_all');" for="ldv_<%= ldv.id %>"><%= check_box_tag "ldv_#{ldv.id}", true %> <%= ldv.ten_loai_don_vi %></label>
+									<li><label onclick="checkAll('ul_<%= ldv.id %>',ldv_<%= ldv.id %>.checked);" for="ldv_<%= ldv.id %>"><%= check_box_tag "ldv_#{ldv.id}", true %> <%= ldv.ten_loai_don_vi %></label>
 
-										<ul style="margin-left:20px;">
+										<ul style="margin-left:20px;" id="ul_<%= ldv.id %>">
 							  				<% DonVi.find_all_by_loai_don_vi_id(ldv.id).each do |dv| %>
 											
-												<li><label onclick="unCheckAll('formStatisticTotal','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
+												<li><label onclick="unCheckAll('formStatisticTotal','dv_all');unCheckAll('formStatisticTotal','ldv_<%= ldv.id %>');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
 
 
 												</li>
@@ -67,12 +35,12 @@
 						</ul>
 					</div>
 				</div>
-				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
+				<div  class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
 				<%= check_box_tag "tdcm_chk", true, false, {:onclick => "show_hide('lcTDCM');"} %> Chọn trình độ chuyên môn:</label></p>
 			  		<div class="overflow_scroll" id="lcTDCM" style="display:none">
 			  			<ul style="margin-left:20px;">
-			  				<li><label for="tdcm_all" onclick="checkedAll1('formStatisticTotal','<%=TrinhDoChuyenMon.count%>','td_','tdcm_all');"> <%= check_box_tag "tdcm_all", true%>&nbsp;Tất cả trình độ chuyên môn</label>
-			  					<ul style="margin-left:20px;">
+			  				<li><label for="tdcm_all" onclick="checkAll('div_tdcm',tdcm_all.checked);"> <%= check_box_tag "tdcm_all", true%>&nbsp;Tất cả trình độ chuyên môn</label>
+			  					<ul style="margin-left:20px;" id="div_tdcm">
 			  						<% TrinhDoChuyenMon.all.each do |td| %>
 						
 										<li><label onclick="unCheckAll('formStatisticTotal','tdcm_all');" for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label></li>
@@ -87,9 +55,9 @@
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
 				<%= check_box_tag "cv_chk", true ,false, {:onclick => "show_hide('lcCV');"} %> Chọn công việc:</label></p>
 			  		<div class="overflow_scroll" id="lcCV" style="display:none">
-			  			<ul style="margin-left:20px;">
-			  				<li><label for="cv_all" onclick="checkedAll1('formStatisticTotal','<%=CongViec.count%>','cv_','cv_all');"> <%= check_box_tag "cv_all", true%>&nbsp;Tất cả công việc</label>
-			  					<ul style="margin-left:20px;">
+			  			<ul style="margin-left:20px;" >
+			  				<li><label for="cv_all" onclick="checkAll('div_cv',cv_all.checked);"> <%= check_box_tag "cv_all", true%>&nbsp;Tất cả công việc</label>
+			  					<ul style="margin-left:20px;" id="div_cv">
 					  			<% CongViec.all.each do |cv| %>
 								
 									<li><label onclick="unCheckAll('formStatisticTotal','cv_all');" for="cv_<%= cv.id %>"><%= check_box_tag "cv_#{cv.id}", true %> <%= cv.ten_cong_viec %></label></li>
@@ -103,9 +71,9 @@
 				<div class="tfContainerFullWidth"><p style="font-weight:bold;"><label>
 				<%= check_box_tag "lld_chk", true,false, {:onclick => "show_hide('lcLLD');"} %> Chọn loại lao động:</label></p>
 			  		<div class="overflow_scroll" id="lcLLD" style="display:none">
-			  			<ul style="margin-left:20px;">
-			  				<li><label for="lld_all" onclick="checkedAll1('formStatisticTotal','<%=LoaiLaoDong.count%>','lld_','lld_all');"> <%= check_box_tag "lld_all", true%>&nbsp;Tất cả loại lao động</label>
-			  					<ul style="margin-left:20px;">
+			  			<ul style="margin-left:20px;" >
+			  				<li><label for="lld_all" onclick="checkAll('div_lld',lld_all.checked);"> <%= check_box_tag "lld_all", true%>&nbsp;Tất cả loại lao động</label>
+			  					<ul style="margin-left:20px;" id="div_lld">
 					  			<% LoaiLaoDong.all.each do |lld| %>
 								
 									<li><label onclick="unCheckAll('formStatisticTotal','lld_all');" for="lld_<%= lld.id %>"><%= check_box_tag "lld_#{lld.id}", true %> <%= lld.ten_loai_lao_dong %></label></li>

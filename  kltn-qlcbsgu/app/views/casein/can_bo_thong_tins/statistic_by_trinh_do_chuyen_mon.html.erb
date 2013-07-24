@@ -1,44 +1,43 @@
 <div class="blk-share" style="float: left; width: 97%;">
-<script language="javascript">
-function checkedAll1 (formid,checkBoxNum,preName,checkAllName) {
-	
-	var checked = document.getElementById(formid).elements[checkAllName].checked;
-	for (var i = 1; i <= checkBoxNum; i++)
-	{
-		document.getElementById(formid).elements[preName+i].checked = checked;
-	}
-}
-function unCheckAll(formid,checkAllName)
-{
-	document.getElementById(formid).elements[checkAllName].checked=false;
-}
-
-</script>
   	<h2>Thống kê cán bộ theo trình độ chuyên môn</h2>
   	<% unless params[:f] %>
   	<div class="paragraph stat toggle">
   		<%= form_tag statistic_by_trinh_do_chuyen_mon_casein_can_bo_thong_tins_url,:id=>"formStatisticTDCM", :method => :get do %>
-  		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(1). Chọn các đơn vị cần thống kê:</p>
-			<div class="overflow_scroll">
-  				<ul style="margin-left:20px;">
-  					<li><label for="dv_all" onclick="checkedAll1('formStatisticTDCM','<%=DonVi.count%>','dv_','dv_all');"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị</label>
+  		<div  class="tfContainerFullWidth"><p style="font-weight:bold;">
+	  			Chọn các đơn vị cần thống kê:</p>
+		  			<div class="overflow_scroll">
 		  				<ul style="margin-left:20px;">
-		  				<% DonVi.all.each do |dv| %>
-						
-							<li><label onclick="unCheckAll('formStatisticTDCM','dv_all');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label></li>
-						
-						<% end %>
+		  					<li><label onclick="checkAll('div_dv',dv_all.checked);" for="dv_all"><%= check_box_tag "dv_all", true%> &nbsp;Tất cả đơn vị
+		  					</label>
+				  				<ul style="margin-left:20px;" id="div_dv">
+				  				<% LoaiDonVi.all.each do |ldv| %>
+								
+									<li><label onclick="checkAll('ul_<%= ldv.id %>',ldv_<%= ldv.id %>.checked);" for="ldv_<%= ldv.id %>"><%= check_box_tag "ldv_#{ldv.id}", true %> <%= ldv.ten_loai_don_vi %></label>
+
+										<ul style="margin-left:20px;" id="ul_<%= ldv.id %>">
+							  				<% DonVi.find_all_by_loai_don_vi_id(ldv.id).each do |dv| %>
+											
+												<li><label onclick="unCheckAll('formStatisticTotal','dv_all');unCheckAll('formStatisticTotal','ldv_<%= ldv.id %>');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
+
+
+												</li>
+											
+											<% end %>
+										</ul>
+									</li>
+								
+								<% end %>
+								</ul>
+							</li>
 						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
+					</div>
+				</div>
 
   		<div class="tfContainerFullWidth"><p style="font-weight:bold;">(2). Chọn các trình độ chuyên môn:</p>
 	  		<div class="overflow_scroll">
 	  			<ul style="margin-left:20px;">
-	  				<li><label for="tdcm_all" onclick="checkedAll1('formStatisticTDCM','<%=TrinhDoChuyenMon.count%>','td_','tdcm_all');"><%= check_box_tag "tdcm_all", true%> &nbsp;Tất cả trình độ chuyên môn</label>
-	  					<ul style="margin-left:20px;">
+	  				<li><label for="tdcm_all" onclick="checkAll('div_tdcm',tdcm_all.checked);"><%= check_box_tag "tdcm_all", true%> &nbsp;Tất cả trình độ chuyên môn</label>
+	  					<ul style="margin-left:20px;" id="div_tdcm">
 	  						<% TrinhDoChuyenMon.all.each do |td| %>
 				
 								<li><label onclick="unCheckAll('formStatisticTDCM','tdcm_all');" for="td_<%= td.id %>"><%= check_box_tag "td_#{td.id}", true %> <%= td.trinh_do %></label></li>
