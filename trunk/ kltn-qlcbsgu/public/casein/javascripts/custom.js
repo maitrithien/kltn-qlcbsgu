@@ -1,3 +1,20 @@
+
+function checkAll(divID, checktoggle)
+{
+  
+  var checkboxes = new Array(); 
+  checkboxes = document.getElementById(divID).getElementsByTagName('input');
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox')   {
+      checkboxes[i].checked = checktoggle;
+    }
+  }
+}
+function unCheckAll(formid,checkAllName)
+{
+	document.getElementById(formid).elements[checkAllName].checked=false;
+}
+
 // CASEIN CUSTOM
 // Use this file for your project-specific Casein JavaScript
 function show_hide(id)
