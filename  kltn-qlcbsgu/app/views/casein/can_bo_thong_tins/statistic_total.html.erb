@@ -1,4 +1,10 @@
-
+	<%
+  		@chartGroupData = {}
+  		@taskName = {}
+  		@taskValue = {}
+  		
+		
+  	%>
 <div class="blk-share" style="float: left; width: 97%;">
   <% @range = params[:range] || "0" %>
   	<h2>Thống kê cán bộ</h2>
@@ -107,11 +113,7 @@
 	  		<% end %>
 	  	</div>
   	<% else %>
-  	<%
-  		@chartGroupData = {}
-  		@taskName = {}
-  		@taskValue = {}
-  	%>
+  
 		<table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
 			<tr>
 				<th>Tên đơn vị</th>
@@ -170,38 +172,19 @@
 			<%  @sum = {} %>
 		
 			<% @don_vis.each_with_index do |dv, i| %>
+			<% # init an array with 0 values
+				f_sum = Array.new(@count_clm) {|i| 0} 
+			%>
 				<tr>
 					<th colspan="<%= @count_clm + 1 %>" style="font-size:16px; text-transform:uppercase;">[<%= i + 1 %>] <%= dv[0][1] %></th>
 				</tr>
-				<%
-				count = 0
-				@shadow = {:lld => 0, :tdcm => 0, :cv => 0, :age => 0}
-				if !@hash_dv_lld.empty?
-					@shadow[:lld] = @hash_dv_lld.first.count * 3
-					count += @hash_dv_lld.first.count * 3
-				end
-				if !@hash_dv_tdcm.empty?
-					@shadow[:tdcm] = @hash_dv_tdcm.first.count * 3
-					count += @hash_dv_tdcm.first.count * 3
-				end
-				if !@hash_dv_cv.empty?
-					@shadow[:cv] = @hash_dv_cv.first[1].count
-					count += @hash_dv_cv.first[1].count
-				end
-				if !@hash_dv_age.empty?
-					@shadow[:age] = @hash_dv_age.first[1].count
-					count += @hash_dv_age.first[1].count
-				end
-				# init an array with 0 values
-				f_sum = Array.new(count) {|i| 0}
-				%>
 				<% dv[1].each do |e| %>
 					<tr>
 						
 							<th><%= e[1] %></th>
 							<% if params["lld_chk"] %>
-								<% @hash_dv_lld["#{e[0]}"].each_with_index do |lld, illd| %>
-									<% lld[1].each_with_index do |ex, ie| 
+								<% @hash_dv_lld["#{e[0]}"].each_with_index do |lld, illd|
+									lld[1].each_with_index do |ex, ie| 
 										f_sum[ie + (illd * 3)] += ex[1]
 										%>
 										<td style="text-align:right;<%= "background: #eee;font-weight: bold;" if ie == 2 %>"><%= ex[1] %></td>
@@ -244,7 +227,6 @@
 					<% } %>
 				</tr>
 				<% @sum.merge! dv[0] => f_sum %>
-				
 			<% end %>
 			
 
@@ -333,11 +315,12 @@
 				<tr>
 				<% 
 					strHtml = ""
+					num = gchart[1].count
 					gchart[1].each_with_index do |chart, i|
 						if i == 2
 							strHtml += "</tr><tr>"
 						end	
-						div_id = i + index * chart[1].count
+						div_id = i + index * num
 						strHtml += "<td><div id='chart_div_#{div_id}' style='width: 410px; height: 200px; align: left;'></div></td>"
 					end
 
@@ -356,6 +339,7 @@
 	<% end %>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<% @chartGroupData.each_with_index do |gchart, index| 
+		num = gchart[1].count
 		gchart[1].each_with_index do |chart, i|
 		%>
 	    <script type="text/javascript">
@@ -368,7 +352,7 @@
 	          title: '<%= raw chart[1][:title] %>'
 	        };
 
-	        var chart = new google.visualization.PieChart(document.getElementById("chart_div_<%= i + index * chart[1].count %>"));
+	        var chart = new google.visualization.PieChart(document.getElementById("chart_div_<%= i + index * num %>"));
 	        chart.draw(data, options);
 	      }
 	    </script>
