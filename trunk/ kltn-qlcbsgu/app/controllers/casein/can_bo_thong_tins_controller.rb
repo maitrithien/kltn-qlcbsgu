@@ -995,7 +995,21 @@ module Casein
         @hash_dv_age = hash_age(@don_vi_ids, @range_of_age)
         @hash.merge! :age => @hash_dv_age
       end
-      @count_clm = @hash_dv_age.count + @hash_dv_cv.count + (@hash_dv_tdcm.count * 3) + (@hash_dv_lld.count * 3)
+      @shadow = {:lld => 0, :tdcm => 0, :cv => 0, :age => 0}
+      
+      if !@hash_dv_lld.empty?
+        @shadow[:lld] = @hash_dv_lld.first[1].count * 3
+      end
+      if !@hash_dv_tdcm.empty?
+        @shadow[:tdcm] = @hash_dv_tdcm.first[1].count * 3
+      end
+      if !@hash_dv_cv.empty?
+        @shadow[:cv] = @hash_dv_cv.first[1].count
+      end
+      if !@hash_dv_age.empty?
+        @shadow[:age] = @hash_dv_age.first[1].count
+      end
+      @count_clm = @shadow.map { |e| e[1]}.inject(0, &:+)
 
       #render view with multiple format
       respond_to do |f|
