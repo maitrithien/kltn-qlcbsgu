@@ -84,3 +84,25 @@
 		</p>
   	<% end %>
 </div>
+
+
+<%= content_for :sidebar do %>
+    <li>
+      <%= link_to "#{casein_show_icon_custom_style("search", "width:20px; margin-top:-5px;")}Tìm kiếm nâng cao".html_safe, 
+            advance_search_casein_can_bo_thong_tins_path %>
+    </li>
+    <li>
+      <%= link_to "#{casein_show_icon "add"}Thêm mới thông tin cán bộ".html_safe, 
+                    new_casein_can_bo_thong_tin_path %>
+    </li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới cán bộ từ tập tin excel".html_safe, import_from_excel_casein_can_bo_thong_tins_path %>
+    </li>
+    <li>
+    <%= link_to "#{casein_show_icon_custom_style("custom_download", "width:20px; margin-top:-5px;")}Tùy chọn nội dung xuất ra excel".html_safe, 
+                custom_export_data_casein_can_bo_thong_tins_path %>
+    </li>
+    <li>
+      <%= link_to "#{casein_show_icon "table"}Danh sách thông tin cán bộ".html_safe, 
+                    casein_can_bo_thong_tins_path %>
+    </li>
+<% end %>

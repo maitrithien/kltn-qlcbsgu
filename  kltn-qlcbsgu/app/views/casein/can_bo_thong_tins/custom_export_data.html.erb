@@ -123,7 +123,7 @@
 		<tr>
 			<th>Công việc chính được giao:</th>
 			<td class="check">
-				<%=check_box_tag :cong_viec_chinh_duoc_giao,  true  %>
+				<%=check_box_tag :cong_viec,  true  %>
 			</td>
 			<td class="none">&nbsp;</td>
 			<th>Sở trường công tác:</th>
@@ -185,7 +185,7 @@
  <%= content_for :sidebar do %>
  	<li>
       <%= link_to "#{casein_show_icon "statistics"}Báo cáo - Thống kê".html_safe, 
-            advance_search_casein_can_bo_thong_tins_path %>
+            statistic_total_casein_can_bo_thong_tins_path %>
     </li>
     <li><%= link_to "#{casein_show_icon_custom_style("search", "width:20px; margin-top:-5px;")}Tìm kiếm nâng cao".html_safe, advance_search_casein_can_bo_thong_tins_path %></li>
     <li><%= link_to "#{casein_show_icon "add"}Thêm mới cán bộ".html_safe, new_casein_can_bo_thong_tin_path %></li>
