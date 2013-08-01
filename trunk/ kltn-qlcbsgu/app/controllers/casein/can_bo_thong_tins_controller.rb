@@ -603,12 +603,15 @@ module Casein
                 list.row(index)[i] = can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung
               end
             end
-            if params["cong_viec_chinh_duoc_giao"].to_s == "true"
+            if params["cong_viec"].to_s == "true"
               i = i + 1
               list.row(2)[i] = "Cong viec chinh duoc giao"
               can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_cong_tac
-                list.row(index)[i] = can_bo_cong_tac.cong_viec_chinh_duoc_giao
+                cv = CongViec.find(can_bo_cong_tac.cong_viec_id)
+                if cv
+                  list.row(index)[i] = cv.ten_cong_viec
+                end
               end
             end
             if params["so_truong_cong_tac"].to_s == "true"
@@ -930,7 +933,8 @@ module Casein
 
       LoaiDonVi.all.each do |ldv|
         if params["ldv_#{ldv.id}"]
-          @loai_don_vis.merge! ldv.id => ldv.ten_loai_don_vi         
+          @loai_don_vis.merge! ldv.id => ldv.ten_loai_don_vi
+          @params.push "ldv_#{ldv.id}=#{params["ldv_#{ldv.id}"]}"         
         end
       end
 
@@ -1014,38 +1018,52 @@ module Casein
       #render view with multiple format
       respond_to do |f|
         f.html
-        f.json { render :json => @hash }
+        f.json { render :json => @count_clm }
         f.xls {
           book = Spreadsheet::Workbook.new
-          list = book.create_worksheet :name => 'Can bo don vi - trinh do chuyen mon'
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
+          title_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          sum_format = Spreadsheet::Format.new :color => :black, :weight => :bold, :align => :right
+          list = book.create_worksheet :name => 'Can bo don vi - tong hop'
           list.row(2)[0]= "STT"
           list.row(2)[1] = "Don vi"
+          count = []
+
           @don_vis.each_with_index { |h, index|
-            list.row(index + 4)[0] = index + 1
-            list.row(index + 4)[1] = h
+            count.push h[1].count
+            row_index = 0
+            h[1].each_with_index { |e, i|
+              row_index = i + 4 + index*(count.first + 1)
+              list.row(row_index)[0] = i + 1
+              list.row(row_index)[1] = e[1]
+            }
+            list.row(row_index + 1)[1] = "TONG [#{index + 1}] : #{h[0][1]}"
+            list.row(row_index + 1).default_format = sum_format
           }
           col_index = 0
           if @hash_dv_tdcm.count > 0
-            xls_format_statistic_by_trinh_do_chuyen_mon(list, @hash_dv_tdcm, @trinh_do_chuyen_mons, 0)  
+            xls_format_statistic_by_trinh_do_chuyen_mon(list, @shadow[:tdcm], @don_vis, @hash_dv_tdcm, @trinh_do_chuyen_mons, col_index)
             col_index += @trinh_do_chuyen_mons.count*3
           end
           if @hash_dv_cv.count > 0
-            xls_format_statistic_by_cong_viec(list, @hash_dv_cv, @cong_viecs, col_index)
+            xls_format_statistic_by_cong_viec(list, @shadow[:cv], @don_vis, @hash_dv_cv, @cong_viecs, col_index)
             col_index += @cong_viecs.count  
           end
           if @hash_dv_lld.count > 0
-            xls_format_statistic_by_loai_lao_dong(list, @hash_dv_lld, @loai_lao_dongs, col_index)
+            xls_format_statistic_by_loai_lao_dong(list, @shadow[:lld], @don_vis, @hash_dv_lld, @loai_lao_dongs, col_index)
             col_index += @loai_lao_dongs.count*3
           end
           if @hash_dv_age.count > 0
-            xls_format_statistic_by_age(list, @hash_dv_age, @range_of_age.split(";").map { |e| "#{e}" }, col_index)              
+            xls_format_statistic_by_age(list, @shadow[:age], @don_vis, @hash_dv_age, @range_of_age.split(";").map { |e| "#{e}" }, col_index)              
             col_index += @range_of_age.split(";").count
           end
           
           
           
-          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
-          title_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          list.column(1).width = 30
+          @count_clm.times { |t|
+            list.column(t + 2).width = 5
+          }
           list.row(2).default_format = title_format
           list.row(3).default_format = title_format
           list.merge_cells(2, 0, 3, 0)
@@ -1065,19 +1083,31 @@ module Casein
     end
 
     def statistic_by_trinh_do_chuyen_mon
-      don_vi_ids = []
-      @don_vis = []
+      @don_vi_ids = []
+      @don_vis = {}
       @hash = {}
+      @loai_don_vis = {}
       trinh_do_chuyen_mon_ids = []
       @trinh_do_chuyen_mons = []
       @params = []
 
-      DonVi.all.each do |dv|
-        if params["dv_#{dv.id}"]
-          don_vi_ids.push dv.id
-          @don_vis.push dv.ten_don_vi
-          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+      LoaiDonVi.all.each do |ldv|
+        if params["ldv_#{ldv.id}"]
+          @loai_don_vis.merge! ldv.id => ldv.ten_loai_don_vi
+          @params.push "ldv_#{ldv.id}=#{params["ldv_#{ldv.id}"]}"         
         end
+      end
+
+      @loai_don_vis.each do |e|
+        list = []
+        DonVi.find_all_by_loai_don_vi_id(e[0]).each do |dv|
+          if params["dv_#{dv.id}"]
+            @don_vi_ids.push dv.id
+            list.push [dv.id, dv.ten_don_vi]
+            @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+          end
+        end
+        @don_vis.merge! e => list
       end
 
       TrinhDoChuyenMon.all.each do |td|
@@ -1088,24 +1118,35 @@ module Casein
         end
       end
 
-      @hash = hash_trinh_do_chuyen_mon(don_vi_ids, trinh_do_chuyen_mon_ids)
+      @hash = hash_trinh_do_chuyen_mon(@don_vi_ids, trinh_do_chuyen_mon_ids)
 
       respond_to do |f|
         f.html
         f.json { render :json => @hash }
         f.xls {
           book = Spreadsheet::Workbook.new
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
+          title_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          sum_format = Spreadsheet::Format.new :color => :black, :weight => :bold, :align => :right
           list = book.create_worksheet :name => 'Can bo don vi - trinh do chuyen mon'
+          
           list.row(2)[0]= "STT"
           list.row(2)[1] = "Don vi"
+          count = []
           @don_vis.each_with_index { |h, index|
-            list.row(index + 4)[0] = index + 1
-            list.row(index + 4)[1] = h
+            count.push h[1].count
+            row_index = 0
+            h[1].each_with_index { |e, i|
+              row_index = i + 4 + index*(count.first + 1)
+              list.row(row_index)[0] = i + 1
+              list.row(row_index)[1] = e[1]
+            }
+            list.row(row_index + 1)[1] = "TONG [#{index + 1}] : #{h[0][1]}"
+            list.row(row_index + 1).default_format = sum_format
           }
 
-          xls_format_statistic_by_trinh_do_chuyen_mon(list, @hash, @trinh_do_chuyen_mons, 0)
+          xls_format_statistic_by_trinh_do_chuyen_mon(list, @hash.first[1].count*3, @don_vis, @hash, @trinh_do_chuyen_mons, 0)
           
-          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
           list.row(2).default_format = header_format
           list.row(3).default_format = header_format
           list.merge_cells(2, 0, 3, 0)
@@ -1127,19 +1168,31 @@ module Casein
     
 
     def statistic_by_loai_lao_dong
-      don_vi_ids = []
-      @don_vis = []
+      @don_vi_ids = []
+      @don_vis = {}
+      @loai_don_vis = {}
       @hash = {}
       loai_lao_dong_ids = []
       @loai_lao_dongs = []
       @params = []
 
-      DonVi.all.each do |dv|
-        if params["dv_#{dv.id}"]
-          don_vi_ids.push dv.id
-          @don_vis.push dv.ten_don_vi
-          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+      LoaiDonVi.all.each do |ldv|
+        if params["ldv_#{ldv.id}"]
+          @loai_don_vis.merge! ldv.id => ldv.ten_loai_don_vi
+          @params.push "ldv_#{ldv.id}=#{params["ldv_#{ldv.id}"]}"         
         end
+      end
+
+      @loai_don_vis.each do |e|
+        list = []
+        DonVi.find_all_by_loai_don_vi_id(e[0]).each do |dv|
+          if params["dv_#{dv.id}"]
+            @don_vi_ids.push dv.id
+            list.push [dv.id, dv.ten_don_vi]
+            @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+          end
+        end
+        @don_vis.merge! e => list
       end
 
       LoaiLaoDong.all.each do |lld|
@@ -1150,24 +1203,33 @@ module Casein
         end
       end
 
-      @hash = hash_loai_lao_dong(don_vi_ids, loai_lao_dong_ids)
+      @hash = hash_loai_lao_dong(@don_vi_ids, loai_lao_dong_ids)
 
       respond_to do |f|
         f.html
         f.json {render :json => @hash}
         f.xls {
           book = Spreadsheet::Workbook.new
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
+          title_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          sum_format = Spreadsheet::Format.new :color => :black, :weight => :bold, :align => :right
           list = book.create_worksheet :name => 'Can bo don vi - loai lao dong'
           
           list.row(2)[0]= "STT"
           list.row(2)[1] = "Don vi"
+          count = []
           @don_vis.each_with_index { |h, index|
-            list.row(index + 4)[0] = index + 1
-            list.row(index + 4)[1] = h
+            count.push h[1].count
+            row_index = 0
+            h[1].each_with_index { |e, i|
+              row_index = i + 4 + index*(count.first + 1)
+              list.row(row_index)[0] = i + 1
+              list.row(row_index)[1] = e[1]
+            }
+            list.row(row_index + 1)[1] = "TONG [#{index + 1}] : #{h[0][1]}"
+            list.row(row_index + 1).default_format = sum_format
           }
-
-          xls_format_statistic_by_loai_lao_dong(list, @hash, @loai_lao_dongs, 0)
-          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          xls_format_statistic_by_loai_lao_dong(list, @hash.first[1].count * 3, @don_vis, @hash, @loai_lao_dongs, 0)
           list.row(2).default_format = header_format
           list.row(3).default_format = header_format
           list.merge_cells(2, 0, 3, 0)
@@ -1191,15 +1253,27 @@ module Casein
       @hash = {}
       @range_of_age = params[:range] || "0"
       @don_vi_ids = []
-      @don_vis = []
+      @don_vis = {}
+      @loai_don_vis = {}
       @params = []
 
-      DonVi.all.each do |dv|
-        if params["dv_#{dv.id}"]
-          @don_vi_ids.push dv.id
-          @don_vis.push dv.ten_don_vi
-          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+      LoaiDonVi.all.each do |ldv|
+        if params["ldv_#{ldv.id}"]
+          @loai_don_vis.merge! ldv.id => ldv.ten_loai_don_vi
+          @params.push "ldv_#{ldv.id}=#{params["ldv_#{ldv.id}"]}"         
         end
+      end
+
+      @loai_don_vis.each do |e|
+        list = []
+        DonVi.find_all_by_loai_don_vi_id(e[0]).each do |dv|
+          if params["dv_#{dv.id}"]
+            @don_vi_ids.push dv.id
+            list.push [dv.id, dv.ten_don_vi]
+            @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+          end
+        end
+        @don_vis.merge! e => list
       end
 
       @hash = hash_age @don_vi_ids, @range_of_age
@@ -1209,17 +1283,27 @@ module Casein
         f.json { render :json => @hash }
         f.xls {
           book = Spreadsheet::Workbook.new
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
+          title_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          sum_format = Spreadsheet::Format.new :color => :black, :weight => :bold, :align => :right
           list = book.create_worksheet :name => 'Can bo don vi - do tuoi'
           
           list.row(2)[0] = "STT"
           list.row(2)[1] = "Don vi"
+          count = []
           @don_vis.each_with_index { |h, index|
-            list.row(index + 4)[0] = index + 1
-            list.row(index + 4)[1] = h
-           
+            count.push h[1].count
+            row_index = 0
+            h[1].each_with_index { |e, i|
+              row_index = i + 4 + index*(count.first + 1)
+              list.row(row_index)[0] = i + 1
+              list.row(row_index)[1] = e[1]
+            }
+            list.row(row_index + 1)[1] = "TONG [#{index + 1}] : #{h[0][1]}"
+            list.row(row_index + 1).default_format = sum_format
           }
-          xls_format_statistic_by_age(list, @hash, @range_of_age.split(";").map { |e| "#{e}" }, 0)
-          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          xls_format_statistic_by_age(list, @hash.first[1].count, @don_vis, @hash, @range_of_age.split(";").map { |e| "#{e}" }, 0)
+          
           list.row(2).default_format = header_format
           list.row(3).default_format = header_format
           list.merge_cells(2, 0, 3, 0)
@@ -1239,19 +1323,31 @@ module Casein
     end
     
     def statistic_by_cong_viec
-      don_vi_ids = []
-      @don_vis = []
+      @don_vi_ids = []
+      @loai_don_vis = {}
+      @don_vis = {}
       cong_viec_ids = []
       @hash = {}
       @params = []
       @cong_viecs = []
 
-      DonVi.all.each do |dv|
-        if params["dv_#{dv.id}"]
-          don_vi_ids.push dv.id
-          @don_vis.push dv.ten_don_vi
-          @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+      LoaiDonVi.all.each do |ldv|
+        if params["ldv_#{ldv.id}"]
+          @loai_don_vis.merge! ldv.id => ldv.ten_loai_don_vi
+          @params.push "ldv_#{ldv.id}=#{params["ldv_#{ldv.id}"]}"         
         end
+      end
+
+      @loai_don_vis.each do |e|
+        list = []
+        DonVi.find_all_by_loai_don_vi_id(e[0]).each do |dv|
+          if params["dv_#{dv.id}"]
+            @don_vi_ids.push dv.id
+            list.push [dv.id, dv.ten_don_vi]
+            @params.push "dv_#{dv.id}=#{params["dv_#{dv.id}"]}"
+          end
+        end
+        @don_vis.merge! e => list
       end
 
       CongViec.all.each do |cv|
@@ -1262,23 +1358,33 @@ module Casein
         end
       end
 
-      @hash = hash_cong_viec don_vi_ids, cong_viec_ids
+      @hash = hash_cong_viec @don_vi_ids, cong_viec_ids
 
       respond_to do |f|
         f.html
         f.json {render :json => @hash}
         f.xls {
           book = Spreadsheet::Workbook.new
-          list = book.create_worksheet :name => 'Can bo don vi - cong viec'
+          header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center, :size => 13
+          title_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
+          sum_format = Spreadsheet::Format.new :color => :black, :weight => :bold, :align => :right
+          list = book.create_worksheet :name => 'Can bo don vi - do tuoi'
           
-          list.row(2)[0] = "STT" 
+          list.row(2)[0] = "STT"
           list.row(2)[1] = "Don vi"
+          count = []
           @don_vis.each_with_index { |h, index|
-            list.row(index + 4)[0] = index + 1
-            list.row(index + 4)[1] = h
-           
+            count.push h[1].count
+            row_index = 0
+            h[1].each_with_index { |e, i|
+              row_index = i + 4 + index*(count.first + 1)
+              list.row(row_index)[0] = i + 1
+              list.row(row_index)[1] = e[1]
+            }
+            list.row(row_index + 1)[1] = "TONG [#{index + 1}] : #{h[0][1]}"
+            list.row(row_index + 1).default_format = sum_format
           }
-          xls_format_statistic_by_cong_viec(list, @hash, @cong_viecs, 0)
+          xls_format_statistic_by_cong_viec(list, @hash.first[1].count, @don_vis, @hash, @cong_viecs, 0)
 
           header_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :center
           list.row(2).default_format = header_format
@@ -1388,7 +1494,7 @@ module Casein
       hash
     end
 
-    def xls_format_statistic_by_trinh_do_chuyen_mon (list = Spreadsheet::Workbook.new.create_worksheet, hash = {}, trinh_do_chuyen_mons = {}, start_column = 0)
+    def xls_format_statistic_by_trinh_do_chuyen_mon list = Spreadsheet::Workbook.new.create_worksheet, count_clm, don_vis, hash, trinh_do_chuyen_mons, start_column
                   
           trinh_do_chuyen_mons.each_with_index { |e, i|  
             list.row(2)[(i + 1)*3 - 1 + start_column] = e
@@ -1396,18 +1502,35 @@ module Casein
             list.row(3)[(i + 1)*3 + start_column] = "Nu"
             list.row(3)[(i + 1)*3 + 1 + start_column] = "+"
           }
-
-          hash.each_with_index { |h, index|
-            arr = []
-            h[1].map do |r|
-              r[1].each do |k, v|
-                arr.push v
-              end
-            end
-            arr.each_with_index { |e, i|  
-              list.row(index + 4)[i + 2 + start_column] = e
+          #init shadow and f_sum
+          shadow = Array.new(don_vis.count) { |i|  0}
+          
+          don_vis.each_with_index { |don_vi, index|
+            f_sum = Array.new(count_clm) { |i|  0} 
+            
+            don_vi[1].each_with_index { |dv, i|
+              arr = []
+              hash["#{dv[0]}"].each_with_index { |h, i|
+                h[1].each_with_index { |clm, iclm|
+                  arr.push clm[1]
+                  f_sum[iclm + i*3] += clm[1]
+                } 
+              }
+              arr.each_with_index { |e, ie|  
+                row_index = i + 4 + shadow.inject(&:+) + index
+                list.row(row_index)[ie + 2 + start_column] = e
+              }
             }
-           
+
+            #add number of don_vi to shadow with index
+            shadow[index] = don_vi[1].count
+
+            row_index = 4 + shadow.inject(&:+) + index
+            f_sum.each_with_index { |e, ie|  
+              list.row(row_index)[ie + 2 + start_column] = e
+            }
+
+            
           }
           
           trinh_do_chuyen_mons.each_with_index { |e, i|  
@@ -1416,56 +1539,115 @@ module Casein
           }
     end
 
-    def xls_format_statistic_by_loai_lao_dong(list = Spreadsheet::Workbook.new.create_worksheet, hash = {}, loai_lao_dongs = [], start_column = 0)
+    def xls_format_statistic_by_loai_lao_dong(list = Spreadsheet::Workbook.new.create_worksheet, count_clm, don_vis, hash, loai_lao_dongs, start_column)
         loai_lao_dongs.each_with_index { |e, i|  
           list.row(2)[(i + 1)*3 - 1 + start_column] = e
           list.row(3)[(i + 1)*3 - 1 + start_column] = "Nam"
           list.row(3)[(i + 1)*3 + start_column] = "Nu"
           list.row(3)[(i + 1)*3 + 1 + start_column] = "+"
         }
+         #init shadow and f_sum
+          shadow = Array.new(don_vis.count) { |i|  0}
+          
+          don_vis.each_with_index { |don_vi, index|
+            f_sum = Array.new(count_clm) { |i|  0} 
+            
+            don_vi[1].each_with_index { |dv, i|
+              arr = []
+              hash["#{dv[0]}"].each_with_index { |h, i|
+                h[1].each_with_index { |clm, iclm|
+                  arr.push clm[1]
+                  f_sum[iclm + i*3] += clm[1]
+                } 
+              }
+              arr.each_with_index { |e, ie|  
+                row_index = i + 4 + shadow.inject(&:+) + index
+                list.row(row_index)[ie + 2 + start_column] = e
+              }
+            }
 
-        hash.each_with_index { |h, index|
-          arr = []
-          h[1].map do |r|
-            r[1].each do |k, v|
-              arr.push v
-            end
-          end
-          arr.each_with_index { |e, i|  
-            list.row(index + 4)[i + 2 + start_column] = e
-          }
-         
+            #add number of don_vi to shadow with index
+            shadow[index] = don_vi[1].count
+
+            row_index = 4 + shadow.inject(&:+) + index
+            f_sum.each_with_index { |e, ie|  
+              list.row(row_index)[ie + 2 + start_column] = e
+            }         
         }
-        
         loai_lao_dongs.each_with_index { |e, i|  
           s = (i + 1) * 3 - 1 + start_column
           list.merge_cells(2, s, 2, s + 2)
         }
     end
 
-    def xls_format_statistic_by_age(list = Spreadsheet::Workbook.new.create_worksheet, hash = {}, range_of_age = [], start_column = 0)
+    def xls_format_statistic_by_age(list = Spreadsheet::Workbook.new.create_worksheet, count_clm, don_vis, hash, range_of_age, start_column)
       
       range_of_age.each_with_index { |e, i| 
         list.row(2)[i + 2 + start_column] = "#{e} tuoi"
         list.merge_cells(2, start_column + i + 2, 3, start_column + i + 2) 
       }
-      hash.each_with_index { |h, index|
-        h[1].each_with_index { |r, i|
-          list.row(index + 4)[i + start_column + 2] = r[1]
+      #init shadow and f_sum
+      shadow = Array.new(don_vis.count) { |i|  0}
+      don_vis.each_with_index { |don_vi, index|
+        f_sum = Array.new(count_clm) { |i|  0} 
+        
+        don_vi[1].each_with_index { |dv, idv|
+          arr = []
+          hash["#{dv[0]}"].each_with_index { |h, i|
+            
+            arr.push h[1]
+            f_sum[i] += h[1]
+            
+          }
+          arr.each_with_index { |e, ie|  
+            row_index = idv + 4 + shadow.inject(&:+) + index
+            list.row(row_index)[ie + 2 + start_column] = e
+          }
+          
+        }
+
+        #add number of don_vi to shadow with index
+        shadow[index] = don_vi[1].count
+
+        row_index = 4 + shadow.inject(&:+) + index
+        f_sum.each_with_index { |e, ie|  
+          list.row(row_index)[ie + 2 + start_column] = e
         }
       }
     end
 
-    def xls_format_statistic_by_cong_viec(list = Spreadsheet::Workbook.new.create_worksheet, hash = {}, cong_viecs = [], start_column = 0)
+    def xls_format_statistic_by_cong_viec(list = Spreadsheet::Workbook.new.create_worksheet, count_clm, don_vis, hash, cong_viecs, start_column)
       cong_viecs.each_with_index {|e, i|
         list.row(2)[i + 2 + start_column] = "#{e}"
         list.merge_cells(2, start_column + i + 2, 3, start_column + i + 2)
       }
-      hash.each_with_index { |h, index|
-        h[1].each_with_index { |r, i|
-          list.row(index + 4)[2 + i + start_column] = r[1]
+      #init shadow and f_sum
+      shadow = Array.new(don_vis.count) { |i|  0}
+      don_vis.each_with_index { |don_vi, index|
+        f_sum = Array.new(count_clm) { |i|  0} 
+        
+        don_vi[1].each_with_index { |dv, idv|
+          arr = []
+          hash["#{dv[0]}"].each_with_index { |h, i|
+            
+            arr.push h[1]
+            f_sum[i] += h[1]
+            
+          }
+          arr.each_with_index { |e, ie|  
+            row_index = idv + 4 + shadow.inject(&:+) + index
+            list.row(row_index)[ie + 2 + start_column] = e
+          }
+          
         }
-       
+
+        #add number of don_vi to shadow with index
+        shadow[index] = don_vi[1].count
+
+        row_index = 4 + shadow.inject(&:+) + index
+        f_sum.each_with_index { |e, ie|  
+          list.row(row_index)[ie + 2 + start_column] = e
+        }
       }
     end
 
