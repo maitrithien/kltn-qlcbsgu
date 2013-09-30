@@ -821,7 +821,7 @@ a {
 
 #menu ul li {
     float: none;
-    width: 150px;
+    width: 220px;
     display: block;
     border: 0;
     _line-height: 0; /*IE6 only*/
@@ -835,7 +835,7 @@ a {
 #menu ul a {    
     padding: 10px;
     color: #eee;
-    width: 130px;
+    width: 200px;
     _height: 10px; /*IE6 only*/
     display: block;
     white-space: nowrap;
