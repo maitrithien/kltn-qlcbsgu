@@ -1,29 +1,91 @@
 class CanBoThongTin < ActiveRecord::Base
-  attr_accessible :ma_cb, :hinh_anh, :bac_luong_id, :ho_ten, :ten_goi_khac, :search_by_gioi_tinh, :gioi_tinh, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :ngay_cap_cmnd, :so_BHXH, :noi_dang_ky_ho_khau_thuong_tru, :noi_o_hien_nay, :tep_tin_dinh_kem, :is_deleted, :don_vi_id, :ngach_id, :trinh_do_chuyen_mon_id, :so_quyet_dinh,:loai_lao_dong_id,:chuc_vu_id,:chuc_vu_code
-  attr_accessor :search_by_gioi_tinh, :ngach_id, :trinh_do_chuyen_mon_id, :chuc_vu_code,:so_quyet_dinh
+  attr_accessible :ma_cb, 
+  :hinh_anh, 
+  :bac_luong_id, 
+  :ho_ten, 
+  :ten_goi_khac, 
+  :search_by_gioi_tinh, 
+  :gioi_tinh, 
+  :ngay_sinh, 
+  :noi_sinh, 
+  :que_quan, 
+  :dan_toc, 
+  :ton_giao, 
+  :so_cmnd, 
+  :ngay_cap_cmnd, 
+  :so_BHXH, 
+  :noi_dang_ky_ho_khau_thuong_tru, 
+  :noi_o_hien_nay, :tep_tin_dinh_kem, 
+  :is_deleted, 
+  :don_vi_id, 
+  :ngach_id, 
+  :trinh_do_chuyen_mon_id, 
+  :so_quyet_dinh,
+  :loai_lao_dong_id,
+  :chuc_vu_id,
+  :quyet_dinh_id,
+  :chuc_vu_code,
+  :bac
+  attr_accessor :search_by_gioi_tinh, 
+  :ngach_id, 
+  :trinh_do_chuyen_mon_id, 
+  :chuc_vu_code,
+  :so_quyet_dinh, 
+  :bac
 
   #check unique of attributes
   validates_uniqueness_of :ma_cb, :so_cmnd, :message =>"#{Param.get_param_value("has_already_been_taken")}"
 
   #not allow null attributes
-  validates_presence_of :ma_cb, :ho_ten, :ngay_sinh, :noi_sinh, :que_quan, :dan_toc, :ton_giao, :so_cmnd, :noi_dang_ky_ho_khau_thuong_tru,:noi_o_hien_nay, :message => "#{Param.get_param_value("is_not_blank")}"
+  validates_presence_of :ma_cb, 
+  :ho_ten, 
+  :ngay_sinh, 
+  :noi_sinh, 
+  :ngach_id,
+  :bac,
+  :so_cmnd, 
+  :don_vi_id,
+  :so_quyet_dinh, :message => "#{Param.get_param_value("is_not_blank")}"
 
+
+  before_save :create_when_empty
 
   mount_uploader :hinh_anh, ImageUploader
   mount_uploader :tep_tin_dinh_kem, FileUploader
 
   #relationship
-  has_many :can_bo_li_lich_cts
+  has_one :can_bo_li_lich_ct
   has_many :than_nhans
-  has_many :can_bo_trinh_dos
+  has_one :can_bo_trinh_do
   has_many :lich_su_bac_luongs
-  has_many :can_bo_cong_tacs
+  has_one :can_bo_cong_tac
   has_many :qua_trinh_cong_tacs
   belongs_to :bac_luong
   belongs_to :don_vi
   belongs_to :quyet_dinh
   belongs_to :loai_lao_dong
   belongs_to :chuc_vu
+
+  def create_when_empty
+    if @ten_goi_khac == ""
+     @ten_goi_khac = @ho_ten
+    end
+  end
+
+  def update_bac_luong_id ngach_id, bac
+      bac_luong = BacLuong.where(:ngach_id => ngach_id, :bac => bac).first
+      if bac_luong
+        self.bac_luong_id = bac_luong.id
+      end
+  end
+
+  def update_quyet_dinh_id so_quyet_dinh
+    quyet_dinh = QuyetDinh.find_by_so_qd(so_quyet_dinh)
+    if quyet_dinh
+      self.quyet_dinh_id = quyet_dinh.id
+    end
+  end
+
 
   def age
     birthday = self.ngay_sinh

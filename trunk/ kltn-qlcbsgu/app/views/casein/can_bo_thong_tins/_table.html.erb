@@ -6,10 +6,11 @@
 		<th>STT</th>
 		<th>Mã CB</th>
 		<th>Họ và tên</th>
-        <th>Giới tính</th>
-		<th>Ngày sinh</th>
-		<th>Số CMND</th>
-		<th>Nơi ở hiện nay</th>
+		<th>Giới tính</th>
+		<th>Chức vụ</th>
+        <th>Đơn vị</th>
+        <th>Ngạch</th>
+		<th>Quyết định</th>
 		<th title="Tập tin đính kèm"><%= casein_show_icon_custom_style("attach", "margin-top: -3px; height: 25px;") %></th>
 		<th>&nbsp;</th>
 	</tr>
@@ -25,13 +26,33 @@
             <% else %>
             <td><%= casein_table_cell_link "Nữ", casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
             <% end %>
-			<td><%= casein_table_cell_link can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y"), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-            <td><%= casein_table_cell_link can_bo_thong_tin.so_cmnd, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<td><%= casein_table_cell_link truncate(can_bo_thong_tin.noi_o_hien_nay, :length => 30), casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
+
+            <% 
+            	if can_bo_thong_tin.chuc_vu 
+            		chuc_vu = can_bo_thong_tin.chuc_vu.ten_chuc_vu
+            	end
+            	if can_bo_thong_tin.don_vi 
+            		don_vi = can_bo_thong_tin.don_vi.ten_don_vi
+            	end
+            	if can_bo_thong_tin.quyet_dinh
+            		quyet_dinh = can_bo_thong_tin.quyet_dinh.so_qd
+            	end
+            	if can_bo_thong_tin.bac_luong
+            		if can_bo_thong_tin.bac_luong.ngach
+            			ngach = can_bo_thong_tin.bac_luong.ngach.ma_ngach
+            		end
+            	end
+
+           	%>
+
+			<td><%= casein_table_cell_link chuc_vu, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
+            <td><%= casein_table_cell_link don_vi, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
+			<td><%= casein_table_cell_link ngach, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
+			<td><%= casein_table_cell_link quyet_dinh, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
 			<td class="attach">
-              <% if can_bo_thong_tin.tep_tin_dinh_kem != "" %>
-              <a href="<%= can_bo_thong_tin.tep_tin_dinh_kem %>" title="tải về tập tin đính kèm"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
-              <% end %>
+          	<% if can_bo_thong_tin.tep_tin_dinh_kem != "" %>
+          		<a href="<%= can_bo_thong_tin.tep_tin_dinh_kem %>" title="tải về tập tin đính kèm"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
+          	<% end %>
             </td>
 			<td class="delete">
 				<%= link_to(casein_show_icon_custom_style("delete", "margin-top:5px;"), casein_can_bo_thong_tin_path(can_bo_thong_tin), :method => :delete, :confirm => "Bạn có chắc muốn xóa thông tin cán bộ #{can_bo_thong_tin.ma_cb}?") %>

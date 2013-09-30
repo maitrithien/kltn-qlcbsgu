@@ -23,14 +23,6 @@ class LichSuBacLuong < ActiveRecord::Base
     end
   end
 
-  def self.get_bl_id(ngach_id,bac)
-    bacluong = BacLuong.find(:first, :conditions => ['ngach_id = ? and bac = ?',ngach_id, bac])
-    if bacluong
-      return bacluong.id
-    end
-      return nil
-  end
-
 end
 
 
