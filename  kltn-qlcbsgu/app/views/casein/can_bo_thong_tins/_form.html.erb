@@ -17,22 +17,15 @@
 <div class="tfContainer tfContainerSecond">
 	<%= casein_select f, f.object, :gioi_tinh, {"Nam"=>true, "Nữ"=>false},:casein_label => "Giới tính" %>
 </div>
-
-<% 
-	if @can_bo_thong_tin.bac_luong
-		@selected_ngach = @can_bo_thong_tin.bac_luong.ngach.id 
-		@selected_bac = @can_bo_thong_tin.bac_luong.bac
-	end
-%>
 <div class="tfContainer">
 <% link = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_ngaches_url, :title => "Thay đổi, bổ sung thông tin Ngạch", :style => "text-decoration:none;" %>
-      <%= casein_select f, f.object, :ngach_id, @ngachs.collect {|p| [ "#{p.ma_ngach} - #{p.ten_ngach}", p.id ] },{:include_blank => '------Ngạch----', :selected => @selected_ngach, :casein_label => "Ngạch #{link}".html_safe 
+      <%= casein_select f, f.object, :ngach_id, @ngachs.collect {|p| [ "#{p.ma_ngach} - #{p.ten_ngach}", p.id ] },{:include_blank => '------Ngạch----', :selected => @ngach_id, :casein_label => "Ngạch #{link}".html_safe 
       } %>
 
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_select f, f.object, :bac, options_for_select(Array(1..30), :selected => @selected_bac) , :casein_label => "Bậc Lương"%>
+	<%= casein_select f, f.object, :bac, options_for_select(Array(1..30), :selected => @bac) , :casein_label => "Bậc Lương"%>
 </div>
 <div class="tfContainer ">
 	<%= casein_date_select f, f.object, :ngay_sinh, :start_year => Date.current.year, :end_year => 1920, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :include_blank => true, :casein_label => "Ngày sinh" %>
@@ -90,7 +83,7 @@
 </div>
 
 <div class="tfContainer">
-	<%= casein_text_field f, f.object, :so_quyet_dinh, :casein_label => "Số quyết định" %>
+	<%= casein_text_field f, f.object, :so_quyet_dinh, :casein_label => "Số quyết định", :value => "#{@so_quyet_dinh}" %>
 </div>
 <div class="tfContainer tfContainerSecond">
 	<%= casein_select f, f.object, :loai_lao_dong_id, @loai_lao_dongs.collect{|o| ["#{o.ten_loai_lao_dong}", o.id]}, :casein_label => "Loại Lao Động".html_safe %>

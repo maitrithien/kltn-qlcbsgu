@@ -88,6 +88,9 @@ module Casein
     end
 
     def edit
+      @ngach_id = @can_bo_thong_tin.bac_luong.ngach_id
+      @bac = @can_bo_thong_tin.bac_luong.bac
+      @so_quyet_dinh = @can_bo_thong_tin.quyet_dinh.so_qd
     end
 
     def show
@@ -350,15 +353,23 @@ module Casein
       file_uploader = FileUploader.new
       file_uploader.store!(my_file)
       file_uploader.retrieve_from_store!('my_file.doc')
-
-      #@can_bo_thong_tin.update_bac_luong_id params[:can_bo_thong_tin][:ngach_id], params[:can_bo_thong_tin][:bac]
-      #@can_bo_thong_tin.update_quyet_dinh_id params[:can_bo_thong_tin][:so_quyet_dinh]
-      @can_bo_thong_tin.quyet_dinh_id = params[:can_bo_thong_tin][:ngach_id]
-      if @can_bo_thong_tin.save
-        flash[:notice] = Param.get_param_value("adding_success")
-        redirect_to casein_can_bo_thong_tins_path
+      @can_bo_thong_tin.bac_luong_id = BacLuong.select("id").where(:ngach_id => params[:can_bo_thong_tin][:ngach_id], :bac => params[:can_bo_thong_tin][:bac]).first.id
+      qd = QuyetDinh.find_by_so_qd(params[:can_bo_thong_tin][:so_quyet_dinh])
+      if qd
+      #@can_bo_thong_tin.quyet_dinh_id = params[:can_bo_thong_tin][:ngach_id]
+        @can_bo_thong_tin.quyet_dinh_id = qd.id
+        if @can_bo_thong_tin.save
+         
+          flash[:notice] = Param.get_param_value("adding_success")
+          redirect_to casein_can_bo_thong_tins_path
+        else
+          flash.now[:warning] = Param.get_param_value("adding_false")
+          load_combo
+          render :action => :new
+        end
       else
-        flash.now[:warning] = Param.get_param_value("adding_false")
+        flash.now[:warning] = Param.get_param_value("so_qd_not_found")
+        load_combo
         render :action => :new
       end
     end
@@ -373,13 +384,30 @@ module Casein
       my_file = params[:can_bo_thong_tin][:tep_tin_dinh_kem]
       file_uploader = FileUploader.new
       file_uploader.store!(my_file)      
+      params[:can_bo_thong_tin][:bac_luong_id] = BacLuong.select("id").where(:ngach_id => params[:can_bo_thong_tin][:ngach_id], :bac => params[:can_bo_thong_tin][:bac]).first.id
+      
+      qd = QuyetDinh.find_by_so_qd(params[:can_bo_thong_tin][:so_quyet_dinh])
+      if qd 
+        params[:can_bo_thong_tin][:quyet_dinh_id] = qd.id
+        if @can_bo_thong_tin.update_attributes params[:can_bo_thong_tin]
 
-      if @can_bo_thong_tin.update_attributes params[:can_bo_thong_tin]
+          flash[:notice] = Param.get_param_value("updating_success")
+          redirect_to casein_can_bo_thong_tin_path(@can_bo_thong_tin)
+        else
+          flash.now[:warning] = Param.get_param_value("updating_false")
+          load_combo
+          @ngach_id = @can_bo_thong_tin.bac_luong.ngach_id
+          @bac = @can_bo_thong_tin.bac_luong.bac
+          @so_quyet_dinh = @can_bo_thong_tin.quyet_dinh.so_qd
+          render :action => :edit
+        end
 
-        flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_can_bo_thong_tin_path(@can_bo_thong_tin)
       else
-        flash.now[:warning] = Param.get_param_value("updating_false")
+        flash.now[:warning] = Param.get_param_value("so_qd_not_found")
+        load_combo
+        @ngach_id = @can_bo_thong_tin.bac_luong.ngach_id
+        @bac = @can_bo_thong_tin.bac_luong.bac
+        @so_quyet_dinh = @can_bo_thong_tin.quyet_dinh.so_qd
         render :action => :edit
       end
     end
