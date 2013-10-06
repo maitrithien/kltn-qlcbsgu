@@ -20,7 +20,7 @@
 										<ul style="margin-left:20px;" id="ul_<%= ldv.id %>">
 							  				<% DonVi.find_all_by_loai_don_vi_id(ldv.id).each do |dv| %>
 											
-												<li><label onclick="unCheckAll('formStatisticTotal','dv_all');unCheckAll('formStatisticTotal','ldv_<%= ldv.id %>');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
+												<li><label onclick="unCheckAll('formStatisticTotal','dv_all');countChecked('formStatisticTotal','ul_<%= ldv.id %>','ldv_<%= ldv.id %>');" for="dv_<%= dv.id %>"><%= check_box_tag "dv_#{dv.id}", true %> <%= dv.ten_don_vi %></label>
 
 
 												</li>

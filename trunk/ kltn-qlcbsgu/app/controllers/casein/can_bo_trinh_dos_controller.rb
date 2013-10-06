@@ -72,26 +72,44 @@ module Casein
     def edit
       @casein_page_title = Param.get_param_value("can_bo_trinh_do_edit_page_title")
       @can_bo_trinh_do = CanBoTrinhDo.find params[:id]
+      @ma_cb = @can_bo_trinh_do.can_bo_thong_tin.ma_cb
     end
  
     def new
       @casein_page_title = Param.get_param_value("can_bo_trinh_do_new_page_title")
-    	@can_bo_trinh_do = CanBoTrinhDo.new
+    	if params[:ma_cb]
+        cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
+        if !cb
+          flash.now[:warning] = Param.get_param_value("cb_not_found") + params[:ma_cb]
+        else
+          cbtd = CanBoTrinhDo.find_by_can_bo_thong_tin_id(cb.id)
+          if cbtd
+            redirect_to casein_can_bo_trinh_do_path(cbtd)
+          else
+            @can_bo_trinh_do = CanBoTrinhDo.new
+            @ma_cb = cb.ma_cb
+          end
+        end
+      else
+        @can_bo_trinh_do = CanBoTrinhDo.new
+      end
     end
 
     def create
       @can_bo_trinh_do = CanBoTrinhDo.new params[:can_bo_trinh_do]
-      if params[:can_bo_trinh_do][:ngoai_ngu] == ""
-         params[:can_bo_trinh_do][:trinh_do_ngoai_ngu] = ""
-      end
-      if params[:can_bo_trinh_do][:trinh_do_chuyen_mon] == ""
-        params[:can_bo_trinh_do][:chuyen_nganh] = ""
-      end
-      if @can_bo_trinh_do.save
-        flash[:notice] = Param.get_param_value("adding_success")
-        redirect_to casein_can_bo_trinh_dos_path
+      cb = CanBoThongTin.find_by_ma_cb(params[:can_bo_trinh_do][:can_bo_thong_tin_id])
+      if cb
+        @can_bo_trinh_do.can_bo_thong_tin_id = cb.id
+
+        if @can_bo_trinh_do.save
+          flash[:notice] = Param.get_param_value("adding_success")
+          redirect_to casein_can_bo_trinh_do_path(@can_bo_trinh_do)
+        else
+          flash.now[:warning] = Param.get_param_value("adding_false")
+          render :action => :new
+        end
       else
-        flash.now[:warning] = Param.get_param_value("adding_false")
+        flash.now[:warning] = Param.get_param_value("cb_not_found") + params[:can_bo_trinh_do][:can_bo_thong_tin_id]
         render :action => :new
       end
     end

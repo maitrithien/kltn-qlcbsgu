@@ -10,6 +10,27 @@ function checkAll(divID, checktoggle)
     }
   }
 }
+
+function countChecked(formid,divId,checkAllName)
+{
+  
+  var checkboxes = new Array(); 
+  checkboxes = document.getElementById(divId).getElementsByTagName('input');
+  var count = false;
+  
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked == true)   {
+      count = true;
+      break;
+    }
+  }
+  if(count == true){
+        document.getElementById(formid).elements[checkAllName].checked=true;
+    }else{
+        document.getElementById(formid).elements[checkAllName].checked=false;
+    }
+}
+
 function unCheckAll(formid,checkAllName)
 {
 	document.getElementById(formid).elements[checkAllName].checked=false;
@@ -64,3 +85,11 @@ toggleSwitchDiv = function(div1, div2)
 }
 
 
+function CheckNumericValue(e) {
+           var key = e.which ? e.which : e.keyCode;
+           //enter key  //backspace //tabkey      //escape key       //delete key           
+           if ((key >= 48 && key <= 57) || key == 13 || key == 8 || key == 9 || key == 27 || key == 46) {
+               return true;
+           }
+           return false;
+        }

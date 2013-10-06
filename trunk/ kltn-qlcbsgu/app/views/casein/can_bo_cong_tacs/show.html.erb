@@ -20,7 +20,7 @@
 </tr>
 <tr>
 	<th><b>Sở trường công tác:</b></th>
-	<td><%= @can_bo_cong_tac.cong_viec.ten_cong_viec %></td>
+	<td><%= @can_bo_cong_tac.so_truong_cong_tac %></td>
 </tr>
 <% ngay_bat_dau_lam_viec = "" %>
 <% if @can_bo_cong_tac.ngay_bat_dau_lam_viec %>
@@ -29,6 +29,10 @@
 <tr>
 	<th><b>Ngày bắt đầu làm việc:</b></th>
 	<td><%= ngay_bat_dau_lam_viec %></td>
+</tr>
+<tr>
+	<th><b>Ghi chú:</b></th>
+	<td><%= @can_bo_cong_tac.ghi_chu %></td>
 </tr>
 
 </table>

@@ -62,21 +62,46 @@ module Casein
     def edit
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_edit_page_title"
       @can_bo_cong_tac = CanBoCongTac.find params[:id]
+      @ma_cb = @can_bo_cong_tac.can_bo_thong_tin.ma_cb
+
     end
  
     def new
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_new_page_title"
-    	@can_bo_cong_tac = CanBoCongTac.new
+      if params[:ma_cb]
+        cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
+        if !cb
+          flash.now[:warning] = Param.get_param_value("cb_not_found") + params[:ma_cb]
+        else
+          cbct = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
+          if cbct
+            redirect_to casein_can_bo_cong_tac_path(cbct)
+          else
+            @can_bo_cong_tac = CanBoCongTac.new
+            @ma_cb = cb.ma_cb
+          end
+        end
+      else
+        @can_bo_cong_tac = CanBoCongTac.new
+      end
     end
 
     def create
       @can_bo_cong_tac = CanBoCongTac.new params[:can_bo_cong_tac]
-    
-      if @can_bo_cong_tac.save
-        flash[:notice] = Param.get_param_value("adding_success")
-        redirect_to casein_can_bo_cong_tacs_path
+      
+      cb = CanBoThongTin.find_by_ma_cb(params[:can_bo_cong_tac][:can_bo_thong_tin_id])
+      if cb
+        @can_bo_cong_tac.can_bo_thong_tin_id = cb.id
+
+        if @can_bo_cong_tac.save
+          flash[:notice] = Param.get_param_value("adding_success")
+          redirect_to casein_can_bo_cong_tacs_path
+        else
+          flash.now[:warning] = Param.get_param_value("adding_false")
+          render :action => :new
+        end
       else
-        flash.now[:warning] = Param.get_param_value("adding_false")
+        flash.now[:warning] = Param.get_param_value("cb_not_found") + params[:can_bo_cong_tac][:can_bo_thong_tin_id]
         render :action => :new
       end
     end
@@ -85,14 +110,22 @@ module Casein
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_update_page_title"
       
       @can_bo_cong_tac = CanBoCongTac.find params[:id]
-    
-      if @can_bo_cong_tac.update_attributes params[:can_bo_cong_tac]
-        flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_can_bo_cong_tacs_path
+      
+      cb = CanBoThongTin.find_by_ma_cb(params[:can_bo_cong_tac][:can_bo_thong_tin_id])
+      if cb
+        params[:can_bo_cong_tac][:can_bo_thong_tin_id] = cb.id
+        if @can_bo_cong_tac.update_attributes params[:can_bo_cong_tac]
+          flash[:notice] = Param.get_param_value("updating_success")
+          redirect_to casein_can_bo_cong_tacs_path
+        else
+          flash.now[:warning] = Param.get_param_value("updating_false")
+          render :action => :edit
+        end
       else
-        flash.now[:warning] = Param.get_param_value("deleting_false")
-        render :action => :show
+        flash.now[:warning] = Param.get_param_value("cb_not_found") + params[:can_bo_cong_tac][:can_bo_thong_tin_id]
+        render :action => :edit
       end
+
     end
  
     def destroy
