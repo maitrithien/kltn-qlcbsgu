@@ -92,6 +92,7 @@ QLTtCbvcSgu::Application.routes.draw do
 		resources :than_nhans do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
+      get "details", :on => :collection
     end
 		resources :params do
       get "import_from_excel", :on => :collection

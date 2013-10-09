@@ -37,12 +37,23 @@ module Casein
 	
   	# A list of stylesheet files to include in the page head section
   	def casein_config_stylesheet_includes
-  		%w[/casein/stylesheets/custom /casein/stylesheets/screen /casein/stylesheets/elements]
+  		%w[/casein/stylesheets/custom 
+        /casein/stylesheets/screen 
+        /casein/stylesheets/jquery-ui-1.10.3.custom
+        /casein/stylesheets/jquery-ui-1.10.3.custom.min
+        /casein/stylesheets/elements]
   	end
 	
   	# A list of JavaScript files to include in the page head section
   	def casein_config_javascript_includes
-  	  %w[/casein/javascripts/jquery /casein/javascripts/jquery-1.4.2.min /casein/javascripts/showhide /casein/javascripts/custom /casein/javascripts/casein /casein/javascripts/rails]
+  	  %w[/casein/javascripts/jquery 
+        /casein/javascripts/jquery-1.4.2.min 
+        /casein/javascripts/showhide 
+        /casein/javascripts/custom 
+        /casein/javascripts/casein 
+        /casein/javascripts/jquery-ui-1.10.3.custom
+        /casein/javascripts/jquery-ui-1.10.3.custom.min
+        /casein/javascripts/rails]
   	end
   	
   end

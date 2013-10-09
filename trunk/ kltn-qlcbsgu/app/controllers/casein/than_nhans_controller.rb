@@ -6,9 +6,10 @@ module Casein
     ## optional filters for defining usage according to Casein::Users access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
+    before_filter :set_object, only: [:edit, :show, :update, :destroy]
 
-
-    def index
+=begin
+def index
       @casein_page_title = Param.get_param_value('than_nhan_index_page_title')
       search_value = params["keyword"]
       if search_value
@@ -46,10 +47,29 @@ module Casein
         }
       end
     end
-  
+=end
+    def index
+      @can_bos = CanBoThongTin.select("id, ma_cb, ho_ten").paginate :page => params[:page], :per_page => params[:per_page]
+    end
+    
+    def details
+      ma_cb = params[:ma_cb]
+      can_bo_thong_tin = CanBoThongTin.find_by_ma_cb(ma_cb)
+      if can_bo_thong_tin
+        @can_bo_thong_tin = can_bo_thong_tin
+        @than_nhans =  ThanNhan.find_all_by_can_bo_thong_tin_id(can_bo_thong_tin.id)
+      else
+        render_404
+      end
+      
+    end
+
+    def edit
+      
+    end    
+
     def show
       @casein_page_title = Param.get_param_value('than_nhan_show_page_title')
-      @than_nhan = ThanNhan.find params[:id]
     end
  
     def new
@@ -62,7 +82,7 @@ module Casein
     
       if @than_nhan.save
         flash[:notice] = Param.get_param_value('adding_success')
-        redirect_to casein_than_nhans_path
+        redirect_to details_casein_than_nhans_path(:ma_cb => @than_nhan.can_bo_thong_tin.ma_cb)
       else
         flash.now[:warning] = 'There were problems when trying to create a new than nhan'
         render :action => :new
@@ -71,12 +91,10 @@ module Casein
   
     def update
       @casein_page_title = Param.get_param_value('than_nhan_update_page_title')
-      
-      @than_nhan = ThanNhan.find params[:id]
     
       if @than_nhan.update_attributes params[:than_nhan]
         flash[:notice] = Param.get_param_value('updating_success')
-        redirect_to casein_than_nhans_path
+        redirect_to details_casein_than_nhans_path(:ma_cb => @than_nhan.can_bo_thong_tin.ma_cb)
       else
         flash.now[:warning] = Param.get_param_value('updating_false')
         render :action => :show
@@ -84,8 +102,6 @@ module Casein
     end
  
     def destroy
-      @than_nhan = ThanNhan.find params[:id]
-
       @than_nhan.destroy
       flash[:notice] = Param.get_param_value('deleting_success')
       redirect_to casein_than_nhans_path
@@ -161,6 +177,16 @@ module Casein
       respond_to do |format|
         format.html
         format.json {head :no_content}
+      end
+    end
+
+    private
+    def set_object
+      than_nhan = ThanNhan.find params[:id]
+      if than_nhan
+        @than_nhan = than_nhan
+      else
+        render_404
       end
     end
 
