@@ -36,8 +36,8 @@ table{
 	bottom: 0;
 	left: 0;
 	right: 318px;
-	background: #fff;
-	/*background: url("/casein/images/body_bg.png") repeat;*/
+	/*background: #fff;*/
+	background: url("/casein/images/body_bg.png") repeat;
 	z-index: 10;
 	overflow: auto;
 }

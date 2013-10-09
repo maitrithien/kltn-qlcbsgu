@@ -9,11 +9,15 @@
 
 
 <div class="blk-share">
-<h2>Thân nhân cán bộ</h2>
+<h2>Danh sách cán bộ</h2>
 
-<%= render :partial => 'casein/than_nhans/table', :locals => { :than_nhans => @than_nhans } %>
+<%#= render :partial => 'casein/than_nhans/table', :locals => { :than_nhans => @than_nhans } %>
 
-<%= will_paginate @than_nhans, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+<%#= will_paginate @than_nhans, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+
+<%= render :partial => 'casein/than_nhans/table_group', :locals => { :can_bos => @can_bos } %>
+
+<%= will_paginate @can_bos, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
 </div>
 
 

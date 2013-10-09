@@ -49,6 +49,16 @@ tr, td
 {
     line-height: 18px;
 }
+.tdlabel
+{
+    border-bottom: 2px solid #E6E6E6 !important;
+    width: 30%;
+}
+.tdtext
+{
+    border-bottom: 1px solid #E6E6E6 !important;
+    width: auto;
+}
 .boxy {
     padding: 10px;
     text-align: center;
@@ -958,4 +968,78 @@ color: #c09eda;
 background: #fdebf3;
 border-color: #ddcbd3;
 color: #f49ac1;
+}
+
+table.files {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -moz-box-sizing: border-box;
+    background: none repeat scroll 0 0 #F8F8F8;
+    border-color: -moz-use-text-color #D8D8D8 #D8D8D8;
+    border-image: none;
+    border-radius: 3px 3px 3px 3px;
+    border-right: 1px solid #D8D8D8;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    width: 100%;
+}
+table.files td {
+    border-top: 1px solid #EEEEEE;
+    padding: 7px 3px;
+}
+table.files td.icon {
+    color: #777777;
+    padding-left: 10px;
+    padding-right: 2px;
+    width: 17px;
+}
+table.files td.icon .octicon-file-directory {
+    color: #80A6CD;
+}
+table.files td.icon .spinner {
+    display: none;
+    margin-top: -2px;
+    position: relative;
+    top: 3px;
+}
+table.files td.content .css-truncate {
+    max-width: 180px;
+}
+table.files td.message {
+    color: #888888;
+    height: 20px;
+    overflow: hidden;
+    padding-left: 10px;
+}
+table.files td.message a {
+    color: #888888;
+}
+table.files td.message a:hover {
+    color: #4183C4;
+}
+table.files td.message .css-truncate {
+    max-width: 450px;
+}
+table.files td.age {
+    color: #888888;
+    padding-right: 10px;
+    text-align: right;
+    white-space: nowrap;
+}
+table.files td.age .css-truncate {
+    max-width: 100px;
+}
+table.files tr.is-loading td.icon .octicon {
+    display: none;
+}
+table.files tr.is-loading td.icon .spinner {
+    display: inline-block;
+}
+table.files tr.up-tree {
+    border-bottom: 1px solid #EEEEEE;
+}
+table.files tbody tr:first-child td {
+    border-top: medium none;
 }
