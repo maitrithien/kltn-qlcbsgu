@@ -20,6 +20,7 @@ QLTtCbvcSgu::Application.routes.draw do
 		resources :qua_trinh_cong_tacs do
       get "import_from_excel", :on => :collection
       post "parse_save_from_excel", :on => :collection
+      get "details", :on => :collection
     end
 		resources :can_bo_cong_tacs do
     get "import_from_excel", :on => :collection

@@ -68,21 +68,13 @@ module Casein
  
     def new
       @casein_page_title = Param.get_param_value "can_bo_cong_tac_new_page_title"
+      @can_bo_cong_tac = CanBoCongTac.new
       if params[:ma_cb]
         cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
-        if !cb
-          flash.now[:warning] = Param.get_param_value("cb_not_found") + params[:ma_cb]
-        else
-          cbct = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
-          if cbct
-            redirect_to casein_can_bo_cong_tac_path(cbct)
-          else
-            @can_bo_cong_tac = CanBoCongTac.new
-            @ma_cb = cb.ma_cb
-          end
+        if cb
+          @can_bo_cong_tac.can_bo_thong_tin_id = cb.id
+          @is_edited = true
         end
-      else
-        @can_bo_cong_tac = CanBoCongTac.new
       end
     end
 

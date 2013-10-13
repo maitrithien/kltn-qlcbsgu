@@ -10,9 +10,10 @@
 		<th>Chức vụ</th>
         <th>Đơn vị</th>
         <th>Ngạch</th>
-		<th>Quyết định</th>
-		<th title="Tập tin đính kèm"><%= casein_show_icon_custom_style("attach", "margin-top: -3px; height: 25px;") %></th>
-		<th>&nbsp;</th>
+		<th>QĐ tuyển dụng</th>
+		<!--th title="Tập tin đính kèm"><%#= casein_show_icon_custom_style("attach", "margin-top: -3px; height: 25px;") %></th-->
+        <th>[Sửa]</th>
+		<th>[Xóa]</th>
 	</tr>
 	
 	<% can_bo_thong_tins.each_with_index do |can_bo_thong_tin, index| %>
@@ -49,10 +50,13 @@
             <td><%= casein_table_cell_link don_vi, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
 			<td><%= casein_table_cell_link ngach, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
 			<td><%= casein_table_cell_link quyet_dinh, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<td class="attach">
-          	<% if can_bo_thong_tin.tep_tin_dinh_kem != "" %>
+			<!--td class="attach">
+          	<%# if can_bo_thong_tin.tep_tin_dinh_kem != "" %>
           		<a href="<%= can_bo_thong_tin.tep_tin_dinh_kem %>" title="tải về tập tin đính kèm"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
-          	<% end %>
+          	<%# end %>
+            </td-->
+            <td class="delete">
+                <%= link_to(casein_show_icon("edit"), edit_casein_can_bo_thong_tin_path(can_bo_thong_tin)) %>
             </td>
 			<td class="delete">
 				<%= link_to(casein_show_icon_custom_style("delete", "margin-top:5px;"), casein_can_bo_thong_tin_path(can_bo_thong_tin), :method => :delete, :confirm => "Bạn có chắc muốn xóa thông tin cán bộ #{can_bo_thong_tin.ma_cb}?") %>

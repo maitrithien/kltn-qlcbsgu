@@ -1,0 +1,158 @@
+Lịch sử bậc lương:
+(Thay đổi url/path cho đúng)
+Controller: Thay đổi Index và thêm vào Details, cập nhật New và kiểm tra Redirect ở Update và Create
+	- Index: 
+	--------------------------------------------------------------------------------
+	def index
+      search_value = params["keyword"]
+      view = 10
+      don_vi = 0
+      page = params[:page] ||= 1
+
+      if params["num_view"].to_s != ""
+        #must be a number
+        if params["num_view"].match(/^\d+$/)
+          #must be greater than 0 
+          if params["num_view"].to_i > 0
+            #set view value for pagination
+            view = params["num_view"].to_i
+          end
+        end
+      end
+
+      if params[:don_vi]
+        don_vi = params[:don_vi].to_i if params[:don_vi].match(/^\d+$/)
+      end
+
+      order = ""
+      if params["order_by"].to_s != ""
+        order = params["order_by"]
+        #ignore the invalid values for order queries
+        if order.split(":").last != "desc" && order.split(":").count > 1
+          order = ""
+        else
+          #convert to correct format
+          #param values has been submited include colon symbol
+          #e.g: order by query desc
+          order = order.gsub(':', ' ')
+        end
+      end
+
+      #set conditions for paginate to filter records, it's base on don_vi parameter
+      paginate_conditions = ""
+      paginate_conditions = ['don_vi_id = ?', don_vi] if don_vi != 0
+
+      @can_bos = CanBoThongTin.select("id, ma_cb, ho_ten, ngay_sinh, don_vi_id, chuc_vu_id, loai_lao_dong_id").search(search_value, don_vi).paginate :page => page, :per_page => view, :conditions => paginate_conditions
+    end
+	--------------------------------------------------------------------------------
+	
+	- Details:
+	--------------------------------------------------------------------------------
+	def details
+      ma_cb = params[:ma_cb]
+      can_bo_thong_tin = CanBoThongTin.find_by_ma_cb(ma_cb)
+      if can_bo_thong_tin
+        @can_bo_thong_tin = can_bo_thong_tin
+        @than_nhans =  ThanNhan.find_all_by_can_bo_thong_tin_id(can_bo_thong_tin.id)
+      else
+        render_404
+      end
+    end
+	--------------------------------------------------------------------------------
+	
+	- New: (bổ sung kiểm tra params[:ma_cb])
+	--------------------------------------------------------------------------------
+	def new
+      @casein_page_title = Param.get_param_value('than_nhan_new_page_title')
+    	@than_nhan = ThanNhan.new
+      if params[:ma_cb]
+        cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
+        if cb
+          @than_nhan.can_bo_thong_tin_id = cb.id
+          @is_edited = true
+        end
+      end
+    end
+	--------------------------------------------------------------------------------
+	
+	- Update/Create (Redirect sang trang chi tiết - Details)
+	--------------------------------------------------------------------------------
+	redirect_to details_casein_than_nhans_path(:ma_cb => @than_nhan.can_bo_thong_tin.ma_cb)
+	--------------------------------------------------------------------------------
+	
+View: (Lưu ý các url của form tìm kiếm và xem theo của index)
+	- Form: (Thay đổi combo canbothongtin thành textbox+hidden khi edit)
+	--------------------------------------------------------------------------------
+	<div class="tfContainer">
+	<% if @is_edited %>
+		<%= casein_hidden_field f, f.object, :can_bo_thong_tin_id, :value => f.object.can_bo_thong_tin_id %>
+		<%= casein_text_field f, f.object, :can_bo_thong_tin_name, :value => f.object.can_bo_thong_tin.ho_ten, :casein_label => "Cán bộ", :readonly => true %>
+	<% else %>
+	  <%= casein_select f, f.object, :can_bo_thong_tin_id, CanBoThongTin.select("id, ma_cb, ho_ten").collect {|p| [ "#{p.ma_cb} - #{p.ho_ten}", p.id ] }, {:include_blank => '', :casein_label => "Cán bộ"} %>
+	<% end %>
+	</div> 
+	--------------------------------------------------------------------------------
+	
+	- Table_Group (Dùng để hiển thị cho nội dung Index)
+	--------------------------------------------------------------------------------
+	<% page = (params[:page] ? params[:page] : 1).to_i  %> #Dùng cho Số thứ tự
+	<% num_view = (params[:num_view] ? params[:num_view] : 10).to_i  %>
+	<table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
+		<tr>
+			<th>STT</th>
+			<th>Mã cán bộ</th>
+			<th>Họ và Tên</th>
+			<th>Ngày sinh</th>
+			<th>Đơn vị</th>
+			<th>Chức vụ</th>
+			<th>Loại lao động</th>
+		</tr>
+		
+		<% can_bos.each_with_index do |cb, index| %>
+		<% 
+			if cb.don_vi 
+				@don_vi = cb.don_vi.ten_don_vi
+			end
+			if cb.loai_lao_dong
+				@loai_lao_dong = cb.loai_lao_dong.ten_loai_lao_dong
+			end
+			if cb.chuc_vu
+				@chuc_vu = cb.chuc_vu.ten_chuc_vu
+			end
+		%> 
+			<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
+				<td><%= num_view * (page - 1) + index + 1 %></td>
+				<td><%= casein_table_cell_link "#{cb.ma_cb}", details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+				<td><%= casein_table_cell_link cb.ho_ten, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+				<td><%= casein_table_cell_link cb.ngay_sinh.strftime("%d/%m/%Y"), details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+				<td><%= casein_table_cell_link @don_vi, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+				<td><%= casein_table_cell_link @chuc_vu, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+				<td><%= casein_table_cell_link @loai_lao_dong, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+			</tr>
+		<% end %>
+	</table>
+	--------------------------------------------------------------------------------
+	
+	- Details (tương tự các trang details khác, chỉ cần thay đổi nội dung render và sidebar)
+	--------------------------------------------------------------------------------
+	<%= render :partial => 'casein/than_nhans/table', :locals => { :than_nhans => @than_nhans } %>
+	</div>
+	<%= content_for :sidebar do %>
+		<li><%= link_to "#{casein_show_icon "add"}Thêm mới thân nhân".html_safe, new_casein_than_nhan_path(:ma_cb => @can_bo_thong_tin.ma_cb) %></li>
+		<li><%= link_to "#{casein_show_icon "import"}Thêm mới thân nhân từ tập tin excel".html_safe, import_from_excel_casein_than_nhans_path %></li>
+		<li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_than_nhans_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
+	<% end %>
+	--------------------------------------------------------------------------------
+	
+	- Edit:
+	--------------------------------------------------------------------------------
+	Bổ sung thêm nội dung sau vào trước form trong view edit
+	<% @is_edited = true %>
+	--------------------------------------------------------------------------------
+
+Model: (bổ sung thêm accessor cho model)
+	- attr_accessible :can_bo_thong_tin_name
+	- attr_accessor :can_bo_thong_tin_name
+	
+CanboThongTin:
+Bổ sung download quyết định

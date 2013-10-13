@@ -1,10 +1,13 @@
 
 <table cellpadding="0" cellspacing="0" id="itemList" class="itemList center">
   <tr>
+  	<th>STT</th>
     <th>Đơn vị công tác</th>
     <th>Chức vụ</th>
-    <th>Ngày bắt đầu công tác</th>
-    <th>Ngày kết thúc công tác</th>
+    <th>Ngày bắt đầu làm viêc</th>
+    <th>Ngày chuyển công tác</th>
+    <th>[Sửa]</th>
+    <th>[Xóa]</th>
   </tr>
   
   <% qua_trinh_cong_tacs.each_with_index do |q, index| %>
@@ -25,11 +28,14 @@
 	<% if q.thoi_gian_ket_thuc %>
 		  <% thoi_gian_ket_thuc = q.thoi_gian_ket_thuc.strftime("%d/%m/%Y")  %>
 	<% end %>
-	<tr class="hover">
-	<td><%= casein_table_cell_link don_vi, casein_qua_trinh_cong_tac_path(q) %></td>
-	<td><%= casein_table_cell_link chuc_vu, casein_qua_trinh_cong_tac_path(q) %></td>
-	<td><%= casein_table_cell_link thoi_gian_bat_dau, casein_qua_trinh_cong_tac_path(q) %></td>
-	<td><%= casein_table_cell_link thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(q) %></td>
+	<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
+		<td><%= index + 1 %></td>
+		<td><%= casein_table_cell_link don_vi, casein_qua_trinh_cong_tac_path(q) %></td>
+		<td><%= casein_table_cell_link chuc_vu, casein_qua_trinh_cong_tac_path(q) %></td>
+		<td><%= casein_table_cell_link thoi_gian_bat_dau, casein_qua_trinh_cong_tac_path(q) %></td>
+		<td><%= casein_table_cell_link thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(q) %></td>
+		<td class="delete"><%= link_to(casein_show_row_icon("edit"), edit_casein_qua_trinh_cong_tac_path(q)) %></td>
+        <td class="delete"><%= link_to(casein_show_row_icon("delete"), casein_qua_trinh_cong_tac_path(q), :method => :delete, :confirm => "Bạn có chắc muốn xóa ?") %></td>
 	</tr>
 
   <% end %>

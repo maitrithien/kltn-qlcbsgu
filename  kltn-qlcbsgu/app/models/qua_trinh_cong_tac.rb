@@ -19,7 +19,6 @@ class QuaTrinhCongTac < ActiveRecord::Base
     end
 
     def self.get_last can_bo_thong_tin_id
-    p = []
     if can_bo_thong_tin_id
       p = QuaTrinhCongTac.find_all_by_can_bo_thong_tin_id(can_bo_thong_tin_id, :order => :created_at)
       return p.last

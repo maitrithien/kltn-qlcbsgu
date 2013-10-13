@@ -1,8 +1,9 @@
 class ThanNhan < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :ho_ten, :nam_sinh, :nghe_nghiep, :quan_he_gia_dinh_id
+  attr_accessible :can_bo_thong_tin_id, :ho_ten, :nam_sinh, :nghe_nghiep, :quan_he_gia_dinh_id, :ghi_chu, :can_bo_thong_tin_name
 
+  attr_accessor :can_bo_thong_tin_name
   #not allow null attributes and custom default message
-  validates_presence_of :can_bo_thong_tin_id, :ho_ten, :nam_sinh, :nghe_nghiep, :quan_he_gia_dinh_id, :message => "#{Param.get_param_value("is_not_blank")}"
+  validates_presence_of :can_bo_thong_tin_id, :ho_ten, :nam_sinh, :quan_he_gia_dinh_id, :message => "#{Param.get_param_value("is_not_blank")}"
 
 
   #relationship
