@@ -15,6 +15,10 @@
 			he_so = @lich_su_bac_luong.bac_luong.he_so_luong
 		end
 	end
+	
+	if @lich_su_bac_luong.quyet_dinh
+		@so_qd = @lich_su_bac_luong.quyet_dinh.so_qd
+	end
 %>
 
 <div class="blk-share">
@@ -42,7 +46,7 @@
 	</tr>
 	<tr>
 		<th><b>Số quyết định:</b></th>
-		<td><%= @lich_su_bac_luong.quyet_dinh.so_qd %></td>
+		<td><%= @so_qd %></td>
 	</tr>
 	<tr>
 		<th><b>Ghi chú:</b></th>
@@ -61,7 +65,7 @@
 
 
 <%= content_for :sidebar do %>
-	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử Ngạch - Bậc".html_safe, casein_lich_su_bac_luongs_path %></li>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử Ngạch - Bậc".html_safe, new_casein_lich_su_bac_luong_path(:ma_cb => @lich_su_bac_luong.can_bo_thong_tin_id) %></li>
 	<li><%= link_to "#{casein_show_icon "import"}Thêm mới lịch sử Ngạch - Bậc từ tập tin excel".html_safe, import_from_excel_casein_lich_su_bac_luongs_path %></li>
 	<li><%= link_to "#{casein_show_icon "table"}Danh sách lịch sử Ngạch - Bậc".html_safe, casein_lich_su_bac_luongs_path %></li>
 <% end %>
