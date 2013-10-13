@@ -1,20 +1,11 @@
-<div class="search_basic_form">
-  <%= form_tag casein_than_nhans_path, :method => "get" do %>
-      <%= text_field_tag "keyword", params["keyword"], {:placeholder => "Nhập vào Họ tên thân nhân/Họ tên cán bộ/Mã cán bộ", :style => "color: gray; width: 300px; padding: 2px;"}%>
-      <%= submit_tag "Tìm Kiếm",:disable_with => "Đang tìm kiếm...", :style => "padding: 3px 10px;" %>
-
-  <% end %>
-</div>
-
-
 <div class="blk-share">
 <h2>Thân nhân cán bộ</h2>
 <div style="width:20%; float:left;">
-	<div style="margin-left:0px">
+	<div style="margin: 0 auto; text-align: center;">
       <% if @can_bo_thong_tin.hinh_anh.to_s != "" %>
-	    <%= image_tag @can_bo_thong_tin.hinh_anh, :size => "113x160", :class => "avatar" %>
+	    <%= image_tag @can_bo_thong_tin.hinh_anh, :width => "150" %>
       <% else %>
-        <%= image_tag "/casein/images/default_avatar.png", :size => "113x160" %>
+        <%= image_tag "/casein/images/default_avatar.png", :width => "150" %>
       <% end %>
 	</div>
 </div>
@@ -67,7 +58,7 @@
 
 
 <%= content_for :sidebar do %>
-	<li><%= link_to "#{casein_show_icon "add"}Thêm mới thân nhân".html_safe, new_casein_than_nhan_path %></li>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới thân nhân".html_safe, new_casein_than_nhan_path(:ma_cb => @can_bo_thong_tin.ma_cb) %></li>
     <li><%= link_to "#{casein_show_icon "import"}Thêm mới thân nhân từ tập tin excel".html_safe, import_from_excel_casein_than_nhans_path %></li>
     <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_than_nhans_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
 <% end %>

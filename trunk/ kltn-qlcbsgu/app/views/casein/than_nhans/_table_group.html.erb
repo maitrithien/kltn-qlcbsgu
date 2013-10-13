@@ -6,13 +6,32 @@
 		<th>STT</th>
 		<th>Mã cán bộ</th>
 		<th>Họ và Tên</th>
+		<th>Ngày sinh</th>
+		<th>Đơn vị</th>
+		<th>Chức vụ</th>
+		<th>Loại lao động</th>
 	</tr>
 	
 	<% can_bos.each_with_index do |cb, index| %>
+	<% 
+		if cb.don_vi 
+			@don_vi = cb.don_vi.ten_don_vi
+		end
+		if cb.loai_lao_dong
+			@loai_lao_dong = cb.loai_lao_dong.ten_loai_lao_dong
+		end
+		if cb.chuc_vu
+			@chuc_vu = cb.chuc_vu.ten_chuc_vu
+		end
+	%> 
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
 			<td><%= num_view * (page - 1) + index + 1 %></td>
 			<td><%= casein_table_cell_link "#{cb.ma_cb}", details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
             <td><%= casein_table_cell_link cb.ho_ten, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+            <td><%= casein_table_cell_link cb.ngay_sinh.strftime("%d/%m/%Y"), details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+            <td><%= casein_table_cell_link @don_vi, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+            <td><%= casein_table_cell_link @chuc_vu, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
+            <td><%= casein_table_cell_link @loai_lao_dong, details_casein_than_nhans_path(:ma_cb => cb.ma_cb) %></td>
 		</tr>
 	<% end %>
 </table>

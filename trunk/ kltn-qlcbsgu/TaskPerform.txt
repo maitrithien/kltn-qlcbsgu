@@ -1,0 +1,54 @@
+1. Performance
+ - [1] Object.all => Object.select("id, name")
+ - [2] View: Không sử dụng Object.all => lấy từ  Controller (Thêm hàm load_combo trong controller)
+ - [3] View: Combo Bậc lương => Combo Ngạch và Combo Bậc
+ - [4] View: Không sử dụng [@casein_page_title] ở controller trả về, hạn chế gọi truy vấn xuống table Params nhiều lần, viết trong view: @casein_page_title = "Nội dung tiếng việt"
+2. User Friendly
+ - [1] Checkbox Thống kê
+ - [2] View: Combo chọn cán bộ => TextBox [auto complete]
+ - [3] lich_su_bac_luongs xử lý phần ngạch [auto fill]
+
+ - [4] Sau khi lưu thành công cán bộ:
+ 	+ Update lịch sữ liên quan [Lịch sử bậc lương, quá trình công tác]
+
+ - [5] Params: chia loại SystemConfig [Thêm cột]
+
+3. Code
+	 [CODE]
+	 	before_filter :set_info, :only => [:edit, :show, :update, :destroy, :set_so_qd]
+	 	before_filter :loadd_combo, :only => [:edit, :new]
+
+	 	// Nội dung code cũ không sử dụng
+	 	[CODE CŨ]
+	 	def edit
+	      @casein_page_title = Param.get_param_value("can_bo_thong_tin_edit_page_title")
+	      @can_bo_thong_tin = CanBoThongTin.find params[:id]
+	      @can_bo_thong_tin.so_quyet_dinh = @can_bo_thong_tin.quyet_dinh.so_qd
+	      @ngach_bacs = BacLuong.all
+	      @loai_lao_dongs = LoaiLaoDong.all
+	      @don_vis = DonVi.all
+	    end
+	    [/CODE CŨ]
+
+	    [CODE MỚI]
+	 	def edit
+  		end
+  		[CODE MỚI]
+
+	 	private
+	 	def set_info
+	      	begin
+	        	@can_bo_thong_tin = CanBoThongTin.find(params[:id])
+	      	rescue Exception => e
+	        	render_404
+	      	end
+	    end
+	    def set_so_qd
+	    	@can_bo_thong_tin.so_quyet_dinh = @can_bo_thong_tin.quyet_dinh.so_qd
+	    end
+	    def load_combo
+	    	@ngach_bacs = BacLuong.all
+	      	@loai_lao_dongs = LoaiLaoDong.all
+	      	@don_vis = DonVi.all
+	    end
+	 [/CODE]

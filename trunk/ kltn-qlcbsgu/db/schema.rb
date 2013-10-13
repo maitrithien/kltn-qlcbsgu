@@ -279,6 +279,7 @@ ActiveRecord::Schema.define(:version => 20130603181823) do
     t.integer  "can_bo_thong_tin_id"
     t.integer  "nam_sinh"
     t.string   "nghe_nghiep"
+    t.text     "ghi_chu"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "ho_ten",              :null => false

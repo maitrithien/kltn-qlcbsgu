@@ -1,5 +1,14 @@
 class CanBoCongTac < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :don_vi_id, :nghe_nghiep_truoc_tuyen_dung, :cong_viec_id, :so_truong_cong_tac, :ngay_bat_dau_lam_viec, :ghi_chu
+  attr_accessible :can_bo_thong_tin_id, 
+  :don_vi_id, 
+  :nghe_nghiep_truoc_tuyen_dung, 
+  :cong_viec_id, 
+  :so_truong_cong_tac, 
+  :ngay_bat_dau_lam_viec, 
+  :ghi_chu,
+  :can_bo_thong_tin_name
+
+  attr_accessor :can_bo_thong_tin_name
   belongs_to :can_bo_thong_tin
   belongs_to :don_vi
   belongs_to :cong_viec

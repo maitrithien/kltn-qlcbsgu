@@ -1,0 +1,65 @@
+<div class="blk-share">
+<h2>Quá trình công tác</h2>
+<div style="width:20%; float:left;">
+	<div style="margin: 0 auto; text-align: center;">
+      <% if @can_bo_thong_tin.hinh_anh.to_s != "" %>
+	    <%= image_tag @can_bo_thong_tin.hinh_anh, :width => "150" %>
+      <% else %>
+        <%= image_tag "/casein/images/default_avatar.png", :width => "150" %>
+      <% end %>
+	</div>
+</div>
+
+<div style="width: 80%; float: left;">
+  <%# thông tin cán bộ %>
+	<table class="normal-table" style="width: 100%;">
+	<tr>
+	  <td colspan="2" style="background: #dbeaf9; border: 1px solic #a1b4c6; text-align: center; text-transform: uppercase;">Thông tin cán bộ</td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Họ và tên</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.ho_ten %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Ngày sinh</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y") %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Đơn vị công tác</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.don_vi.ten_don_vi %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Chức vụ</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.chuc_vu.ten_chuc_vu %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Ngạch công chức</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.bac_luong.ngach.ten_ngach %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Bậc lương / Hệ số lương</b></td>
+		<td class="tdtext"><%= "Bậc #{@can_bo_thong_tin.bac_luong.bac} / Hệ số #{@can_bo_thong_tin.bac_luong.he_so_luong}" %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Loại lao động</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.loai_lao_dong.ten_loai_lao_dong %></td>
+	</tr>
+	<tr>
+		<td colspan="2" style="background: #dbeaf9; border: 1px solic #a1b4c6; text-align: center; text-transform: uppercase;">Quá trình công tác</td>
+	</tr>
+	</table>
+</div>
+<%#= will_paginate @qua_trinh_cong_tacs, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+
+<%= render :partial => 'casein/qua_trinh_cong_tacs/table', :locals => { :qua_trinh_cong_tacs => @qua_trinh_cong_tacs } %>
+
+<%#= will_paginate @can_bos, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+</div>
+
+
+<%= content_for :sidebar do %>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử công tác".html_safe, new_casein_qua_trinh_cong_tac_path(:ma_cb => @can_bo_thong_tin.ma_cb) %></li>
+    <li><%= link_to "#{casein_show_icon "import"}Thêm mới lịch sử công tác từ tập tin excel".html_safe, import_from_excel_casein_qua_trinh_cong_tacs_path %></li>
+    <li><%= link_to "#{casein_show_icon('excel')}Xuất danh sách ra excel".html_safe, casein_qua_trinh_cong_tacs_path({:format => :xls, :keyword => params["keyword"], :commit => params["commit"], :utf8 => params["utf8"]}) %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách cán bộ".html_safe, casein_qua_trinh_cong_tacs_path %></li>
+<% end %>

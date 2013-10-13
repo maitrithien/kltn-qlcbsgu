@@ -2,21 +2,30 @@
 
 
 <div class="tfContainer">
-  <%= casein_select f, f.object, :can_bo_thong_tin_id, CanBoThongTin.all.collect {|p| [ "#{p.ma_cb} - #{p.ho_ten}", p.id ] }, {:include_blank => '', :casein_label => "Cán bộ"} %>
-</div>
+<% if @is_edited %>
+	<%= casein_hidden_field f, f.object, :can_bo_thong_tin_id, :value => f.object.can_bo_thong_tin_id %>
+	<%= casein_text_field f, f.object, :can_bo_thong_tin_name, :value => f.object.can_bo_thong_tin.ho_ten, :casein_label => "Cán bộ", :readonly => true %>
+<% else %>
+  <%= casein_select f, f.object, :can_bo_thong_tin_id, CanBoThongTin.select("id, ma_cb, ho_ten").collect {|p| [ "#{p.ma_cb} - #{p.ho_ten}", p.id ] }, {:include_blank => '', :casein_label => "Cán bộ"} %>
+<% end %>
+</div> 
+
 <div class="tfContainer tfContainerSecond">
   <%= casein_text_field f, f.object, :ho_ten, {:casein_label => "Họ và Tên"} %>
 </div>
 
 <div class="tfContainer">
 <% link = link_to "<image src='/casein/images/icons/custom.png' style='margin-top: 2px; vertical-align: bottom;' />".html_safe, casein_quan_he_gia_dinhs_url, :title => "Thay đổi, bổ sung thông tin Quan hệ gia đình", :style => "text-decoration:none;" %>
-	<%= casein_select f, f.object, :quan_he_gia_dinh_id, QuanHeGiaDinh.all.collect{|o| ["#{o.ten_quan_he}", o.id]}, {:casein_label => "Quan hệ với cán bộ #{link}".html_safe } %>
+	<%= casein_select f, f.object, :quan_he_gia_dinh_id, QuanHeGiaDinh.select("id, ten_quan_he").order("ten_quan_he").collect{|o| ["#{o.ten_quan_he}", o.id]}, {:casein_label => "Quan hệ với cán bộ #{link}".html_safe } %>
 </div>
 
 <div class="tfContainer tfContainerSecond">
-	<%= casein_select f, f.object, :nam_sinh, Param.select_year({:from_year => 1900}), :casein_label => "Năm sinh" %>
+	<%= casein_select f, f.object, :nam_sinh, Param.select_year({ :start_year => 1910}).reverse, :casein_label => "Năm sinh" %>
 </div>
-
+<div class="tfContainer"></div>
+<div class="tfContainer tfContainerSecond">
+	<%= casein_text_field f, f.object, :ghi_chu, {:casein_label => "Ghi chú"} %>
+</div>
 <div class="tfcontenerfull">
 	<%= casein_text_area f, f.object, :nghe_nghiep, {:casein_label => "Quê quán, nghề nghiệp, chức danh, chức vụ, đơn vị công tác, học tập, nơi ở(trong, ngoài nước); thành viên tổ chức chính trị - xã hội..."} %>
 </div>

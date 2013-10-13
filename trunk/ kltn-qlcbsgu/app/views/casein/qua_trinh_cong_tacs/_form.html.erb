@@ -6,24 +6,24 @@
 	<%= casein_hidden_field f, f.object, :can_bo_thong_tin_id, :value => f.object.can_bo_thong_tin_id %>
 	<%= casein_text_field f, f.object, :can_bo_thong_tin_name, :value => f.object.can_bo_thong_tin.ho_ten, :casein_label => "Cán bộ", :readonly => true %>
 <% else %>
-  <%= casein_select f, f.object, :can_bo_thong_tin_id, CanBoThongTin.all.collect {|p| [ "#{p.ma_cb} - #{p.ho_ten}", p.id ] }, {:include_blank => '', :casein_label => "Cán bộ"} %>
+  <%= casein_select f, f.object, :can_bo_thong_tin_id, CanBoThongTin.select("id, ma_cb, ho_ten").collect {|p| [ "#{p.ma_cb} - #{p.ho_ten}", p.id ] }, {:include_blank => '', :casein_label => "Cán bộ"} %>
 <% end %>
-</div>
+</div> 
 
 <div class="tfContainer tfContainerSecond">
 	<% link = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_don_vis_url, :title => "Thay đổi, bổ sung thông tin Đơn vị", :style => "text-decoration:none;" %>
-  <%= casein_select f, f.object, :don_vi_id, DonVi.all.collect {|p| [ "#{p.ten_don_vi}", p.id ] }, {:include_blank => '', :casein_label => "Đơn vị công tác #{link}".html_safe } %>
+  <%= casein_select f, f.object, :don_vi_id, DonVi.select("id, ten_don_vi").collect {|p| [ "#{p.ten_don_vi}", p.id ] }, {:include_blank => '', :casein_label => "Đơn vị công tác #{link}".html_safe } %>
 
 </div>
 
 
 <div class="tfContainer">
-	<%= casein_date_select f, f.object, :thoi_gian_bat_dau, {:start_year => 1900, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :include_blank => true, :casein_label => "Ngày bắt đầu" } %>
+	<%= casein_date_select f, f.object, :thoi_gian_bat_dau, {:start_year => 1920, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :include_blank => true, :casein_label => "Ngày bắt đầu" } %>
 </div>
 
 
 <div class="tfContainer tfContainerSecond">
-    <%= casein_date_select f, f.object, :thoi_gian_ket_thuc, {:start_year => 1900, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :include_blank => true, :casein_label => "Ngày chuyển công tác"} %>
+    <%= casein_date_select f, f.object, :thoi_gian_ket_thuc, {:start_year => 1920, :order => [:day, :month, :year], :date_separator => '/', :use_month_names => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'], :include_blank => true, :casein_label => "Ngày chuyển công tác"} %>
 </div>
 <div class="tfContainer">
 	<% link_cv = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_chuc_vus_url, :title => "Thay đổi, bổ sung thông tin chức vụ", :style => "text-decoration:none;" %>

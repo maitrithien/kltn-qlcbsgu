@@ -32,7 +32,17 @@
 			  }
 			}); 
 		</script-->
-		
+		<script type="text/javascript">
+		 $(function() {
+			var tabs = $( "#tabs" ).tabs();
+			tabs.find( ".ui-tabs-nav" ).sortable({
+				axis: "x",
+				stop: function() {
+					tabs.tabs( "refresh" );
+				}
+			});
+		});
+		</script>
     </head>
 	<body>
 		<div id="header">

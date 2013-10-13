@@ -12,7 +12,8 @@
     								:class => "text"
     							} %> 
     							dòng/trang&nbsp;&nbsp;&nbsp;</label>|
-      <label>&nbsp;&nbsp;&nbsp;sắp xếp theo:
+      
+      <label>&nbsp;&nbsp;&nbsp;xem theo:
         <%= select_tag 	"order_by", 
     					options_for_select([
     						["Mã cán bộ tăng dần", "ma_cb"],
@@ -22,9 +23,12 @@
     						["Ngày sinh tăng dần", "ngay_sinh"],
     						["Ngày sinh giảm dần", "ngay_sinh:desc"],
     						["Giới tính", "gioi_tinh"]], :selected => params["order_by"]),
-    						:onchange => "this.form.submit();" %>
+    						{
+    							:onchange => "this.form.submit();",
+    							:class => "viewSelect"
+    						} %>
       </label>
-      <%= hidden_field_tag "don_vi", params["don_vi"] || 0 %>
+      <%= hidden_field_tag "don_vi", params[:don_vi] || 0 %>
   <% end %>
 </div>
 
@@ -63,23 +67,20 @@
 <div class="blk-share">
 <%= form_tag casein_can_bo_thong_tins_path, :method => "get" do %>
 <h2>Danh sách cán bộ viên chức
-	
-	<%= select_tag  "don_vi", 
-                    options_from_collection_for_select( DonVi.all, 
+<%= select_tag  "don_vi", 
+                    options_from_collection_for_select( DonVi.select("id, ten_don_vi"), 
                                                         "id", 
                                                         "ten_don_vi", 
                                                         :selected => params["don_vi"]
                                                       ),
                     {
-                    	:prompt => "Toàn trường",
+                    	:prompt => "Tất cả đơn vị - phòng ban",
                     	:onchange => "this.form.submit();",
                     	:class => "select_link_top",
                     	:title => "Xem theo phòng ban - đơn vị"
                 	}  %>
-   
 </h2>
 <% end %>
-
 <% if @can_bo_thong_tins.count > 0 %>
 	<%= render 	:partial => 'casein/can_bo_thong_tins/table', 
 				:locals => { 

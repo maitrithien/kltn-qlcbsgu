@@ -4,13 +4,13 @@
 <table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
 	<tr>
 		<th>STT</th>
-		<th>Cán bộ</th>
+		<th>Ngày vào làm</th>
+		<th>Ngày chuyển công tác</th>
 		<th>Đơn vị</th>
 		<th>Chức vụ</th>
-		<th>Ngày công tác</th>
-		<th>Ngày chuyển công tác</th>
 		<th>Số Quyết Định</th>
-		<th>&nbsp;</th>
+		<th>[Sửa]</th>
+		<th>[Xóa]</th>
 	</tr>
 	
 
@@ -35,16 +35,17 @@
 
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
 			<td><%= num_view * (page - 1) + index + 1 %></td>
-          	<td><%= casein_table_cell_link "#{qua_trinh_cong_tac.can_bo_thong_tin.ma_cb} - #{qua_trinh_cong_tac.can_bo_thong_tin.ho_ten}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-          	<td><%= casein_table_cell_link "#{don_vi}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
-          	<td><%= casein_table_cell_link "#{chuc_vu}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
 			<td><%= casein_table_cell_link thoi_gian_bat_dau, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
 			<td><%= casein_table_cell_link thoi_gian_ket_thuc, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+          	<td><%= casein_table_cell_link "#{don_vi}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+          	<td><%= casein_table_cell_link "#{chuc_vu}", casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %></td>
+			
 			<td>
 				<%if qua_trinh_cong_tac.quyet_dinh_id.to_s.length>0%>
 				<%= casein_table_cell_link qua_trinh_cong_tac.quyet_dinh.so_qd, casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac) %>
 				<% end %>
 			</td>
+			<td><%= link_to(casein_show_row_icon("edit"), edit_casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac))%></td>
 			<td class="delete">
 				<%= link_to(casein_show_row_icon("delete"), casein_qua_trinh_cong_tac_path(qua_trinh_cong_tac), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử công tác này?") %>
 			</td>

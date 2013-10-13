@@ -6,7 +6,7 @@ module Casein
     ## optional filters for defining usage according to Casein::Users access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
-  
+=begin      
     def index
       @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_index_page_titile"
   		#@qua_trinh_cong_tacs = QuaTrinhCongTac.paginate :page => params[:page]
@@ -46,7 +46,60 @@ module Casein
       end
 
     end
-  
+=end
+     def index
+      search_value = params["keyword"]
+      view = 10
+      don_vi = 0
+      page = params[:page] ||= 1
+
+      if params["num_view"].to_s != ""
+        #must be a number
+        if params["num_view"].match(/^\d+$/)
+          #must be greater than 0 
+          if params["num_view"].to_i > 0
+            #set view value for pagination
+            view = params["num_view"].to_i
+          end
+        end
+      end
+
+      if params[:don_vi]
+        don_vi = params[:don_vi].to_i if params[:don_vi].match(/^\d+$/)
+      end
+
+      order = ""
+      if params["order_by"].to_s != ""
+        order = params["order_by"]
+        #ignore the invalid values for order queries
+        if order.split(":").last != "desc" && order.split(":").count > 1
+          order = ""
+        else
+          #convert to correct format
+          #param values has been submited include colon symbol
+          #e.g: order by query desc
+          order = order.gsub(':', ' ')
+        end
+      end
+
+      #set conditions for paginate to filter records, it's base on don_vi parameter
+      paginate_conditions = ""
+      paginate_conditions = ['don_vi_id = ?', don_vi] if don_vi != 0
+
+      @can_bos = CanBoThongTin.select("id, ma_cb, ho_ten, ngay_sinh, don_vi_id, chuc_vu_id, loai_lao_dong_id").search(search_value, don_vi).paginate :page => page, :per_page => view, :conditions => paginate_conditions
+    end
+
+    def details
+       ma_cb = params[:ma_cb]
+      can_bo_thong_tin = CanBoThongTin.find_by_ma_cb(ma_cb)
+      if can_bo_thong_tin
+        @can_bo_thong_tin = can_bo_thong_tin
+        @qua_trinh_cong_tacs =  QuaTrinhCongTac.find_all_by_can_bo_thong_tin_id(can_bo_thong_tin.id)
+      else
+        render_404
+      end
+    end
+
     def show
       @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_show_page_titile"
       @qua_trinh_cong_tac = QuaTrinhCongTac.find params[:id]
@@ -62,6 +115,13 @@ module Casein
     def new
       @casein_page_title = Param.get_param_value "qua_trinh_cong_tac_new_page_titile"
     	@qua_trinh_cong_tac = QuaTrinhCongTac.new
+      if params[:ma_cb]
+        cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
+        if cb
+          @qua_trinh_cong_tac.can_bo_thong_tin_id = cb.id
+          @is_edited = true
+        end
+      end
     end
 
     def create
@@ -70,28 +130,22 @@ module Casein
       if quyet_dinh
         @qua_trinh_cong_tac.quyet_dinh_id = quyet_dinh.id
 
-            qua_trinh_last = QuaTrinhCongTac.get_last(@qua_trinh_cong_tac.can_bo_thong_tin_id)
-            unless qua_trinh_last.thoi_gian_ket_thuc
-                thoi_gian_kt = @qua_trinh_cong_tac.thoi_gian_bat_dau
-                qua_trinh_last.update_attribute(:thoi_gian_ket_thuc, thoi_gian_kt)
-              
-            end
-
+        qua_trinh_last = QuaTrinhCongTac.get_last(@qua_trinh_cong_tac.can_bo_thong_tin_id)
+        unless qua_trinh_last.thoi_gian_ket_thuc
+            thoi_gian_kt = @qua_trinh_cong_tac.thoi_gian_bat_dau
+            qua_trinh_last.update_attribute(:thoi_gian_ket_thuc, thoi_gian_kt)
+          
+        end
 
         if @qua_trinh_cong_tac.save
-
-           chuc_vu_id = @qua_trinh_cong_tac.chuc_vu_id
-            p = nil
-            p = CanBoThongTin.find(@qua_trinh_cong_tac.can_bo_thong_tin_id)
-            if p != nil
-              p.update_attribute(:chuc_vu_id, chuc_vu_id)
-            end
-
-           
-
+          p = CanBoThongTin.find(@qua_trinh_cong_tac.can_bo_thong_tin_id)
+          if p
+            p.update_attribute(:chuc_vu_id, @qua_trinh_cong_tac.chuc_vu_id)
+            p.update_attribute(:don_vi_id, @qua_trinh_cong_tac.don_vi_id)
+          end
 
           flash[:notice] = Param.get_param_value("adding_success")
-          redirect_to casein_qua_trinh_cong_tacs_path
+          redirect_to details_casein_qua_trinh_cong_tacs_path(:ma_cb => @qua_trinh_cong_tac.can_bo_thong_tin.ma_cb)
         else
           flash.now[:warning] = Param.get_param_value("adding_false")
           render :action => :new
@@ -113,19 +167,17 @@ module Casein
         end
         
       if @qua_trinh_cong_tac.update_attributes params[:qua_trinh_cong_tac]
-
-        qua_trinh_last = QuaTrinhCongTac.get_last(@qua_trinh_cong_tac.can_bo_thong_tin_id)
-        if qua_trinh_last.id == @qua_trinh_cong_tac.id
-          chuc_vu_id = @qua_trinh_cong_tac.chuc_vu_id
-          p = nil
+        last = QuaTrinhCongTac.get_last(params[:qua_trinh_cong_tac][:can_bo_thong_tin_id])
+        if last.id == @qua_trinh_cong_tac.id
           p = CanBoThongTin.find(@qua_trinh_cong_tac.can_bo_thong_tin_id)
-          if p != nil
-            p.update_attribute(:chuc_vu_id, chuc_vu_id)
+          if p
+            p.update_attribute(:chuc_vu_id, @qua_trinh_cong_tac.chuc_vu_id)
+            p.update_attribute(:don_vi_id, @qua_trinh_cong_tac.don_vi_id)
           end
         end
 
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_qua_trinh_cong_tac_path(params[:id])
+        redirect_to details_casein_qua_trinh_cong_tacs_path(:ma_cb => @qua_trinh_cong_tac.can_bo_thong_tin.ma_cb)
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show
