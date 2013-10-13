@@ -11,7 +11,7 @@
         <th>Đơn vị</th>
         <th>Ngạch</th>
 		<th>QĐ tuyển dụng</th>
-		<!--th title="Tập tin đính kèm"><%#= casein_show_icon_custom_style("attach", "margin-top: -3px; height: 25px;") %></th-->
+		<th>Tải QĐ</th>
         <th>[Sửa]</th>
 		<th>[Xóa]</th>
 	</tr>
@@ -50,11 +50,11 @@
             <td><%= casein_table_cell_link don_vi, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
 			<td><%= casein_table_cell_link ngach, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
 			<td><%= casein_table_cell_link quyet_dinh, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
-			<!--td class="attach">
-          	<%# if can_bo_thong_tin.tep_tin_dinh_kem != "" %>
-          		<a href="<%= can_bo_thong_tin.tep_tin_dinh_kem %>" title="tải về tập tin đính kèm"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
+			<td class="attach">
+          	<%# if can_bo_thong_tin.quyet_dinh.tep_tin_dinh_kem != "" %>
+          		<a href="<%= can_bo_thong_tin.quyet_dinh.tep_tin_dinh_kem %>" title="tải quyết định"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
           	<%# end %>
-            </td-->
+            </td>
             <td class="delete">
                 <%= link_to(casein_show_icon("edit"), edit_casein_can_bo_thong_tin_path(can_bo_thong_tin)) %>
             </td>
@@ -64,4 +64,5 @@
 		</tr>
 
 	<% end %>
+	
 </table>

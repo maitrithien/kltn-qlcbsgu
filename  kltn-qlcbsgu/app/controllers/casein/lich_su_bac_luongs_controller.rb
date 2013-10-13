@@ -6,7 +6,7 @@ module Casein
     ## optional filters for defining usage according to Casein::Users access_levels
     # before_filter :needs_admin, :except => [:action1, :action2]
     # before_filter :needs_admin_or_current_user, :only => [:action1, :action2]
-  
+=begin  
     def index
       @casein_page_title = Param.get_param_value "lich_su_bac_luong_index_page_title"
       search_value = params["keyword"]
@@ -46,7 +46,61 @@ module Casein
 
   		#@lich_su_bac_luongs = LichSuBacLuong.paginate :page => params[:page]
     end
-  
+=end
+
+	def index
+      search_value = params["keyword"]
+      view = 10
+      don_vi = 0
+      page = params[:page] ||= 1
+
+      if params["num_view"].to_s != ""
+        #must be a number
+        if params["num_view"].match(/^\d+$/)
+          #must be greater than 0 
+          if params["num_view"].to_i > 0
+            #set view value for pagination
+            view = params["num_view"].to_i
+          end
+        end
+      end
+
+      if params[:don_vi]
+        don_vi = params[:don_vi].to_i if params[:don_vi].match(/^\d+$/)
+      end
+
+      order = ""
+      if params["order_by"].to_s != ""
+        order = params["order_by"]
+        #ignore the invalid values for order queries
+        if order.split(":").last != "desc" && order.split(":").count > 1
+          order = ""
+        else
+          #convert to correct format
+          #param values has been submited include colon symbol
+          #e.g: order by query desc
+          order = order.gsub(':', ' ')
+        end
+      end
+
+      #set conditions for paginate to filter records, it's base on don_vi parameter
+      paginate_conditions = ""
+      paginate_conditions = ['don_vi_id = ?', don_vi] if don_vi != 0
+
+      @can_bos = CanBoThongTin.select("id, ma_cb, ho_ten, ngay_sinh, don_vi_id, chuc_vu_id, loai_lao_dong_id").search(search_value, don_vi).paginate :page => page, :per_page => view, :conditions => paginate_conditions
+    end
+	
+	def details
+      ma_cb = params[:ma_cb]
+      can_bo_thong_tin = CanBoThongTin.find_by_ma_cb(ma_cb)
+      if can_bo_thong_tin
+        @can_bo_thong_tin = can_bo_thong_tin
+        @lich_su_bac_luongs =  LichSuBacLuong.find_all_by_can_bo_thong_tin_id(can_bo_thong_tin.id)
+      else
+        render_404
+      end
+    end
+	
     def show
       @casein_page_title = Param.get_param_value "lich_su_bac_luong_show_page_title"
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
@@ -64,7 +118,14 @@ module Casein
  
     def new
       @casein_page_title = Param.get_param_value "lich_su_bac_luong_new_page_title"
-    	@lich_su_bac_luong = LichSuBacLuong.new
+	  @lich_su_bac_luong = LichSuBacLuong.new
+	  if params[:ma_cb]
+        cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
+        if cb
+          @lich_su_bac_luong.can_bo_thong_tin_id = cb.id
+          @is_edited = true
+        end
+      end
     end
 
     def create

@@ -37,6 +37,7 @@ QLTtCbvcSgu::Application.routes.draw do
 		resources :lich_su_bac_luongs do
     get "import_from_excel", :on => :collection
     post "parse_save_from_excel", :on => :collection
+	get	"details", :on => :collection
     end
 		resources :bac_luongs do
       get "import_from_excel", :on => :collection

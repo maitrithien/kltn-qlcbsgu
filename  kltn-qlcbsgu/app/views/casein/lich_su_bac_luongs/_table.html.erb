@@ -4,28 +4,30 @@
 <table cellpadding="0" cellspacing="0" id="itemList" class="itemList">
 	<tr>
 		<th>STT</th>
-        <th>Cán bộ</th>
+		<th>Ngày thay đổi</th>
         <th>Ngạch</th>
 		<th>Bậc lương</th>
-		<th>Ngày thay đổi</th>
 		<th>Số Quyết Định</th>
 		<th>Ghi chú</th>
-		<th>&nbsp;</th>
+		<th>[Sửa]</th>
+		<th>[Xóa]</th>
 	</tr>
 	
 	<% lich_su_bac_luongs.each_with_index do |lich_su_bac_luong, index| %>
 		<tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
 			<td><%= num_view * (page - 1) + index + 1 %></td>
-            <td><%= casein_table_cell_link "#{lich_su_bac_luong.can_bo_thong_tin.ma_cb} - #{lich_su_bac_luong.can_bo_thong_tin.ho_ten}", casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
+			<td><%= casein_table_cell_link lich_su_bac_luong.ngay_thay_doi_bac.strftime("%d/%m/%Y"), casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
             <td><%= casein_table_cell_link "#{lich_su_bac_luong.bac_luong.ngach.ten_ngach}", casein_lich_su_bac_luong_path(lich_su_bac_luong) %> </td>
 			<td><%= casein_table_cell_link "#{lich_su_bac_luong.bac_luong.bac}", casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
-			<td><%= casein_table_cell_link lich_su_bac_luong.ngay_thay_doi_bac.strftime("%d/%m/%Y"), casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
 			<td>
 				<%if lich_su_bac_luong.quyet_dinh_id.to_s.length>0%>
 				<%= casein_table_cell_link lich_su_bac_luong.quyet_dinh.so_qd, casein_lich_su_bac_luong_path(lich_su_bac_luong) %>
 				<% end %>
 			</td>
 			<td><%= casein_table_cell_link lich_su_bac_luong.ghi_chu, casein_lich_su_bac_luong_path(lich_su_bac_luong) %></td>
+			<td class="delete">
+			<%= link_to(casein_show_row_icon("edit"), edit_casein_lich_su_bac_luong_path(lich_su_bac_luong)) %>
+			</td>
 			<td class="delete">
 			<%= link_to(casein_show_row_icon("delete"), casein_lich_su_bac_luong_path(lich_su_bac_luong), :method => :delete, :confirm => "Bạn có chắc muốn xóa lịch sử này?") %>
 			</td>
