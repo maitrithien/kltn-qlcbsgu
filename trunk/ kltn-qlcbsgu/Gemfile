@@ -12,6 +12,9 @@ end
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+# gem report
+gem 'odf-report'
+
 gem 'mysql2'
 # Carrierwave uploader
 gem 'carrierwave'
