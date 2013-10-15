@@ -114,6 +114,7 @@ QLTtCbvcSgu::Application.routes.draw do
       get "get_and_export_to_excel", :on => :collection
       get "random_record", :on => :collection
       post "exe_random_record", :on => :collection
+      get  "print", :on => :collection
 
     end
 
