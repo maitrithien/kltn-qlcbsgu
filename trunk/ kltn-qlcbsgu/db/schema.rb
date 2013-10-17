@@ -293,4 +293,14 @@ ActiveRecord::Schema.define(:version => 20130603181823) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "lich_su_trinh_dos", :force => true do |t|
+    t.integer "can_bo_thong_tin_id"
+    t.integer "trinh_do_chuyen_mon_id"
+    t.integer "chuyen_nganh_id"
+    t.date    "thoi_gian_dat_duoc"
+    t.text    "ghi_chu"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
 end

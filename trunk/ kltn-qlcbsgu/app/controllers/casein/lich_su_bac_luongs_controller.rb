@@ -90,7 +90,7 @@ module Casein
       @can_bos = CanBoThongTin.select("id, ma_cb, ho_ten, ngay_sinh, don_vi_id, chuc_vu_id, loai_lao_dong_id").search(search_value, don_vi).paginate :page => page, :per_page => view, :conditions => paginate_conditions
     end
 	
-	def details
+	 def details
       ma_cb = params[:ma_cb]
       can_bo_thong_tin = CanBoThongTin.find_by_ma_cb(ma_cb)
       if can_bo_thong_tin
