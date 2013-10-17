@@ -1,0 +1,67 @@
+<div class="blk-share">
+<h2>Lịch sử thay đổi trình độ chuyên môn</h2>
+<div style="width:20%; float:left;">
+	<div style="margin: 0 auto; text-align: center;">
+      <% if @can_bo_thong_tin.hinh_anh.to_s != "" %>
+	    <%= image_tag @can_bo_thong_tin.hinh_anh, :width => "150" %>
+      <% else %>
+        <%= image_tag "/casein/images/default_avatar.png", :width => "150" %>
+      <% end %>
+	</div>
+</div>
+
+<div style="width: 80%; float: left;">
+  <%# thông tin cán bộ %>
+	<table class="normal-table" style="width: 100%;">
+	<tr>
+	  <td colspan="2" style="background: #dbeaf9; border: 1px solic #a1b4c6; text-align: center; text-transform: uppercase;">Thông tin cán bộ</td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Họ và tên</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.ho_ten %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Ngày sinh</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.ngay_sinh.strftime("%d/%m/%Y") %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Đơn vị công tác</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.don_vi.ten_don_vi %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Chức vụ</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.chuc_vu.ten_chuc_vu %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Ngạch công chức</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.bac_luong.ngach.ten_ngach %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Bậc lương / Hệ số lương</b></td>
+		<td class="tdtext"><%= "Bậc #{@can_bo_thong_tin.bac_luong.bac} / Hệ số #{@can_bo_thong_tin.bac_luong.he_so_luong}" %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Loại lao động</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.loai_lao_dong.ten_loai_lao_dong %></td>
+	</tr>
+	<tr>
+		<td class="tdlabel"><b>Trình độ chuyên môn cao nhất</b></td>
+		<td class="tdtext"><%= @can_bo_thong_tin.can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do %></td>
+	</tr>
+	<tr>
+		<td colspan="2" style="background: #dbeaf9; border: 1px solic #a1b4c6; text-align: center; text-transform: uppercase;">Lịch sử trình độ</td>
+	</tr>
+	</table>
+</div>
+<%#= will_paginate @lich_su_trinh_dos, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+
+<%= render :partial => 'casein/lich_su_trinh_dos/table', :locals => { :lich_su_trinh_dos => @lich_su_trinh_dos } %>
+
+<%#= will_paginate @can_bos, :previous_label => '&#8592; Trước', :next_label => 'Sau &#8594;' %>
+</div>
+
+
+<%= content_for :sidebar do %>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử trình độ".html_safe, new_casein_lich_su_trinh_do_path(:ma_cb => @can_bo_thong_tin.ma_cb) %></li>
+    <li><%= link_to "#{casein_show_icon "table"}Danh sách cán bộ".html_safe, casein_lich_su_trinh_dos_path %></li>
+<% end %>

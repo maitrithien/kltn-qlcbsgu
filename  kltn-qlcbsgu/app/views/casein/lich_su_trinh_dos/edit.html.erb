@@ -1,0 +1,20 @@
+<div class="blk-share">
+<h2>Cập nhật trình độ || Cán bộ <%= @lich_su_trinh_do.can_bo_thong_tin.ma_cb %></h2>
+<% @is_edited = true %>
+<%= form_for @lich_su_trinh_do, :url => casein_lich_su_trinh_do_path(@lich_su_trinh_do) do |f| %>
+
+	<%= render :partial => 'casein/lich_su_trinh_dos/form', :locals => { :f => f } %>
+	
+	<p class="submits">
+	  <%= link_to 'Trở về', casein_lich_su_trinh_dos_path, :class => 'cancel' %> hoặc
+		<%= f.submit "Lưu thay đổi", :class => "update" %>
+	</p>
+
+<% end %>
+</div>
+
+
+<%= content_for :sidebar do %>
+	<li><%= link_to "#{casein_show_icon "add"}Thêm mới lịch sử trình độ".html_safe, casein_lich_su_trinh_dos_path %></li>
+	<li><%= link_to "#{casein_show_icon "table"}Danh sách cán bộ".html_safe, casein_lich_su_trinh_dos_path %></li>
+<% end %>

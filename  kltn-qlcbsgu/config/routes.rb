@@ -2,6 +2,9 @@ QLTtCbvcSgu::Application.routes.draw do
 
 	#Casein routes
 	namespace :casein do
+		resources :lich_su_trinh_dos do
+      get "details", :on => :collection
+    end
 		resources :cong_viecs
 		resources :loai_lao_dongs
 		resources :loai_don_vis
