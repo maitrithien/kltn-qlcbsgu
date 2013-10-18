@@ -60,6 +60,7 @@ class CanBoThongTin < ActiveRecord::Base
   has_many :lich_su_bac_luongs
   has_one :can_bo_cong_tac
   has_many :qua_trinh_cong_tacs
+  has_many :lich_su_trinh_dos
   belongs_to :bac_luong
   belongs_to :don_vi
   belongs_to :quyet_dinh

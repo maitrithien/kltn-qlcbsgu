@@ -66,27 +66,29 @@
 <div class="tfContainer tfContainerSecond">
 	<%= casein_text_field f, f.object, :noi_o_hien_nay, :casein_label => "Nơi ở hiện nay" %>
 </div>
-<div class="tfContainer"></div>
-
-<div class="tfContainer tfContainerSecond">
-  <%= casein_file_field f, f.object, :can_bo_thong_tin, :hinh_anh, :casein_label => "Hình ảnh" %>
-</div>
-
-<div class="tfContainer">
-  <%= casein_file_field f, f.object, :can_bo_thong_tin, :tep_tin_dinh_kem, :casein_label => "Tệp tin đính kèm" %>
-</div>
-
-<div class="tfContainer tfContainerSecond">
-<% link = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_don_vis_url, :title => "Thay đổi, bổ sung thông tin đơn vị", :style => "text-decoration:none;" %>
-  <%= casein_select f, f.object, :don_vi_id, @don_vis.collect{ |o| ["#{o.ten_don_vi}", o.id]}, :casein_label => "Thuộc đơn vị #{link}".html_safe %>
-
-</div>
-
 <div class="tfContainer">
 	<%= casein_text_field f, f.object, :so_quyet_dinh, :casein_label => "Số quyết định", :value => "#{@so_quyet_dinh}" %>
 </div>
+
 <div class="tfContainer tfContainerSecond">
-	<%= casein_select f, f.object, :loai_lao_dong_id, @loai_lao_dongs.collect{|o| ["#{o.ten_loai_lao_dong}", o.id]}, :casein_label => "Loại Lao Động".html_safe %>
+  <%= casein_select f, f.object, :loai_lao_dong_id, @loai_lao_dongs.collect{|o| ["#{o.ten_loai_lao_dong}", o.id]}, :casein_label => "Loại Lao Động".html_safe %>
+</div>
+
+<div class="tfContainer">
+  <% link = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_don_vis_url, :title => "Thay đổi, bổ sung thông tin đơn vị", :style => "text-decoration:none;" %>
+  <%= casein_select f, f.object, :don_vi_id, @don_vis.collect{ |o| ["#{o.ten_don_vi}", o.id]}, :casein_label => "Thuộc đơn vị #{link}".html_safe %>
+</div>
+
+<div class="tfContainer tfContainerSecond">
+	<% link_cv = link_to "<image src='/casein/images/icons/custom.png' style='vertical-align: bottom;' />".html_safe, casein_chuc_vus_url, :title => "Thay đổi, bổ sung thông tin chức vụ", :style => "text-decoration:none;" %>
+  <%= casein_select f, f.object, :chuc_vu_id, ChucVu.select("id, ten_chuc_vu").collect {|p| [ "#{p.ten_chuc_vu}", p.id ] }, {:include_blank => '', :casein_label => "Chức vụ #{link_cv}".html_safe } %>
+</div>
+
+<div class="tfContainer">
+	<%= casein_file_field f, f.object, :can_bo_thong_tin, :tep_tin_dinh_kem, :casein_label => "Tệp tin đính kèm" %>
+</div>
+<div class="tfContainer tfContainerSecond">
+	<%= casein_file_field f, f.object, :can_bo_thong_tin, :hinh_anh, :casein_label => "Hình ảnh" %>
 </div>
 
 <div class="clearer"></div>

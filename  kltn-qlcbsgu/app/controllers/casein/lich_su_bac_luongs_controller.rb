@@ -118,8 +118,8 @@ module Casein
  
     def new
       @casein_page_title = Param.get_param_value "lich_su_bac_luong_new_page_title"
-	  @lich_su_bac_luong = LichSuBacLuong.new
-	  if params[:ma_cb]
+  	  @lich_su_bac_luong = LichSuBacLuong.new
+  	  if params[:ma_cb]
         cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
         if cb
           @lich_su_bac_luong.can_bo_thong_tin_id = cb.id
@@ -140,9 +140,8 @@ module Casein
           @lich_su_bac_luong.quyet_dinh_id = quyetdinh_id.id
           if @lich_su_bac_luong.save
             bac_luong_id = @lich_su_bac_luong.bac_luong_id
-            p = nil
             p = CanBoThongTin.find(@lich_su_bac_luong.can_bo_thong_tin_id)
-            if p != nil
+            if p
               p.update_attribute(:bac_luong_id, bac_luong_id)
             end
 

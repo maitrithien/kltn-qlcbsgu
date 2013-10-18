@@ -13,7 +13,7 @@
 		<th>QĐ tuyển dụng</th>
 		<th>Tải QĐ</th>
         <th>[Sửa]</th>
-		<th>[Xóa]</th>
+		<th style="display:none">[Xóa]</th>
 	</tr>
 	
 	<% can_bo_thong_tins.each_with_index do |can_bo_thong_tin, index| %>
@@ -58,7 +58,7 @@
             <td class="delete">
                 <%= link_to(casein_show_icon("edit"), edit_casein_can_bo_thong_tin_path(can_bo_thong_tin)) %>
             </td>
-			<td class="delete">
+			<td class="delete" style="display:none">
 				<%= link_to(casein_show_icon_custom_style("delete", "margin-top:5px;"), casein_can_bo_thong_tin_path(can_bo_thong_tin), :method => :delete, :confirm => "Bạn có chắc muốn xóa thông tin cán bộ #{can_bo_thong_tin.ma_cb}?") %>
 			</td>
 		</tr>

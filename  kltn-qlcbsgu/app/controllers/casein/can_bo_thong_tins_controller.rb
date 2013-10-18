@@ -359,7 +359,7 @@ module Casein
       #@can_bo_thong_tin.quyet_dinh_id = params[:can_bo_thong_tin][:ngach_id]
         @can_bo_thong_tin.quyet_dinh_id = qd.id
         if @can_bo_thong_tin.save
-         
+          create_references(@can_bo_thong_tin.ma_cb)
           flash[:notice] = Param.get_param_value("adding_success")
           redirect_to casein_can_bo_thong_tins_path
         else
@@ -372,6 +372,21 @@ module Casein
         load_combo
         render :action => :new
       end
+    end
+
+    def create_references ma_cb
+        cb = CanBoThongTin.find_by_ma_cb(ma_cb)
+        if cb
+          qua_trinh_cong_tac = QuaTrinhCongTac.create(:can_bo_thong_tin_id => cb.id, 
+            :don_vi_id => cb.don_vi_id, 
+            :chuc_vu_id => cb.chuc_vu_id, 
+            :quyet_dinh_id => cb.quyet_dinh_id)
+          #qua_trinh_cong_tac.save
+          lich_su_bac_luong = LichSuBacLuong.create(:can_bo_thong_tin_id => cb.id, 
+            :bac_luong_id => cb.bac_luong_id, 
+            :ngay_thay_doi_bac => Time.now)
+          #lich_su_bac_luong.save
+        end
     end
   
     def update
