@@ -63,9 +63,6 @@ module Casein
     def edit
       @casein_page_title = Param.get_param_value "lich_su_trinh_do_edit_page_title"
       @lich_su_trinh_do = LichSuTrinhDo.find params[:id]
-      @lich_su_trinh_do.ngach_sl = @lich_su_trinh_do.bac_luong.ngach_id
-      @lich_su_trinh_do.bac_sl = @lich_su_trinh_do.bac_luong.bac
-      @lich_su_trinh_do.so_quyet_dinh = @lich_su_trinh_do.quyet_dinh.so_qd
     end
 
     def show
@@ -76,30 +73,49 @@ module Casein
     def new
       @casein_page_title = 'Add a new lich su trinh do'
     	@lich_su_trinh_do = LichSuTrinhDo.new
+      if params[:ma_cb]
+        cb = CanBoThongTin.find_by_ma_cb(params[:ma_cb])
+        if cb
+          @lich_su_trinh_do.can_bo_thong_tin_id = cb.id
+          @is_edited = true
+        end
+      end
     end
 
     def create
       @lich_su_trinh_do = LichSuTrinhDo.new params[:lich_su_trinh_do]
     
       if @lich_su_trinh_do.save
-        flash[:notice] = 'Lich su trinh do created'
-        redirect_to casein_lich_su_trinh_dos_path
+        p = CanBoTrinhDo.find_by_can_bo_thong_tin_id(@lich_su_trinh_do.can_bo_thong_tin_id)
+        if p
+          p.update_attribute(:trinh_do_chuyen_mon_id, @lich_su_trinh_do.trinh_do_chuyen_mon_id)
+          p.update_attribute(:chuyen_nganh_id, @lich_su_trinh_do.chuyen_nganh_id)
+        end
+        flash[:notice] = Param.get_param_value("adding_success")
+        redirect_to details_casein_lich_su_trinh_dos_path(:ma_cb => @lich_su_trinh_do.can_bo_thong_tin.ma_cb)
       else
-        flash.now[:warning] = 'There were problems when trying to create a new lich su trinh do'
+        flash.now[:warning] = Param.get_param_value("adding_false")
         render :action => :new
       end
     end
   
     def update
-      @casein_page_title = 'Update lich su trinh do'
       
       @lich_su_trinh_do = LichSuTrinhDo.find params[:id]
     
       if @lich_su_trinh_do.update_attributes params[:lich_su_trinh_do]
-        flash[:notice] = 'Lich su trinh do has been updated'
-        redirect_to casein_lich_su_trinh_dos_path
+        lich_su = LichSuTrinhDo.where(:can_bo_thong_tin_id => @lich_su_trinh_do.can_bo_thong_tin_id).order("created_at").last
+        if lich_su.id == @lich_su_trinh_do.id
+          p = CanBoTrinhDo.find_by_can_bo_thong_tin_id(@lich_su_trinh_do.can_bo_thong_tin_id)
+          if p
+            p.update_attribute(:trinh_do_chuyen_mon_id, @lich_su_trinh_do.trinh_do_chuyen_mon_id)
+            p.update_attribute(:chuyen_nganh_id, @lich_su_trinh_do.chuyen_nganh_id)
+          end
+        end
+        flash[:notice] = Param.get_param_value("updating_success")
+        redirect_to details_casein_lich_su_trinh_dos_path(:ma_cb => @lich_su_trinh_do.can_bo_thong_tin.ma_cb)
       else
-        flash.now[:warning] = 'There were problems when trying to update this lich su trinh do'
+        flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show
       end
     end
@@ -108,8 +124,8 @@ module Casein
       @lich_su_trinh_do = LichSuTrinhDo.find params[:id]
 
       @lich_su_trinh_do.destroy
-      flash[:notice] = 'Lich su trinh do has been deleted'
-      redirect_to casein_lich_su_trinh_dos_path
+      flash[:notice] = Param.get_param_value("deleting_success")
+      redirect_to details_casein_lich_su_trinh_dos_path(:ma_cb => @lich_su_trinh_do.can_bo_thong_tin.ma_cb)
     end
   
   end

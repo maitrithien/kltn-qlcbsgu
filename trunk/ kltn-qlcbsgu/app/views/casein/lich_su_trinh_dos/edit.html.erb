@@ -6,7 +6,7 @@
 	<%= render :partial => 'casein/lich_su_trinh_dos/form', :locals => { :f => f } %>
 	
 	<p class="submits">
-	  <%= link_to 'Trở về', casein_lich_su_trinh_dos_path, :class => 'cancel' %> hoặc
+	  <%= link_to 'Trở về', details_casein_lich_su_trinh_dos_path(:ma_cb => @lich_su_trinh_do.can_bo_thong_tin.ma_cb), :class => 'cancel' %> hoặc
 		<%= f.submit "Lưu thay đổi", :class => "update" %>
 	</p>
 

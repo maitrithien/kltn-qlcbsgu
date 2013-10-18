@@ -4,6 +4,7 @@
     <th>STT</th>
     <th>Ngạch công chức (viên chức)</th>
     <th>Bậc lương</th>
+    <th>Hệ số</th>
     <th>Ngày thay đổi</th>
     <th>Ghi chú</th>
     <th>[Sửa]</th>
@@ -12,12 +13,13 @@
   <% ngach = "" %>
   <% lich_su_bac_luongs.each_with_index do |q, index| %>
       <% if q.bac_luong.ngach_id %>
-              <% ngach = q.bac_luong.ngach.ten_ngach %>
+              <% ngach = "#{q.bac_luong.ngach.ma_ngach} : #{q.bac_luong.ngach.ten_ngach}" %>
       <% end %>
       <tr class="<%= 'even' if index.modulo(2) == 0 %> hover">
         <td><%= index + 1 %></td>
         <td><%= casein_table_cell_link ngach, casein_lich_su_bac_luong_path(q) %></td>
-        <td><%= casein_table_cell_link q.bac_luong.bac, casein_lich_su_bac_luong_path(q) %></td>
+        <td><%= casein_table_cell_link "Bậc #{q.bac_luong.bac}", casein_lich_su_bac_luong_path(q) %></td>
+        <td><%= casein_table_cell_link q.bac_luong.he_so_luong, casein_lich_su_bac_luong_path(q) %></td>
         <td><%= casein_table_cell_link q.ngay_thay_doi_bac.strftime("%d/%m/%Y"), casein_lich_su_bac_luong_path(q) %></td>
         <td><%= casein_table_cell_link q.ghi_chu, casein_lich_su_bac_luong_path(q) %></td>
         <td class="delete"><%= link_to(casein_show_row_icon("edit"), edit_casein_lich_su_bac_luong_path(q)) %></td>

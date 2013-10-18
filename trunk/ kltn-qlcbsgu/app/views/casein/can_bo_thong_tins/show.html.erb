@@ -4,9 +4,10 @@
 <div id="tabs">
    <ul>
     <li><a href="#tabs-1">Thông tin lý lịch</a></li>
-    <li><a href="#tabs-2">Thông tin thân nhân</a></li>
-    <li><a href="#tabs-3">Quá trình công tác</a></li>
-    <li><a href="#tabs-4">Lịch sử ngạch bậc</a></li>
+    <li><a href="#tabs-2">Lịch sử thay đổi trình độ</a></li>
+    <li><a href="#tabs-3">Thông tin thân nhân</a></li>
+    <li><a href="#tabs-4">Quá trình công tác</a></li>
+    <li><a href="#tabs-5">Lịch sử ngạch bậc</a></li>
   </ul>
   <div id="tabs-1">
     <h2>Chi tiết lý lịch cán bộ | Mã số: <%= @can_bo_thong_tin.ma_cb %>  <%= "| #{@can_bo_thong_tin.don_vi.ten_don_vi}" if !@can_bo_thong_tin.don_vi_id.blank? %></h2>
@@ -161,6 +162,14 @@
   </div>
   <div id="tabs-2">
     <div class="tfcontenerfull">
+      <h2>Lịch sử thay đổi trình độ</h2>
+      <% if @can_bo_thong_tin.lich_su_trinh_dos.select(1).count > 0%>
+        <%= render :partial => 'casein/lich_su_trinh_dos/table', :locals => { :lich_su_trinh_dos => @can_bo_thong_tin.lich_su_trinh_dos }%>
+      <% end %>
+    </div>
+  </div>
+  <div id="tabs-3">
+    <div class="tfcontenerfull">
       <h2>Quan hệ gia đình</h2>
       <% if @can_bo_thong_tin.than_nhans.select(1).count > 0 %>
         <%= render :partial => 'casein/can_bo_thong_tins/table_quan_he_gia_dinh', :locals => { :than_nhans => @can_bo_thong_tin.than_nhans } %>
@@ -169,7 +178,7 @@
     </div>
     <div class="clearer"><p></p></div>
   </div>
-  <div id="tabs-3">
+  <div id="tabs-4">
     <div class="tfcontenerfull">
     <h2>Quá trình công tác</h2>
       <% if @can_bo_thong_tin.qua_trinh_cong_tacs.select(1).count != 0 %>
@@ -179,7 +188,7 @@
     </div>
     <div class="clearer"><p></p></div>
   </div>
-  <div id="tabs-4">
+  <div id="tabs-5">
     <div class="tfcontenerfull">
       <h2>Lịch sử bậc lương</h2>
       <% if @can_bo_thong_tin.lich_su_bac_luongs.select(1).count != 0 %>
