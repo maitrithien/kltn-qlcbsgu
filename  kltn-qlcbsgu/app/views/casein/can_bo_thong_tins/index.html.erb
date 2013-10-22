@@ -31,7 +31,6 @@
       <%= hidden_field_tag "don_vi", params[:don_vi] || 0 %>
   <% end %>
 </div>
-
 <%# search basic form %>
 <div class="search_basic_form">
 <%= form_tag casein_can_bo_thong_tins_path, :method => "get" do %>
@@ -43,7 +42,17 @@
 							:placeholder => "Nhập vào mã cán bộ/họ tên/ngày sinh/số CMND",
 							:style => "color: gray; width: 300px; padding: 2px;"
 						}%>
-	<%=hidden_field_tag "don_vi", params["don_vi"] || 0 %>
+	<%= select_tag  "don_vi", 
+                    options_from_collection_for_select( DonVi.select("id, ten_don_vi"), 
+                                                        "id", 
+                                                        "ten_don_vi", 
+                                                        :selected => params["don_vi"]
+                                                      ),
+                    {
+                    	:prompt => "Tất cả đơn vị - phòng ban",
+                    	:onchange => "this.form.submit();",
+                    	:title => "Xem theo phòng ban - đơn vị"
+                	}  %>
 
 	<%# data_list %> <%# HTML5 data-list for autocomplete %>
 
@@ -67,7 +76,7 @@
 <div class="blk-share">
 <%= form_tag casein_can_bo_thong_tins_path, :method => "get" do %>
 <h2>Danh sách cán bộ viên chức
-<%= select_tag  "don_vi", 
+<%#= select_tag  "don_vi", 
                     options_from_collection_for_select( DonVi.select("id, ten_don_vi"), 
                                                         "id", 
                                                         "ten_don_vi", 
@@ -119,7 +128,8 @@
 													:format => :xls, 
 													:keyword => params["keyword"], 
 													:commit => params["commit"], 
-													:utf8 => params["utf8"]
+													:utf8 => params["utf8"],
+													:don_vi => params["don_vi"]
 												}) %>
 	</li>
 	<li>

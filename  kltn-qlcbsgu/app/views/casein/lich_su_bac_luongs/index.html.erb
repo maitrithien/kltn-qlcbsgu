@@ -34,6 +34,17 @@
 <div class="search_basic_form">
   <%= form_tag casein_lich_su_bac_luongs_path, :method => "get" do %>
       <%= text_field_tag "keyword", params["keyword"], {:placeholder => "Nhập vào Họ tên cán bộ/Mã cán bộ", :style => "color: gray; width: 300px; padding: 2px;"}%>
+      <%= select_tag  "don_vi", 
+                    options_from_collection_for_select( DonVi.select("id, ten_don_vi"), 
+                                                        "id", 
+                                                        "ten_don_vi", 
+                                                        :selected => params["don_vi"]
+                                                      ),
+                    {
+                      :prompt => "Tất cả đơn vị - phòng ban",
+                      :onchange => "this.form.submit();",
+                      :title => "Xem theo phòng ban - đơn vị"
+                  }  %>
       <%= submit_tag "Tìm Kiếm",:disable_with => "Đang tìm kiếm...", :style => "padding: 3px 10px;" %>
 
   <% end %>
@@ -43,7 +54,7 @@
 <div class="blk-share">
 <%= form_tag casein_lich_su_bac_luongs_path, :method => "get" do %>
 <h2>Danh sách cán bộ viên chức
-<%= select_tag  "don_vi", 
+<%#= select_tag  "don_vi", 
                     options_from_collection_for_select( DonVi.select("id, ten_don_vi"), 
                                                         "id", 
                                                         "ten_don_vi", 

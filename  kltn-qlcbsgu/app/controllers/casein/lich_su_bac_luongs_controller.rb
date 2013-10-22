@@ -131,10 +131,10 @@ module Casein
     def create
 
       @lich_su_bac_luong = LichSuBacLuong.new params[:lich_su_bac_luong]
-      bacluong_id = LichSuBacLuong.get_bl_id(@lich_su_bac_luong.ngach_sl, @lich_su_bac_luong.bac_sl)
+      bac_luong = BacLuong.where(:ngach_id => @lich_su_bac_luong.ngach_sl, :bac => @lich_su_bac_luong.bac_sl).first
       quyetdinh_id= QuyetDinh.find_by_so_qd(@lich_su_bac_luong.so_quyet_dinh)
-      if bacluong_id
-         @lich_su_bac_luong.bac_luong_id = bacluong_id
+      if bac_luong
+         @lich_su_bac_luong.bac_luong_id = bac_luong.id
       end
       if @lich_su_bac_luong.valid? && quyetdinh_id
           @lich_su_bac_luong.quyet_dinh_id = quyetdinh_id.id
@@ -146,7 +146,7 @@ module Casein
             end
 
             flash[:notice] = Param.get_param_value("adding_success")
-            redirect_to casein_lich_su_bac_luongs_path
+            redirect_to details_casein_lich_su_bac_luongs_path(:ma_cb => @lich_su_bac_luong.can_bo_thong_tin.ma_cb)
           else
             flash.now[:warning] = Param.get_param_value("adding_false")
             render :action => :new
@@ -162,10 +162,10 @@ module Casein
       
       @lich_su_bac_luong = LichSuBacLuong.find params[:id]
 
-      bacluong_id = LichSuBacLuong.get_bl_id(params[:lich_su_bac_luong][:ngach_sl],params[:lich_su_bac_luong][:bac_sl])
+      bac_luong = BacLuong.where(:ngach_id => params[:lich_su_bac_luong][:ngach_sl], :bac => params[:lich_su_bac_luong][:bac_sl]).first
 
-      if bacluong_id
-        params[:lich_su_bac_luong][:bac_luong_id] = bacluong_id
+      if bac_luong
+        params[:lich_su_bac_luong][:bac_luong_id] = bac_luong.id
       end
 
 
@@ -185,7 +185,7 @@ module Casein
           end
         end
         flash[:notice] = Param.get_param_value("updating_success")
-        redirect_to casein_lich_su_bac_luongs_path
+        redirect_to details_casein_lich_su_bac_luongs_path(:ma_cb => @lich_su_bac_luong.can_bo_thong_tin.ma_cb)
       else
         flash.now[:warning] = Param.get_param_value("updating_false")
         render :action => :show

@@ -118,11 +118,13 @@
     </tr>
     <% if @can_bo_thong_tin.can_bo_cong_tac %>
         <%= render :partial =>  'casein/can_bo_thong_tins/table_can_bo_cong_tac', :locals => {:can_bo_cong_tac => @can_bo_thong_tin.can_bo_cong_tac} %>
-    <% end %>
-    <tr>
+    <% else %>
+      <tr>
         <td></td>
         <td><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")} Bổ sung thông tin công tác".html_safe, new_casein_can_bo_cong_tac_url(:ma_cb => @can_bo_thong_tin.ma_cb), :class => "link" %></td>
-    </tr>
+      </tr>
+    <% end %>
+    
     <tr>
       <td colspan="2" style="background: #dbeaf9; border: 1px solic #a1b4c6; text-align: center; text-transform: uppercase;">Thông tin trình độ</td>
       <td></td>
@@ -130,11 +132,13 @@
 
     <% if @can_bo_thong_tin.can_bo_trinh_do  %>
       <%= render :partial => 'casein/can_bo_thong_tins/table_can_bo_trinh_do', :locals => { :can_bo_trinh_do => @can_bo_thong_tin.can_bo_trinh_do } %>
+    <% else %>
+      <tr>
+        <td></td>
+        <td><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")} Bổ sung thông tin trình độ cán bộ".html_safe, new_casein_can_bo_trinh_do_url(:ma_cb => @can_bo_thong_tin.ma_cb), :class => "link" %></td>
+      </tr>
     <% end %>
-    <tr>
-      <td></td>
-      <td><%= link_to "#{casein_show_icon_custom_style("edit", "width:15px; margin-top:0px;")} Bổ sung thông tin trình độ cán bộ".html_safe, new_casein_can_bo_trinh_do_url(:ma_cb => @can_bo_thong_tin.ma_cb), :class => "link" %></td>
-    </tr>
+    
         
     </table>
     <p class="submits">
