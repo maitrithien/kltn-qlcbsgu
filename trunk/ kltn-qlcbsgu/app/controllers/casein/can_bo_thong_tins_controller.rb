@@ -53,13 +53,13 @@ module Casein
         if @can_bo_thong_tins.count == 0
           flash.now[:warning] = Param.get_param_value("searching_has_no_result")
           @can_bo_thong_tins = CanBoThongTin.paginate :page => page, :per_page => view, :conditions => paginate_conditions, :order => order
-          @can_bo_thong_tins_xls = CanBoThongTin.all
+          @can_bo_thong_tins_xls = CanBoThongTin.search(search_value, don_vi)
         else
           flash.now[:notice] = "#{Param.get_param_value("number_searching_result")} #{@can_bo_thong_tins.count}"
         end
       else
         @can_bo_thong_tins = CanBoThongTin.paginate :page => page, :conditions => paginate_conditions, :per_page => view, :order => order
-        @can_bo_thong_tins_xls = CanBoThongTin.all
+        @can_bo_thong_tins_xls = CanBoThongTin.where(:don_vi_id => don_vi)
       end
       
       respond_to do |format|
@@ -117,6 +117,38 @@ module Casein
             end
 
             if attr_name != 'is_deleted' && attr_name != 'tep_tin_dinh_kem' && attr_name != 'id' && attr_name != 'bac_luong_id' && attr_name != 'hinh_anh' && attr_name != 'created_at' && attr_name != 'updated_at'
+              if attr_name == "don_vi_id"
+                dv = DonVi.find(attr_value)
+                if dv
+                  attr_value = dv.ten_don_vi
+                end
+                attr_name = "don_vi"
+              end
+
+              if attr_name == "chuc_vu_id"
+                cv = ChucVu.find(attr_value)
+                if cv
+                  attr_value = cv.ten_chuc_vu
+                end
+                attr_name = "chuc_vu"
+              end
+
+              if attr_name == "quyet_dinh_id"
+                qd = QuyetDinh.find(attr_value)
+                if qd
+                  attr_value = qd.so_qd
+                end
+                attr_name = "quyet_dinh"
+              end
+
+              if attr_name == "loai_lao_dong_id"
+                lld = LoaiLaoDong.find(attr_value)
+                if lld
+                  attr_value = lld.ten_loai_lao_dong
+                end
+                attr_name = "loai_lao_dong"
+              end
+
               i = i + 1
               sheet.row(i)[1] = "#{Param.get_param_value"#{attr_name}"}"
               sheet.row(i)[2] = attr_value
@@ -163,7 +195,7 @@ module Casein
             sheet.row(i)[2] =  @can_bo_thong_tin.can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung
             i = i + 1
             sheet.row(i)[1] = "#{Param.get_param_value"cong_viec"}"
-            sheet.row(i)[2] = @can_bo_thong_tin.can_bo_cong_tac.cong_viec_chinh_duoc_giao
+            sheet.row(i)[2] = @can_bo_thong_tin.can_bo_cong_tac.cong_viec.ten_cong_viec
             i = i + 1
             sheet.row(i)[1] = "#{Param.get_param_value"so_truong"}"
             sheet.row(i)[2] = @can_bo_thong_tin.can_bo_cong_tac.so_truong_cong_tac
@@ -192,9 +224,9 @@ module Casein
               i = i + 1
             end
 
-            if  @can_bo_thong_tin.can_bo_trinh_do.chuyen_nganh_id
+            if  @can_bo_thong_tin.can_bo_trinh_do && @can_bo_thong_tin.can_bo_trinh_do.chuyen_nganh_id
               sheet.row(i)[1] = Param.get_param_value("trinh_do_chuyen_mon")
-              sheet.row(i)[2] = "#{@can_bo_thong_tin.can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do} #{@can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh}"
+              sheet.row(i)[2] = "#{@can_bo_thong_tin.can_bo_trinh_do.trinh_do_chuyen_mon.trinh_do} #{@can_bo_thong_tin.can_bo_trinh_do.chuyen_nganh.ten_chuyen_nganh}"
               i = i + 1
             end
 
@@ -212,7 +244,7 @@ module Casein
 
             if  @can_bo_thong_tin.can_bo_trinh_do.ngoai_ngu_id
               sheet.row(i)[1] = Param.get_param_value("ngoai_ngu")
-              sheet.row(i)[2] = "#{@can_bo_thong_tin.can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu} #{@can_bo_trinh_do.trinh_do_ngoai_ngu}"
+              sheet.row(i)[2] = "#{@can_bo_thong_tin.can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu} #{@can_bo_thong_tin.can_bo_trinh_do.trinh_do_ngoai_ngu}"
               i = i + 1
             end
 
@@ -245,6 +277,7 @@ module Casein
           sheet_second.row(i)[2] = "#{Param.get_param_value("ho_ten")}"
           sheet_second.row(i)[3] = "#{Param.get_param_value("nam_sinh")}"
           sheet_second.row(i)[4] = "#{Param.get_param_value("nghe_nghiep")}"
+          sheet_second.row(i)[5] = "#{Param.get_param_value("ghi_chu")}"
           sheet_second.row(i).default_format = Spreadsheet::Format.new :color => :green, :weight => :bold, :align => :top, :text_wrap => true
           if @can_bo_thong_tin.than_nhans.count > 0
             @can_bo_thong_tin.than_nhans.each do |than_nhan|
@@ -253,12 +286,14 @@ module Casein
               sheet_second.row(i)[2] = than_nhan.ho_ten
               sheet_second.row(i)[3] = than_nhan.nam_sinh
               sheet_second.row(i)[4] = than_nhan.nghe_nghiep
+              sheet_second.row(i)[5] = than_nhan.ghi_chu
               sheet_second.row(i).default_format =  Spreadsheet::Format.new :align => :top, :text_wrap => true
             end
             sheet_second.column(1).width = 15
             sheet_second.column(2).width = 20
             sheet_second.column(2).width = 15
             sheet_second.column(4).width = 30
+            sheet_second.column(5).width = 30
           end
 
           sheet_third = book.create_worksheet :name => "Qua trinh cong tac"
@@ -603,7 +638,7 @@ module Casein
               list.row(2)[i] = "So truong cong tac"
               can_bo_cong_tac = CanBoCongTac.find_by_can_bo_thong_tin_id(cb.id)
               if can_bo_cong_tac
-                list.row(index)[i] = can_bo_cong_tac.cong_viec_chinh_duoc_giao
+                list.row(index)[i] = can_bo_cong_tac.cong_viec.ten_cong_viec
               end
             end
             if params["ngay_bat_dau_lam_viec"].to_s == "true"

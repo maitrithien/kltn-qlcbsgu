@@ -1,6 +1,6 @@
 class LichSuBacLuong < ActiveRecord::Base
-  attr_accessible :can_bo_thong_tin_id, :ngay_thay_doi_bac, :ghi_chu, :bac_luong_id ,:ngach_sl , :bac_sl,:so_quyet_dinh
-  attr_accessor :ngach_sl , :bac_sl,:so_quyet_dinh
+  attr_accessible :can_bo_thong_tin_id, :ngay_thay_doi_bac, :ghi_chu, :bac_luong_id ,:ngach_sl , :bac_sl,:so_quyet_dinh, :can_bo_thong_tin_name
+  attr_accessor :ngach_sl , :bac_sl,:so_quyet_dinh, :can_bo_thong_tin_name
   #relationship
   belongs_to :bac_luong
   belongs_to :can_bo_thong_tin
