@@ -59,7 +59,7 @@ module Casein
         end
       else
         @can_bo_thong_tins = CanBoThongTin.paginate :page => page, :conditions => paginate_conditions, :per_page => view, :order => order
-        @can_bo_thong_tins_xls = CanBoThongTin.where(:don_vi_id => don_vi)
+        @can_bo_thong_tins_xls = CanBoThongTin.find_all_by_don_vi_id(don_vi)
       end
       
       respond_to do |format|
@@ -1716,23 +1716,101 @@ module Casein
     def print
 
       # For Rails 3 or latest replace #{RAILS_ROOT} to #{Rails.root}
-      report = ODFReport::Report.new("#{Rails.root}/app/reports/quyet_dinh.odt") do |r|
+      report = ODFReport::Report.new("#{Rails.root}/app/reports/so_yeu_ly_lich_can_bo.odt") do |r|
 
-        r.add_field(:ho_ten,     @can_bo_thong_tin.ho_ten)
-        r.add_field(:don_vi,     @can_bo_thong_tin.don_vi.ten_don_vi)
-        r.add_field(:ten_ngach,      @can_bo_thong_tin.bac_luong.ngach.ten_ngach)
-        r.add_field(:ma_ngach,   @can_bo_thong_tin.bac_luong.ngach.ma_ngach)
-        r.add_field(:bac,        @can_bo_thong_tin.bac_luong.bac)
-        r.add_field(:he_so,      @can_bo_thong_tin.bac_luong.he_so_luong)
-        r.add_field(:ngay_vao_lam,       Time.now.strftime("%d/%m/%Y"))#@can_bo_thong_tin.can_bo_cong_tac.ngay_bat_dau_lam_viec.strftime("%d/%m/%Y - %H:%M"))
+        if @can_bo_thong_tin.gioi_tinh
+          @gioi_tinh = "Nam"  
+          else
+          @gioi_tinh = Param.get_param_value("Nu")       
+        end
+        if @can_bo_thong_tin.chuc_vu
+          @chuc_vu = @can_bo_thong_tin.chuc_vu.ten_chuc_vu ||= ""
+        end
 
-        #r.add_table("Than_nhan", @can_bo_thong_tin.than_nhans) do |t|
-        #  t.add_column(:ho_ten) { |op| "#{op.ho_ten} (#{op.nam_sinh})" }
-        #end
+        if @can_bo_thong_tin.can_bo_cong_tac
+          @nghe_nghiep_truoc_tuyen_dung = @can_bo_thong_tin.can_bo_cong_tac.nghe_nghiep_truoc_tuyen_dung ||= ""
+          if @can_bo_thong_tin.can_bo_cong_tac.cong_viec
+            @cong_viec = @can_bo_thong_tin.can_bo_cong_tac.cong_viec.ten_cong_viec
+          end
+          @so_truong_cong_tac = @can_bo_thong_tin.can_bo_cong_tac.so_truong_cong_tac
+          if @can_bo_thong_tin.can_bo_cong_tac.ngay_bat_dau_lam_viec
+            @ngay_vao_lam = @can_bo_thong_tin.can_bo_cong_tac.ngay_bat_dau_lam_viec.strftime("%d/%m/%Y")
+          end
+        end
 
+        if @can_bo_thong_tin.can_bo_trinh_do
+          if @can_bo_thong_tin.can_bo_trinh_do.ly_luan_chinh_tri
+            @ly_luan_chinh_tri = @can_bo_thong_tin.can_bo_trinh_do.ly_luan_chinh_tri.trinh_do
+          end
+          if @can_bo_thong_tin.can_bo_trinh_do.quan_ly_nha_nuoc
+            @quan_ly_nha_nuoc = @can_bo_thong_tin.can_bo_trinh_do.quan_ly_nha_nuoc.trinh_do
+          end
+          if @can_bo_thong_tin.can_bo_trinh_do.ngoai_ngu
+            @ngoai_ngu =  @can_bo_thong_tin.can_bo_trinh_do.ngoai_ngu.ten_ngoai_ngu
+          end
+          @tin_hoc = @can_bo_thong_tin.can_bo_trinh_do.trinh_do_tin_hoc\
+        end
+
+        if @can_bo_thong_tin.can_bo_li_lich_ct
+          @ngay_vao_dang = @can_bo_thong_tin.can_bo_li_lich_ct.ngay_vao_dang
+          if @can_bo_thong_tin.can_bo_li_lich_ct.ngay_nhap_ngu
+            @nhap_ngu = @can_bo_thong_tin.can_bo_li_lich_ct.ngay_nhap_ngu.strftime("%d/%m/%Y")
+          end
+          if @can_bo_thong_tin.can_bo_li_lich_ct.ngay_xuat_ngu
+            @xuat_ngu = @can_bo_thong_tin.can_bo_li_lich_ct.ngay_xuat_ngu.strftime("%d/%m/%Y")
+          end
+
+          if @can_bo_thong_tin.can_bo_li_lich_ct.cap_bac_quan_doi
+            @quan_ham = @can_bo_thong_tin.can_bo_li_lich_ct.cap_bac_quan_doi.ten_cap_bac
+          end
+          @danh_hieu_duoc_phong_tang = @can_bo_thong_tin.can_bo_li_lich_ct.danh_hieu_duoc_phong_tang
+          if @can_bo_thong_tin.can_bo_li_lich_ct.hang_thuong_binh
+            @hang_thuong_binh = @can_bo_thong_tin.can_bo_li_lich_ct.hang_thuong_binh.ti_le_thuong_tat
+          end
+          @gia_dinh_chinh_sach = @can_bo_thong_tin.can_bo_li_lich_ct.con_gia_dinh_chinh_sach
+        end
+
+        r.add_image(:img,   "#{Rails.root}/public/image_uploads/#{@can_bo_thong_tin.hinh_anh}")
+        r.add_field(:hoten,     @can_bo_thong_tin.ho_ten.upcase!)
+        r.add_field(:ddb, @can_bo_thong_tin.ngay_sinh.day)
+        r.add_field(:mmb, @can_bo_thong_tin.ngay_sinh.month)
+        r.add_field(:yyyyb, @can_bo_thong_tin.ngay_sinh.year)
+        r.add_field(:gioitinh, @gioi_tinh)
+        r.add_field(:tengoikhac, @can_bo_thong_tin.ten_goi_khac)
+        r.add_field(:noisinh, @can_bo_thong_tin.noi_sinh)
+        r.add_field(:quequan, @can_bo_thong_tin.que_quan)
+        r.add_field(:dantoc, @can_bo_thong_tin.dan_toc)
+        r.add_field(:tongiao, @can_bo_thong_tin.ton_giao)
+        r.add_field(:noidkhktt, @can_bo_thong_tin.noi_dang_ky_ho_khau_thuong_tru)
+        r.add_field(:noiohiennay, @can_bo_thong_tin.noi_o_hien_nay)
+        r.add_field(:nghenghiep, @nghe_nghiep_truoc_tuyen_dung)
+        r.add_field(:congviec, @cong_viec)
+        r.add_field(:llct, @ly_luan_chinh_tri)
+        r.add_field(:qlnn, @quan_ly_nha_nuoc)
+        r.add_field(:ngoaingu, @ngoai_ngu)
+        r.add_field(:tinhoc, @tin_hoc)
+        r.add_field(:quanham, @quan_ham)
+        r.add_field(:chucvuhientai, @chuc_vu)
+        r.add_field(:ngayvaodang, @ngay_vao_dang)
+        r.add_field(:sotruongct, @so_truong_cong_tac)
+        r.add_field(:danhhieuduocphongtang, @danh_hieu_duoc_phong_tang)
+        r.add_field(:hangthuongbinh, @hang_thuong_binh)
+        r.add_field(:nhapngu, @nhap_ngu)
+        r.add_field(:xuatngu, @xuat_ngu)
+        r.add_field(:gdcs, @gia_dinh_chinh_sach)
+        r.add_field(:socmnd, @can_bo_thong_tin.so_cmnd)
+        r.add_field(:ngaycap, @can_bo_thong_tin.ngay_cap_cmnd)
+        r.add_field(:sobhxh, @can_bo_thong_tin.so_BHXH)
+        r.add_field(:donvi,     @can_bo_thong_tin.don_vi.ten_don_vi)
+        r.add_field(:ngach,     @can_bo_thong_tin.bac_luong.ngach.ten_ngach)
+        r.add_field(:mangach,   @can_bo_thong_tin.bac_luong.ngach.ma_ngach)
+        r.add_field(:bac,       @can_bo_thong_tin.bac_luong.bac)
+        r.add_field(:heso,      @can_bo_thong_tin.bac_luong.he_so_luong)
+        r.add_field(:ngayvaolam,  @ngay_vao_lam)#@can_bo_thong_tin.can_bo_cong_tac.ngay_bat_dau_lam_viec.strftime("%d/%m/%Y - %H:%M"))
+        
       end
 
-      report_file_name = report.generate
+      report_file_name = report.generate "Ly_lich_can_bo_#{@can_bo_thong_tin.ma_cb}.doc"
 
       send_file(report_file_name)
 
