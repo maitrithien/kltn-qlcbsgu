@@ -43,6 +43,9 @@
             			ngach = can_bo_thong_tin.bac_luong.ngach.ma_ngach
             		end
             	end
+                if can_bo_thong_tin.quyet_dinh
+                    tep_tin_dinh_kem = can_bo_thong_tin.quyet_dinh.tep_tin_dinh_kem
+                end
 
            	%>
 
@@ -52,7 +55,7 @@
 			<td><%= casein_table_cell_link quyet_dinh, casein_can_bo_thong_tin_path(can_bo_thong_tin) %></td>
 			<td class="attach">
           	<%# if can_bo_thong_tin.quyet_dinh.tep_tin_dinh_kem != "" %>
-          		<a href="<%= can_bo_thong_tin.quyet_dinh.tep_tin_dinh_kem %>" title="tải quyết định"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
+          		<a href="<%= tep_tin_dinh_kem %>" title="tải quyết định"><%= casein_show_icon_custom_style("download", "vertical-align: top;") %></a>
           	<%# end %>
             </td>
             <td class="delete">

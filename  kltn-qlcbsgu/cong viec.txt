@@ -1,9 +1,0 @@
-them truong is_deleted
-xoa canbothongtin -> xoa con
-them stt cho index list
-restore du lieu da xoa
-xuat danh sach thong ke
-trang quick config website (website name, logo, favicon, ...)
-
-
-sua lai chuc nang import bac_luong (validates khong trung)
